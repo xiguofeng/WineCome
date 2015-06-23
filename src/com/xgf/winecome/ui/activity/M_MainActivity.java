@@ -20,7 +20,7 @@ import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable;
 import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.Stroke;
 import com.xgf.winecome.ui.view.materialmenu.MaterialMenuIcon;
 
-public class MainActivity extends FragmentActivity {
+public class M_MainActivity extends FragmentActivity {
 
 	/** DrawerLayout */
 	private DrawerLayout mDrawerLayout;
@@ -137,7 +137,7 @@ public class MainActivity extends FragmentActivity {
 	 * @param position
 	 */
 	private void selectItem(int position) {
-		Fragment fragment = new ContentFragment();
+		Fragment fragment = new M_ContentFragment();
 		Bundle args = new Bundle();
 		switch (position) {
 		case 0:

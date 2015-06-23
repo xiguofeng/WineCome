@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.xgf.winecome.R;
 
-public class ContentFragment extends Fragment {
+public class M_ContentFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
