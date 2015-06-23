@@ -13,5 +13,10 @@
     <string name="action_settings">Settings</string>
     <string name="action_personal">个人中心</string>
     <string name="hello_world">Hello world!</string>
+    
+    <!-- menu -->
+    <string name="home_page">首页</string>
+    <string name="shopping_cart">购物车</string>
+    <string name="more">更多</string>
 
 </resources>

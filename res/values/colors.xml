@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- common -->
+    <color name="common_bg">#f4f4f5</color>
+    <color name="white_common_bg">#FFFFFF</color>
+    <color name="orange_title_bar_bg">#ec5c43</color>
+    <color name="blue_content_bg">#4FC1E9</color>
+    <color name="gray_menu_bg">#EDEDED</color>
+    <color name="gray_title_text">#738296</color>
+    <color name="gray_text">#4E4C4C</color>
+    <color name="zero_all">#00000000</color>
+
+
+</resources>
