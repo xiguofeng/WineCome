@@ -41,7 +41,7 @@ public class M_MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_m_main);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mMenuListView = (ListView) findViewById(R.id.left_drawer);
@@ -51,7 +51,7 @@ public class M_MainActivity extends FragmentActivity {
 		// 初始化菜单列表
 		mMenuTitles = getResources().getStringArray(R.array.menu_array);
 		mMenuListView.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mMenuTitles));
+				R.layout.m_drawer_list_item, mMenuTitles));
 		mMenuListView.setOnItemClickListener(new DrawerItemClickListener());
 
 		// 设置抽屉打开时，主要内容区被自定义阴影覆盖
@@ -228,7 +228,7 @@ public class M_MainActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.m_main, menu);
 		return true;
 	}
 

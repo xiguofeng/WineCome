@@ -15,7 +15,7 @@ public class M_ContentFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_layout, null);
+		View view = inflater.inflate(R.layout.m_fragment_layout, null);
 		TextView tv = (TextView) view.findViewById(R.id.fragment_tag);
 		String tag = this.getArguments().getString("key");
 		tv.setText("这是选择" + tag + "的内容");
