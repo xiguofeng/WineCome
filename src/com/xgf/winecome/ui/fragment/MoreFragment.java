@@ -44,12 +44,12 @@ public class MoreFragment extends Fragment implements OnItemClickListener {
 		list.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("textInfo", "设置");
+		map.put("textInfo", "积分商城");
 		map.put("img", R.drawable.point_normal);
 		list.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("textInfo", "帮助");
+		map.put("textInfo", "设置");
 		map.put("img", R.drawable.point_normal);
 		list.add(map);
 		return list;
