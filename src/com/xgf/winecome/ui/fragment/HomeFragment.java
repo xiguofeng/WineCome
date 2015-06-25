@@ -27,11 +27,12 @@ import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.SearchActivity;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
-import com.xgf.winecome.ui.adapter.GoodsAdapter;
+import com.xgf.winecome.ui.adapter.Goods2Adapter;
 import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView;
 import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView.AnimatedExpandableListAdapter;
+import com.xgf.winecome.utils.Watcher;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements Watcher {
 
 	private Context mContext;
 	private RelativeLayout mSearchRl;
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
 	private ListView mLeftLv;
 	private ListView mRightLv;
 	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
-	private GoodsAdapter mGoodsAdapter;
+	private Goods2Adapter mGoodsAdapter;
 	private ArrayList<Category> mCategoryList = new ArrayList<Category>();
 	private CategoryAdapter mCategoryAdapter;
 	private ExampleAdapter adapter;
@@ -61,7 +62,7 @@ public class HomeFragment extends Fragment {
 			initView(mRootView);
 			initData2();
 		}
-		
+
 		return mRootView;
 	}
 
@@ -164,8 +165,8 @@ public class HomeFragment extends Fragment {
 		for (int i = 0; i < 20; i++) {
 			Goods goods = new Goods();
 			goods.setName("酒" + i);
-			goods.setPrice("价格" + i);
-			goods.setBrief("描述" + i);
+			goods.setPrice("" + i);
+			goods.setNum("1");
 			mGoodsList.add(goods);
 
 			Category category = new Category();
@@ -193,7 +194,7 @@ public class HomeFragment extends Fragment {
 			}
 			mCategoryList.add(category);
 		}
-		mGoodsAdapter = new GoodsAdapter(mContext, mGoodsList);
+		mGoodsAdapter = new Goods2Adapter(mContext, mGoodsList);
 		mRightLv.setAdapter(mGoodsAdapter);
 		mGoodsAdapter.notifyDataSetChanged();
 
@@ -322,6 +323,10 @@ public class HomeFragment extends Fragment {
 			return true;
 		}
 
+	}
+
+	@Override
+	public void update(String str) {
 	}
 
 }

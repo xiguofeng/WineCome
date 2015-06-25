@@ -74,6 +74,7 @@ public class GoodsAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+
 	static class ViewHolder {
 
 		public TextView mName;

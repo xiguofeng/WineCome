@@ -14,9 +14,13 @@ public class Goods implements Serializable {
 
 	private String price;
 
+	private String nowPrice;
+
 	private String iconUrl;
 
 	private String standard;
+
+	private String num;
 
 	private String categoryIDLevel2;
 
@@ -104,6 +108,22 @@ public class Goods implements Serializable {
 
 	public void setCategoryNameLevel1(String categoryNameLevel1) {
 		this.categoryNameLevel1 = categoryNameLevel1;
+	}
+
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+	
+	public String getNowPrice() {
+		return nowPrice;
+	}
+
+	public void setNowPrice(String nowPrice) {
+		this.nowPrice = nowPrice;
 	}
 
 }
