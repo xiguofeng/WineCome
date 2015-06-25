@@ -44,16 +44,25 @@ public class HomeFragment extends Fragment {
 	private CategoryAdapter mCategoryAdapter;
 	private ExampleAdapter adapter;
 
-	private LinearLayout firstBg;
+	private LinearLayout mFirstBg;
+	private View mRootView;
 	private float y;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.home_fragment, container, false);
-		initView(view);
-		initData2();
-		return view;
+		if (null != mRootView) {
+			ViewGroup parent = (ViewGroup) mRootView.getParent();
+			if (null != parent) {
+				parent.removeView(mRootView);
+			}
+		} else {
+			mRootView = inflater.inflate(R.layout.home_fragment, null);
+			initView(mRootView);
+			initData2();
+		}
+		
+		return mRootView;
 	}
 
 	@Override
@@ -68,7 +77,7 @@ public class HomeFragment extends Fragment {
 		mLeftLv = (ListView) view.findViewById(R.id.home_left_lv);
 		mRightLv = (ListView) view.findViewById(R.id.home_right_lv);
 
-		firstBg = (LinearLayout) view.findViewById(R.id.home_bg);
+		mFirstBg = (LinearLayout) view.findViewById(R.id.home_bg);
 
 		mSearchRl = (RelativeLayout) view.findViewById(R.id.home_search_rl);
 		mSearchRl.setOnClickListener(new OnClickListener() {
@@ -99,7 +108,7 @@ public class HomeFragment extends Fragment {
 								R.anim.animationb, R.anim.animationa);
 					}
 				});
-				firstBg.startAnimation(animation);
+				mFirstBg.startAnimation(animation);
 			}
 		});
 	}
