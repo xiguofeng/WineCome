@@ -2,11 +2,13 @@ package com.xgf.winecome.ui.adapter;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,6 +48,7 @@ public class CategoryAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
@@ -57,6 +60,10 @@ public class CategoryAdapter extends BaseAdapter {
 					.findViewById(R.id.category_item_name_tv);
 			holder.mBg = (LinearLayout) convertView
 					.findViewById(R.id.category_item_ll);
+			holder.mSelectIv = (ImageView) convertView
+					.findViewById(R.id.category_item_select_iv);
+			holder.mIconIv = (ImageView) convertView
+					.findViewById(R.id.category_item_icon_iv);
 
 			convertView.setTag(holder);
 		} else {
@@ -64,11 +71,17 @@ public class CategoryAdapter extends BaseAdapter {
 		}
 
 		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
-				R.color.white));
+				R.color.white_list_bg));
+		holder.mSelectIv.setVisibility(View.INVISIBLE);
+		holder.mIconIv.setVisibility(View.INVISIBLE);
 		if ("0".equals(mDatas.get(position).getLevel())) {
 			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
-					R.color.blue_content_bg));
-		} 
+					R.color.white));
+			holder.mIconIv.setVisibility(View.VISIBLE);
+			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
+					R.drawable.white_wine));
+			holder.mSelectIv.setVisibility(View.VISIBLE);
+		}
 
 		holder.mName.setText(mDatas.get(position).getName());
 		return convertView;
@@ -77,7 +90,11 @@ public class CategoryAdapter extends BaseAdapter {
 	static class ViewHolder {
 
 		public LinearLayout mBg;
+
 		public TextView mName;
 
+		public ImageView mSelectIv;
+
+		public ImageView mIconIv;
 	}
 }

@@ -51,20 +51,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	}
 
 	private void initial() {
-		int[] scroll_img = new int[] { R.drawable.hy1, R.drawable.hy2,
-				R.drawable.hy3 };
 		menusImageViews = new ImageView[menImgs.length];
 		List<Fragment> contents = new ArrayList<Fragment>();
-		for (int i = 0; i < scroll_img.length; i++) {
+		for (int i = 0; i < 3; i++) {
 			if (i == 0) {
 				Fragment content = new HomeFragment();
 				contents.add(content);
 			} else if (i == 1) {
-				Bundle args = new Bundle();
-				args.putInt("layoutId", R.layout.fragment_content);
-				args.putInt("image", scroll_img[i]);
+			
 				Fragment content = new ShopFragment();
-				content.setArguments(args);
 				contents.add(content);
 
 			} else if (i == 2) {

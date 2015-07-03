@@ -18,8 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:text=""
-            android:textColor="@color/black_character"
-            android:textSize="@dimen/small_text_size" />
+            android:textColor="@color/gray_text_title"
+            android:textSize="@dimen/medium_text_size" />
 
         <TextView
             android:id="@+id/item_price_tv"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text=""
-            android:textColor="@color/black_character"
+            android:textColor="@color/gray_text"
             android:textSize="@dimen/small_text_size" />
     </RelativeLayout>
 
@@ -39,7 +39,7 @@
         android:layout_marginTop="8dip"
         android:maxLines="2"
         android:text=""
-        android:textColor="@color/black_character"
+        android:textColor="@color/gray_text"
         android:textSize="@dimen/micro_text_size" />
 
 </LinearLayout>

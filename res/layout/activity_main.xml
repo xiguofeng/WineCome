@@ -15,33 +15,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray_menu_bg"
-        android:padding="10dip"
-        android:orientation="horizontal" >
+        android:background="@color/black_tab_bg"
+        android:orientation="horizontal"
+        android:padding="6dip" >
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1" >
 
             <ImageView
                 android:id="@+id/home_page_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/point" >
+                android:src="@drawable/home_selector" >
             </ImageView>
-
-            <TextView
-                android:id="@+id/home_page_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/home_page_iv"
-                android:layout_centerHorizontal="true"
-                android:text="@string/home_page"
-                android:textSize="20sp" >
-            </TextView>
         </RelativeLayout>
 
         <RelativeLayout
@@ -54,17 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/point" >
+                android:src="@drawable/shop_cart_selector" >
             </ImageView>
-
-            <TextView
-                android:id="@+id/shopping_cart_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/shopping_cart_iv"
-                android:layout_centerHorizontal="true"
-                android:text="@string/shopping_cart"
-                android:textSize="20sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -77,19 +57,51 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/point" >
+                android:src="@drawable/more_selector" >
             </ImageView>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_pay_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tabMenu"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@color/white_transparent"
+            android:orientation="horizontal"
+            android:padding="10dip" >
 
             <TextView
-                android:id="@+id/more_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/more_iv"
-                android:layout_centerHorizontal="true"
-                android:text="@string/more"
-                android:textSize="20sp" >
-            </TextView>
-        </RelativeLayout>
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/red_title_bg"
+            android:orientation="horizontal"
+            android:padding="10dip" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -12,14 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.TranslateAnimation;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xgf.winecome.R;
@@ -35,7 +31,7 @@ import com.xgf.winecome.utils.Watcher;
 public class HomeFragment extends Fragment implements Watcher {
 
 	private Context mContext;
-	private RelativeLayout mSearchRl;
+	private LinearLayout mSearchLl;
 	private AnimatedExpandableListView mLeftExpLv;
 	private ListView mLeftLv;
 	private ListView mRightLv;
@@ -80,36 +76,42 @@ public class HomeFragment extends Fragment implements Watcher {
 
 		mFirstBg = (LinearLayout) view.findViewById(R.id.home_bg);
 
-		mSearchRl = (RelativeLayout) view.findViewById(R.id.home_search_rl);
-		mSearchRl.setOnClickListener(new OnClickListener() {
+		mSearchLl = (LinearLayout) view.findViewById(R.id.home_search_rl);
+		mSearchLl.setOnClickListener(new OnClickListener() {
 
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
-				y = mSearchRl.getY();
-				TranslateAnimation animation = new TranslateAnimation(0, 0, 0,
-						-y);
-				animation.setDuration(500);
-				animation.setFillAfter(true);
-				animation.setAnimationListener(new AnimationListener() {
-					@Override
-					public void onAnimationRepeat(Animation animation) {
-					}
-
-					@Override
-					public void onAnimationStart(Animation animation) {
-					}
-
-					@Override
-					public void onAnimationEnd(Animation animation) {
-						Intent intent = new Intent(getActivity(),
-								SearchActivity.class);
-						startActivityForResult(intent, 500);
-						getActivity().overridePendingTransition(
-								R.anim.animationb, R.anim.animationa);
-					}
-				});
-				mFirstBg.startAnimation(animation);
+//				y = mSearchLl.getY();
+//				TranslateAnimation animation = new TranslateAnimation(0, 0, 0,
+//						-y);
+//				animation.setDuration(500);
+//				animation.setFillAfter(true);
+//				animation.setAnimationListener(new AnimationListener() {
+//					@Override
+//					public void onAnimationRepeat(Animation animation) {
+//					}
+//
+//					@Override
+//					public void onAnimationStart(Animation animation) {
+//					}
+//
+//					@Override
+//					public void onAnimationEnd(Animation animation) {
+//						Intent intent = new Intent(getActivity(),
+//								SearchActivity.class);
+//						startActivityForResult(intent, 500);
+//						getActivity().overridePendingTransition(
+//								R.anim.animationb, R.anim.animationa);
+//					}
+//				});
+//				mFirstBg.startAnimation(animation);
+				
+				Intent intent = new Intent(getActivity(),
+						SearchActivity.class);
+				startActivityForResult(intent, 500);
+				getActivity().overridePendingTransition(
+						R.anim.animationb, R.anim.animationa);
 			}
 		});
 	}
