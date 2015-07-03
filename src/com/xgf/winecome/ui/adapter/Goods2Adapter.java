@@ -64,8 +64,8 @@ public class Goods2Adapter extends BaseAdapter implements Watched {
 					.findViewById(R.id.goods_name_tv);
 			holder.mPrice = (TextView) convertView
 					.findViewById(R.id.goods_price_tv);
-			holder.mNewPrice = (TextView) convertView
-					.findViewById(R.id.goods_now_prices_tv);
+			holder.mOriginalPrice = (TextView) convertView
+					.findViewById(R.id.goods_original_prices_tv);
 
 			holder.mDelIb = (ImageButton) convertView
 					.findViewById(R.id.goods_del_ib);
@@ -83,7 +83,7 @@ public class Goods2Adapter extends BaseAdapter implements Watched {
 
 		holder.mName.setText(mDatas.get(position).getName());
 		holder.mPrice.setText("￥" + mDatas.get(position).getPrice());
-		holder.mNewPrice.setText("￥" + mDatas.get(position).getNowPrice());
+		holder.mOriginalPrice.setText("原价￥" + mDatas.get(position).getNowPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
 
 		final int tempPosition = position;
@@ -99,8 +99,9 @@ public class Goods2Adapter extends BaseAdapter implements Watched {
 			@Override
 			public void onClick(View v) {
 				Goods goods = mDatas.get(tempPosition);
-				goods.setNum(goods.getNum() + 1);
+				goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) + 1));
 				mDatas.set(tempPosition, goods);
+				notifyDataSetChanged();
 
 			}
 		});
@@ -111,6 +112,7 @@ public class Goods2Adapter extends BaseAdapter implements Watched {
 				if (Integer.parseInt(goods.getNum()) > 1) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
 					mDatas.set(tempPosition, goods);
+					notifyDataSetChanged();
 				}
 
 			}
@@ -124,7 +126,7 @@ public class Goods2Adapter extends BaseAdapter implements Watched {
 
 		public TextView mPrice;
 
-		public TextView mNewPrice;
+		public TextView mOriginalPrice;
 
 		public ImageButton mDelIb;
 

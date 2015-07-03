@@ -26,5 +26,8 @@
     <string name="notify">消息</string>
     <string name="order_suc">订单成功</string>
     <string name="no_data">没有找到符合条件的房源</string>
-
+    
+    <!-- order -->
+    <string name="total_price">总金额：</string>
+    <string name="to_settlement">去结算</string>
 </resources>

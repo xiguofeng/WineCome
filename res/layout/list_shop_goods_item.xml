@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white_list_content_bg"
     android:gravity="center_horizontal"
     android:paddingTop="20dp" >
 
@@ -20,7 +19,7 @@
             android:layout_marginLeft="5dip"
             android:src="@drawable/img_null" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/right_rl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,53 +31,57 @@
                 android:id="@+id/goods_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:gravity="center_horizontal"
                 android:textColor="@color/gray_text_title"
                 android:textSize="@dimen/medium_text_size" />
 
-            <LinearLayout
-                android:id="@+id/goods_price_ll"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/goods_price_tag_tv"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" >
+                android:layout_below="@+id/goods_name_tv"
+                android:textColor="@color/orange_text"
+                android:textSize="@dimen/medium_text_size" />
 
-                <TextView
-                    android:id="@+id/goods_price_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="399"
-                    android:textColor="@color/orange_text"
-                    android:textSize="@dimen/medium_text_size" />
+            <TextView
+                android:id="@+id/goods_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/goods_name_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/goods_price_tag_tv"
+                android:text="399"
+                android:textColor="@color/orange_text"
+                android:textSize="@dimen/medium_text_size" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dip" >
-                    
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dip"
-                        android:layout_centerInParent="true"
-                        android:src="@color/gray_divide_line" />
+            <TextView
+                android:id="@+id/goods_now_prices_tag_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/goods_name_tv"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/goods_price_tv"
+                android:text="优惠价"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/small_text_size" />
 
-                    <TextView
-                        android:id="@+id/goods_original_prices_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="299"
-                        android:maxLines="1"
-                        android:textColor="@color/gray_text"
-                        android:textSize="@dimen/small_text_size" />
-                </RelativeLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/goods_now_prices_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/goods_name_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/goods_now_prices_tag_tv"
+                android:text="299"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/small_text_size" />
 
             <RelativeLayout
                 android:id="@+id/right_bottom_rl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/goods_price_tv"
+                android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:padding="5dip" >
 
@@ -96,11 +99,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/goods_reduce_ib"
+                    android:digits="10"
                     android:enabled="false"
                     android:focusable="false"
-                    android:maxLines="1"
-                    android:textColor="@color/gray_text"
-                    android:textSize="@dimen/small_text_size" />
+                    android:textColor="#000"
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/goods_add_ib"
@@ -120,7 +123,7 @@
                     android:background="@drawable/search_clear_normal"
                     android:clickable="true" />
             </RelativeLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>
