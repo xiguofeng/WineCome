@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/category_item_ll"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/category_item_ll"
         android:layout_width="match_parent"
-        android:layout_height="45dip"
+        android:layout_height="55dip"
         android:layout_gravity="center"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -32,5 +32,15 @@
             android:textColor="@color/gray_text"
             android:textSize="@dimen/middle_text_size" />
     </LinearLayout>
+
+<!--     <LinearLayout -->
+<!--         android:id="@+id/category_list_divider_ll" -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_marginLeft="5dip" -->
+<!--         android:layout_marginRight="5dip" -->
+<!--         android:background="@drawable/h_line" -->
+<!--         android:orientation="vertical" > -->
+<!--     </LinearLayout> -->
 
 </LinearLayout>

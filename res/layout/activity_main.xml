@@ -100,6 +100,7 @@
                     android:textSize="@dimen/large_text_size" />
 
                 <TextView
+                    android:id="@+id/main_total_pay_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/orange_text"

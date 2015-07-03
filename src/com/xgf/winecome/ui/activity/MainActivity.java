@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.ui.fragment.HomeFragment;
@@ -32,16 +33,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	// 记录当前选中位置
 	private int currentIndex;
 
+	private LinearLayout mPayMenuLl;
+
+	private TextView mTotalMoneyTv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		mPayMenuLl = (LinearLayout) findViewById(R.id.main_pay_menu);
+		mTotalMoneyTv = (TextView) findViewById(R.id.main_total_pay_tv);
 		viewPager = (ViewPager) this.findViewById(R.id.pager);
 		initial();
 		initMenu();
 		viewPager.setOnPageChangeListener(this);
 	}
-
 
 	private void initial() {
 		menusImageViews = new ImageView[menImgs.length];
@@ -51,7 +57,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 				Fragment content = new HomeFragment();
 				contents.add(content);
 			} else if (i == 1) {
-			
+
 				Fragment content = new ShopFragment();
 				contents.add(content);
 
@@ -69,7 +75,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	}
 
 	/**
-	 * 初始化底部小点
+	 * 初始化底部
 	 */
 	private void initMenu() {
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tabMenu);
@@ -168,5 +174,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		menusImageViews[currentIndex].setEnabled(true);
 
 		currentIndex = positon;
+	}
+
+	public static void modifyOrderView() {
+
 	}
 }
