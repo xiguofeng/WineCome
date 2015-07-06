@@ -166,6 +166,7 @@ public class HomeFragment extends Fragment implements Watcher {
 		// TODO 假数据
 		for (int i = 0; i < 20; i++) {
 			Goods goods = new Goods();
+			goods.setId(""+i);
 			goods.setName("酒" + i);
 			goods.setPrice("" + i);
 			goods.setNum("1");

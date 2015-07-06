@@ -15,7 +15,7 @@ public class ShopFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.more_fragment, container, false);
-		
+
 		return view;
 	}
 

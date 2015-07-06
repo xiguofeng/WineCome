@@ -21,22 +21,33 @@ import com.xgf.winecome.ui.adapter.CommonAdapter;
 
 public class MoreFragment extends Fragment implements OnItemClickListener {
 
+	private View mRootView;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.more_fragment, container, false);
-		ListView listView = (ListView) view.findViewById(R.id.listViewForMine);
-		CommonAdapter adapter = new CommonAdapter(getActivity(), getData());
-		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(this);
-		return view;
+
+		if (null != mRootView) {
+			ViewGroup parent = (ViewGroup) mRootView.getParent();
+			if (null != parent) {
+				parent.removeView(mRootView);
+			}
+		} else {
+			mRootView = inflater.inflate(R.layout.more_fragment, null);
+			ListView listView = (ListView) mRootView
+					.findViewById(R.id.listViewForMine);
+			CommonAdapter adapter = new CommonAdapter(getActivity(), getData());
+			listView.setAdapter(adapter);
+			listView.setOnItemClickListener(this);
+		}
+
+		return mRootView;
 	}
 
 	private List<Map<String, Object>> getData() {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 
 		map = new HashMap<String, Object>();
 		map.put("textInfo", "历史订单");
@@ -62,10 +73,10 @@ public class MoreFragment extends Fragment implements OnItemClickListener {
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), TestActivity.class);
 			startActivity(intent);
-			getActivity().overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+			getActivity().overridePendingTransition(R.anim.push_left_in,
+					R.anim.push_left_out);
 		}
 
 	}
 
-	
 }

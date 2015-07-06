@@ -21,6 +21,7 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.ui.fragment.HomeFragment;
 import com.xgf.winecome.ui.fragment.MoreFragment;
 import com.xgf.winecome.ui.fragment.ShopFragment;
+import com.xgf.winecome.utils.OrderManager;
 
 public class MainActivity extends FragmentActivity implements OnClickListener,
 		OnPageChangeListener {
@@ -33,9 +34,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	// 记录当前选中位置
 	private int currentIndex;
 
-	private LinearLayout mPayMenuLl;
+	private static LinearLayout mPayMenuLl;
 
-	private TextView mTotalMoneyTv;
+	private static TextView mTotalMoneyTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,23 +161,46 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 			return;
 		}
 		viewPager.setCurrentItem(position);
+		if (0 == position) {
+			if (OrderManager.sOrderList.size() > 0) {
+				showOrhHidePayBar(true);
+			}
+		} else {
+			showOrhHidePayBar(false);
+		}
 	}
 
 	/**
 	 * 设置当前的小点的位置
 	 */
-	private void setCurDot(int positon) {
-		if (positon < 0 || positon > menImgs.length - 1
-				|| currentIndex == positon) {
+	private void setCurDot(int position) {
+		if (position < 0 || position > menImgs.length - 1
+				|| currentIndex == position) {
 			return;
 		}
-		menusImageViews[positon].setEnabled(false);
+		menusImageViews[position].setEnabled(false);
 		menusImageViews[currentIndex].setEnabled(true);
 
-		currentIndex = positon;
+		currentIndex = position;
+
+		if (0 == position) {
+			if (OrderManager.sOrderList.size() > 0) {
+				showOrhHidePayBar(true);
+			}
+		} else {
+			showOrhHidePayBar(false);
+		}
 	}
 
-	public static void modifyOrderView() {
+	public static void modifyOrderView(String totalPrice) {
+		mTotalMoneyTv.setText(totalPrice);
+	}
 
+	public static void showOrhHidePayBar(boolean flag) {
+		if (flag) {
+			mPayMenuLl.setVisibility(View.VISIBLE);
+		} else {
+			mPayMenuLl.setVisibility(View.GONE);
+		}
 	}
 }
