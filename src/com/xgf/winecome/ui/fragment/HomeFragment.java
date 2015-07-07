@@ -8,10 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.LinearLayout;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.activity.GoodsDetailActivity;
 import com.xgf.winecome.ui.activity.SearchActivity;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
 import com.xgf.winecome.ui.adapter.Goods2Adapter;
@@ -82,36 +86,36 @@ public class HomeFragment extends Fragment implements Watcher {
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
-//				y = mSearchLl.getY();
-//				TranslateAnimation animation = new TranslateAnimation(0, 0, 0,
-//						-y);
-//				animation.setDuration(500);
-//				animation.setFillAfter(true);
-//				animation.setAnimationListener(new AnimationListener() {
-//					@Override
-//					public void onAnimationRepeat(Animation animation) {
-//					}
-//
-//					@Override
-//					public void onAnimationStart(Animation animation) {
-//					}
-//
-//					@Override
-//					public void onAnimationEnd(Animation animation) {
-//						Intent intent = new Intent(getActivity(),
-//								SearchActivity.class);
-//						startActivityForResult(intent, 500);
-//						getActivity().overridePendingTransition(
-//								R.anim.animationb, R.anim.animationa);
-//					}
-//				});
-//				mFirstBg.startAnimation(animation);
-				
-				Intent intent = new Intent(getActivity(),
-						SearchActivity.class);
+				// y = mSearchLl.getY();
+				// TranslateAnimation animation = new TranslateAnimation(0, 0,
+				// 0,
+				// -y);
+				// animation.setDuration(500);
+				// animation.setFillAfter(true);
+				// animation.setAnimationListener(new AnimationListener() {
+				// @Override
+				// public void onAnimationRepeat(Animation animation) {
+				// }
+				//
+				// @Override
+				// public void onAnimationStart(Animation animation) {
+				// }
+				//
+				// @Override
+				// public void onAnimationEnd(Animation animation) {
+				// Intent intent = new Intent(getActivity(),
+				// SearchActivity.class);
+				// startActivityForResult(intent, 500);
+				// getActivity().overridePendingTransition(
+				// R.anim.animationb, R.anim.animationa);
+				// }
+				// });
+				// mFirstBg.startAnimation(animation);
+
+				Intent intent = new Intent(getActivity(), SearchActivity.class);
 				startActivityForResult(intent, 500);
-				getActivity().overridePendingTransition(
-						R.anim.animationb, R.anim.animationa);
+				getActivity().overridePendingTransition(R.anim.animationb,
+						R.anim.animationa);
 			}
 		});
 	}
@@ -166,7 +170,7 @@ public class HomeFragment extends Fragment implements Watcher {
 		// TODO 假数据
 		for (int i = 0; i < 20; i++) {
 			Goods goods = new Goods();
-			goods.setId(""+i);
+			goods.setId("" + i);
 			goods.setName("酒" + i);
 			goods.setPrice("" + i);
 			goods.setNum("1");
@@ -200,6 +204,24 @@ public class HomeFragment extends Fragment implements Watcher {
 		mGoodsAdapter = new Goods2Adapter(mContext, mGoodsList);
 		mRightLv.setAdapter(mGoodsAdapter);
 		mGoodsAdapter.notifyDataSetChanged();
+		mRightLv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				Log.e("xxx_mRightLv_onItemClick", "1");
+				Intent intent = new Intent(getActivity(),
+						GoodsDetailActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,
+						mGoodsList.get(position));
+				intent.putExtras(bundle);
+				startActivity(intent);
+				// getActivity().overridePendingTransition(R.anim.push_left_in,
+				// R.anim.push_left_out);
+			}
+		});
 
 		mCategoryAdapter = new CategoryAdapter(mContext, mCategoryList);
 		mLeftLv.setAdapter(mCategoryAdapter);

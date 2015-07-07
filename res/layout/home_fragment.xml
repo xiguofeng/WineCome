@@ -99,8 +99,9 @@
             android:dividerHeight="8dip"
             android:divider="@color/white"
             android:fastScrollEnabled="false"
-            android:focusable="true"
             android:scrollbars="none" />
+<!--             android:focusable="true" -->
+            
     </LinearLayout>
 
 </LinearLayout>

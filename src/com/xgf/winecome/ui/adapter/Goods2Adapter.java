@@ -85,7 +85,7 @@ public class Goods2Adapter extends BaseAdapter implements Watched {
 		holder.mName.setText(mDatas.get(position).getName());
 		holder.mPrice.setText("￥" + mDatas.get(position).getPrice());
 		holder.mOriginalPrice.setText("原价￥"
-				+ mDatas.get(position).getNowPrice());
+				+ mDatas.get(position).getOrginPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
 
 		final int tempPosition = position;
@@ -103,7 +103,7 @@ public class Goods2Adapter extends BaseAdapter implements Watched {
 				Goods goods = mDatas.get(tempPosition);
 				goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) + 1));
 				mDatas.set(tempPosition, goods);
-				OrderManager.nowOrderModify(goods);
+				OrderManager.orderModify(goods);
 				notifyDataSetChanged();
 
 			}
@@ -115,7 +115,7 @@ public class Goods2Adapter extends BaseAdapter implements Watched {
 				if (Integer.parseInt(goods.getNum()) > 1) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
 					mDatas.set(tempPosition, goods);
-					OrderManager.nowOrderModify(goods);
+					OrderManager.orderModify(goods);
 					notifyDataSetChanged();
 				}
 

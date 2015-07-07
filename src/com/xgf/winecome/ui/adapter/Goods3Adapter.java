@@ -83,7 +83,7 @@ public class Goods3Adapter extends BaseAdapter implements Watched {
 
 		holder.mName.setText(mDatas.get(position).getName());
 		holder.mPrice.setText("￥" + mDatas.get(position).getPrice());
-		holder.mNewPrice.setText("￥" + mDatas.get(position).getNowPrice());
+		holder.mNewPrice.setText("￥" + mDatas.get(position).getOrginPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
 
 		final int tempPosition = position;

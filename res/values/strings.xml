@@ -30,4 +30,6 @@
     <!-- order -->
     <string name="total_price">总金额：</string>
     <string name="to_settlement">去结算</string>
+    <string name="add_cart">加入购物车</string>
+    <string name="now_buy">立即购买</string>
 </resources>

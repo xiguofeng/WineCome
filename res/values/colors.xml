@@ -17,11 +17,13 @@
     <color name="gray_menu_bg">#EDEDED</color>
     <color name="gray_text">#909090</color>
     <color name="gray_bg">#f3f3f3</color>
+    <color name="gray_brief_bg">#f1f1f1</color>
     <color name="gray_text_title">#898989</color>
     <color name="gray_common_bg">#f0f0f0</color>
     <color name="gray_search_bg">#fcfcfc</color>
     <color name="orange_text">#f56344</color>
     <color name="orange_title_bar_bg">#ec5c43</color>
+    <color name="yello_bottom_bg">#ffa204</color>
     <color name="blue_content_bg">#4FC1E9</color>
     <!-- <color name="red_title_bg">#cf021b</color> -->
     <color name="red_title_bg">#D0021B</color>

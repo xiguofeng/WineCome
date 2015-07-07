@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_list_content_bg"
+    android:descendantFocusability="blocksDescendants"
     android:gravity="center_horizontal"
     android:paddingTop="20dp" >
 
@@ -56,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dip" >
-                    
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dip"
@@ -68,8 +69,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="299"
                         android:maxLines="1"
+                        android:text="299"
                         android:textColor="@color/gray_text"
                         android:textSize="@dimen/small_text_size" />
                 </RelativeLayout>
@@ -88,6 +89,7 @@
                     android:layout_height="40dip"
                     android:layout_centerVertical="true"
                     android:background="@null"
+                    android:focusable="false"
                     android:src="@drawable/btn_reduce_pressed" />
 
                 <EditText
@@ -109,6 +111,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/goods_count_et"
                     android:background="@null"
+                    android:focusable="false"
                     android:src="@drawable/btn_add_pressed" />
 
                 <ImageButton
@@ -118,7 +121,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/goods_add_ib"
                     android:background="@drawable/search_clear_normal"
-                    android:clickable="true" />
+                    android:clickable="true"
+                    android:focusable="false" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
