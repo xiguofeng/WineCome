@@ -21,7 +21,7 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
-import com.xgf.winecome.ui.adapter.Goods2Adapter;
+import com.xgf.winecome.ui.adapter.GoodsAdapter;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -30,7 +30,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ListView mLeftLv;
 	private ListView mRightLv;
 	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
-	private Goods2Adapter mGoodsAdapter;
+	private GoodsAdapter mGoodsAdapter;
 	private ArrayList<Category> mCategoryList = new ArrayList<Category>();
 	private CategoryAdapter mCategoryAdapter;
 
@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			mCategoryList.add(category);
 		}
-		mGoodsAdapter = new Goods2Adapter(mContext, mGoodsList);
+		mGoodsAdapter = new GoodsAdapter(mContext, mGoodsList);
 		mRightLv.setAdapter(mGoodsAdapter);
 		mGoodsAdapter.notifyDataSetChanged();
 		mRightLv.setOnItemClickListener(new OnItemClickListener() {

@@ -15,10 +15,11 @@ import android.widget.TextView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.Watched;
 import com.xgf.winecome.utils.Watcher;
 
-public class Goods3Adapter extends BaseAdapter implements Watched {
+public class CartGoodsAdapter extends BaseAdapter implements Watched {
 
 	private Context mContext;
 
@@ -28,7 +29,7 @@ public class Goods3Adapter extends BaseAdapter implements Watched {
 
 	private List<Watcher> mWatcherlist = new ArrayList<Watcher>();
 
-	public Goods3Adapter(Context context, ArrayList<Goods> datas) {
+	public CartGoodsAdapter(Context context, ArrayList<Goods> datas) {
 		this.mContext = context;
 		this.mDatas = datas;
 		mInflater = LayoutInflater.from(mContext);
@@ -57,25 +58,25 @@ public class Goods3Adapter extends BaseAdapter implements Watched {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.list_goods_item, null);
+			convertView = mInflater.inflate(R.layout.list_cart_goods_item, null);
 
 			holder = new ViewHolder();
 			holder.mName = (TextView) convertView
-					.findViewById(R.id.goods_name_tv);
+					.findViewById(R.id.cart_goods_name_tv);
 			holder.mPrice = (TextView) convertView
-					.findViewById(R.id.goods_price_tv);
-			holder.mNewPrice = (TextView) convertView
-					.findViewById(R.id.goods_now_prices_tv);
+					.findViewById(R.id.cart_goods_price_tv);
+			holder.mOriginalPrice = (TextView) convertView
+					.findViewById(R.id.cart_goods_original_prices_tv);
 
-			holder.mDelIb = (ImageButton) convertView
-					.findViewById(R.id.goods_del_ib);
+			holder.mCheckIb = (ImageButton) convertView
+					.findViewById(R.id.cart_goods_select_ib);
 			holder.mAddIb = (ImageButton) convertView
-					.findViewById(R.id.goods_add_ib);
+					.findViewById(R.id.cart_goods_add_ib);
 			holder.mReduceIb = (ImageButton) convertView
-					.findViewById(R.id.goods_reduce_ib);
+					.findViewById(R.id.cart_goods_reduce_ib);
 
 			holder.mNum = (EditText) convertView
-					.findViewById(R.id.goods_count_et);
+					.findViewById(R.id.cart_goods_count_et);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -83,11 +84,12 @@ public class Goods3Adapter extends BaseAdapter implements Watched {
 
 		holder.mName.setText(mDatas.get(position).getName());
 		holder.mPrice.setText("￥" + mDatas.get(position).getPrice());
-		holder.mNewPrice.setText("￥" + mDatas.get(position).getOrginPrice());
+		holder.mOriginalPrice.setText("原价￥"
+				+ mDatas.get(position).getOrginPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
 
 		final int tempPosition = position;
-		holder.mDelIb.setOnClickListener(new OnClickListener() {
+		holder.mCheckIb.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
@@ -99,8 +101,10 @@ public class Goods3Adapter extends BaseAdapter implements Watched {
 			@Override
 			public void onClick(View v) {
 				Goods goods = mDatas.get(tempPosition);
-				goods.setNum(goods.getNum() + 1);
+				goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) + 1));
 				mDatas.set(tempPosition, goods);
+				OrderManager.orderModify(goods);
+				notifyDataSetChanged();
 
 			}
 		});
@@ -111,6 +115,8 @@ public class Goods3Adapter extends BaseAdapter implements Watched {
 				if (Integer.parseInt(goods.getNum()) > 1) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
 					mDatas.set(tempPosition, goods);
+					OrderManager.orderModify(goods);
+					notifyDataSetChanged();
 				}
 
 			}
@@ -124,9 +130,9 @@ public class Goods3Adapter extends BaseAdapter implements Watched {
 
 		public TextView mPrice;
 
-		public TextView mNewPrice;
+		public TextView mOriginalPrice;
 
-		public ImageButton mDelIb;
+		public ImageButton mCheckIb;
 
 		public ImageButton mAddIb;
 

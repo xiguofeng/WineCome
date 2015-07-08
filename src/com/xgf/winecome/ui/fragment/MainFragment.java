@@ -27,7 +27,7 @@ import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.GoodsDetailActivity;
 import com.xgf.winecome.ui.activity.SearchActivity;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
-import com.xgf.winecome.ui.adapter.Goods2Adapter;
+import com.xgf.winecome.ui.adapter.GoodsAdapter;
 import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView;
 import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView.AnimatedExpandableListAdapter;
 import com.xgf.winecome.utils.Watcher;
@@ -40,7 +40,7 @@ public class MainFragment extends Fragment implements Watcher {
 	private ListView mLeftLv;
 	private ListView mRightLv;
 	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
-	private Goods2Adapter mGoodsAdapter;
+	private GoodsAdapter mGoodsAdapter;
 	private ArrayList<Category> mCategoryList = new ArrayList<Category>();
 	private CategoryAdapter mCategoryAdapter;
 	private ExampleAdapter adapter;
@@ -201,7 +201,7 @@ public class MainFragment extends Fragment implements Watcher {
 			}
 			mCategoryList.add(category);
 		}
-		mGoodsAdapter = new Goods2Adapter(mContext, mGoodsList);
+		mGoodsAdapter = new GoodsAdapter(mContext, mGoodsList);
 		mRightLv.setAdapter(mGoodsAdapter);
 		mGoodsAdapter.notifyDataSetChanged();
 		mRightLv.setOnItemClickListener(new OnItemClickListener() {

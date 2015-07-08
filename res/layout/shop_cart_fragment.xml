@@ -33,7 +33,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:cacheColorHint="@color/white"
-        android:dividerHeight="0.5dip"
+        android:divider="@color/white"
+        android:dividerHeight="15dip"
         android:fastScrollEnabled="false"
         android:focusable="true"
         android:scrollbars="none" />

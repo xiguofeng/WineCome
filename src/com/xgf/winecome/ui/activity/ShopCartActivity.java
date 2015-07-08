@@ -17,7 +17,8 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.adapter.Goods2Adapter;
+import com.xgf.winecome.ui.adapter.CartGoodsAdapter;
+import com.xgf.winecome.ui.adapter.GoodsAdapter;
 import com.xgf.winecome.ui.view.listview.SwipeMenu;
 import com.xgf.winecome.ui.view.listview.SwipeMenuCreator;
 import com.xgf.winecome.ui.view.listview.SwipeMenuItem;
@@ -31,7 +32,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 
 	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
 
-	private Goods2Adapter mGoodsAdapter;
+	private CartGoodsAdapter mGoodsAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 	private void initView() {
 		mContext = ShopCartActivity.this;
 		mGoodsLv = (SwipeMenuListView) findViewById(R.id.shop_cart_order_lv);
-		mGoodsAdapter = new Goods2Adapter(mContext, mGoodsList);
+		mGoodsAdapter = new CartGoodsAdapter(mContext, mGoodsList);
 		mGoodsLv.setAdapter(mGoodsAdapter);
 
 		// step 1. create a MenuCreator
