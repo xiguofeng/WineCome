@@ -1,206 +1,159 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.ui.fragment.HomeFragment;
-import com.xgf.winecome.ui.fragment.MoreFragment;
-import com.xgf.winecome.ui.fragment.ShopFragment;
-import com.xgf.winecome.utils.OrderManager;
+import com.xgf.winecome.entity.Category;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.adapter.CategoryAdapter;
+import com.xgf.winecome.ui.adapter.Goods2Adapter;
 
-public class MainActivity extends FragmentActivity implements OnClickListener,
-		OnPageChangeListener {
-	private ViewPager viewPager;
-	// 底部菜单图片
-	private ImageView[] menusImageViews;
-	// 引导图片资源
-	private static final int[] menImgs = { R.drawable.all, R.drawable.near,
-			R.drawable.map };
-	// 记录当前选中位置
-	private int currentIndex;
+public class MainActivity extends Activity implements OnClickListener {
 
-	private static LinearLayout mPayMenuLl;
+	private Context mContext;
+	private LinearLayout mSearchLl;
+	private ListView mLeftLv;
+	private ListView mRightLv;
+	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
+	private Goods2Adapter mGoodsAdapter;
+	private ArrayList<Category> mCategoryList = new ArrayList<Category>();
+	private CategoryAdapter mCategoryAdapter;
 
-	private static TextView mTotalMoneyTv;
+	private LinearLayout mFirstBg;
+	private float y;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		mPayMenuLl = (LinearLayout) findViewById(R.id.main_pay_menu);
-		mTotalMoneyTv = (TextView) findViewById(R.id.main_total_pay_tv);
-		viewPager = (ViewPager) this.findViewById(R.id.pager);
-		initial();
-		initMenu();
-		viewPager.setOnPageChangeListener(this);
+		setContentView(R.layout.main);
+		initView();
+		initData();
 	}
 
-	private void initial() {
-		menusImageViews = new ImageView[menImgs.length];
-		List<Fragment> contents = new ArrayList<Fragment>();
-		for (int i = 0; i < 3; i++) {
-			if (i == 0) {
-				Fragment content = new HomeFragment();
-				contents.add(content);
-			} else if (i == 1) {
+	private void initView() {
+		mContext = MainActivity.this;
+		mLeftLv = (ListView) findViewById(R.id.main_left_lv);
+		mRightLv = (ListView) findViewById(R.id.main_right_lv);
 
-				Fragment content = new ShopFragment();
-				contents.add(content);
+		mFirstBg = (LinearLayout) findViewById(R.id.main_bg);
 
-			} else if (i == 2) {
-				Fragment content = new MoreFragment();
-				contents.add(content);
+		mSearchLl = (LinearLayout) findViewById(R.id.main_search_rl);
+		mSearchLl.setOnClickListener(new OnClickListener() {
+
+			@SuppressLint("NewApi")
+			@Override
+			public void onClick(View v) {
+				y = mSearchLl.getY();
+				TranslateAnimation animation = new TranslateAnimation(0, 0, 0,
+						-y);
+				animation.setDuration(500);
+				animation.setFillAfter(true);
+				animation.setAnimationListener(new AnimationListener() {
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationStart(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						Intent intent = new Intent(MainActivity.this,
+								SearchActivity.class);
+						startActivityForResult(intent, 500);
+						overridePendingTransition(R.anim.animationb,
+								R.anim.animationa);
+					}
+				});
+				mFirstBg.startAnimation(animation);
+
+				Intent intent = new Intent(MainActivity.this,
+						SearchActivity.class);
+				startActivityForResult(intent, 500);
+				overridePendingTransition(R.anim.animationb, R.anim.animationa);
 			}
-			// 新建Fragment的实例对象，并设置参数传递到Fragment中
-
-		}
-		// 这个getSupportFragmentManager只有activity继承FragmentActivity才会有
-		MyFragmentPageAdapter adapter = new MyFragmentPageAdapter(
-				getSupportFragmentManager(), contents);
-		viewPager.setAdapter(adapter);
+		});
 	}
 
-	/**
-	 * 初始化底部
-	 */
-	private void initMenu() {
-		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tabMenu);
-		int menuCount = menImgs.length;
-		// 循环取得小点图片
-		for (int i = 0; i < menuCount; i++) {
-			// 得到一个LinearLayout下面的每一个子元素
-			RelativeLayout relativeLayout = (RelativeLayout) linearLayout
-					.getChildAt(i);
-			ImageView imageView = (ImageView) relativeLayout.getChildAt(0);
-			menusImageViews[i] = imageView;
-			// 默认都设为灰色
-			imageView.setEnabled(true);
-			// imageView.setOnClickListener(this);
-			// 这里用布局来监听事件
-			relativeLayout.setOnClickListener(this);
-			// 设置位置tag，方便取出与当前位置对应
-			relativeLayout.setTag(i);
+	private void initData() {
+		// TODO 假数据
+		for (int i = 0; i < 20; i++) {
+			Goods goods = new Goods();
+			goods.setId("" + i);
+			goods.setName("酒" + i);
+			goods.setPrice("" + i);
+			goods.setNum("1");
+			mGoodsList.add(goods);
+
+			Category category = new Category();
+
+			if (i > 0 && i < 6) {
+				category.setName("白酒" + i);
+				category.setLevel("1");
+			} else if (i > 6 && i < 14) {
+				category.setName("红酒" + i);
+				category.setLevel("1");
+			} else if (i > 14) {
+				category.setName("葡萄酒" + i);
+				category.setLevel("1");
+			}
+
+			if (0 == i) {
+				category.setName("白酒");
+				category.setLevel("0");
+			} else if (6 == i) {
+				category.setName("红酒");
+				category.setLevel("0");
+			} else if (14 == i) {
+				category.setName("葡萄酒");
+				category.setLevel("0");
+			}
+			mCategoryList.add(category);
 		}
-		// 设置当面默认的位置
-		currentIndex = 0;
-		// 设置为白色，即选中状态
-		menusImageViews[currentIndex].setEnabled(false);
-	}
+		mGoodsAdapter = new Goods2Adapter(mContext, mGoodsList);
+		mRightLv.setAdapter(mGoodsAdapter);
+		mGoodsAdapter.notifyDataSetChanged();
+		mRightLv.setOnItemClickListener(new OnItemClickListener() {
 
-	private class MyFragmentPageAdapter extends FragmentPagerAdapter {
-		private List<Fragment> mContents;
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 
-		public MyFragmentPageAdapter(FragmentManager fm) {
-			super(fm);
-			// TODO Auto-generated constructor stub
-		}
+				Intent intent = new Intent(MainActivity.this,
+						GoodsDetailActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,
+						mGoodsList.get(position));
+				intent.putExtras(bundle);
+				startActivity(intent);
+				// getActivity().overridePendingTransition(R.anim.push_left_in,
+				// R.anim.push_left_out);
+			}
+		});
 
-		public MyFragmentPageAdapter(FragmentManager fm, List<Fragment> contents) {
-			super(fm);
-			mContents = contents;
-		}
-
-		@Override
-		public Fragment getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return mContents.get(arg0);
-		}
-
-		@Override
-		public int getCount() {
-			return mContents.size();
-		}
-	}
-
-	@Override
-	public void onPageScrollStateChanged(int arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onPageScrolled(int arg0, float arg1, int arg2) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onPageSelected(int position) {
-		// 设置底部小点选中状态
-		setCurDot(position);
-
+		mCategoryAdapter = new CategoryAdapter(mContext, mCategoryList);
+		mLeftLv.setAdapter(mCategoryAdapter);
+		mCategoryAdapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onClick(View v) {
-		int position = (Integer) v.getTag();
-		setCurView(position);
-		setCurDot(position);
 	}
 
-	/**
-	 * 设置当前页面的位置
-	 */
-	private void setCurView(int position) {
-		if (position < 0 || position >= menImgs.length) {
-			return;
-		}
-		viewPager.setCurrentItem(position);
-		if (0 == position) {
-			if (OrderManager.sOrderList.size() > 0) {
-				showOrhHidePayBar(true);
-			}
-		} else {
-			showOrhHidePayBar(false);
-		}
-	}
-
-	/**
-	 * 设置当前的小点的位置
-	 */
-	private void setCurDot(int position) {
-		if (position < 0 || position > menImgs.length - 1
-				|| currentIndex == position) {
-			return;
-		}
-		menusImageViews[position].setEnabled(false);
-		menusImageViews[currentIndex].setEnabled(true);
-
-		currentIndex = position;
-
-		if (0 == position) {
-			if (OrderManager.sOrderList.size() > 0) {
-				showOrhHidePayBar(true);
-			}
-		} else {
-			showOrhHidePayBar(false);
-		}
-	}
-
-	public static void modifyOrderView(String totalPrice) {
-		mTotalMoneyTv.setText(totalPrice);
-	}
-
-	public static void showOrhHidePayBar(boolean flag) {
-		if (flag) {
-			mPayMenuLl.setVisibility(View.VISIBLE);
-		} else {
-			mPayMenuLl.setVisibility(View.GONE);
-		}
-	}
 }

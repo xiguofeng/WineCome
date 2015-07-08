@@ -20,7 +20,7 @@ import android.util.Log;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.NotifyInfo;
-import com.xgf.winecome.ui.activity.MainActivity;
+import com.xgf.winecome.ui.activity.HomeFragmentActivity;
 
 public class MsgService extends Service {
 
@@ -118,7 +118,7 @@ public class MsgService extends Service {
 				.setTicker("点我").setSmallIcon(R.drawable.ic_launcher)
 				.setDefaults(Notification.DEFAULT_VIBRATE);
 		// 点击的意图ACTION是跳转到Intent
-		Intent resultIntent = new Intent(this, MainActivity.class);
+		Intent resultIntent = new Intent(this, HomeFragmentActivity.class);
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -155,7 +155,7 @@ public class MsgService extends Service {
 					Log.e(TAG, "MsgService Run: " + System.currentTimeMillis());
 					boolean b = false;
 
-					// MainActivity.isServiceWorked(MsgService.this,
+					// HomeFragmentActivity.isServiceWorked(MsgService.this,
 					// "com.example.servicedemo.ServiceTwo");
 					if (!b) {
 						Intent service = new Intent(MsgService.this,

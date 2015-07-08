@@ -31,7 +31,7 @@ public class GuardService extends Service {
 				public void run() {
 					Log.e(TAG, "GuardService Run: " + System.currentTimeMillis());
 					boolean b = false;
-					// MainActivity.isServiceWorked(GuardService.this,
+					// HomeFragmentActivity.isServiceWorked(GuardService.this,
 					// "com.example.servicedemo.ServiceOne");
 					if (!b) {
 						Intent service = new Intent(GuardService.this,

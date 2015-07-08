@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
 
-    <!--  注意：的#5000000前两位是透明的效果参数(从00到99透明不怎么透明)后6位是颜色的设置 -->
+    <!-- 注意：的#5000000前两位是透明的效果参数(从00到99透明不怎么透明)后6位是颜色的设置 -->
+
 
     <!-- common -->
     <color name="common_bg">#f4f4f5</color>
@@ -32,6 +32,6 @@
 
     <!-- line -->
     <color name="white_divide_line">#e8e8e8</color>
-    <color name="gray_divide_line">#9f9e9e</color>
+    <color name="gray_divide_line">#9f9e9e</color>    
 
 </resources>

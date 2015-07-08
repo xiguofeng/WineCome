@@ -16,7 +16,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.ui.activity.TestActivity;
 import com.xgf.winecome.ui.adapter.CommonAdapter;
 
 public class MoreFragment extends Fragment implements OnItemClickListener {
@@ -71,8 +70,7 @@ public class MoreFragment extends Fragment implements OnItemClickListener {
 			long id) {
 		if (position == 0) {
 			Intent intent = new Intent();
-			intent.setClass(getActivity(), TestActivity.class);
-			startActivity(intent);
+
 			getActivity().overridePendingTransition(R.anim.push_left_in,
 					R.anim.push_left_out);
 		}

@@ -32,7 +32,7 @@ import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView;
 import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView.AnimatedExpandableListAdapter;
 import com.xgf.winecome.utils.Watcher;
 
-public class HomeFragment extends Fragment implements Watcher {
+public class MainFragment extends Fragment implements Watcher {
 
 	private Context mContext;
 	private LinearLayout mSearchLl;
@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment implements Watcher {
 				parent.removeView(mRootView);
 			}
 		} else {
-			mRootView = inflater.inflate(R.layout.home_fragment, null);
+			mRootView = inflater.inflate(R.layout.main_fragment, null);
 			initView(mRootView);
 			initData2();
 		}
