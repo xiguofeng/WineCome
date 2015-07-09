@@ -79,9 +79,23 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 					int index) {
 				switch (index) {
 				case 0:
-					// del
+
 					mGoodsList.remove(position);
+					// del
+					for (int i = 0; i < mGoodsList.size(); i++) {
+						if (i < position) {
+							mGoodsAdapter.getmIsSelected().put(i,
+									mGoodsAdapter.getmIsSelected().get(i));
+
+						} else {
+							mGoodsAdapter.getmIsSelected().put(i,
+									mGoodsAdapter.getmIsSelected().get(i + 1));
+						}
+
+					}
+					mGoodsAdapter.getmIsSelected().remove(mGoodsList.size()+1);
 					mGoodsAdapter.notifyDataSetChanged();
+
 					break;
 
 				}

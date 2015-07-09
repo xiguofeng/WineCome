@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,7 +43,6 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 	}
 
 	public void initCheck() {
-		Log.e("xxx_initCheck", "");
 		for (int i = 0; i < mDatas.size(); i++) {
 			getmIsSelected().put(i, false);
 		}
@@ -102,8 +100,9 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 		holder.mOriginalPrice.setText("原价￥"
 				+ mDatas.get(position).getOrginPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
-
+		
 		final int tempPosition = position;
+		holder.vId =tempPosition;
 
 		holder.mCheckIb
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -111,7 +110,6 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView,
 							boolean isChecked) {
-						Log.e("xxx_isChecked", "" + isChecked);
 						getmIsSelected().put(tempPosition, isChecked);
 						if (!isChecked) {
 							for (int i = 0; i < CartManager.sSelectCartList
@@ -162,7 +160,9 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 		return convertView;
 	}
 
-	final static class ViewHolder {
+	static class ViewHolder {
+		
+		public int vId;
 
 		public TextView mName;
 
