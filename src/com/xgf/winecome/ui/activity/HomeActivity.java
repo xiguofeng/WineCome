@@ -7,11 +7,15 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.utils.CartManager;
 
 public class HomeActivity extends TabActivity {
 
@@ -25,6 +29,10 @@ public class HomeActivity extends TabActivity {
 
 	private TabHost mTabHost;
 
+	private static LinearLayout mPayMenuLl;
+
+	private static TextView mTotalMoneyTv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,6 +44,8 @@ public class HomeActivity extends TabActivity {
 
 	private void findViewById() {
 		mTabButtonGroup = (RadioGroup) findViewById(R.id.home_radio_button_group);
+		mPayMenuLl = (LinearLayout) findViewById(R.id.home_pay_menu);
+		mTotalMoneyTv = (TextView) findViewById(R.id.home_total_pay_tv);
 	}
 
 	private void initView() {
@@ -52,7 +62,7 @@ public class HomeActivity extends TabActivity {
 				.setContent(i_cart));
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_MORE).setIndicator(TAB_MORE)
 				.setContent(i_more));
-		
+
 		Log.e("xxx_", "mTabHost.setCurrentTabByTag(TAB_MORE);");
 		mTabHost.setCurrentTabByTag(TAB_MAIN);
 
@@ -62,14 +72,21 @@ public class HomeActivity extends TabActivity {
 						switch (checkedId) {
 						case R.id.home_tab_home_rb:
 							mTabHost.setCurrentTabByTag(TAB_MAIN);
+							if (CartManager.sCartList.size() > 0) {
+								showOrhHidePayBar(true);
+							} else {
+								showOrhHidePayBar(false);
+							}
 							break;
 
 						case R.id.home_tab_cart_rb:
 							mTabHost.setCurrentTabByTag(TAB_CART);
+							showOrhHidePayBar(false);
 							break;
 
 						case R.id.home_tab_more_rb:
 							mTabHost.setCurrentTabByTag(TAB_MORE);
+							showOrhHidePayBar(false);
 							break;
 
 						default:
@@ -78,9 +95,9 @@ public class HomeActivity extends TabActivity {
 					}
 				});
 	}
-	
-	private void initData(){
-		//mTabHost.setCurrentTabByTag(TAB_MAIN);
+
+	private void initData() {
+		// mTabHost.setCurrentTabByTag(TAB_MAIN);
 	}
 
 	@Override
@@ -114,6 +131,18 @@ public class HomeActivity extends TabActivity {
 				.setPositiveButton(positiveText, onPositiveClickListener)
 				.setNegativeButton(negativeText, onNegativeClickListener)
 				.show();
+	}
+
+	public static void modifyPayView(String totalPrice) {
+		mTotalMoneyTv.setText(totalPrice);
+	}
+
+	public static void showOrhHidePayBar(boolean flag) {
+		if (flag) {
+			mPayMenuLl.setVisibility(View.VISIBLE);
+		} else {
+			mPayMenuLl.setVisibility(View.GONE);
+		}
 	}
 
 }

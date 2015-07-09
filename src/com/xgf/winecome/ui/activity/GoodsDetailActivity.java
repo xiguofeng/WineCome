@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.utils.OrderManager;
+import com.xgf.winecome.utils.CartManager;
 
 public class GoodsDetailActivity extends Activity implements OnClickListener {
 
@@ -118,7 +118,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.goods_detail_cart_iv:
 		case R.id.goods_detail_add_cart_ll: {
-			OrderManager.orderModifyByDetail(mGoods);
+			CartManager.cartModify(mGoods);
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {

@@ -3,7 +3,7 @@ package com.xgf.winecome.utils;
 import java.util.ArrayList;
 
 import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.activity.HomeFragmentActivity;
+import com.xgf.winecome.ui.activity.HomeActivity;
 
 public class OrderManager {
 
@@ -39,7 +39,7 @@ public class OrderManager {
 							.parseDouble(goods2.getPrice()));
 		}
 
-		HomeFragmentActivity.modifyOrderView(String.valueOf(totalPay));
+		HomeActivity.modifyPayView(String.valueOf(totalPay));
 	}
 
 	public static void orderModifyByDetail(Goods goods) {
@@ -66,11 +66,11 @@ public class OrderManager {
 							.parseDouble(goods2.getPrice()));
 		}
 
-		HomeFragmentActivity.modifyOrderView(String.valueOf(totalPay));
+		HomeActivity.modifyPayView(String.valueOf(totalPay));
 	}
 
 	public static void showOrhHidePayBar(boolean flag) {
-		HomeFragmentActivity.showOrhHidePayBar(flag);
+		HomeActivity.showOrhHidePayBar(flag);
 	}
 
 }

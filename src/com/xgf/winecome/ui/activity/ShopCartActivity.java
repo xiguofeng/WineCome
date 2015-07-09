@@ -29,6 +29,8 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 
 	private SwipeMenuListView mGoodsLv;
 
+	public static ArrayList<Goods> sGoodsList = new ArrayList<Goods>();
+
 	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
 
 	private CartGoodsAdapter mGoodsAdapter;
@@ -115,6 +117,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 			mGoodsList.add(goods);
 		}
 
+		mGoodsAdapter.initCheck();
 		mGoodsAdapter.notifyDataSetChanged();
 
 	}

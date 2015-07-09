@@ -21,7 +21,7 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.ui.fragment.MainFragment;
 import com.xgf.winecome.ui.fragment.MoreFragment;
 import com.xgf.winecome.ui.fragment.ShopCartFragment;
-import com.xgf.winecome.utils.OrderManager;
+import com.xgf.winecome.utils.CartManager;
 
 public class HomeFragmentActivity extends FragmentActivity implements OnClickListener,
 		OnPageChangeListener {
@@ -162,7 +162,7 @@ public class HomeFragmentActivity extends FragmentActivity implements OnClickLis
 		}
 		viewPager.setCurrentItem(position);
 		if (0 == position) {
-			if (OrderManager.sOrderList.size() > 0) {
+			if (CartManager.sCartList.size() > 0) {
 				showOrhHidePayBar(true);
 			}
 		} else {
@@ -184,7 +184,7 @@ public class HomeFragmentActivity extends FragmentActivity implements OnClickLis
 		currentIndex = position;
 
 		if (0 == position) {
-			if (OrderManager.sOrderList.size() > 0) {
+			if (CartManager.sCartList.size() > 0) {
 				showOrhHidePayBar(true);
 			}
 		} else {
