@@ -18,7 +18,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.adapter.CartGoodsAdapter;
-import com.xgf.winecome.ui.adapter.GoodsAdapter;
 import com.xgf.winecome.ui.view.listview.SwipeMenu;
 import com.xgf.winecome.ui.view.listview.SwipeMenuCreator;
 import com.xgf.winecome.ui.view.listview.SwipeMenuItem;
