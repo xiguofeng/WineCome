@@ -1,6 +1,32 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginActivity" >
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_common_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red_title_bg" >
+
+        <ImageView
+            android:id="@+id/per_info_back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:padding="8dip"
+            android:src="@drawable/back_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/info_input"
+            android:textColor="@color/white"
+            android:textSize="@dimen/large_text_size" />
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/order_form"
@@ -8,237 +34,230 @@
         android:layout_height="match_parent" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/per_info_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center" >
+                android:background="@color/white"
+                android:paddingBottom="3dip"
+                android:paddingTop="3dip" >
 
-                <TextView
-                    android:id="@+id/search_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="8dip"
-                    android:text="@string/search"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/orderInputView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <LinearLayout
-                    android:id="@+id/order_input"
+                <EditText
+                    android:id="@+id/per_info_phone_tv"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dip"
-                    android:layout_marginRight="15.0dip"
-                    android:layout_marginTop="25.0dip"
-                    android:orientation="vertical" >
+                    android:background="@null"
+                    android:maxLength="50"
+                    android:paddingBottom="6.0dip"
+                    android:paddingLeft="70.0dip"
+                    android:paddingRight="50dip"
+                    android:paddingTop="6.0dip"
+                    android:singleLine="true"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
 
-                    <RelativeLayout
-                        android:layout_width="fill_parent"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/per_info_phone_tv"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10.0dip"
+                    android:paddingRight="10dip"
+                    android:text="@string/mobile_phone"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:background="#ffcfd4da" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
+
+                <EditText
+                    android:id="@+id/per_info_ver_code_et"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:digits="@string/num_digits"
+                    android:hint=""
+                    android:imeActionLabel="下一步"
+                    android:imeOptions="actionDone|flagNoExtractUi"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:paddingBottom="6.0dip"
+                    android:paddingLeft="70.0dip"
+                    android:paddingRight="50dip"
+                    android:paddingTop="6.0dip"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
+
+                <TextView
+                    android:id="@+id/per_info_ver_code_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/per_info_ver_code_et"
+                    android:layout_alignParentLeft="true"
+                    android:paddingLeft="10.0dip"
+                    android:paddingRight="10dip"
+                    android:text="@string/verification_code"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/red_title_bg" >
+
+                    <TextView
+                        android:id="@+id/per_info_ver_code_btn_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="3dip"
-                        android:paddingTop="3dip" >
+                        android:layout_centerInParent="true"
+                        android:paddingBottom="6.0dip"
+                        android:paddingLeft="10.0dip"
+                        android:paddingRight="10dip"
+                        android:paddingTop="6.0dip"
+                        android:text="@string/get_verification_code"
+                        android:textColor="@color/black_character"
+                        android:textSize="@dimen/medium_text_size" />
+                </RelativeLayout>
+            </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/info_phone_tv"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:maxLength="50"
-                            android:paddingBottom="6.0dip"
-                            android:paddingLeft="70.0dip"
-                            android:paddingRight="50dip"
-                            android:paddingTop="6.0dip"
-                            android:singleLine="true"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:background="#ffcfd4da" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@id/info_phone_tv"
-                            android:layout_centerVertical="true"
-                            android:paddingLeft="10.0dip"
-                            android:paddingRight="10dip"
-                            android:text="@string/mobile_phone"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
-                    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:paddingBottom="3dip"
+                android:background="@color/white"
+                android:paddingTop="3dip" >
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1.0px"
-                        android:background="#ffcfd4da" />
+                <EditText
+                    android:id="@+id/per_info_area_et"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:digits="@string/num_digits"
+                    android:imeOptions="actionDone|flagNoExtractUi"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:paddingBottom="6.0dip"
+                    android:paddingLeft="70.0dip"
+                    android:paddingRight="50dip"
+                    android:paddingTop="6.0dip"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
 
-                    <RelativeLayout
-                        android:id="@+id/relativeLayout1"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="3dip"
-                        android:paddingTop="3dip" >
+                <TextView
+                    android:id="@+id/per_info_area_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/per_info_area_et"
+                    android:paddingLeft="10.0dip"
+                    android:paddingRight="10dip"
+                    android:text="@string/address"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
+            </RelativeLayout>
 
-                        <EditText
-                            android:id="@+id/order_price_et"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:digits="@string/num_digits"
-                            android:hint=""
-                            android:imeActionLabel="下一步"
-                            android:imeOptions="actionDone|flagNoExtractUi"
-                            android:maxLength="16"
-                            android:maxLines="1"
-                            android:paddingBottom="6.0dip"
-                            android:paddingLeft="70.0dip"
-                            android:paddingRight="50dip"
-                            android:paddingTop="6.0dip"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:background="#ffcfd4da" />
 
-                        <TextView
-                            android:id="@+id/order_price_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@id/order_price_et"
-                            android:paddingLeft="10.0dip"
-                            android:paddingRight="10dip"
-                            android:text="@string/verification_code"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
-                    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="3dip"
+                android:paddingTop="3dip" >
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1.0px"
-                        android:background="#ffcfd4da" />
+                <EditText
+                    android:id="@+id/per_info_detail_area_et"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:digits="@string/num_digits"
+                    android:imeOptions="actionNext"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:paddingBottom="6.0dip"
+                    android:paddingLeft="70.0dip"
+                    android:paddingRight="50dip"
+                    android:paddingTop="6.0dip"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
 
-                    <RelativeLayout
-                        android:id="@+id/relativeLayout2"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="3dip"
-                        android:paddingTop="3dip" >
+                <TextView
+                    android:id="@+id/per_info_detail_area_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/per_info_detail_area_et"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10.0dip"
+                    android:paddingRight="10dip"
+                    android:text="@string/street"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
+            </RelativeLayout>
 
-                        <EditText
-                            android:id="@+id/order_num_et"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:digits="@string/num_digits"
-                            android:imeActionLabel="登录"
-                            android:imeOptions="actionDone|flagNoExtractUi"
-                            android:maxLength="16"
-                            android:maxLines="1"
-                            android:paddingBottom="6.0dip"
-                            android:paddingLeft="70.0dip"
-                            android:paddingRight="50dip"
-                            android:paddingTop="6.0dip"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:background="#ffcfd4da" />
 
-                        <TextView
-                            android:id="@+id/order_num_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@id/order_num_et"
-                            android:paddingLeft="10.0dip"
-                            android:paddingRight="10dip"
-                            android:text="@string/address"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
-                    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="3dip"
+                android:paddingTop="3dip" >
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1.0px"
-                        android:background="#ffcfd4da" />
+                <EditText
+                    android:id="@+id/order_address_et"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:paddingBottom="6.0dip"
+                    android:paddingLeft="70dip"
+                    android:paddingRight="0dip"
+                    android:paddingTop="6.0dip"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
 
-                    <RelativeLayout
-                        android:id="@+id/relativeLayout3"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="3dip"
-                        android:paddingTop="3dip" >
-
-                        <EditText
-                            android:id="@+id/order_phone_et"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:digits="@string/num_digits"
-                            android:imeOptions="actionNext"
-                            android:maxLength="16"
-                            android:maxLines="1"
-                            android:paddingBottom="6.0dip"
-                            android:paddingLeft="70.0dip"
-                            android:paddingRight="50dip"
-                            android:paddingTop="6.0dip"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
-
-                        <TextView
-                            android:id="@+id/order_phone_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@id/order_phone_et"
-                            android:layout_centerVertical="true"
-                            android:paddingLeft="10.0dip"
-                            android:paddingRight="10dip"
-                            android:text="@string/street"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1.0px"
-                        android:background="#ffcfd4da" />
-
-                    <RelativeLayout
-                        android:id="@+id/relativeLayout4"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="3dip"
-                        android:paddingTop="3dip" >
-
-                        <EditText
-                            android:id="@+id/order_address_et"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:imeOptions="actionNext"
-                            android:maxLines="1"
-                            android:paddingBottom="6.0dip"
-                            android:paddingLeft="70dip"
-                            android:paddingRight="0dip"
-                            android:paddingTop="6.0dip"
-                            android:textColor="#ff333333"
-                            android:textSize="14dip" />
-
-                        <TextView
-                            android:id="@+id/order_address_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@id/order_address_et"
-                            android:layout_centerVertical="true"
-                            android:paddingLeft="10.0dip"
-                            android:paddingRight="10dip"
-                            android:text="@string/detail_info"
-                            android:textColor="#ff333333"
-                            android:textSize="16.5dip" />
-                    </RelativeLayout>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/order_address_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/order_address_et"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10.0dip"
+                    android:paddingRight="10dip"
+                    android:text="@string/detail_info"
+                    android:textColor="@color/black_character"
+                    android:textSize="@dimen/medium_text_size" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
-</merge>
+</LinearLayout>

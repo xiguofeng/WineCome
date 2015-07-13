@@ -35,8 +35,10 @@
     <string name="now_buy">立即购买</string>
     
     <!-- person info -->
+    <string name="info_input">信息录入</string>
     <string name="mobile_phone">手机</string>
     <string name="verification_code">验证码</string>
+    <string name="get_verification_code">获取验证码</string>
     <string name="address">地址</string>
     <string name="street">街道</string>
     <string name="detail_info">详细信息</string>
