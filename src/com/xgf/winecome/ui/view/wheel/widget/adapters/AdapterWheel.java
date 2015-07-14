@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.view.wheel.widget.adapters;
 
 import android.content.Context;
+
 import com.xgf.winecome.ui.view.wheel.widget.WheelAdapter;
 
 /**

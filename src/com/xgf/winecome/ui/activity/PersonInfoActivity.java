@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
@@ -17,13 +19,25 @@ public class PersonInfoActivity extends BaseWheelActivity implements
 	private WheelView mViewDistrict;
 	private Button mBtnConfirm;
 
+	private LinearLayout mVerCodeLl;
+	private LinearLayout mSubmitLl;
+
+	private EditText mPhoneEt;
+	private EditText mVerCodeEt;
+	private EditText mAreaEt;
+	private EditText mDetailAreaEt;
+	private EditText mDateEt;
+	private EditText mTimeEt;
+	private EditText mInvoiceTitleEt;
+	private EditText mInvoiceContentEt;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_info_form);
 		setUpViews();
 		setUpListener();
-		setUpData();
+		// setUpData();
 	}
 
 	private void setUpViews() {
@@ -31,17 +45,31 @@ public class PersonInfoActivity extends BaseWheelActivity implements
 		// mViewCity = (WheelView) findViewById(R.id.id_city);
 		// mViewDistrict = (WheelView) findViewById(R.id.id_district);
 		// mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
+		mVerCodeLl = (LinearLayout) findViewById(R.id.per_info_ver_code_ll);
+		mSubmitLl = (LinearLayout) findViewById(R.id.per_info_submit_ll);
+
+		mPhoneEt = (EditText) findViewById(R.id.per_info_phone_et);
+		mVerCodeEt = (EditText) findViewById(R.id.per_info_ver_code_et);
+		mAreaEt = (EditText) findViewById(R.id.per_info_area_et);
+		mDetailAreaEt = (EditText) findViewById(R.id.per_info_detail_area_et);
+		mDateEt = (EditText) findViewById(R.id.per_info_date_et);
+		mTimeEt = (EditText) findViewById(R.id.per_info_time_et);
+		mInvoiceTitleEt = (EditText) findViewById(R.id.per_info_invoice_title_et);
+		mInvoiceContentEt = (EditText) findViewById(R.id.per_info_invoice_content_et);
 	}
 
 	private void setUpListener() {
-		// 添加change事件
-		mViewProvince.addChangingListener(this);
-		// 添加change事件
-		mViewCity.addChangingListener(this);
-		// 添加change事件
-		mViewDistrict.addChangingListener(this);
-		// 添加onclick事件
-		mBtnConfirm.setOnClickListener(this);
+		// // 添加change事件
+		// mViewProvince.addChangingListener(this);
+		// // 添加change事件
+		// mViewCity.addChangingListener(this);
+		// // 添加change事件
+		// mViewDistrict.addChangingListener(this);
+		// // 添加onclick事件
+		// mBtnConfirm.setOnClickListener(this);
+
+		mVerCodeLl.setOnClickListener(this);
+		mSubmitLl.setOnClickListener(this);
 	}
 
 	private void setUpData() {

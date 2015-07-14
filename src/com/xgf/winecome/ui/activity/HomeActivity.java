@@ -17,7 +17,8 @@ import android.widget.TextView;
 import com.xgf.winecome.R;
 import com.xgf.winecome.utils.CartManager;
 
-public class HomeActivity extends TabActivity {
+public class HomeActivity extends TabActivity implements
+		android.view.View.OnClickListener {
 
 	public static final String TAG = HomeActivity.class.getSimpleName();
 
@@ -33,6 +34,8 @@ public class HomeActivity extends TabActivity {
 
 	private static TextView mTotalMoneyTv;
 
+	private LinearLayout mBuyLl;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,6 +49,8 @@ public class HomeActivity extends TabActivity {
 		mTabButtonGroup = (RadioGroup) findViewById(R.id.home_radio_button_group);
 		mPayMenuLl = (LinearLayout) findViewById(R.id.home_pay_menu);
 		mTotalMoneyTv = (TextView) findViewById(R.id.home_total_pay_tv);
+		mBuyLl = (LinearLayout) findViewById(R.id.home_buy_ll);
+		mBuyLl.setOnClickListener(this);
 	}
 
 	private void initView() {
@@ -143,6 +148,24 @@ public class HomeActivity extends TabActivity {
 		} else {
 			mPayMenuLl.setVisibility(View.GONE);
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.home_buy_ll: {
+			Intent intent = new Intent(HomeActivity.this,
+					PersonInfoActivity.class);
+			//intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in,
+					R.anim.push_left_out);
+			break;
+		}
+		default:
+			break;
+		}
+
 	}
 
 }
