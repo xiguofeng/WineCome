@@ -21,6 +21,7 @@ public class PersonInfoActivity extends BaseWheelActivity implements
 
 	private LinearLayout mVerCodeLl;
 	private LinearLayout mSubmitLl;
+	private LinearLayout mInvoiceLl;
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
@@ -47,6 +48,7 @@ public class PersonInfoActivity extends BaseWheelActivity implements
 		// mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
 		mVerCodeLl = (LinearLayout) findViewById(R.id.per_info_ver_code_ll);
 		mSubmitLl = (LinearLayout) findViewById(R.id.per_info_submit_ll);
+		mInvoiceLl= (LinearLayout) findViewById(R.id.per_info_invoice_ll);
 
 		mPhoneEt = (EditText) findViewById(R.id.per_info_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.per_info_ver_code_et);
@@ -70,6 +72,7 @@ public class PersonInfoActivity extends BaseWheelActivity implements
 
 		mVerCodeLl.setOnClickListener(this);
 		mSubmitLl.setOnClickListener(this);
+		mInvoiceLl.setOnClickListener(this);
 	}
 
 	private void setUpData() {

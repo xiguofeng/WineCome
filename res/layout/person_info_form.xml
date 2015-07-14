@@ -386,6 +386,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/per_info_invoice_ll"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
