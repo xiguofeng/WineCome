@@ -35,5 +35,8 @@
     <color name="gray_divide_line">#9f9e9e</color>    
     
     <color name="province_line_border">#C7C7C7</color>
+     <!-- 自定义Dialog的背景颜色 -->
+    <color name="dialog_bg">#50000000</color>
+    <color name="corner_border_color">#F3F4F3</color>
 
 </resources>

@@ -1,27 +1,33 @@
 package com.xgf.winecome.ui.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
-import com.xgf.winecome.ui.view.wheel.widget.WheelView;
-import com.xgf.winecome.ui.view.wheel.widget.adapters.ArrayWheelAdapter;
 
-public class PersonInfoActivity extends BaseWheelActivity implements
-		OnClickListener, OnWheelChangedListener {
-	private WheelView mViewProvince;
-	private WheelView mViewCity;
-	private WheelView mViewDistrict;
-	private Button mBtnConfirm;
+public class PersonInfoActivity extends Activity implements OnClickListener,
+		TextWatcher {
 
 	private LinearLayout mVerCodeLl;
 	private LinearLayout mSubmitLl;
 	private LinearLayout mInvoiceLl;
+
+	private RelativeLayout mAreaRl;
+	private RelativeLayout mTimeRl;
+	private RelativeLayout mDateRl;
+
+	private TextView mAreaTv;
+	private TextView mTimeTv;
+	private TextView mDateTv;
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
@@ -38,17 +44,21 @@ public class PersonInfoActivity extends BaseWheelActivity implements
 		setContentView(R.layout.person_info_form);
 		setUpViews();
 		setUpListener();
-		// setUpData();
+		setUpData();
 	}
 
 	private void setUpViews() {
-		// mViewProvince = (WheelView) findViewById(R.id.id_province);
-		// mViewCity = (WheelView) findViewById(R.id.id_city);
-		// mViewDistrict = (WheelView) findViewById(R.id.id_district);
-		// mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
 		mVerCodeLl = (LinearLayout) findViewById(R.id.per_info_ver_code_ll);
 		mSubmitLl = (LinearLayout) findViewById(R.id.per_info_submit_ll);
-		mInvoiceLl= (LinearLayout) findViewById(R.id.per_info_invoice_ll);
+		mInvoiceLl = (LinearLayout) findViewById(R.id.per_info_invoice_ll);
+
+		mAreaRl = (RelativeLayout) findViewById(R.id.per_info_area_rl);
+		mTimeRl = (RelativeLayout) findViewById(R.id.per_info_time_rl);
+		mDateRl = (RelativeLayout) findViewById(R.id.per_info_date_rl);
+
+		mAreaTv = (TextView) findViewById(R.id.per_info_area_tv);
+		mTimeTv = (TextView) findViewById(R.id.per_info_time_tv);
+		mDateTv = (TextView) findViewById(R.id.per_info_date_tv);
 
 		mPhoneEt = (EditText) findViewById(R.id.per_info_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.per_info_ver_code_et);
@@ -61,82 +71,66 @@ public class PersonInfoActivity extends BaseWheelActivity implements
 	}
 
 	private void setUpListener() {
-		// // 添加change事件
-		// mViewProvince.addChangingListener(this);
-		// // 添加change事件
-		// mViewCity.addChangingListener(this);
-		// // 添加change事件
-		// mViewDistrict.addChangingListener(this);
-		// // 添加onclick事件
-		// mBtnConfirm.setOnClickListener(this);
-
 		mVerCodeLl.setOnClickListener(this);
 		mSubmitLl.setOnClickListener(this);
 		mInvoiceLl.setOnClickListener(this);
+		mAreaRl.setOnClickListener(this);
+		mTimeRl.setOnClickListener(this);
+		mDateRl.setOnClickListener(this);
+		mAreaTv.setOnClickListener(this);
+		mTimeTv.setOnClickListener(this);
+		mDateTv.setOnClickListener(this);
 	}
 
 	private void setUpData() {
-		initProvinceDatas();
-		mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
-				PersonInfoActivity.this, mProvinceDatas));
-		// 设置可见条目数量
-		mViewProvince.setVisibleItems(7);
-		mViewCity.setVisibleItems(7);
-		mViewDistrict.setVisibleItems(7);
-		updateCities();
-		updateAreas();
+	}
+
+	private void updateShow() {
+		mVerCodeEt.setError("");
 	}
 
 	@Override
-	public void onChanged(WheelView wheel, int oldValue, int newValue) {
-		// TODO Auto-generated method stub
-		if (wheel == mViewProvince) {
-			updateCities();
-		} else if (wheel == mViewCity) {
-			updateAreas();
-		} else if (wheel == mViewDistrict) {
-			mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-			mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-		}
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
 	}
 
-	/**
-	 * 根据当前的市，更新区WheelView的信息
-	 */
-	private void updateAreas() {
-		int pCurrent = mViewCity.getCurrentItem();
-		mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-		String[] areas = mDistrictDatasMap.get(mCurrentCityName);
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-		if (areas == null) {
-			areas = new String[] { "" };
-		}
-		mViewDistrict
-				.setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-		mViewDistrict.setCurrentItem(0);
 	}
 
-	/**
-	 * 根据当前的省，更新市WheelView的信息
-	 */
-	private void updateCities() {
-		int pCurrent = mViewProvince.getCurrentItem();
-		mCurrentProviceName = mProvinceDatas[pCurrent];
-		String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-		if (cities == null) {
-			cities = new String[] { "" };
-		}
-		mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
-		mViewCity.setCurrentItem(0);
-		updateAreas();
+	@Override
+	public void afterTextChanged(Editable s) {
+		updateShow();
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		// case R.id.btn_confirm:
-		// //showSelectedResult();
-		// break;
+		case R.id.per_info_area_rl:
+		case R.id.per_info_area_tv:
+		case R.id.per_info_area_et: {
+			Intent intent = new Intent(PersonInfoActivity.this,
+					AreaSelectActivity.class);
+			startActivity(intent);
+			break;
+		}
+		case R.id.per_info_date_rl:
+		case R.id.per_info_date_tv:
+		case R.id.per_info_date_et: {
+			Intent intent = new Intent(PersonInfoActivity.this,
+					AreaSelectActivity.class);
+			startActivity(intent);
+			break;
+		}
+		case R.id.per_info_time_rl:
+		case R.id.per_info_time_tv:
+		case R.id.per_info_time_et: {
+			Intent intent = new Intent(PersonInfoActivity.this,
+					DateWheelActivity.class);
+			startActivity(intent);
+			break;
+		}
 		default:
 			break;
 		}

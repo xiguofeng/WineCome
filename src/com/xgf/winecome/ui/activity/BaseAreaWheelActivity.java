@@ -16,7 +16,7 @@ import com.xgf.winecome.entity.DistrictModel;
 import com.xgf.winecome.entity.ProvinceModel;
 import com.xgf.winecome.utils.XmlParserHandler;
 
-public class BaseWheelActivity extends Activity {
+public class BaseAreaWheelActivity extends Activity {
 	
 	/**
 	 * 所有省

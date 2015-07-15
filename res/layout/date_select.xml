@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#E9E9E9"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_bg" >
+
+        <TextView
+            android:id="@+id/date_select_cance_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:padding="10dip"
+            android:text="@string/cancel"
+            android:textColor="@color/orange_text"
+            android:textSize="@dimen/medium_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/date_select"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/medium_text_size" />
+
+        <TextView
+            android:id="@+id/date_select_confirm_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:padding="10dip"
+            android:text="@string/confirm"
+            android:textColor="@color/blue_content_bg"
+            android:textSize="@dimen/medium_text_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:orientation="horizontal" >
+
+        <com.xgf.winecome.ui.view.wheel.widget.WheelView
+            android:id="@+id/id_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </com.xgf.winecome.ui.view.wheel.widget.WheelView>
+
+        <com.xgf.winecome.ui.view.wheel.widget.WheelView
+            android:id="@+id/id_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </com.xgf.winecome.ui.view.wheel.widget.WheelView>
+
+        <com.xgf.winecome.ui.view.wheel.widget.WheelView
+            android:id="@+id/id_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </com.xgf.winecome.ui.view.wheel.widget.WheelView>
+    </LinearLayout>
+
+</LinearLayout>

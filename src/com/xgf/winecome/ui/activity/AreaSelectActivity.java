@@ -1,36 +1,46 @@
 package com.xgf.winecome.ui.activity;
 
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
 import com.xgf.winecome.ui.view.wheel.widget.WheelView;
 import com.xgf.winecome.ui.view.wheel.widget.adapters.ArrayWheelAdapter;
 
-public class AreaSelectActivity extends BaseWheelActivity implements
+public class AreaSelectActivity extends BaseAreaWheelActivity implements
 		OnClickListener, OnWheelChangedListener {
 	private WheelView mViewProvince;
 	private WheelView mViewCity;
 	private WheelView mViewDistrict;
-	private Button mBtnConfirm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.person_info_form);
+		setContentView(R.layout.area_select);
 		setUpViews();
 		setUpListener();
 		setUpData();
 	}
 
 	private void setUpViews() {
-		// mViewProvince = (WheelView) findViewById(R.id.id_province);
-		// mViewCity = (WheelView) findViewById(R.id.id_city);
-		// mViewDistrict = (WheelView) findViewById(R.id.id_district);
-		// mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
+		WindowManager m = getWindowManager();
+		Display d = m.getDefaultDisplay(); // 为获取屏幕宽、高
+		LayoutParams p = getWindow().getAttributes(); // 获取对话框当前的参数值
+		p.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.9
+		// p.alpha = 1.0f; // 设置本身透明度
+		p.dimAmount = 0.6f;
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+		getWindow().setAttributes(p);
+
+		mViewProvince = (WheelView) findViewById(R.id.id_province);
+		mViewCity = (WheelView) findViewById(R.id.id_city);
+		mViewDistrict = (WheelView) findViewById(R.id.id_district);
+		//mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
 	}
 
 	private void setUpListener() {
@@ -41,7 +51,7 @@ public class AreaSelectActivity extends BaseWheelActivity implements
 		// 添加change事件
 		mViewDistrict.addChangingListener(this);
 		// 添加onclick事件
-		mBtnConfirm.setOnClickListener(this);
+		//mBtnConfirm.setOnClickListener(this);
 	}
 
 	private void setUpData() {
