@@ -1,11 +1,13 @@
 package com.xgf.winecome.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+import android.widget.TextView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
@@ -17,6 +19,9 @@ public class AreaSelectActivity extends BaseAreaWheelActivity implements
 	private WheelView mViewProvince;
 	private WheelView mViewCity;
 	private WheelView mViewDistrict;
+
+	private TextView mCancelTv;
+	private TextView mConfirmTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,9 @@ public class AreaSelectActivity extends BaseAreaWheelActivity implements
 		mViewProvince = (WheelView) findViewById(R.id.id_province);
 		mViewCity = (WheelView) findViewById(R.id.id_city);
 		mViewDistrict = (WheelView) findViewById(R.id.id_district);
-		//mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
+
+		mCancelTv = (TextView) findViewById(R.id.area_select_cance_tv);
+		mConfirmTv = (TextView) findViewById(R.id.area_select_confirm_tv);
 	}
 
 	private void setUpListener() {
@@ -51,7 +58,9 @@ public class AreaSelectActivity extends BaseAreaWheelActivity implements
 		// 添加change事件
 		mViewDistrict.addChangingListener(this);
 		// 添加onclick事件
-		//mBtnConfirm.setOnClickListener(this);
+		mConfirmTv.setOnClickListener(this);
+		mCancelTv.setOnClickListener(this);
+
 	}
 
 	private void setUpData() {
@@ -113,9 +122,21 @@ public class AreaSelectActivity extends BaseAreaWheelActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		// case R.id.btn_confirm:
-		// //showSelectedResult();
-		// break;
+		case R.id.area_select_cance_tv: {
+			Intent intent = new Intent();
+			setResult(RESULT_CANCELED, intent);
+			finish();
+			break;
+		}
+		case R.id.area_select_confirm_tv: {
+			Intent intent = new Intent();
+			intent.putExtra("area", "" + mCurrentProviceName + ","
+					+ mCurrentCityName + "," + mCurrentDistrictName + ","
+					+ mCurrentZipCode);
+			setResult(RESULT_OK, intent);
+			finish();
+			break;
+		}
 		default:
 			break;
 		}

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -20,7 +21,7 @@ import com.xgf.winecome.ui.view.wheel.widget.WheelView;
 import com.xgf.winecome.ui.view.wheel.widget.adapters.ArrayWheelAdapter;
 import com.xgf.winecome.utils.DateUtils;
 
-public class DateWheelActivity extends Activity implements OnClickListener,
+public class DateSelectActivity extends Activity implements OnClickListener,
 		OnWheelChangedListener {
 	private TextView mCancelTv;
 	private TextView mConfirmTv;
@@ -131,17 +132,17 @@ public class DateWheelActivity extends Activity implements OnClickListener,
 				bigDays[i] = (1 + i) + " 日";
 			}
 		}
-		yearsAdapter = new ArrayWheelAdapter<String>(DateWheelActivity.this,
+		yearsAdapter = new ArrayWheelAdapter<String>(DateSelectActivity.this,
 				years);
-		monthsAdapter = new ArrayWheelAdapter<String>(DateWheelActivity.this,
+		monthsAdapter = new ArrayWheelAdapter<String>(DateSelectActivity.this,
 				months);
-		tinyDaysAdapter = new ArrayWheelAdapter<String>(DateWheelActivity.this,
-				tinyDays);
+		tinyDaysAdapter = new ArrayWheelAdapter<String>(
+				DateSelectActivity.this, tinyDays);
 		smallDaysAdapter = new ArrayWheelAdapter<String>(
-				DateWheelActivity.this, smallDays);
+				DateSelectActivity.this, smallDays);
 		normalDaysAdapter = new ArrayWheelAdapter<String>(
-				DateWheelActivity.this, normalDays);
-		bigDaysAdapter = new ArrayWheelAdapter<String>(DateWheelActivity.this,
+				DateSelectActivity.this, normalDays);
+		bigDaysAdapter = new ArrayWheelAdapter<String>(DateSelectActivity.this,
 				bigDays);
 		mViewYear.setViewAdapter(yearsAdapter);
 		mViewYear.setCurrentItem(getTodayYear());
@@ -394,12 +395,17 @@ public class DateWheelActivity extends Activity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.date_select_confirm_tv: {
-			Log.e("xxx_date", "" + getSelectedDate());
+		case R.id.date_select_cance_tv: {
+			Intent intent = new Intent();
+			setResult(RESULT_CANCELED, intent);
+			finish();
 			break;
 		}
-		case R.id.date_select_cance_tv: {
-
+		case R.id.date_select_confirm_tv: {
+			Intent intent = new Intent();
+			intent.putExtra("date", getSelectedDate());
+			setResult(RESULT_OK, intent);
+			finish();
 			break;
 		}
 		default:

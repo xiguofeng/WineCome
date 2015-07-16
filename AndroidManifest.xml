@@ -74,11 +74,18 @@
             android:theme="@style/dialogTheme" >
         </activity>
         <activity
-            android:name="com.xgf.winecome.ui.activity.DateWheelActivity"
+            android:name="com.xgf.winecome.ui.activity.DateSelectActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:theme="@style/dialogTheme" >
         </activity>
+        <activity
+            android:name="com.xgf.winecome.ui.activity.TimeSelectActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:theme="@style/dialogTheme" >
+        </activity>
+        
 
         <service
             android:name="com.xgf.winecome.service.MsgService"

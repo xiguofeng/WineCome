@@ -21,7 +21,7 @@ public class TimeUtils {
      */
     public static String TimeStamp2Date(String timestampString, String pattern) {
         if (timestampString != null && !"".equals(timestampString)) {
-            Long timestamp = Long.parseLong(timestampString) * 1000;
+            Long timestamp = Long.parseLong(timestampString);
             String date = new java.text.SimpleDateFormat(pattern).format(new java.util.Date(
                     timestamp));
             return date;

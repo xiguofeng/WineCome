@@ -151,6 +151,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		mLeftLv.setAdapter(mCategoryAdapter);
 		mCategoryAdapter.notifyDataSetChanged();
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		TranslateAnimation animation = new TranslateAnimation(0, 0, -y, 0);
+		animation.setDuration(500);
+		animation.setFillAfter(true);
+		mFirstBg.startAnimation(animation);
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 
 	@Override
 	public void onClick(View v) {
