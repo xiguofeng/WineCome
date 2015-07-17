@@ -1,5 +1,6 @@
 package com.xgf.winecome.ui.activity;
 
+
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.DialogInterface;
@@ -28,7 +29,7 @@ public class HomeActivity extends TabActivity implements
 
 	private RadioGroup mTabButtonGroup;
 
-	private TabHost mTabHost;
+	private static TabHost mTabHost;
 
 	private static LinearLayout mPayMenuLl;
 
@@ -142,6 +143,16 @@ public class HomeActivity extends TabActivity implements
 		mTotalMoneyTv.setText(totalPrice);
 	}
 
+	public static void showOrhHidePayBarByCart(boolean flag) {
+		
+		mTabHost.setCurrentTabByTag(TAB_MAIN);
+		if (flag) {
+			mPayMenuLl.setVisibility(View.VISIBLE);
+		} else {
+			mPayMenuLl.setVisibility(View.GONE);
+		}
+	}
+
 	public static void showOrhHidePayBar(boolean flag) {
 		if (flag) {
 			mPayMenuLl.setVisibility(View.VISIBLE);
@@ -156,10 +167,9 @@ public class HomeActivity extends TabActivity implements
 		case R.id.home_buy_ll: {
 			Intent intent = new Intent(HomeActivity.this,
 					PersonInfoActivity.class);
-			//intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
+			// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
 			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in,
-					R.anim.push_left_out);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
 		default:

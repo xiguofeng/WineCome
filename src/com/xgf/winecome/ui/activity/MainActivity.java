@@ -160,6 +160,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		mFirstBg.startAnimation(animation);
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+	
 
 	@Override
 	public void onClick(View v) {

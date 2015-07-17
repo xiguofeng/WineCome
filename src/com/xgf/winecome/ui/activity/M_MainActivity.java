@@ -1,5 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
+
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,6 +40,7 @@ public class M_MainActivity extends FragmentActivity {
 	private boolean isDirection_right = false;
 	private View showView;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
