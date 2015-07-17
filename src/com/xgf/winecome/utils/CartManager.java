@@ -18,6 +18,16 @@ public class CartManager {
 
 	private static boolean sHasGoodsByDetailFlag = false;
 
+	public static void getTotalMoney() {
+		double totalPay = 0;
+		for (Goods goods : sCartList) {
+			totalPay = totalPay
+					+ (Integer.parseInt(goods.getNum()) * Double
+							.parseDouble(goods.getPrice()));
+		}
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay));
+	}
+
 	public static void cartModifyByMain(Goods goods) {
 
 		for (int i = 0; i < sCartList.size(); i++) {

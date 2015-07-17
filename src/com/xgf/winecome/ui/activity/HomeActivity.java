@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -43,7 +42,7 @@ public class HomeActivity extends TabActivity implements
 
 	private static TextView mCartTotalMoneyTv;
 
-	private CheckBox mCheckIb;
+	private CheckBox mCheckAllIb;
 
 	private LinearLayout mBuyLl;
 
@@ -65,7 +64,7 @@ public class HomeActivity extends TabActivity implements
 		mCartTotalMoneyTv = (TextView) findViewById(R.id.home_cart_total_pay_tv);
 		mBuyLl = (LinearLayout) findViewById(R.id.home_main_buy_ll);
 		mBuyLl.setOnClickListener(this);
-		mCheckIb = (CheckBox) findViewById(R.id.home_cart_pay_ib);
+		mCheckAllIb = (CheckBox) findViewById(R.id.home_cart_pay_ib);
 	}
 
 	private void initView() {
@@ -90,7 +89,8 @@ public class HomeActivity extends TabActivity implements
 						switch (checkedId) {
 						case R.id.home_tab_home_rb:
 							mTabHost.setCurrentTabByTag(TAB_MAIN);
-							showOrhHideCartPayBar(false);
+							showOrHideCartPayBar(false);
+							mCheckAllIb.setChecked(false);
 							if (CartManager.sCartList.size() > 0) {
 								showOrhHideMainPayBar(true);
 							} else {
@@ -101,13 +101,13 @@ public class HomeActivity extends TabActivity implements
 						case R.id.home_tab_cart_rb:
 							mTabHost.setCurrentTabByTag(TAB_CART);
 							showOrhHideMainPayBar(false);
-							showOrhHideCartPayBar(true);
+							showOrHideCartPayBar(true);
 							break;
 
 						case R.id.home_tab_more_rb:
 							mTabHost.setCurrentTabByTag(TAB_MORE);
 							showOrhHideMainPayBar(false);
-							showOrhHideCartPayBar(false);
+							showOrHideCartPayBar(false);
 							break;
 
 						default:
@@ -116,12 +116,13 @@ public class HomeActivity extends TabActivity implements
 					}
 				});
 
-		mCheckIb.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
+		mCheckAllIb.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
 
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				ShopCartActivity.refreshView(isChecked);
+				CartManager.getTotalMoney();
 			}
 
 		});
@@ -146,9 +147,6 @@ public class HomeActivity extends TabActivity implements
 
 	public static void modifyCartPayView(String totalPrice) {
 		mCartTotalMoneyTv.setText(totalPrice);
-		if (Double.parseDouble(totalPrice) > 0) {
-			showOrhHideCartPayBar(true);
-		}
 	}
 
 	public static void showOrhHideMainPayBar(boolean flag) {
@@ -161,16 +159,13 @@ public class HomeActivity extends TabActivity implements
 		}
 	}
 
-	public static void showOrhHideCartPayBar(boolean flag) {
-		Log.e("xxx", "showOrhHideCartPayBar");
+	public static void showOrHideCartPayBar(boolean flag) {
 		mPayMenuRl.setVisibility(View.VISIBLE);
 		if (flag && mTabHost.getCurrentTabTag().endsWith(TAB_CART)) {
 			mMainPayMenuLl.setVisibility(View.GONE);
 			mCartPayMenuLl.setVisibility(View.VISIBLE);
-			Log.e("xxx", "showOrhHideCartPayBar_show");
 		} else {
 			mPayMenuRl.setVisibility(View.GONE);
-			Log.e("xxx", "showOrhHideCartPayBar_gone");
 		}
 	}
 
