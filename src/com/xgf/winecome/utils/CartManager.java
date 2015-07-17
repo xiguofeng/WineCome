@@ -23,9 +23,6 @@ public class CartManager {
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
 				sHasGoodsFlag = true;
-				// int appendNum = Integer.parseInt(goods.getNum());
-				// int beforeNum = Integer.parseInt(sOrderList.get(i).getNum());
-				// goods.setNum(String.valueOf(beforeNum + appendNum));
 				sCartList.set(i, goods);
 				break;
 

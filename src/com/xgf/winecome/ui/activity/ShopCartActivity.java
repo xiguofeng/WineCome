@@ -22,6 +22,7 @@ import com.xgf.winecome.ui.view.listview.SwipeMenu;
 import com.xgf.winecome.ui.view.listview.SwipeMenuCreator;
 import com.xgf.winecome.ui.view.listview.SwipeMenuItem;
 import com.xgf.winecome.ui.view.listview.SwipeMenuListView;
+import com.xgf.winecome.utils.CartManager;
 
 public class ShopCartActivity extends Activity implements OnClickListener {
 
@@ -40,6 +41,12 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shop_cart);
 		initView();
+		initData();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		initData();
 	}
 
@@ -123,15 +130,8 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 	}
 
 	private void initData() {
-		for (int i = 0; i < 20; i++) {
-			Goods goods = new Goods();
-			goods.setId("" + i);
-			goods.setName("酒" + i);
-			goods.setPrice("" + i);
-			goods.setNum("1");
-			mGoodsList.add(goods);
-		}
-
+		mGoodsList.clear();
+		mGoodsList.addAll(CartManager.sCartList);
 		mGoodsAdapter.initCheck();
 		mGoodsAdapter.notifyDataSetChanged();
 
