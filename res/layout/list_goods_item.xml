@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:background="@color/white_list_content_bg"
     android:descendantFocusability="blocksDescendants"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
     android:gravity="center_horizontal" >
 
     <RelativeLayout
@@ -76,44 +78,55 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <RelativeLayout
+            
+            <LinearLayout
                 android:id="@+id/right_bottom_rl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dip" >
+                android:layout_marginTop="5dip"
+                android:background="@drawable/corners_bg"
+                android:orientation="horizontal" >
 
                 <ImageButton
                     android:id="@+id/goods_reduce_ib"
                     android:layout_width="40dip"
-                    android:layout_height="40dip"
-                    android:layout_centerVertical="true"
+                    android:layout_height="35dip"
                     android:background="@null"
                     android:focusable="false"
                     android:src="@drawable/reduce" />
 
+                <LinearLayout
+                    android:layout_width="0.5dip"
+                    android:layout_height="35dip"
+                    android:background="@color/gray_divide_line" >
+                </LinearLayout>
+
                 <EditText
                     android:id="@+id/goods_count_et"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/goods_reduce_ib"
+                    android:layout_width="40dip"
+                    android:layout_height="35dip"
                     android:enabled="false"
                     android:focusable="false"
+                    android:gravity="center"
                     android:maxLines="1"
+                    android:background="@null"
                     android:textColor="@color/gray_text"
                     android:textSize="@dimen/small_text_size" />
+
+                <LinearLayout
+                    android:layout_width="0.5dip"
+                    android:layout_height="35dip"
+                    android:background="@color/gray_divide_line" >
+                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/goods_add_ib"
                     android:layout_width="40dip"
-                    android:layout_height="40dip"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/goods_count_et"
+                    android:layout_height="35dip"
                     android:background="@null"
                     android:focusable="false"
                     android:src="@drawable/add" />
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 
