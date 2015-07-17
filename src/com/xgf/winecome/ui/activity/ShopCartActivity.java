@@ -33,7 +33,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 
 	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
 
-	private CartGoodsAdapter mGoodsAdapter;
+	private static CartGoodsAdapter mGoodsAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,8 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 						}
 
 					}
-					mGoodsAdapter.getmIsSelected().remove(mGoodsList.size()+1);
+					mGoodsAdapter.getmIsSelected()
+							.remove(mGoodsList.size() + 1);
 					mGoodsAdapter.notifyDataSetChanged();
 
 					break;
@@ -134,6 +135,15 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 		mGoodsAdapter.initCheck();
 		mGoodsAdapter.notifyDataSetChanged();
 
+	}
+
+	public static void refreshView(boolean isChecked) {
+		if (isChecked) {
+			mGoodsAdapter.initChecked();
+		} else {
+			mGoodsAdapter.initCheck();
+		}
+		mGoodsAdapter.notifyDataSetChanged();
 	}
 
 	private int dp2px(int dp) {

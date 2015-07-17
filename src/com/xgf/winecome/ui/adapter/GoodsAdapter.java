@@ -93,7 +93,7 @@ public class GoodsAdapter extends BaseAdapter implements Watched {
 				Goods goods = mDatas.get(tempPosition);
 				goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) + 1));
 				mDatas.set(tempPosition, goods);
-				CartManager.cartModify(goods);
+				CartManager.cartModifyByMain(goods);
 				notifyDataSetChanged();
 
 			}
@@ -105,7 +105,7 @@ public class GoodsAdapter extends BaseAdapter implements Watched {
 				if (Integer.parseInt(goods.getNum()) > 1) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
 					mDatas.set(tempPosition, goods);
-					CartManager.cartModify(goods);
+					CartManager.cartModifyByMain(goods);
 					notifyDataSetChanged();
 				}
 

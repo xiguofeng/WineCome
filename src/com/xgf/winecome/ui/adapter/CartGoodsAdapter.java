@@ -48,6 +48,12 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 		}
 	}
 
+	public void initChecked() {
+		for (int i = 0; i < mDatas.size(); i++) {
+			getmIsSelected().put(i, true);
+		}
+	}
+
 	@Override
 	public int getCount() {
 		if (mDatas != null) {
@@ -100,9 +106,9 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 		holder.mOriginalPrice.setText("原价￥"
 				+ mDatas.get(position).getOrginPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
-		
+
 		final int tempPosition = position;
-		holder.vId =tempPosition;
+		holder.vId = tempPosition;
 
 		holder.mCheckIb
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -139,7 +145,7 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 				Goods goods = mDatas.get(tempPosition);
 				goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) + 1));
 				mDatas.set(tempPosition, goods);
-				CartManager.cartModify(goods);
+				CartManager.cartModifyByCart(goods);
 				notifyDataSetChanged();
 
 			}
@@ -151,7 +157,7 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 				if (Integer.parseInt(goods.getNum()) > 1) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
 					mDatas.set(tempPosition, goods);
-					CartManager.cartModify(goods);
+					CartManager.cartModifyByCart(goods);
 					notifyDataSetChanged();
 				}
 
@@ -161,7 +167,7 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 	}
 
 	static class ViewHolder {
-		
+
 		public int vId;
 
 		public TextView mName;

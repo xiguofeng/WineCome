@@ -118,7 +118,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.goods_detail_cart_iv:
 		case R.id.goods_detail_add_cart_ll: {
-			CartManager.cartModify(mGoods);
+			CartManager.cartModifyByCart(mGoods);
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {

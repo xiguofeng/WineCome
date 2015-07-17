@@ -18,7 +18,7 @@ public class CartManager {
 
 	private static boolean sHasGoodsByDetailFlag = false;
 
-	public static void cartModify(Goods goods) {
+	public static void cartModifyByMain(Goods goods) {
 
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
@@ -44,10 +44,35 @@ public class CartManager {
 							.parseDouble(goods2.getPrice()));
 		}
 
-		HomeActivity.modifyPayView(String.valueOf(totalPay));
+		HomeActivity.modifyMainPayView(String.valueOf(totalPay));
 	}
 
-	public static void cartModifyByOther(Goods goods) {
+	public static void cartModifyByCart(Goods goods) {
+		for (int i = 0; i < sCartList.size(); i++) {
+			if (sCartList.get(i).getId().endsWith(goods.getId())) {
+				sHasGoodsFlag = true;
+				sCartList.set(i, goods);
+				break;
+
+			}
+		}
+
+		if (!sHasGoodsFlag) {
+			sCartList.add(goods);
+		}
+		sHasGoodsFlag = false;
+
+		double totalPay = 0;
+		for (Goods goods2 : sCartList) {
+			totalPay = totalPay
+					+ (Integer.parseInt(goods2.getNum()) * Double
+							.parseDouble(goods2.getPrice()));
+		}
+
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay));
+	}
+
+	public static void cartModifyByDetail(Goods goods) {
 
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
@@ -71,12 +96,12 @@ public class CartManager {
 							.parseDouble(goods2.getPrice()));
 		}
 
-		HomeActivity.modifyPayView(String.valueOf(totalPay));
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay));
 	}
 
 	public static void showOrhHidePayBar(boolean flag) {
-		HomeActivity.showOrhHidePayBar(flag);
-		
+		HomeActivity.showOrhHideMainPayBar(flag);
+
 	}
 
 	public static ArrayList<Goods> getsCartList() {

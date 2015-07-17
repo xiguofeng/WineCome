@@ -6,10 +6,14 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -29,9 +33,17 @@ public class HomeActivity extends TabActivity implements
 
 	private static TabHost mTabHost;
 
-	private static LinearLayout mPayMenuLl;
+	private static RelativeLayout mPayMenuRl;
 
-	private static TextView mTotalMoneyTv;
+	private static LinearLayout mMainPayMenuLl;
+
+	private static LinearLayout mCartPayMenuLl;
+
+	private static TextView mMainTotalMoneyTv;
+
+	private static TextView mCartTotalMoneyTv;
+
+	private CheckBox mCheckIb;
 
 	private LinearLayout mBuyLl;
 
@@ -46,14 +58,17 @@ public class HomeActivity extends TabActivity implements
 
 	private void findViewById() {
 		mTabButtonGroup = (RadioGroup) findViewById(R.id.home_radio_button_group);
-		mPayMenuLl = (LinearLayout) findViewById(R.id.home_pay_menu);
-		mTotalMoneyTv = (TextView) findViewById(R.id.home_total_pay_tv);
-		mBuyLl = (LinearLayout) findViewById(R.id.home_buy_ll);
+		mPayMenuRl = (RelativeLayout) findViewById(R.id.home_pay_menu_rl);
+		mMainPayMenuLl = (LinearLayout) findViewById(R.id.home_main_pay_menu);
+		mCartPayMenuLl = (LinearLayout) findViewById(R.id.home_cart_pay_menu);
+		mMainTotalMoneyTv = (TextView) findViewById(R.id.home_main_total_pay_tv);
+		mCartTotalMoneyTv = (TextView) findViewById(R.id.home_cart_total_pay_tv);
+		mBuyLl = (LinearLayout) findViewById(R.id.home_main_buy_ll);
 		mBuyLl.setOnClickListener(this);
+		mCheckIb = (CheckBox) findViewById(R.id.home_cart_pay_ib);
 	}
 
 	private void initView() {
-
 		mTabHost = getTabHost();
 
 		Intent i_home = new Intent(this, MainActivity.class);
@@ -75,21 +90,24 @@ public class HomeActivity extends TabActivity implements
 						switch (checkedId) {
 						case R.id.home_tab_home_rb:
 							mTabHost.setCurrentTabByTag(TAB_MAIN);
+							showOrhHideCartPayBar(false);
 							if (CartManager.sCartList.size() > 0) {
-								showOrhHidePayBar(true);
+								showOrhHideMainPayBar(true);
 							} else {
-								showOrhHidePayBar(false);
+								showOrhHideMainPayBar(false);
 							}
 							break;
 
 						case R.id.home_tab_cart_rb:
 							mTabHost.setCurrentTabByTag(TAB_CART);
-							showOrhHidePayBar(false);
+							showOrhHideMainPayBar(false);
+							showOrhHideCartPayBar(true);
 							break;
 
 						case R.id.home_tab_more_rb:
 							mTabHost.setCurrentTabByTag(TAB_MORE);
-							showOrhHidePayBar(false);
+							showOrhHideMainPayBar(false);
+							showOrhHideCartPayBar(false);
 							break;
 
 						default:
@@ -97,6 +115,17 @@ public class HomeActivity extends TabActivity implements
 						}
 					}
 				});
+
+		mCheckIb.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				ShopCartActivity.refreshView(isChecked);
+			}
+
+		});
+
 	}
 
 	private void initData() {
@@ -106,6 +135,60 @@ public class HomeActivity extends TabActivity implements
 	@Override
 	protected void onPause() {
 		super.onPause();
+	}
+
+	public static void modifyMainPayView(String totalPrice) {
+		mMainTotalMoneyTv.setText(totalPrice);
+		if (Double.parseDouble(totalPrice) > 0) {
+			showOrhHideMainPayBar(true);
+		}
+	}
+
+	public static void modifyCartPayView(String totalPrice) {
+		mCartTotalMoneyTv.setText(totalPrice);
+		if (Double.parseDouble(totalPrice) > 0) {
+			showOrhHideCartPayBar(true);
+		}
+	}
+
+	public static void showOrhHideMainPayBar(boolean flag) {
+		mPayMenuRl.setVisibility(View.VISIBLE);
+		if (flag && mTabHost.getCurrentTabTag().endsWith(TAB_MAIN)) {
+			mMainPayMenuLl.setVisibility(View.VISIBLE);
+			mCartPayMenuLl.setVisibility(View.GONE);
+		} else {
+			mPayMenuRl.setVisibility(View.GONE);
+		}
+	}
+
+	public static void showOrhHideCartPayBar(boolean flag) {
+		Log.e("xxx", "showOrhHideCartPayBar");
+		mPayMenuRl.setVisibility(View.VISIBLE);
+		if (flag && mTabHost.getCurrentTabTag().endsWith(TAB_CART)) {
+			mMainPayMenuLl.setVisibility(View.GONE);
+			mCartPayMenuLl.setVisibility(View.VISIBLE);
+			Log.e("xxx", "showOrhHideCartPayBar_show");
+		} else {
+			mPayMenuRl.setVisibility(View.GONE);
+			Log.e("xxx", "showOrhHideCartPayBar_gone");
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.home_main_buy_ll: {
+			Intent intent = new Intent(HomeActivity.this,
+					PersonInfoActivity.class);
+			// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			break;
+		}
+		default:
+			break;
+		}
+
 	}
 
 	protected void exitApp() {
@@ -134,38 +217,6 @@ public class HomeActivity extends TabActivity implements
 				.setPositiveButton(positiveText, onPositiveClickListener)
 				.setNegativeButton(negativeText, onNegativeClickListener)
 				.show();
-	}
-
-	public static void modifyPayView(String totalPrice) {
-		mTotalMoneyTv.setText(totalPrice);
-		if (Double.parseDouble(totalPrice) > 0) {
-			showOrhHidePayBar(true);
-		}
-	}
-
-	public static void showOrhHidePayBar(boolean flag) {
-		if (flag && mTabHost.getCurrentTabTag().endsWith(TAB_MAIN)) {
-			mPayMenuLl.setVisibility(View.VISIBLE);
-		} else {
-			mPayMenuLl.setVisibility(View.GONE);
-		}
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.home_buy_ll: {
-			Intent intent = new Intent(HomeActivity.this,
-					PersonInfoActivity.class);
-			// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
-			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-			break;
-		}
-		default:
-			break;
-		}
-
 	}
 
 }
