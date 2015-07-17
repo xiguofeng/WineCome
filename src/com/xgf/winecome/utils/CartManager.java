@@ -75,7 +75,7 @@ public class CartManager {
 	}
 
 	public static void showOrhHidePayBar(boolean flag) {
-		HomeActivity.showOrhHidePayBarByCart(flag);
+		HomeActivity.showOrhHidePayBar(flag);
 		
 	}
 

@@ -1,13 +1,11 @@
 package com.xgf.winecome.ui.activity;
 
-
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -69,7 +67,6 @@ public class HomeActivity extends TabActivity implements
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_MORE).setIndicator(TAB_MORE)
 				.setContent(i_more));
 
-		Log.e("xxx_", "mTabHost.setCurrentTabByTag(TAB_MORE);");
 		mTabHost.setCurrentTabByTag(TAB_MAIN);
 
 		mTabButtonGroup
@@ -141,20 +138,13 @@ public class HomeActivity extends TabActivity implements
 
 	public static void modifyPayView(String totalPrice) {
 		mTotalMoneyTv.setText(totalPrice);
-	}
-
-	public static void showOrhHidePayBarByCart(boolean flag) {
-		
-		mTabHost.setCurrentTabByTag(TAB_MAIN);
-		if (flag) {
-			mPayMenuLl.setVisibility(View.VISIBLE);
-		} else {
-			mPayMenuLl.setVisibility(View.GONE);
+		if (Double.parseDouble(totalPrice) > 0) {
+			showOrhHidePayBar(true);
 		}
 	}
 
 	public static void showOrhHidePayBar(boolean flag) {
-		if (flag) {
+		if (flag && mTabHost.getCurrentTabTag().endsWith(TAB_MAIN)) {
 			mPayMenuLl.setVisibility(View.VISIBLE);
 		} else {
 			mPayMenuLl.setVisibility(View.GONE);
