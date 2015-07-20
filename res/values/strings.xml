@@ -61,6 +61,7 @@
     <string name="date_select">选择日期</string>
 
     <!-- QrCode -->
+    <string name="qr_code_ver">扫码鉴定</string>
     <string name="qr_code">条码扫描器</string>
     <string name="app_picker_name">应用</string>
     <string name="bookmark_picker_name">书签</string>
