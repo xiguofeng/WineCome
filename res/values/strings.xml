@@ -37,6 +37,17 @@
     <string name="to_settlement">去结算</string>
     <string name="add_cart">加入购物车</string>
     <string name="now_buy">立即购买</string>
+    <string name="pay_type">支付方式</string>
+    <string name="pay_on_delivery">货到付款</string>
+    <string name="pay_on_delivery_brief">送货上门后付款，支持现金、刷卡</string>
+    <string name="pay_online">在线支付</string>
+    <string name="pay_online_brief">支持储蓄卡、信用卡及第三方支付平台</string>
+    <string name="pay_confirm">确认支付</string>
+    <string name="pay_in_cash">现金支付</string>
+    <string name="pay_in_pos">POS机刷卡</string>
+    <string name="alipay">支付宝</string>
+    <string name="wechat">微信</string>
+    <string name="unionpay">银联</string>
 
     <!-- person info -->
     <string name="info_input">信息录入</string>
