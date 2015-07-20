@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 
 public class SplashActivity extends BaseActivity {
 
@@ -30,7 +31,7 @@ public class SplashActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				openActivity(HomeActivity.class);
+				openActivity(CaptureActivity.class);
 				SplashActivity.this.finish();
 			}
 		}, SPLISH_DISPLAY_LENGTH);

@@ -32,11 +32,23 @@
 
     <!-- line -->
     <color name="white_divide_line">#e8e8e8</color>
-    <color name="gray_divide_line">#9f9e9e</color>    
-    
+    <color name="gray_divide_line">#9f9e9e</color>
     <color name="province_line_border">#C7C7C7</color>
-     <!-- 自定义Dialog的背景颜色 -->
+    <!-- 自定义Dialog的背景颜色 -->
     <color name="dialog_bg">#50000000</color>
     <color name="corner_border_color">#F3F4F3</color>
+
+    <!-- qrcode -->
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c099cc00</color> <!-- Android standard ICS color -->
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
+    <color name="viewfinder_mask">#60000000</color>
 
 </resources>
