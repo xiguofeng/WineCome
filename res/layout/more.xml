@@ -34,14 +34,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/order_list" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="15dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
             android:layout_toRightOf="@+id/more_order_iv"
             android:text="@string/order_search"
             android:textColor="@color/black_character"
@@ -51,12 +52,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/more_integral_mall_rl"
+        android:id="@+id/more_integral_shop_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
@@ -64,20 +66,21 @@
         android:padding="5dip" >
 
         <ImageView
-            android:id="@+id/more_integral_mall_iv"
+            android:id="@+id/more_integral_shop_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/integral_shop" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="15dip"
-            android:layout_toRightOf="@+id/more_integral_mall_iv"
-            android:text="@string/order_search"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/more_integral_shop_iv"
+            android:text="@string/integral_shop"
             android:textColor="@color/black_character"
             android:textSize="@dimen/medium_text_size" />
 
@@ -85,15 +88,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dip"
-        android:layout_marginRight="15dip"
+        android:layout_marginLeft="50dip"
         android:background="@drawable/h_line"
         android:orientation="vertical" >
     </LinearLayout>
@@ -110,16 +113,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/integral_search" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="15dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
             android:layout_toRightOf="@+id/more_integral_search_iv"
-            android:text="@string/order_search"
+            android:text="@string/integral_search"
             android:textColor="@color/black_character"
             android:textSize="@dimen/medium_text_size" />
 
@@ -127,15 +131,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dip"
-        android:layout_marginRight="15dip"
+        android:layout_marginLeft="50dip"
         android:background="@drawable/h_line"
         android:orientation="vertical" >
     </LinearLayout>
@@ -152,16 +156,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/integral_exchange" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="15dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
             android:layout_toRightOf="@+id/more_integral_exchange_iv"
-            android:text="@string/order_search"
+            android:text="@string/integral_exchange"
             android:textColor="@color/black_character"
             android:textSize="@dimen/medium_text_size" />
 
@@ -169,8 +174,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
 </LinearLayout>

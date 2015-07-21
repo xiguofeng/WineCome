@@ -25,7 +25,7 @@ public class MoreActivity extends Activity implements OnClickListener {
 
 	private void initView() {
 		mOrderRl = (RelativeLayout) findViewById(R.id.more_order_rl);
-		mIntegralMallRl = (RelativeLayout) findViewById(R.id.more_integral_mall_rl);
+		mIntegralMallRl = (RelativeLayout) findViewById(R.id.more_integral_shop_rl);
 		mIntegralSearchRl = (RelativeLayout) findViewById(R.id.more_integral_search_rl);
 		mIntegralExchangeRl = (RelativeLayout) findViewById(R.id.more_integral_exchange_rl);
 
@@ -46,7 +46,7 @@ public class MoreActivity extends Activity implements OnClickListener {
 
 			break;
 		}
-		case R.id.more_integral_mall_rl: {
+		case R.id.more_integral_shop_rl: {
 
 			break;
 		}

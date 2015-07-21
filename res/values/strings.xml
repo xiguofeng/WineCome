@@ -26,6 +26,10 @@
     <string name="order_search">订单查询</string>
     <string name="select_all">全选</string>
     <string name="settlement">结算(0)</string>
+    <string name="integral_exchange">积分兑换</string>
+    <string name="integral_search">积分查询</string>
+    <string name="integral_shop">积分商城</string>
+    
 
     <!-- notify -->
     <string name="notify">消息</string>
