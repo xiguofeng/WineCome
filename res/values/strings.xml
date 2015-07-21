@@ -35,7 +35,7 @@
     <string name="order_suc">订单成功</string>
     <string name="no_data">没有找到符合条件的房源</string>
 
-    <!-- order -->
+    <!-- pay -->
     <string name="total_price">总金额：</string>
     <string name="to_settlement">去结算</string>
     <string name="add_cart">加入购物车</string>
@@ -51,6 +51,15 @@
     <string name="alipay">支付宝</string>
     <string name="wechat">微信</string>
     <string name="unionpay">银联</string>
+    
+    <!-- order -->
+    <string name="order_list">订单列表</string>
+    <string name="order_state">订单状态</string>
+    <string name="delivery">配送</string>
+    <string name="take_goods">收货</string>
+    <string name="order_cancel">取消订单</string>
+    <string name="order_view">查看订单</string>
+    <string name="order_del">查看订单</string>
 
     <!-- person info -->
     <string name="info_input">信息录入</string>

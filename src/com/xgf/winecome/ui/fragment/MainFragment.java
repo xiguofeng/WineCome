@@ -324,7 +324,7 @@ public class MainFragment extends Fragment implements Watcher {
 			GroupItem item = getGroup(groupPosition);
 			if (convertView == null) {
 				holder = new GroupHolder();
-				convertView = inflater.inflate(R.layout.list_group_item,
+				convertView = inflater.inflate(R.layout.list_order_group_item,
 						parent, false);
 				holder.title = (TextView) convertView
 						.findViewById(R.id.textTitle);
