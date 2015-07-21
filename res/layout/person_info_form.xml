@@ -381,8 +381,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dip"
                     android:background="@color/white"
-                    android:paddingBottom="8dip"
-                    android:paddingTop="8dip" >
+                    android:paddingBottom="4dip"
+                    android:paddingTop="4dip" >
 
                     <TextView
                         android:id="@+id/per_info_invoice_tv"
@@ -395,16 +395,17 @@
                         android:textColor="@color/black_character"
                         android:textSize="@dimen/medium_text_size" />
 
-                    <ImageView
-                        android:id="@+id/per_info_invoice_iv"
-                        android:layout_width="12dp"
-                        android:layout_height="6dp"
+                    <CheckBox
+                        android:id="@+id/per_info_invoice_cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dip"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/service_arrow_down"
-                        android:padding="5dip"
-                        android:tag="service_arrow" />
+                        android:background="@null"
+                        android:button="@drawable/switch_selector"
+                        android:focusable="false"
+                        android:gravity="center" />
                 </RelativeLayout>
 
                 <LinearLayout

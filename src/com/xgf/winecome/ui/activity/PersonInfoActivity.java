@@ -7,6 +7,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -41,6 +44,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private EditText mDetailAreaEt;
 	private EditText mInvoiceTitleEt;
 	private EditText mInvoiceContentEt;
+
+	private CheckBox mInvoiceCb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mDetailAreaEt = (EditText) findViewById(R.id.per_info_detail_area_et);
 		mInvoiceTitleEt = (EditText) findViewById(R.id.per_info_invoice_title_et);
 		mInvoiceContentEt = (EditText) findViewById(R.id.per_info_invoice_content_et);
+
+		mInvoiceCb = (CheckBox) findViewById(R.id.per_info_invoice_cb);
 	}
 
 	private void setUpListener() {
@@ -93,6 +100,22 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mAreaTagTv.setOnClickListener(this);
 		mDateTagTv.setOnClickListener(this);
 		mTimeTagTv.setOnClickListener(this);
+
+		mInvoiceCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if (!isChecked) {
+					mInvoiceInfoLl.setVisibility(View.GONE);
+					mBottomDivLl.setVisibility(View.VISIBLE);
+				} else {
+					mInvoiceInfoLl.setVisibility(View.VISIBLE);
+					mBottomDivLl.setVisibility(View.GONE);
+				}
+
+			}
+		});
 
 	}
 
@@ -166,16 +189,6 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			Intent intent = new Intent(PersonInfoActivity.this,
 					TimeSelectActivity.class);
 			startActivityForResult(intent, 502);
-			break;
-		}
-		case R.id.per_info_invoice_rl: {
-			if (View.VISIBLE == mInvoiceInfoLl.getVisibility()) {
-				mInvoiceInfoLl.setVisibility(View.GONE);
-				mBottomDivLl.setVisibility(View.VISIBLE);
-			} else {
-				mInvoiceInfoLl.setVisibility(View.VISIBLE);
-				mBottomDivLl.setVisibility(View.GONE);
-			}
 			break;
 		}
 		default:
