@@ -213,6 +213,13 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			startActivityForResult(intent, 502);
 			break;
 		}
+		case R.id.per_info_submit_ll: {
+			Intent intent = new Intent(PersonInfoActivity.this,
+					PayActivity.class);
+			startActivity(intent);
+			break;
+		}
+
 		default:
 			break;
 		}

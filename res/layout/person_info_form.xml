@@ -515,7 +515,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:background="@color/red_title_bg"
+                    android:background="@drawable/corners_bg_red"
                     android:gravity="center"
                     android:padding="10dip"
                     android:paddingBottom="3dip"
