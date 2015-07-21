@@ -41,7 +41,7 @@
     <string name="pay_on_delivery">货到付款</string>
     <string name="pay_on_delivery_brief">送货上门后付款，支持现金、刷卡</string>
     <string name="pay_online">在线支付</string>
-    <string name="pay_online_brief">支持储蓄卡、信用卡及第三方支付平台</string>
+    <string name="pay_online_brief">支持银联卡及第三方支付平台</string>
     <string name="pay_confirm">确认支付</string>
     <string name="pay_in_cash">现金支付</string>
     <string name="pay_in_pos">POS机刷卡</string>

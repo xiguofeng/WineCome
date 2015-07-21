@@ -40,15 +40,15 @@
             android:layout_marginLeft="10dip"
             android:text="@string/pay_on_delivery"
             android:textColor="@color/gray_text"
-            android:textSize="@dimen/medium_text_size" />
+            android:textSize="@dimen/middle_text_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dip"
+            android:layout_marginLeft="10dip"
             android:text="@string/pay_on_delivery_brief"
             android:textColor="@color/gray_text"
-            android:textSize="@dimen/middle_text_size" />
+            android:textSize="@dimen/small_text_size" />
     </LinearLayout>
 
     <RelativeLayout
@@ -63,28 +63,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dip"
+            android:layout_marginLeft="10dip"
             android:text="@string/pay_in_cash"
             android:textColor="@color/black_character"
             android:textSize="@dimen/medium_text_size" />
 
         <CheckBox
-            android:id="@+id/pay_cash_ib"
+            android:id="@+id/pay_cash_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
             android:background="@null"
             android:button="@drawable/check_selector"
             android:focusable="false"
             android:gravity="center" />
     </RelativeLayout>
 
-   <RelativeLayout
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:background="@drawable/h_line"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <RelativeLayout
         android:id="@+id/pay_pos_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:background="@color/white"
         android:padding="5dip" >
 
@@ -92,18 +100,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dip"
+            android:layout_marginLeft="10dip"
             android:text="@string/pay_in_pos"
             android:textColor="@color/black_character"
             android:textSize="@dimen/medium_text_size" />
 
-        
         <CheckBox
-            android:id="@+id/pay_pos_ib"
+            android:id="@+id/pay_pos_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
             android:background="@null"
             android:button="@drawable/check_selector"
             android:focusable="false"
@@ -122,19 +130,19 @@
             android:layout_marginLeft="10dip"
             android:text="@string/pay_online"
             android:textColor="@color/gray_text"
-            android:textSize="@dimen/medium_text_size" />
+            android:textSize="@dimen/middle_text_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dip"
+            android:layout_marginLeft="10dip"
             android:text="@string/pay_online_brief"
             android:textColor="@color/gray_text"
-            android:textSize="@dimen/middle_text_size" />
+            android:textSize="@dimen/small_text_size" />
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/more_integral_mall_rl"
+        android:id="@+id/pay_alipay_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
@@ -142,20 +150,21 @@
         android:padding="5dip" >
 
         <ImageView
-            android:id="@+id/more_integral_mall_iv"
+            android:id="@+id/pay_alipay_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/map" />
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/alipay" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="15dip"
-            android:layout_toRightOf="@+id/more_integral_mall_iv"
-            android:text="@string/order_search"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/pay_alipay_iv"
+            android:text="@string/alipay"
             android:textColor="@color/black_character"
             android:textSize="@dimen/medium_text_size" />
 
@@ -163,40 +172,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dip"
-        android:layout_marginRight="15dip"
+        android:layout_marginLeft="30dip"
         android:background="@drawable/h_line"
         android:orientation="vertical" >
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/more_integral_search_rl"
+        android:id="@+id/pay_wechat_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="5dip" >
 
         <ImageView
-            android:id="@+id/more_integral_search_iv"
+            android:id="@+id/pay_wechat_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dip"
             android:src="@drawable/wechat" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="15dip"
-            android:layout_toRightOf="@+id/more_integral_search_iv"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/pay_wechat_iv"
             android:text="@string/wechat"
             android:textColor="@color/black_character"
             android:textSize="@dimen/medium_text_size" />
@@ -205,40 +215,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dip"
-        android:layout_marginRight="15dip"
+        android:layout_marginLeft="30dip"
         android:background="@drawable/h_line"
         android:orientation="vertical" >
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/more_integral_exchange_rl"
+        android:id="@+id/pay_unionpay_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="5dip" >
 
         <ImageView
-            android:id="@+id/more_integral_exchange_iv"
+            android:id="@+id/pay_unionpay_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dip"
             android:src="@drawable/card" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="15dip"
-            android:layout_toRightOf="@+id/more_integral_exchange_iv"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/pay_unionpay_iv"
             android:text="@string/unionpay"
             android:textColor="@color/black_character"
             android:textSize="@dimen/medium_text_size" />
@@ -247,7 +258,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
