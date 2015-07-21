@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -101,6 +102,12 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mDateTagTv.setOnClickListener(this);
 		mTimeTagTv.setOnClickListener(this);
 
+		mPhoneEt.addTextChangedListener(this);
+		mVerCodeEt.addTextChangedListener(this);
+		mDetailAreaEt.addTextChangedListener(this);
+		mInvoiceTitleEt.addTextChangedListener(this);
+		mInvoiceContentEt.addTextChangedListener(this);
+
 		mInvoiceCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -123,7 +130,22 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void updateShow() {
-		mVerCodeEt.setError("");
+		if (TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
+			mPhoneEt.setError(getString(R.string.mobile_phone_hint));
+		}
+		if (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim())) {
+			mVerCodeEt.setError(getString(R.string.verification_code_hint));
+		}
+		if (TextUtils.isEmpty(mDetailAreaEt.getText().toString().trim())) {
+			mDetailAreaEt.setError(getString(R.string.detail_info_hint));
+		}
+		if (TextUtils.isEmpty(mInvoiceTitleEt.getText().toString().trim())) {
+			mInvoiceTitleEt.setError(getString(R.string.invoice_title_hint));
+		}
+		if (TextUtils.isEmpty(mInvoiceContentEt.getText().toString().trim())) {
+			mInvoiceContentEt
+					.setError(getString(R.string.invoice_content_hint));
+		}
 	}
 
 	@Override
