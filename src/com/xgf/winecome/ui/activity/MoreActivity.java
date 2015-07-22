@@ -2,6 +2,7 @@ package com.xgf.winecome.ui.activity;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +44,9 @@ public class MoreActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.more_order_rl: {
-
+			Intent intent = new Intent(MoreActivity.this,
+					OrderQueryActivity.class);
+			startActivity(intent);
 			break;
 		}
 		case R.id.more_integral_shop_rl: {

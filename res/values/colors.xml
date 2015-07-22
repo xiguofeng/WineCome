@@ -24,13 +24,13 @@
     <color name="orange_text">#f56344</color>
     <color name="orange_title_bar_bg">#ec5c43</color>
     <color name="orange_stroke">#f5a623</color>
+    <color name="orange_bg">#f5a623</color>
     <color name="yello_bottom_bg">#ffa204</color>
     <color name="blue_content_bg">#4FC1E9</color>
     <!-- <color name="red_title_bg">#cf021b</color> -->
     <color name="red_title_bg">#D0021B</color>
     <color name="zero_all">#00000000</color>
     <color name="transparent_background">#50000000</color>
-    
 
     <!-- line -->
     <color name="white_divide_line">#e8e8e8</color>

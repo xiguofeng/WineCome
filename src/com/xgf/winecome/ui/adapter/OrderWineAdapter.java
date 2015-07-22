@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.ui.view.OrderWineView;
-import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.Watched;
 import com.xgf.winecome.utils.Watcher;
 
@@ -23,13 +23,13 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 	private Context mContext;
 
-	private ArrayList<Goods> mDatas;
+	private ArrayList<Order> mDatas;
 
 	private LayoutInflater mInflater;
 
 	private List<Watcher> mWatcherlist = new ArrayList<Watcher>();
 
-	public OrderWineAdapter(Context context, ArrayList<Goods> datas) {
+	public OrderWineAdapter(Context context, ArrayList<Order> datas) {
 		this.mContext = context;
 		this.mDatas = datas;
 		mInflater = LayoutInflater.from(mContext);
@@ -61,7 +61,7 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 			convertView = mInflater.inflate(R.layout.list_order_item, null);
 
 			holder = new ViewHolder();
-			holder.mState = (TextView) convertView
+			holder.mNum = (TextView) convertView
 					.findViewById(R.id.list_order_group_num_tv);
 			holder.mTime = (TextView) convertView
 					.findViewById(R.id.list_order_group_time_tv);
@@ -80,9 +80,9 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mState.setText(mDatas.get(position).getStandard());
-		holder.mTime.setText("￥" + mDatas.get(position).getPrice());
-		holder.mState.setText("原价￥" + mDatas.get(position).getOrginPrice());
+		holder.mNum.setText(mDatas.get(position).getId());
+		holder.mTime.setText(mDatas.get(position).getTime());
+		holder.mState.setText(mDatas.get(position).getState());
 
 		final int tempPosition = position;
 		holder.mCancelLl.setOnClickListener(new OnClickListener() {
@@ -96,18 +96,17 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 		holder.mDelOrViewLl.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Goods goods = mDatas.get(tempPosition);
-				goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) + 1));
-				mDatas.set(tempPosition, goods);
-				OrderManager.orderModify(goods);
-				notifyDataSetChanged();
 
 			}
 		});
 
-		//TODO
-		OrderWineView orderWineView = new OrderWineView(mContext,
-				mDatas.get(tempPosition));
+		holder.mWineLl.removeAllViews();
+		Goods goods = new Goods();
+		goods.setName("洋河蓝色");
+		goods.setPrice("￥" + "108");
+		goods.setNum("10");
+		// TODO
+		OrderWineView orderWineView = new OrderWineView(mContext, goods);
 		holder.mWineLl.addView(orderWineView);
 		return convertView;
 	}

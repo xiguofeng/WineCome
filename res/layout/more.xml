@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:background="@color/white"
+        android:background="@drawable/common_selector"
         android:padding="5dip" >
 
         <ImageView
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:background="@color/white"
+        android:background="@drawable/common_selector"
         android:padding="5dip" >
 
         <ImageView
@@ -107,7 +107,7 @@
         android:id="@+id/more_integral_search_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/common_selector"
         android:padding="5dip" >
 
         <ImageView
@@ -151,7 +151,7 @@
         android:id="@+id/more_integral_exchange_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/common_selector"
         android:padding="5dip" >
 
         <ImageView

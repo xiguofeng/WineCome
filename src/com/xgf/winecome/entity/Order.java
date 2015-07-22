@@ -75,13 +75,9 @@ public class Order implements Serializable {
 
 	private int probablyWaitTime;
 
-	private String categoryIDLevel2;
+	private String time;
 
-	private String categoryNameLevel2;
-
-	private String categoryIDLevel1;
-
-	private String categoryNameLevel1;
+	private String state;
 
 	public String getId() {
 		return id;
@@ -211,36 +207,20 @@ public class Order implements Serializable {
 		this.probablyWaitTime = probablyWaitTime;
 	}
 
-	public String getCategoryIDLevel2() {
-		return categoryIDLevel2;
+	public String getTime() {
+		return time;
 	}
 
-	public void setCategoryIDLevel2(String categoryIDLevel2) {
-		this.categoryIDLevel2 = categoryIDLevel2;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
-	public String getCategoryNameLevel2() {
-		return categoryNameLevel2;
+	public String getState() {
+		return state;
 	}
 
-	public void setCategoryNameLevel2(String categoryNameLevel2) {
-		this.categoryNameLevel2 = categoryNameLevel2;
-	}
-
-	public String getCategoryIDLevel1() {
-		return categoryIDLevel1;
-	}
-
-	public void setCategoryIDLevel1(String categoryIDLevel1) {
-		this.categoryIDLevel1 = categoryIDLevel1;
-	}
-
-	public String getCategoryNameLevel1() {
-		return categoryNameLevel1;
-	}
-
-	public void setCategoryNameLevel1(String categoryNameLevel1) {
-		this.categoryNameLevel1 = categoryNameLevel1;
+	public void setState(String state) {
+		this.state = state;
 	}
 
 }
