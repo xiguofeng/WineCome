@@ -51,7 +51,7 @@
     <string name="alipay">支付宝</string>
     <string name="wechat">微信</string>
     <string name="unionpay">银联</string>
-    
+
     <!-- order -->
     <string name="order_list">订单列表</string>
     <string name="order_state">订单状态</string>
@@ -61,7 +61,7 @@
     <string name="order_view">查看订单</string>
     <string name="order_del">删除订单</string>
     <string name="query">查询</string>
-    
+
     <!-- person info -->
     <string name="info_input">信息录入</string>
     <string name="mobile_phone">手机</string>
@@ -91,6 +91,11 @@
     <string name="distribution_time_hint">请选择配送时间</string>
     <string name="invoice_title_hint">请填写发票抬头</string>
     <string name="invoice_content_hint">请填写发票内容</string>
+
+    <!-- integral -->
+    <string name="integral_query">积分查询</string>
+    <string name="exchange">兑换</string>
+
 
     <!-- QrCode -->
     <string name="qr_code_ver">扫码鉴定</string>
