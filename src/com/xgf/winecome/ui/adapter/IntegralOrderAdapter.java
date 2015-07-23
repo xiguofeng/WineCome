@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xgf.winecome.R;
@@ -22,8 +20,7 @@ public class IntegralOrderAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 
-	public IntegralOrderAdapter(Context context,
-			ArrayList<IntegralGoods> datas) {
+	public IntegralOrderAdapter(Context context, ArrayList<IntegralGoods> datas) {
 		this.mContext = context;
 		this.mDatas = datas;
 		mInflater = LayoutInflater.from(mContext);
@@ -55,32 +52,46 @@ public class IntegralOrderAdapter extends BaseAdapter {
 					null);
 
 			holder = new ViewHolder();
-			holder.mGoodsIconIv = (ImageView) convertView
-					.findViewById(R.id.integral_gv_item_icon_iv);
-			holder.mGoodsNameTv = (TextView) convertView
-					.findViewById(R.id.integral_gv_item_name_tv);
-			holder.mGoodsScoreTv = (TextView) convertView
-					.findViewById(R.id.integral_gv_item_score_tv);
+			holder.mExchangeIntegralTv = (TextView) convertView
+					.findViewById(R.id.list_integral_order_exchange_tv);
+			holder.mExchangeNameTv = (TextView) convertView
+					.findViewById(R.id.list_integral_order_name_tv);
+			holder.mExchangeNumTv = (TextView) convertView
+					.findViewById(R.id.list_integral_order_num_tv);
+			holder.mExchangeDateTv = (TextView) convertView
+					.findViewById(R.id.list_integral_order_date_tv);
+			holder.mExchangeAddressTv = (TextView) convertView
+					.findViewById(R.id.list_integral_order_address_tv);
+			holder.mExchangePhoneTv = (TextView) convertView
+					.findViewById(R.id.list_integral_order_phone_tv);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mGoodsNameTv.setText(mDatas.get(position).getName());
-		holder.mGoodsScoreTv.setText(mDatas.get(position).getIntegral());
+		holder.mExchangeIntegralTv.setText(mDatas.get(position).getName());
+		holder.mExchangeNameTv.setText(mDatas.get(position).getIntegral());
+		holder.mExchangeNumTv.setText(mDatas.get(position).getName());
+		holder.mExchangeDateTv.setText(mDatas.get(position).getIntegral());
+		holder.mExchangeAddressTv.setText(mDatas.get(position).getName());
+		holder.mExchangePhoneTv.setText(mDatas.get(position).getIntegral());
 		return convertView;
 	}
 
 	static class ViewHolder {
 
-		public ImageView mGoodsIconIv;
+		public TextView mExchangeIntegralTv;
 
-		public TextView mGoodsNameTv;
+		public TextView mExchangeNameTv;
 
-		public TextView mGoodsScoreTv;
+		public TextView mExchangeNumTv;
 
-		private LinearLayout mExchangeLl;
+		public TextView mExchangeDateTv;
+
+		public TextView mExchangeAddressTv;
+
+		public TextView mExchangePhoneTv;
 
 	}
 

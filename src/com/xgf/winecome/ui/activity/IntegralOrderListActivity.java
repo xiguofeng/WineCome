@@ -19,7 +19,7 @@ public class IntegralOrderListActivity extends Activity implements
 	private Context mContext;
 
 	private ListView mOrderLv;
-	
+
 	private IntegralOrderAdapter mAdapter;
 
 	private ArrayList<IntegralGoods> mIntegralGoodsList = new ArrayList<IntegralGoods>();
@@ -41,7 +41,7 @@ public class IntegralOrderListActivity extends Activity implements
 
 	private void initView() {
 		mContext = IntegralOrderListActivity.this;
-		mOrderLv = (ListView) findViewById(R.id.order_list_lv);
+		mOrderLv = (ListView) findViewById(R.id.integral_order_list_lv);
 		mAdapter = new IntegralOrderAdapter(mContext, mIntegralGoodsList);
 		mOrderLv.setAdapter(mAdapter);
 		// mOrderLv.setAdapter(new OrderExAdapter());
