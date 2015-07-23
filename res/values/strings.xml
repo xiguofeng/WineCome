@@ -95,6 +95,7 @@
     <!-- integral -->
     <string name="integral_query">积分查询</string>
     <string name="exchange">兑换</string>
+    <string name="integral_filter">积分筛选</string>
 
 
     <!-- QrCode -->

@@ -1,4 +1,3 @@
-
 package com.xgf.winecome.ui.adapter;
 
 import java.util.ArrayList;
@@ -9,79 +8,80 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.entity.IntegralGoods;
 
 public class IntegralGoodsGvAdapter extends BaseAdapter {
 
-    private Context mContext;
+	private Context mContext;
 
-    private ArrayList<Goods> mDatas;
+	private ArrayList<IntegralGoods> mDatas;
 
-    private LayoutInflater mInflater;
+	private LayoutInflater mInflater;
 
+	public IntegralGoodsGvAdapter(Context context,
+			ArrayList<IntegralGoods> datas) {
+		this.mContext = context;
+		this.mDatas = datas;
+		mInflater = LayoutInflater.from(mContext);
+	}
 
+	@Override
+	public int getCount() {
+		if (mDatas != null) {
+			return mDatas.size();
+		}
+		return 0;
+	}
 
+	@Override
+	public Object getItem(int position) {
+		return position;
+	}
 
-    public IntegralGoodsGvAdapter(Context context, ArrayList<Goods> datas) {
-        this.mContext = context;
-        this.mDatas = datas;
-        mInflater = LayoutInflater.from(mContext);
-    }
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 
-    @Override
-    public int getCount() {
-        if (mDatas != null) {
-            return mDatas.size();
-        }
-        return 0;
-    }
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
+		if (convertView == null) {
+			convertView = mInflater.inflate(R.layout.integral_gv_item_layout,
+					null);
 
-    @Override
-    public Object getItem(int position) {
-        return position;
-    }
+			holder = new ViewHolder();
+			holder.mGoodsIconIv = (ImageView) convertView
+					.findViewById(R.id.integral_gv_item_icon_iv);
+			holder.mGoodsNameTv = (TextView) convertView
+					.findViewById(R.id.integral_gv_item_name_tv);
+			holder.mGoodsScoreTv = (TextView) convertView
+					.findViewById(R.id.integral_gv_item_score_tv);
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
-        if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.integral_gv_item_layout, null);
+		holder.mGoodsNameTv.setText(mDatas.get(position).getName());
+		holder.mGoodsScoreTv.setText(mDatas.get(position).getIntegral());
+		return convertView;
+	}
 
-            holder = new ViewHolder();
-            holder.mGoodsIcon = (ImageView) convertView
-                    .findViewById(R.id.integral_gv_item_icon_iv);
-            holder.mGoodsName = (TextView) convertView
-                    .findViewById(R.id.integral_gv_item_name_tv);
-            holder.mGoodsCategory = (TextView) convertView
-                    .findViewById(R.id.integral_gv_item_score_tv);
-           
+	static class ViewHolder {
 
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-    
-        holder.mGoodsName.setText(mDatas.get(position).getName());
-        return convertView;
-    }
+		public ImageView mGoodsIconIv;
 
-   
-    static class ViewHolder {
+		public TextView mGoodsNameTv;
 
-        public ImageView mGoodsIcon;
+		public TextView mGoodsScoreTv;
 
-        public TextView mGoodsName;
+		private LinearLayout mExchangeLl;
 
-        public TextView mGoodsCategory;
-
-    }
+	}
 
 }

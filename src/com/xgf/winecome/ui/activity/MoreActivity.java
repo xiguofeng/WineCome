@@ -1,6 +1,5 @@
 package com.xgf.winecome.ui.activity;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
 import com.xgf.winecome.R;
+
 public class MoreActivity extends Activity implements OnClickListener {
 
 	private RelativeLayout mOrderRl;
@@ -50,15 +50,22 @@ public class MoreActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.more_integral_shop_rl: {
+			Intent intent = new Intent(MoreActivity.this,
+					IntegralMallActivity.class);
+			startActivity(intent);
 
 			break;
 		}
 		case R.id.more_integral_search_rl: {
-
+			Intent intent = new Intent(MoreActivity.this,
+					IntegralQueryActivity.class);
+			startActivity(intent);
 			break;
 		}
 		case R.id.more_integral_exchange_rl: {
-
+			Intent intent = new Intent(MoreActivity.this,
+					IntegralOrderListActivity.class);
+			startActivity(intent);
 			break;
 		}
 		default:
