@@ -2,7 +2,6 @@ package com.xgf.winecome.ui.view;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.widget.LinearLayout;
 
 import com.xgf.winecome.R;
 
