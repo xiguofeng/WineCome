@@ -15,21 +15,22 @@ public class IntegralQueryActivity extends Activity implements OnClickListener{
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.order_query);
+		setContentView(R.layout.integral_query);
 		setUpViews();
 		setUpListener();
 		setUpData();
 	}
 
 	private void setUpViews() {
-		mQueryLl = (LinearLayout) findViewById(R.id.order_query_submit_ll);
+		mQueryLl = (LinearLayout) findViewById(R.id.integral_query_submit_ll);
 
-		mPhoneEt = (EditText) findViewById(R.id.order_query_phone_et);
-		mVerCodeEt = (EditText) findViewById(R.id.order_query_ver_code_et);
+		mPhoneEt = (EditText) findViewById(R.id.integral_query_phone_et);
+		mVerCodeEt = (EditText) findViewById(R.id.integral_query_ver_code_et);
 	}
 
 	private void setUpListener() {
@@ -44,7 +45,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 
-		case R.id.order_query_submit_ll: {
+		case R.id.integral_query_submit_ll: {
 			Intent intent = new Intent(IntegralQueryActivity.this,
 					OrderListActivity.class);
 			startActivity(intent);

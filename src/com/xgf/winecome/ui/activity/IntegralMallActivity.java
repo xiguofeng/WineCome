@@ -16,10 +16,10 @@ import android.widget.RelativeLayout;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.IntegralGoods;
 import com.xgf.winecome.ui.adapter.IntegralGoodsGvAdapter;
-import com.xgf.winecome.ui.view.CustomClipLoading;
+import com.xgf.winecome.ui.view.CustomProgressDialog;
 
 public class IntegralMallActivity extends Activity implements OnClickListener {
-	
+
 	private Context mContext;
 
 	private GridView mIntegralGoodsGv;
@@ -29,12 +29,16 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 	private IntegralGoodsGvAdapter mGvAdapter;
 
 	private ArrayList<IntegralGoods> mIntegralGoodsList = new ArrayList<IntegralGoods>();
-	
+
+	private CustomProgressDialog mProgressDialog;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.integral_mall);
 		mContext = IntegralMallActivity.this;
+		mProgressDialog = new CustomProgressDialog(mContext);
+		mProgressDialog.show();
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -71,16 +75,14 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 		}
 		mGvAdapter.notifyDataSetChanged();
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			
-			
+
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-
 
 	@Override
 	public void onClick(View v) {
