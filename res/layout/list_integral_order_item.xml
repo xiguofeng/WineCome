@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="5dip"
+    android:paddingTop="5dip" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="10dip"
+        android:paddingTop="6dip" >
+
+        <TextView
+            android:id="@+id/list_integral_order_exchange_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="@string/exchange_integral"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/medium_text_size" />
+
+        <TextView
+            android:id="@+id/list_integral_order_exchange_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="123"
+            android:textColor="@color/black_character"
+            android:textSize="@dimen/medium_text_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/h_line"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="6dip"
+        android:paddingTop="6dip" >
+
+        <TextView
+            android:id="@+id/list_integral_order_name_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="@string/exchange_name"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+
+        <TextView
+            android:id="@+id/list_integral_order_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="123"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="6dip"
+        android:paddingTop="6dip" >
+
+        <TextView
+            android:id="@+id/list_integral_order_num_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="@string/exchange_num"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+
+        <TextView
+            android:id="@+id/list_integral_order_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="123"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="6dip"
+        android:paddingTop="6dip" >
+
+        <TextView
+            android:id="@+id/list_integral_order_date_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="@string/exchange_date"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+
+        <TextView
+            android:id="@+id/list_integral_order_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="123"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="6dip"
+        android:paddingTop="6dip" >
+
+        <TextView
+            android:id="@+id/list_integral_order_address_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="@string/exchange_address"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+
+        <TextView
+            android:id="@+id/list_integral_order_address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:maxLines="2"
+            android:text="123"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="6dip"
+        android:paddingTop="6dip" >
+
+        <TextView
+            android:id="@+id/list_integral_order_phone_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="@string/phone"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+
+        <TextView
+            android:id="@+id/list_integral_order_phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="123"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/middle_text_size" />
+    </RelativeLayout>
+
+</LinearLayout>

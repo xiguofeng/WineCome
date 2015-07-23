@@ -96,6 +96,12 @@
     <string name="integral_query">积分查询</string>
     <string name="exchange">兑换</string>
     <string name="integral_filter">积分筛选</string>
+    <string name="exchange_integral">兑换积分</string>
+    <string name="exchange_name">兑换商品</string>
+    <string name="exchange_num">兑换数量</string>
+    <string name="exchange_date">兑换时间</string>
+    <string name="exchange_address">兑换地址</string>
+    <string name="phone">联系电话</string>
 
 
     <!-- QrCode -->

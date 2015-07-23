@@ -1,59 +1,65 @@
 package com.xgf.winecome.ui.activity;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.entity.IntegralGoods;
+import com.xgf.winecome.ui.adapter.IntegralOrderAdapter;
 
-public class IntegralOrderListActivity extends Activity implements OnClickListener{
-	private LinearLayout mQueryLl;
+public class IntegralOrderListActivity extends Activity implements
+		OnClickListener {
 
-	private EditText mPhoneEt;
-	private EditText mVerCodeEt;
+	private Context mContext;
+
+	private ListView mOrderLv;
+	
+	private IntegralOrderAdapter mAdapter;
+
+	private ArrayList<IntegralGoods> mIntegralGoodsList = new ArrayList<IntegralGoods>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.order_query);
-		setUpViews();
-		setUpListener();
-		setUpData();
+		setContentView(R.layout.integral_order_list);
+		mContext = IntegralOrderListActivity.this;
+		initView();
+		initData();
 	}
 
-	private void setUpViews() {
-		mQueryLl = (LinearLayout) findViewById(R.id.order_query_submit_ll);
-
-		mPhoneEt = (EditText) findViewById(R.id.order_query_phone_et);
-		mVerCodeEt = (EditText) findViewById(R.id.order_query_ver_code_et);
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// initData();
 	}
 
-	private void setUpListener() {
-		mQueryLl.setOnClickListener(this);
-
+	private void initView() {
+		mContext = IntegralOrderListActivity.this;
+		mOrderLv = (ListView) findViewById(R.id.order_list_lv);
+		mAdapter = new IntegralOrderAdapter(mContext, mIntegralGoodsList);
+		mOrderLv.setAdapter(mAdapter);
+		// mOrderLv.setAdapter(new OrderExAdapter());
 	}
 
-	private void setUpData() {
+	private void initData() {
+		mIntegralGoodsList.clear();
+		for (int i = 0; i < 10; i++) {
+			IntegralGoods integralGoods = new IntegralGoods();
+			integralGoods.setName("兑换商品" + i);
+			integralGoods.setIntegral("" + i + "积分");
+			mIntegralGoodsList.add(integralGoods);
+		}
+		mAdapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-
-		case R.id.order_query_submit_ll: {
-			Intent intent = new Intent(IntegralOrderListActivity.this,
-					OrderListActivity.class);
-			startActivity(intent);
-			break;
-		}
-
-		default:
-			break;
-		}
 	}
 
 }
