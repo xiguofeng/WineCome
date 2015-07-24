@@ -61,6 +61,11 @@
     <string name="order_view">查看订单</string>
     <string name="order_del">删除订单</string>
     <string name="query">查询</string>
+    <string name="place_order_suc">下单成功</string>
+    <string name="began_delivery">开始配送</string>
+    <string name="confirm_goods">确认收货</string>
+    <string name="identification_goods">商品鉴别</string>
+    
 
     <!-- person info -->
     <string name="info_input">信息录入</string>
