@@ -3,69 +3,49 @@ package com.xgf.winecome.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 
-public class OrderStateActivity extends Activity implements OnClickListener,
-		TextWatcher {
-	private LinearLayout mQueryLl;
+public class OrderStateActivity extends Activity implements OnClickListener {
 
-	private EditText mPhoneEt;
-	private EditText mVerCodeEt;
+	private ImageView mBackIv;
+
+	private ImageView mQrcodeIv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.order_query);
+		setContentView(R.layout.order_state);
 		setUpViews();
 		setUpListener();
 		setUpData();
 	}
 
 	private void setUpViews() {
-		mQueryLl = (LinearLayout) findViewById(R.id.order_query_submit_ll);
-
-		mPhoneEt = (EditText) findViewById(R.id.order_query_phone_et);
-		mVerCodeEt = (EditText) findViewById(R.id.order_query_ver_code_et);
+		mBackIv = (ImageView) findViewById(R.id.order_state_back_iv);
+		mQrcodeIv = (ImageView) findViewById(R.id.order_state_qr_iv);
 	}
 
 	private void setUpListener() {
-		mQueryLl.setOnClickListener(this);
+		mQrcodeIv.setOnClickListener(this);
+		mBackIv.setOnClickListener(this);
 
-		mPhoneEt.addTextChangedListener(this);
-		mVerCodeEt.addTextChangedListener(this);
 	}
 
 	private void setUpData() {
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
-	}
-
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-	}
-
-	@Override
-	public void afterTextChanged(Editable s) {
-	}
-
-	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 
-		case R.id.order_query_submit_ll: {
+		case R.id.order_state_qr_iv: {
 			Intent intent = new Intent(OrderStateActivity.this,
-					OrderListActivity.class);
+					CaptureActivity.class);
 			startActivity(intent);
 			break;
 		}
