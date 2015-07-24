@@ -47,7 +47,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener{
 
 		case R.id.integral_query_submit_ll: {
 			Intent intent = new Intent(IntegralQueryActivity.this,
-					OrderListActivity.class);
+					OrderStateActivity.class);
 			startActivity(intent);
 			break;
 		}
