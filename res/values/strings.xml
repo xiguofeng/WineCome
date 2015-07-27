@@ -96,6 +96,8 @@
     <string name="distribution_time_hint">请选择配送时间</string>
     <string name="invoice_title_hint">请填写发票抬头</string>
     <string name="invoice_content_hint">请填写发票内容</string>
+     <string name="login_successful">登录成功</string>
+    <string name="login_fail">登录失败</string>
 
     <!-- integral -->
     <string name="integral_query">积分查询</string>

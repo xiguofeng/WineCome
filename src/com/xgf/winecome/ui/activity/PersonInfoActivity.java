@@ -1,8 +1,11 @@
 package com.xgf.winecome.ui.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,9 +20,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.logic.OrderLogic;
 
 public class PersonInfoActivity extends Activity implements OnClickListener,
 		TextWatcher {
+
+	private Context mContext;
 
 	private LinearLayout mVerCodeLl;
 	private LinearLayout mSubmitLl;
@@ -47,6 +54,39 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private EditText mInvoiceContentEt;
 
 	private CheckBox mInvoiceCb;
+
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case OrderLogic.ORDER_CREATE_SUC: {
+				Intent intent = new Intent(PersonInfoActivity.this,
+						PayActivity.class);
+				startActivity(intent);
+				PersonInfoActivity.this.finish();
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
+				break;
+			}
+			case OrderLogic.ORDER_CREATE_FAIL: {
+
+				break;
+			}
+			case OrderLogic.ORDER_CREATE_EXCEPTION: {
+				break;
+			}
+			case OrderLogic.NET_ERROR: {
+				break;
+			}
+			default:
+				break;
+			}
+
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -214,9 +254,20 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.per_info_submit_ll: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					PayActivity.class);
-			startActivity(intent);
+			Order order = new Order();
+			order.setPhone("1002");
+			order.setInvoice("123");
+			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
+			order.setInvoiceContent(mInvoiceContentEt.getText().toString()
+					.trim());
+			order.setLatitude("");
+			order.setLongitude("");
+			order.setProbablyWaitTime("1");
+			order.setState("0");
+			order.setPayType("0");
+			order.setBuyAddress(mAreaTv.getText().toString().trim()
+					+ mDetailAreaEt.getText().toString().trim());
+			OrderLogic.createOrder(mContext, mHandler, order);
 			break;
 		}
 

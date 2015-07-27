@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -20,6 +22,7 @@ import android.widget.ListView;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.network.logic.GoodsLogic;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
 import com.xgf.winecome.ui.adapter.GoodsAdapter;
 
@@ -36,6 +39,45 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private LinearLayout mFirstBg;
 	private float y;
+
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case GoodsLogic.CATEGROY_LIST_GET_SUC: {
+				if (null != msg.obj) {
+
+				}
+				break;
+			}
+			case GoodsLogic.CATEGROY_LIST_GET_FAIL: {
+				break;
+			}
+			case GoodsLogic.CATEGROY_LIST_GET_EXCEPTION: {
+				break;
+			}
+
+			case GoodsLogic.GOODS_LIST_GET_SUC: {
+				if (null != msg.obj) {
+
+				}
+				break;
+			}
+			case GoodsLogic.GOODS_LIST_GET_FAIL: {
+				break;
+			}
+			case GoodsLogic.GOODS_LIST_GET_EXCEPTION: {
+				break;
+			}
+
+			default:
+				break;
+			}
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +134,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void initData() {
+
+		//GoodsLogic.getCategroyList(mContext, mHandler, "白酒");
+		GoodsLogic.getGoodsByCategroy(mContext, mHandler, "1", "1", "10");
 		// TODO 假数据
 		for (int i = 0; i < 20; i++) {
 			Goods goods = new Goods();
@@ -151,7 +196,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		mLeftLv.setAdapter(mCategoryAdapter);
 		mCategoryAdapter.notifyDataSetChanged();
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		TranslateAnimation animation = new TranslateAnimation(0, 0, -y, 0);
@@ -160,7 +205,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		mFirstBg.startAnimation(animation);
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
 
 	@Override
 	public void onClick(View v) {

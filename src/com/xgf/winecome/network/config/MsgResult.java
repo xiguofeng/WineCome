@@ -13,12 +13,12 @@ public class MsgResult {
 	/**
 	 * 请求成功标识
 	 */
-	public static final String RESULT_SUCCESS = "true";
+	public static final String RESULT_SUCCESS = "0";
 
 	/**
 	 * 请求失败标识
 	 */
-	public static final String RESULT_FAIL = "false";
+	public static final String RESULT_FAIL = "-1";
 
 	/**
 	 * msg
@@ -29,17 +29,16 @@ public class MsgResult {
 	 * address
 	 */
 	public static final String RESULT_PUSH_ADDRESS_TAG = "pushAddress";
-	
+
 	/**
 	 * resultType
 	 */
 	public static final String RESULT_TYPE_TAG = "resultType";
-	
+
 	/**
 	 * softDownloadAddress
 	 */
 	public static final String RESULT_SOFTDOWNLOADADDRESS_TAG = "softDownloadAddress";
-
 
 	/**
 	 * errorMessage

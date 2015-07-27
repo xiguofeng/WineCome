@@ -61,9 +61,7 @@ public class Order implements Serializable {
 
 	private String buyAddress;
 
-	private String buyPhone;
-
-	private String buyOrderSucNum;
+	private String phone;
 
 	private String buyPrice;
 
@@ -73,11 +71,19 @@ public class Order implements Serializable {
 
 	private String totalPrice;
 
-	private int probablyWaitTime;
+	private String probablyWaitTime;
 
 	private String time;
 
 	private String state;
+
+	private String invoice;
+
+	private String invoiceTitle;
+
+	private String invoiceContent;
+
+	private String payType;
 
 	public String getId() {
 		return id;
@@ -151,20 +157,12 @@ public class Order implements Serializable {
 		this.buyAddress = buyAddress;
 	}
 
-	public String getBuyPhone() {
-		return buyPhone;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setBuyPhone(String buyPhone) {
-		this.buyPhone = buyPhone;
-	}
-
-	public String getBuyOrderSucNum() {
-		return buyOrderSucNum;
-	}
-
-	public void setBuyOrderSucNum(String buyOrderSucNum) {
-		this.buyOrderSucNum = buyOrderSucNum;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getBuyPrice() {
@@ -199,11 +197,11 @@ public class Order implements Serializable {
 		this.totalPrice = totalPrice;
 	}
 
-	public int getProbablyWaitTime() {
+	public String getProbablyWaitTime() {
 		return probablyWaitTime;
 	}
 
-	public void setProbablyWaitTime(int probablyWaitTime) {
+	public void setProbablyWaitTime(String probablyWaitTime) {
 		this.probablyWaitTime = probablyWaitTime;
 	}
 
@@ -221,6 +219,38 @@ public class Order implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(String invoice) {
+		this.invoice = invoice;
+	}
+
+	public String getInvoiceTitle() {
+		return invoiceTitle;
+	}
+
+	public void setInvoiceTitle(String invoiceTitle) {
+		this.invoiceTitle = invoiceTitle;
+	}
+
+	public String getInvoiceContent() {
+		return invoiceContent;
+	}
+
+	public void setInvoiceContent(String invoiceContent) {
+		this.invoiceContent = invoiceContent;
+	}
+
+	public String getPayType() {
+		return payType;
+	}
+
+	public void setPayType(String payType) {
+		this.payType = payType;
 	}
 
 }
