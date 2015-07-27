@@ -65,7 +65,11 @@
     <string name="began_delivery">开始配送</string>
     <string name="confirm_goods">确认收货</string>
     <string name="identification_goods">商品鉴别</string>
-    
+    <string name="thanks_for_qr">感谢使用就来提供酒水</string>
+    <string name="qr_result_suc">产品鉴定匹配成功</string>
+    <string name="qr_go_on">继续扫码</string>
+    <string name="order_comment">订单评价</string>
+    <string name="identification_qr">扫码鉴定</string>
 
     <!-- person info -->
     <string name="info_input">信息录入</string>
