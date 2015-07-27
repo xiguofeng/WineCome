@@ -67,6 +67,8 @@ import com.xgf.winecome.qrcode.google.zxing.client.result.ResultButtonListener;
 import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
 import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
 import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
+import com.xgf.winecome.ui.activity.OrderQueryActivity;
+import com.xgf.winecome.ui.activity.QrResultActivity;
 
 /**
  * This activity opens the camera and does the actual scanning on a background
@@ -473,6 +475,12 @@ public final class CaptureActivity extends Activity implements
 			}
 			break;
 		}
+		
+		//TODO
+		Intent intent = new Intent(CaptureActivity.this,
+				QrResultActivity.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 	}
 
 	/**

@@ -58,7 +58,7 @@ public class QrResultActivity extends Activity implements OnClickListener {
 		}
 		case R.id.qr_result_order_comment_ll: {
 			Intent intent = new Intent(QrResultActivity.this,
-					OrderQueryActivity.class);
+					CommentsActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
