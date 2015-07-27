@@ -70,6 +70,13 @@
     <string name="qr_go_on">继续扫码</string>
     <string name="order_comment">订单评价</string>
     <string name="identification_qr">扫码鉴定</string>
+    
+    <!-- comments -->
+    <string name="comments">服务评价</string>
+    <string name="comments_please">请为我们的服务打分</string>
+    <string name="comments_very_good">非常满意</string>
+    <string name="comments_good">基本满意</string>
+    <string name="comments_not_good">不满意</string>
 
     <!-- person info -->
     <string name="info_input">信息录入</string>
