@@ -1,83 +1,41 @@
 package com.xgf.winecome.ui.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.network.logic.UserLogic;
 
 public class QrResultActivity extends Activity implements OnClickListener {
-	private LinearLayout mQueryLl;
 
-	private EditText mPhoneEt;
-	private EditText mVerCodeEt;
-	private Context mContext;
-	// 登陆装填提示handler更新主线程，提示登陆状态情况
-	Handler mLoginHandler = new Handler() {
+	private LinearLayout mQueryOrderLl;
 
-		@Override
-		public void handleMessage(Message msg) {
-			int what = msg.what;
-			switch (what) {
-			case UserLogic.LOGIN_SUC: {
-				Intent intent = new Intent(QrResultActivity.this,
-						OrderListActivity.class);
-				startActivity(intent);
-				QrResultActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
+	private LinearLayout mGoOnLl;
 
-				break;
-			}
-			case UserLogic.LOGIN_FAIL: {
-				Toast.makeText(mContext, R.string.login_fail,
-						Toast.LENGTH_SHORT).show();
-				break;
-			}
-			case UserLogic.LOGIN_EXCEPTION: {
-				break;
-			}
-			case UserLogic.NET_ERROR: {
-				break;
-			}
-
-			default:
-				break;
-			}
-
-		}
-
-	};
+	private LinearLayout mOrderCommentLl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.order_query);
-		mContext = QrResultActivity.this;
+		setContentView(R.layout.qr_result);
 		setUpViews();
 		setUpListener();
 		setUpData();
 	}
 
 	private void setUpViews() {
-		mQueryLl = (LinearLayout) findViewById(R.id.order_query_submit_ll);
-
-		mPhoneEt = (EditText) findViewById(R.id.order_query_phone_et);
-		mVerCodeEt = (EditText) findViewById(R.id.order_query_ver_code_et);
+		mQueryOrderLl = (LinearLayout) findViewById(R.id.qr_result_order_search_ll);
+		mGoOnLl = (LinearLayout) findViewById(R.id.qr_result_go_on_ll);
+		mOrderCommentLl = (LinearLayout) findViewById(R.id.qr_result_order_comment_ll);
 	}
 
 	private void setUpListener() {
-		mQueryLl.setOnClickListener(this);
-
+		mQueryOrderLl.setOnClickListener(this);
+		mGoOnLl.setOnClickListener(this);
+		mOrderCommentLl.setOnClickListener(this);
 	}
 
 	private void setUpData() {
@@ -87,8 +45,22 @@ public class QrResultActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 
-		case R.id.order_query_submit_ll: {
+		case R.id.qr_result_go_on_ll: {
 
+			break;
+		}
+		case R.id.qr_result_order_search_ll: {
+			Intent intent = new Intent(QrResultActivity.this,
+					OrderQueryActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			break;
+		}
+		case R.id.qr_result_order_comment_ll: {
+			Intent intent = new Intent(QrResultActivity.this,
+					OrderQueryActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
 
