@@ -38,6 +38,8 @@ public class HomeActivity extends TabActivity implements
 
 	private static LinearLayout mCartPayMenuLl;
 
+	private static LinearLayout mCartBuyLl;
+
 	private static TextView mMainTotalMoneyTv;
 
 	private static TextView mCartTotalMoneyTv;
@@ -64,6 +66,8 @@ public class HomeActivity extends TabActivity implements
 		mCartTotalMoneyTv = (TextView) findViewById(R.id.home_cart_total_pay_tv);
 		mBuyLl = (LinearLayout) findViewById(R.id.home_main_buy_ll);
 		mBuyLl.setOnClickListener(this);
+		mCartBuyLl = (LinearLayout) findViewById(R.id.home_cart_buy_ll);
+		mCartBuyLl.setOnClickListener(this);
 		mCheckAllIb = (CheckBox) findViewById(R.id.home_cart_pay_ib);
 	}
 
@@ -116,16 +120,17 @@ public class HomeActivity extends TabActivity implements
 					}
 				});
 
-		mCheckAllIb.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
+		mCheckAllIb
+				.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
 
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				ShopCartActivity.refreshView(isChecked);
-				CartManager.getTotalMoney();
-			}
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						ShopCartActivity.refreshView(isChecked);
+						CartManager.getTotalMoney();
+					}
 
-		});
+				});
 
 	}
 
@@ -180,6 +185,15 @@ public class HomeActivity extends TabActivity implements
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
+		case R.id.home_cart_buy_ll: {
+			Intent intent = new Intent(HomeActivity.this,
+					PersonInfoActivity.class);
+			// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			break;
+		}
+
 		default:
 			break;
 		}
