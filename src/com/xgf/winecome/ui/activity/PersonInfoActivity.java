@@ -287,20 +287,27 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.per_info_submit_ll: {
-			Order order = new Order();
-			order.setPhone("1002");
-			order.setInvoice("123");
-			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
-			order.setInvoiceContent(mInvoiceContentEt.getText().toString()
-					.trim());
-			order.setLatitude("");
-			order.setLongitude("");
-			order.setProbablyWaitTime("1");
-			order.setState("0");
-			order.setPayType("0");
-			order.setBuyAddress(mAreaTv.getText().toString().trim()
-					+ mDetailAreaEt.getText().toString().trim());
-			OrderLogic.createOrder(mContext, mHandler, order);
+//			Order order = new Order();
+//			order.setPhone("1002");
+//			order.setInvoice("123");
+//			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
+//			order.setInvoiceContent(mInvoiceContentEt.getText().toString()
+//					.trim());
+//			order.setLatitude("");
+//			order.setLongitude("");
+//			order.setProbablyWaitTime("1");
+//			order.setState("0");
+//			order.setPayType("0");
+//			order.setBuyAddress(mAreaTv.getText().toString().trim()
+//					+ mDetailAreaEt.getText().toString().trim());
+//			OrderLogic.createOrder(mContext, mHandler, order);
+			
+			Intent intent = new Intent(PersonInfoActivity.this,
+					PayActivity.class);
+			startActivity(intent);
+			PersonInfoActivity.this.finish();
+			overridePendingTransition(R.anim.push_left_in,
+					R.anim.push_left_out);
 			break;
 		}
 
