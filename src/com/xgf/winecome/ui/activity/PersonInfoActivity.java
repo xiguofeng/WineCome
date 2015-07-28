@@ -9,6 +9,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -19,9 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.utils.LocationUtilsV5;
+import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
 
 public class PersonInfoActivity extends Activity implements OnClickListener,
 		TextWatcher {
@@ -54,6 +58,9 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private EditText mInvoiceContentEt;
 
 	private CheckBox mInvoiceCb;
+
+	private String mLat;
+	private String mLon;
 
 	Handler mHandler = new Handler() {
 
@@ -167,6 +174,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void setUpData() {
+		getLoc();
 	}
 
 	private void updateShow() {
@@ -186,6 +194,31 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			mInvoiceContentEt
 					.setError(getString(R.string.invoice_content_hint));
 		}
+	}
+
+	private void getLoc() {
+		LocationUtilsV5.getLocation(getApplicationContext(),
+				new LocationCallback() {
+					@Override
+					public void onGetLocation(BDLocation location) {
+						Log.e("xxx_latitude", "" + location.getLatitude());
+						Log.e("xxx_longitude", "" + location.getLongitude());
+
+						mLat = String.valueOf(location.getLatitude());
+						mLon = String.valueOf(location.getLongitude());
+						String addr = location.getAddrStr();
+						if (!TextUtils.isEmpty(addr)) {
+							if (addr.contains("区")) {
+								int index = addr.indexOf("区");
+								addr = addr.substring(0, index + 1);
+								Log.e("xxx_addr", "" + addr);
+								mAreaTv.setText(addr);
+							} else {
+								mAreaTv.setText(addr);
+							}
+						}
+					}
+				});
 	}
 
 	@Override

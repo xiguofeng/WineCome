@@ -72,6 +72,8 @@ public class UserLogic {
 					ht.call(RequestUrl.NAMESPACE + "/"
 							+ RequestUrl.account.login, envelope);
 
+					Log.e("xxx_sop", rpc.toString());
+
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
@@ -85,7 +87,7 @@ public class UserLogic {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
-					e.printStackTrace();  
+					e.printStackTrace();
 				} catch (XmlPullParserException e) {
 					e.printStackTrace();
 				} catch (JSONException e) {
