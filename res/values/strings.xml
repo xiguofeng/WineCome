@@ -77,6 +77,10 @@
     <string name="comments_very_good">非常满意</string>
     <string name="comments_good">基本满意</string>
     <string name="comments_not_good">不满意</string>
+    <string name="thanks_for_comments">感谢您的评价</string>
+    <string name="thanks_comments">感谢评价</string>
+    <string name="comments_result_suc">您已经获得100积分</string>
+    
 
     <!-- person info -->
     <string name="info_input">信息录入</string>
@@ -120,6 +124,7 @@
     <string name="exchange_date">兑换时间</string>
     <string name="exchange_address">兑换地址</string>
     <string name="phone">联系电话</string>
+    <string name="integral_mall_go_to">逛逛积分商城</string>
 
 
     <!-- QrCode -->

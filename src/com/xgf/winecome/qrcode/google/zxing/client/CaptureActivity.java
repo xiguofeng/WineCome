@@ -67,7 +67,6 @@ import com.xgf.winecome.qrcode.google.zxing.client.result.ResultButtonListener;
 import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
 import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
 import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
-import com.xgf.winecome.ui.activity.OrderQueryActivity;
 import com.xgf.winecome.ui.activity.QrResultActivity;
 
 /**
