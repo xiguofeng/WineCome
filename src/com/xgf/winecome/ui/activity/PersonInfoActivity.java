@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.utils.LocationUtilsV5;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
