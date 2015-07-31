@@ -172,7 +172,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 			}
 		});
-
+		
+		mBackIv.setOnClickListener(this);
 	}
 
 	private void setUpData() {
