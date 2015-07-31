@@ -199,7 +199,6 @@
         </activity>
         <activity
             android:name="com.xgf.winecome.pay.alipay.PayDemoActivity"
-            android:icon="@drawable/msp_icon"
             android:label="@string/app_name" >
         </activity>
         <!-- alipay sdk begin -->

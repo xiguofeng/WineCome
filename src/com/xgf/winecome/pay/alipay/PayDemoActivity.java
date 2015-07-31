@@ -18,9 +18,7 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.xgf.winecome.R;
-import com.xgf.winecome.ui.activity.CommentsActivity;
 import com.xgf.winecome.ui.activity.OrderStateActivity;
-import com.xgf.winecome.ui.activity.QrResultActivity;
 
 public class PayDemoActivity extends FragmentActivity {
 
@@ -83,6 +81,7 @@ public class PayDemoActivity extends FragmentActivity {
 			Intent intent = new Intent(PayDemoActivity.this,
 					OrderStateActivity.class);
 			startActivity(intent);
+			PayDemoActivity.this.finish();
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 		};
 	};
