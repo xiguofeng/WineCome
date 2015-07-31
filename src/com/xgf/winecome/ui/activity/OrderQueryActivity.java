@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.entity.User;
 import com.xgf.winecome.network.logic.UserLogic;
 
 public class OrderQueryActivity extends Activity implements OnClickListener,
