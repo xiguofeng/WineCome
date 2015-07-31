@@ -11,6 +11,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.pay.alipay.PayDemoActivity;
 
 public class PayActivity extends Activity implements OnClickListener {
 
@@ -55,7 +56,9 @@ public class PayActivity extends Activity implements OnClickListener {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-
+				if (isChecked) {
+					mPosCb.setChecked(false);
+				}
 			}
 		});
 		mPosCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -63,7 +66,9 @@ public class PayActivity extends Activity implements OnClickListener {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-
+				if (isChecked) {
+					mCashCb.setChecked(false);
+				}
 			}
 		});
 
@@ -75,26 +80,30 @@ public class PayActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		
+
 		case R.id.pay_alipay_rl: {
 			Intent intent = new Intent(PayActivity.this,
-					AreaSelectActivity.class);
+					PayDemoActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.pay_wechat_rl: {
 			Intent intent = new Intent(PayActivity.this,
-					DateSelectActivity.class);
-			startActivityForResult(intent, 501);
+					PayDemoActivity.class);
+			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.pay_unionpay_rl: {
 			Intent intent = new Intent(PayActivity.this,
-					TimeSelectActivity.class);
-			startActivityForResult(intent, 502);
+					PayDemoActivity.class);
+			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.per_info_invoice_rl: {
+			
+			Intent intent = new Intent(PayActivity.this,
+					PayDemoActivity.class);
+			startActivityForResult(intent, 500);
 			break;
 		}
 		default:

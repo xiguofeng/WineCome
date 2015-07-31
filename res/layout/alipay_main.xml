@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.xgf.winecome.pay.ExternalFragment"
+        android:name="com.xgf.winecome.pay.alipay.ExternalFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
