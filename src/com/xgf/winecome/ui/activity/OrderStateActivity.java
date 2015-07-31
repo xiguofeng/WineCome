@@ -33,7 +33,6 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 	private void setUpListener() {
 		mQrcodeIv.setOnClickListener(this);
 		mBackIv.setOnClickListener(this);
-
 	}
 
 	private void setUpData() {

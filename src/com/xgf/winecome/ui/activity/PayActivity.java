@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 
@@ -23,6 +24,8 @@ public class PayActivity extends Activity implements OnClickListener {
 
 	private CheckBox mCashCb;
 	private CheckBox mPosCb;
+
+	private ImageView mBackIv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class PayActivity extends Activity implements OnClickListener {
 
 		mCashCb = (CheckBox) findViewById(R.id.pay_cash_cb);
 		mPosCb = (CheckBox) findViewById(R.id.pay_pos_cb);
+
+		mBackIv = (ImageView) findViewById(R.id.pay_back_iv);
 	}
 
 	private void setUpListener() {
@@ -71,6 +76,8 @@ public class PayActivity extends Activity implements OnClickListener {
 				}
 			}
 		});
+		
+		mBackIv.setOnClickListener(this);
 
 	}
 
@@ -82,28 +89,28 @@ public class PayActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 
 		case R.id.pay_alipay_rl: {
-			Intent intent = new Intent(PayActivity.this,
-					PayDemoActivity.class);
+			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.pay_wechat_rl: {
-			Intent intent = new Intent(PayActivity.this,
-					PayDemoActivity.class);
+			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.pay_unionpay_rl: {
-			Intent intent = new Intent(PayActivity.this,
-					PayDemoActivity.class);
+			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.per_info_invoice_rl: {
-			
-			Intent intent = new Intent(PayActivity.this,
-					PayDemoActivity.class);
+
+			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
 			startActivityForResult(intent, 500);
+			break;
+		}
+		case R.id.pay_back_iv: {
+			PayActivity.this.finish();
 			break;
 		}
 		default:

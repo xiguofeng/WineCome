@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.xgf.winecome.R;
@@ -25,6 +26,8 @@ public class OrderListActivity extends Activity implements OnClickListener {
 	private ArrayList<Order> orderList = new ArrayList<Order>();
 	private List<String> parent = null;
 	private Map<String, List<String>> map = null;
+
+	private ImageView mBackIv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +49,14 @@ public class OrderListActivity extends Activity implements OnClickListener {
 		mOrderLv = (ListView) findViewById(R.id.order_list_lv);
 		mOrderAdapter = new OrderWineAdapter(mContext, orderList);
 		mOrderLv.setAdapter(mOrderAdapter);
+
+		mBackIv = (ImageView) findViewById(R.id.order_list_back_iv);
 		// mOrderLv.setAdapter(new OrderExAdapter());
+		mBackIv.setOnClickListener(this);
 	}
 
 	private void initData() {
+
 		orderList.clear();
 		for (int i = 0; i < 9; i++) {
 			Order order = new Order();
@@ -63,6 +70,14 @@ public class OrderListActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.order_list_back_iv: {
+			finish();
+			break;
+		}
+		default:
+			break;
+		}
 	}
 
 }

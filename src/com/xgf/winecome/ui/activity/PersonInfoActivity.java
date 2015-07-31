@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private EditText mInvoiceContentEt;
 
 	private CheckBox mInvoiceCb;
+	private ImageView mBackIv;
 
 	private String mLat;
 	private String mLon;
@@ -131,6 +133,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mInvoiceContentEt = (EditText) findViewById(R.id.per_info_invoice_content_et);
 
 		mInvoiceCb = (CheckBox) findViewById(R.id.per_info_invoice_cb);
+		mBackIv = (ImageView) findViewById(R.id.per_info_back_iv);
 	}
 
 	private void setUpListener() {
@@ -286,27 +289,30 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.per_info_submit_ll: {
-//			Order order = new Order();
-//			order.setPhone("1002");
-//			order.setInvoice("123");
-//			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
-//			order.setInvoiceContent(mInvoiceContentEt.getText().toString()
-//					.trim());
-//			order.setLatitude("");
-//			order.setLongitude("");
-//			order.setProbablyWaitTime("1");
-//			order.setState("0");
-//			order.setPayType("0");
-//			order.setBuyAddress(mAreaTv.getText().toString().trim()
-//					+ mDetailAreaEt.getText().toString().trim());
-//			OrderLogic.createOrder(mContext, mHandler, order);
-			
+			// Order order = new Order();
+			// order.setPhone("1002");
+			// order.setInvoice("123");
+			// order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
+			// order.setInvoiceContent(mInvoiceContentEt.getText().toString()
+			// .trim());
+			// order.setLatitude("");
+			// order.setLongitude("");
+			// order.setProbablyWaitTime("1");
+			// order.setState("0");
+			// order.setPayType("0");
+			// order.setBuyAddress(mAreaTv.getText().toString().trim()
+			// + mDetailAreaEt.getText().toString().trim());
+			// OrderLogic.createOrder(mContext, mHandler, order);
+
 			Intent intent = new Intent(PersonInfoActivity.this,
 					PayActivity.class);
 			startActivity(intent);
 			PersonInfoActivity.this.finish();
-			overridePendingTransition(R.anim.push_left_in,
-					R.anim.push_left_out);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			break;
+		}
+		case R.id.per_info_back_iv: {
+			PersonInfoActivity.this.finish();
 			break;
 		}
 

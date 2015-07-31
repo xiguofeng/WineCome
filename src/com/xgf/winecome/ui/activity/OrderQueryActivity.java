@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
 	private Context mContext;
+
+	private ImageView mBackIv;
 	// 登陆装填提示handler更新主线程，提示登陆状态情况
 	Handler mLoginHandler = new Handler() {
 
@@ -77,6 +80,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 
 		mPhoneEt = (EditText) findViewById(R.id.order_query_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.order_query_ver_code_et);
+
+		mBackIv = (ImageView) findViewById(R.id.order_query_back_iv);
 	}
 
 	private void setUpListener() {
@@ -84,6 +89,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 
 		mPhoneEt.addTextChangedListener(this);
 		mVerCodeEt.addTextChangedListener(this);
+
+		mBackIv.setOnClickListener(this);
 	}
 
 	private void setUpData() {
@@ -112,6 +119,11 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 			User user = new User();
 			UserLogic.login(mContext, mLoginHandler, user);
 
+			break;
+		}
+		case R.id.order_query_back_iv: {
+
+			finish();
 			break;
 		}
 
