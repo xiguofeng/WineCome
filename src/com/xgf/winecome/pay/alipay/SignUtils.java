@@ -1,4 +1,4 @@
-package com.xgf.winecome.pay;
+package com.xgf.winecome.pay.alipay;
 
 import java.security.KeyFactory;
 import java.security.PrivateKey;

@@ -1,4 +1,4 @@
-package com.xgf.winecome.pay;
+package com.xgf.winecome.pay.alipay;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

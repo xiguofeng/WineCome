@@ -1,4 +1,4 @@
-package com.xgf.winecome.pay;
+package com.xgf.winecome.pay.alipay;
 
 public final class Base64 {
 

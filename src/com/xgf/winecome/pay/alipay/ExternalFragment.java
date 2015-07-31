@@ -1,4 +1,4 @@
-package com.xgf.winecome.pay;
+package com.xgf.winecome.pay.alipay;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
