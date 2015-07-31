@@ -48,6 +48,10 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		}
+		case R.id.order_state_back_iv: {
+			finish();
+			break;
+		}
 
 		default:
 			break;
