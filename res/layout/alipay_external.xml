@@ -98,6 +98,7 @@
             android:layout_margin="10dp"
             android:onClick="check"
             android:text="检查账户"
+            android:visibility="gone"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 
