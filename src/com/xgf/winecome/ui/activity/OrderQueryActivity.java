@@ -115,9 +115,14 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 
 		case R.id.order_query_submit_ll: {
+			
+			Intent intent = new Intent(OrderQueryActivity.this,
+					OrderListActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 
-			User user = new User();
-			UserLogic.login(mContext, mLoginHandler, user);
+//			User user = new User();
+//			UserLogic.login(mContext, mLoginHandler, user);
 
 			break;
 		}
