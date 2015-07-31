@@ -48,6 +48,7 @@ import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -122,6 +123,8 @@ public final class CaptureActivity extends Activity implements
 	private InactivityTimer inactivityTimer;
 	private BeepManager beepManager;
 
+	private ImageView mBackIv;
+
 	ViewfinderView getViewfinderView() {
 		return viewfinderView;
 	}
@@ -147,6 +150,15 @@ public final class CaptureActivity extends Activity implements
 		historyManager.trimHistory();
 		inactivityTimer = new InactivityTimer(this);
 		beepManager = new BeepManager(this);
+
+		mBackIv = (ImageView) findViewById(R.id.qr_back_iv);
+		mBackIv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				CaptureActivity.this.finish();
+			}
+		});
 
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
@@ -474,10 +486,9 @@ public final class CaptureActivity extends Activity implements
 			}
 			break;
 		}
-		
-		//TODO
-		Intent intent = new Intent(CaptureActivity.this,
-				QrResultActivity.class);
+
+		// TODO
+		Intent intent = new Intent(CaptureActivity.this, QrResultActivity.class);
 		startActivity(intent);
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 	}
