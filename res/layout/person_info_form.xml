@@ -87,7 +87,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:digits="@string/num_digits"
                     android:hint=""
                     android:imeActionLabel="下一步"
                     android:imeOptions="actionDone|flagNoExtractUi"
@@ -197,6 +196,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:visibility="gone"
                 android:paddingBottom="3dip"
                 android:paddingTop="3dip" >
 
@@ -205,7 +205,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:digits="@string/num_digits"
                     android:imeOptions="actionNext"
                     android:maxLength="16"
                     android:maxLines="1"
