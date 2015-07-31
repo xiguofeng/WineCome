@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
@@ -27,6 +28,8 @@ import com.xgf.winecome.utils.CartManager;
 public class ShopCartActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
+
+	private TextView mTotalNumTv;
 
 	private SwipeMenuListView mGoodsLv;
 
@@ -52,6 +55,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 
 	private void initView() {
 		mContext = ShopCartActivity.this;
+		mTotalNumTv = (TextView) findViewById(R.id.shop_cart_total_num_tv);
 		mGoodsLv = (SwipeMenuListView) findViewById(R.id.shop_cart_order_lv);
 		mGoodsAdapter = new CartGoodsAdapter(mContext, mGoodsList);
 		mGoodsLv.setAdapter(mGoodsAdapter);
@@ -134,6 +138,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 		mGoodsList.addAll(CartManager.sCartList);
 		mGoodsAdapter.initCheck();
 		mGoodsAdapter.notifyDataSetChanged();
+		mTotalNumTv.setText("(" + String.valueOf(mGoodsList.size()) + ")");
 
 	}
 
