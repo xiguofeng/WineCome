@@ -42,8 +42,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingBottom="10dip"
-        android:paddingTop="10dip" >
+        android:paddingBottom="12dip"
+        android:paddingTop="12dip" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,13 +70,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
             android:orientation="vertical" >
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" >
+                android:layout_marginLeft="10dip"
+                android:background="@color/white"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip" >
 
                 <ImageView
                     android:id="@+id/order_state_step_one_iv"
@@ -85,15 +87,13 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"
                     android:padding="8dip"
-                    android:src="@drawable/dot_grey" />
+                    android:src="@drawable/dot_green" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dip"
-                    android:paddingLeft="10.0dip"
-                    android:paddingRight="10dip"
+                    android:layout_marginLeft="30dip"
                     android:text="@string/place_order_suc"
                     android:textColor="@color/black_character"
                     android:textSize="@dimen/medium_text_size" />
@@ -102,7 +102,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dip"
+                android:layout_marginLeft="15dip"
                 android:background="@drawable/h_line"
                 android:orientation="vertical" >
             </LinearLayout>
@@ -110,7 +110,10 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" >
+                android:background="@color/white"
+                android:layout_marginLeft="10dip"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip" >
 
                 <ImageView
                     android:id="@+id/order_state_step_two_iv"
@@ -119,32 +122,55 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"
                     android:padding="8dip"
-                    android:src="@drawable/dot_grey" />
+                    android:src="@drawable/dot_green" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dip"
-                    android:paddingLeft="10.0dip"
-                    android:paddingRight="10dip"
+                    android:layout_marginLeft="30dip"
                     android:text="@string/began_delivery"
                     android:textColor="@color/black_character"
                     android:textSize="@dimen/medium_text_size" />
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dip"
-                android:background="@drawable/h_line"
-                android:orientation="vertical" >
-            </LinearLayout>
+                android:background="@color/gray_bg"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal" >
+
+                    <com.xgf.winecome.ui.view.CustomClipLoading
+                        android:id="@+id/custom_dialog_loading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                    </com.xgf.winecome.ui.view.CustomClipLoading>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dip"
+                        android:text="00:29:29"
+                        android:textColor="@color/black_character"
+                        android:textSize="@dimen/big_text_size" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" >
+                android:background="@color/white"
+                android:layout_marginLeft="10dip"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip" >
 
                 <ImageView
                     android:id="@+id/order_state_step_three_iv"
@@ -159,18 +185,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dip"
-                    android:paddingLeft="10.0dip"
-                    android:paddingRight="10dip"
+                    android:layout_marginLeft="30dip"
                     android:text="@string/confirm_goods"
-                    android:textColor="@color/black_character"
+                    android:textColor="@color/gray_text"
                     android:textSize="@dimen/medium_text_size" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dip"
+                android:layout_marginLeft="15dip"
                 android:background="@drawable/h_line"
                 android:orientation="vertical" >
             </LinearLayout>
@@ -178,7 +202,10 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" >
+                android:background="@color/white"
+                android:layout_marginLeft="10dip"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip" >
 
                 <ImageView
                     android:id="@+id/order_state_step_four_iv"
@@ -193,11 +220,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dip"
-                    android:paddingLeft="10.0dip"
-                    android:paddingRight="10dip"
+                    android:layout_marginLeft="30dip"
                     android:text="@string/identification_goods"
-                    android:textColor="@color/black_character"
+                    android:textColor="@color/gray_text"
                     android:textSize="@dimen/medium_text_size" />
             </RelativeLayout>
         </LinearLayout>
