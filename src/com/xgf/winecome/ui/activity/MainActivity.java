@@ -135,7 +135,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void initData() {
 
-		//GoodsLogic.getCategroyList(mContext, mHandler, "白酒");
+		// GoodsLogic.getCategroyList(mContext, mHandler, "白酒");
 		GoodsLogic.getGoodsByCategroy(mContext, mHandler, "1", "1", "10");
 		// TODO 假数据
 		for (int i = 0; i < 20; i++) {
@@ -143,6 +143,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			goods.setId("" + i);
 			goods.setName("酒" + i);
 			goods.setPrice("" + i);
+			goods.setOrginPrice("" + 2 * i);
 			goods.setNum("1");
 			mGoodsList.add(goods);
 

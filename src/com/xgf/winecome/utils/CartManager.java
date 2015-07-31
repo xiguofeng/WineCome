@@ -25,7 +25,8 @@ public class CartManager {
 					+ (Integer.parseInt(goods.getNum()) * Double
 							.parseDouble(goods.getPrice()));
 		}
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay));
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
+				String.valueOf(sCartList.size()));
 	}
 
 	public static void cartModifyByMain(Goods goods) {
@@ -76,7 +77,8 @@ public class CartManager {
 							.parseDouble(goods2.getPrice()));
 		}
 
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay));
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
+				String.valueOf(sCartList.size()));
 	}
 
 	public static void cartModifyByDetail(Goods goods) {
@@ -103,7 +105,8 @@ public class CartManager {
 							.parseDouble(goods2.getPrice()));
 		}
 
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay));
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
+				String.valueOf(sCartList.size()));
 	}
 
 	public static void showOrhHidePayBar(boolean flag) {

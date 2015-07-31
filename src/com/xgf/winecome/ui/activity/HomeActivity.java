@@ -44,6 +44,8 @@ public class HomeActivity extends TabActivity implements
 
 	private static TextView mCartTotalMoneyTv;
 
+	private static TextView mCartTotalNumTv;
+
 	private CheckBox mCheckAllIb;
 
 	private LinearLayout mBuyLl;
@@ -64,6 +66,7 @@ public class HomeActivity extends TabActivity implements
 		mCartPayMenuLl = (LinearLayout) findViewById(R.id.home_cart_pay_menu);
 		mMainTotalMoneyTv = (TextView) findViewById(R.id.home_main_total_pay_tv);
 		mCartTotalMoneyTv = (TextView) findViewById(R.id.home_cart_total_pay_tv);
+		mCartTotalNumTv = (TextView) findViewById(R.id.home_cart_total_num_tv);
 		mBuyLl = (LinearLayout) findViewById(R.id.home_main_buy_ll);
 		mBuyLl.setOnClickListener(this);
 		mCartBuyLl = (LinearLayout) findViewById(R.id.home_cart_buy_ll);
@@ -150,8 +153,9 @@ public class HomeActivity extends TabActivity implements
 		}
 	}
 
-	public static void modifyCartPayView(String totalPrice) {
+	public static void modifyCartPayView(String totalPrice, String totalNum) {
 		mCartTotalMoneyTv.setText(totalPrice);
+		mCartTotalNumTv.setText("(" + totalNum + ")");
 	}
 
 	public static void showOrhHideMainPayBar(boolean flag) {
