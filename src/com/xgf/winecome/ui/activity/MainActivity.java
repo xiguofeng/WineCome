@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -48,7 +49,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			switch (what) {
 			case GoodsLogic.CATEGROY_LIST_GET_SUC: {
 				if (null != msg.obj) {
-
+					mCategoryList.clear();
+					mCategoryList
+							.addAll((Collection<? extends Category>) msg.obj);
+					mCategoryAdapter.notifyDataSetChanged();
 				}
 				break;
 			}
@@ -135,8 +139,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void initData() {
 
-		// GoodsLogic.getCategroyList(mContext, mHandler, "白酒");
-		GoodsLogic.getGoodsByCategroy(mContext, mHandler, "1", "1", "10");
+		GoodsLogic.getCategroyList(mContext, mHandler, "");
+		// GoodsLogic.getGoodsByCategroy(mContext, mHandler, "1", "1", "10");
 		// TODO 假数据
 		for (int i = 0; i < 20; i++) {
 			Goods goods = new Goods();
@@ -147,30 +151,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			goods.setNum("1");
 			mGoodsList.add(goods);
 
-			Category category = new Category();
-
-			if (i > 0 && i < 6) {
-				category.setName("白酒" + i);
-				category.setLevel("1");
-			} else if (i > 6 && i < 14) {
-				category.setName("红酒" + i);
-				category.setLevel("1");
-			} else if (i > 14) {
-				category.setName("葡萄酒" + i);
-				category.setLevel("1");
-			}
-
-			if (0 == i) {
-				category.setName("白酒");
-				category.setLevel("0");
-			} else if (6 == i) {
-				category.setName("红酒");
-				category.setLevel("0");
-			} else if (14 == i) {
-				category.setName("葡萄酒");
-				category.setLevel("0");
-			}
-			mCategoryList.add(category);
+			
 		}
 		mGoodsAdapter = new GoodsAdapter(mContext, mGoodsList);
 		mRightLv.setAdapter(mGoodsAdapter);

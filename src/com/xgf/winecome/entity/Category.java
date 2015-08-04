@@ -6,64 +6,34 @@ public class Category implements Serializable {
 
 	private static final long serialVersionUID = 8912365559481657349L;
 
-	private String id;
+	private String ppid;
 
-	private String name;
+	private String ppmc;
 
-	private String brief;
-
-	private String iconUrl;
-
-	private String standard;
-
-	private String level;
-
-	public String getId() {
-		return id;
+	private String pplx;
+	
+	public String getPpid() {
+		return ppid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setPpid(String ppid) {
+		this.ppid = ppid;
 	}
 
-	public String getName() {
-		return name;
+	public String getPpmc() {
+		return ppmc;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPpmc(String ppmc) {
+		this.ppmc = ppmc;
 	}
 
-	public String getBrief() {
-		return brief;
+	public String getPplx() {
+		return pplx;
 	}
 
-	public void setBrief(String brief) {
-		this.brief = brief;
-	}
-
-	public String getIconUrl() {
-		return iconUrl;
-	}
-
-	public void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
-	}
-
-	public String getStandard() {
-		return standard;
-	}
-
-	public void setStandard(String standard) {
-		this.standard = standard;
-	}
-
-	public String getLevel() {
-		return level;
-	}
-
-	public void setLevel(String level) {
-		this.level = level;
+	public void setPplx(String pplx) {
+		this.pplx = pplx;
 	}
 
 }

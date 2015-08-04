@@ -26,6 +26,16 @@ public class MsgResult {
 	public static final String RESULT_MSG_TAG = "message";
 
 	/**
+	 * datas
+	 */
+	public static final String RESULT_DATAS_TAG = "datas";
+	
+	/**
+	 * list
+	 */
+	public static final String RESULT_LIST_TAG = "list";
+
+	/**
 	 * address
 	 */
 	public static final String RESULT_PUSH_ADDRESS_TAG = "pushAddress";
@@ -44,11 +54,6 @@ public class MsgResult {
 	 * errorMessage
 	 */
 	public static final String RESULT_ERROR_MSG_TAG = "errorMessage";
-
-	/**
-	 * 网络请求返回数据标识
-	 */
-	public static final String RESULT_DATA_TAG = "rows";
 
 	public static final String B2A_RESULT_SUCCESS = "0";
 

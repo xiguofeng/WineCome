@@ -22,7 +22,9 @@ import android.util.Log;
 
 import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
+import com.xgf.winecome.utils.JsonUtils;
 
 public class GoodsLogic {
 
@@ -58,7 +60,7 @@ public class GoodsLogic {
 							RequestUrl.goods.queryGoodsCategory);
 
 					rpc.addProperty("topCategory",
-							URLEncoder.encode("白酒", "UTF-8"));
+							URLEncoder.encode(categoryID, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(
@@ -77,9 +79,9 @@ public class GoodsLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_resultStr", resultStr);
+					Log.e("xxx_getCategroyList_resultStr", resultStr);
 
-					if (TextUtils.isEmpty(resultStr)) {
+					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseCategroyListData(obj, handler);
 					}
@@ -98,31 +100,55 @@ public class GoodsLogic {
 
 	}
 
+	// {"datas":{"total":"7","list":[[{"ppid":"1","ppmc":"洋河系列","pplx":"01"},{"ppid":"2","ppmc":"五粮液系列","pplx":"01"},{"ppid":"4","ppmc":"国窖系列","pplx":"01"},{"ppid":"7","ppmc":"茅台系列","pplx":"01"},{"ppid":"9","ppmc":"泸州老窖","pplx":"01"}],[{"ppid":"3","ppmc":"长城系列","pplx":"02"},{"ppid":"5","ppmc":"张裕系列","pplx":"02"}]]},"message":"操作成功","result":"0"}
 	private static void parseCategroyListData(JSONObject response,
 			Handler handler) {
 		try {
-			ArrayList<Category> mTempGoodsCategoryList = new ArrayList<Category>();
-			JSONArray goodsCategoryListArray = response
-					.getJSONArray("goodsCategorys");
 
-			int size = goodsCategoryListArray.length();
-			JSONObject ggnewsListJsonObject = new JSONObject();
-			for (int i = 0; i < size; i++) {
-				ggnewsListJsonObject = goodsCategoryListArray.getJSONObject(i);
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
+				handler.sendEmptyMessage(CATEGROY_LIST_GET_FAIL);
+			} else {
 
-				Category category = new Category();
-				String categoryID = ggnewsListJsonObject
-						.getString("categoryID").trim();
-				String categoryName = ggnewsListJsonObject.getString(
-						"categoryName").trim();
-				mTempGoodsCategoryList.add(category);
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				ArrayList<Category> mTempCategoryList = new ArrayList<Category>();
+				JSONArray categorysListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				int size = categorysListArray.length();
+				for (int i = 0; i < size; i++) {
+					JSONArray categoryListArray = categorysListArray
+							.getJSONArray(i);
+					int categorySize = categoryListArray.length();
+					if (0 == i) {
+						Category category = new Category();
+						category.setPpid("t_0");
+						category.setPplx("t_00");
+						category.setPpmc("白酒");
+						mTempCategoryList.add(category);
+					} else {
+						Category category = new Category();
+						category.setPpid("t_1");
+						category.setPplx("t_10");
+						category.setPpmc("葡萄酒");
+						mTempCategoryList.add(category);
+					}
+					for (int j = 0; j < categorySize; j++) {
+						JSONObject categoryJsonObject = categoryListArray
+								.getJSONObject(i);
+
+						Category category = (Category) JsonUtils
+								.fromJsonToJava(categoryJsonObject,
+										Category.class);
+						mTempCategoryList.add(category);
+					}
+				}
+
+				Message message = new Message();
+				message.what = CATEGROY_LIST_GET_SUC;
+				message.obj = mTempCategoryList;
+				handler.sendMessage(message);
 			}
-
-			Message message = new Message();
-			message.what = CATEGROY_LIST_GET_SUC;
-			message.obj = mTempGoodsCategoryList;
-			handler.sendMessage(message);
-
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(CATEGROY_LIST_GET_EXCEPTION);
 		}
