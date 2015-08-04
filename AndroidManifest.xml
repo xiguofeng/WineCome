@@ -60,6 +60,7 @@
         android:xlargeScreens="true" />
 
     <application
+        android:name="com.xgf.winecome.BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
