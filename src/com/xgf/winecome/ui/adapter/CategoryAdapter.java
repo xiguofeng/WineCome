@@ -75,8 +75,8 @@ public class CategoryAdapter extends BaseAdapter {
 		holder.mSelectIv.setVisibility(View.INVISIBLE);
 		holder.mIconIv.setVisibility(View.INVISIBLE);
 		if ("t_0".equals(mDatas.get(position).getPpid())) {
-			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
-					R.color.white));
+			// holder.mBg.setBackgroundColor(mContext.getResources().getColor(
+			// R.color.white));
 			holder.mIconIv.setVisibility(View.VISIBLE);
 			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 					R.drawable.white_wine));
@@ -84,8 +84,8 @@ public class CategoryAdapter extends BaseAdapter {
 		}
 		
 		if ("t_1".equals(mDatas.get(position).getPpid())) {
-			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
-					R.color.white));
+//			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
+//					R.color.white));
 			holder.mIconIv.setVisibility(View.VISIBLE);
 			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 					R.drawable.white_wine));

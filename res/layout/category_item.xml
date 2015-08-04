@@ -33,14 +33,14 @@
             android:textSize="@dimen/middle_text_size" />
     </LinearLayout>
 
-<!--     <LinearLayout -->
-<!--         android:id="@+id/category_list_divider_ll" -->
-<!--         android:layout_width="fill_parent" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:layout_marginLeft="5dip" -->
-<!--         android:layout_marginRight="5dip" -->
-<!--         android:background="@drawable/h_line" -->
-<!--         android:orientation="vertical" > -->
-<!--     </LinearLayout> -->
+    <!-- <LinearLayout -->
+    <!-- android:id="@+id/category_list_divider_ll" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_marginLeft="5dip" -->
+    <!-- android:layout_marginRight="5dip" -->
+    <!-- android:background="@drawable/h_line" -->
+    <!-- android:orientation="vertical" > -->
+    <!-- </LinearLayout> -->
 
 </LinearLayout>

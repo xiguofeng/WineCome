@@ -166,6 +166,21 @@ public class MainActivity extends Activity implements OnClickListener {
 		mCategoryAdapter = new CategoryAdapter(mContext, mCategoryList);
 		mLeftLv.setAdapter(mCategoryAdapter);
 		mCategoryAdapter.notifyDataSetChanged();
+		mLeftLv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (mCategoryList.get(position).getPpid().equals("t_1")
+						|| mCategoryList.get(position).getPpid().equals("t_0")) {
+
+				} else {
+					GoodsLogic.getGoodsByCategroy(mContext, mHandler,
+							mCategoryList.get(position).getPpid(), "", "0",
+							"30");
+				}
+			}
+		});
 
 		GoodsLogic.getCategroyList(mContext, mHandler, "");
 		// GoodsLogic.getAllGoods(mContext, mHandler);

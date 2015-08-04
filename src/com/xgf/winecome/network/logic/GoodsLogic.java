@@ -311,6 +311,8 @@ public class GoodsLogic {
 				ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
 				JSONArray goodsListArray = jsonObject
 						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				Log.e("xxx_parseGoodsListData_0", "goodsListArray-------->"
+						+ goodsListArray.toString());
 				int size = goodsListArray.length();
 				for (int j = 0; j < size; j++) {
 					JSONObject categoryJsonObject = goodsListArray
