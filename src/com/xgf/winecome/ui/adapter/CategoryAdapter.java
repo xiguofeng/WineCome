@@ -23,6 +23,8 @@ public class CategoryAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 
+	private int mCurrentSelect;
+
 	public CategoryAdapter(Context context, ArrayList<Category> datas) {
 		this.mContext = context;
 		this.mDatas = datas;
@@ -72,6 +74,14 @@ public class CategoryAdapter extends BaseAdapter {
 		holder.mSelectIv.setVisibility(View.INVISIBLE);
 		holder.mIconIv.setVisibility(View.INVISIBLE);
 		if ("t_0".equals(mDatas.get(position).getPpid())) {
+			
+			holder.mIconIv.setVisibility(View.VISIBLE);
+			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
+					R.drawable.white_wine));
+			holder.mSelectIv.setVisibility(View.VISIBLE);
+		}
+
+		if ("t_1".equals(mDatas.get(position).getPpid())) {
 			// holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 			// R.color.white));
 			holder.mIconIv.setVisibility(View.VISIBLE);
@@ -80,15 +90,10 @@ public class CategoryAdapter extends BaseAdapter {
 			holder.mSelectIv.setVisibility(View.VISIBLE);
 		}
 		
-		if ("t_1".equals(mDatas.get(position).getPpid())) {
-//			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
-//					R.color.white));
-			holder.mIconIv.setVisibility(View.VISIBLE);
-			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
-					R.drawable.white_wine));
-			holder.mSelectIv.setVisibility(View.VISIBLE);
+		if (position == mCurrentSelect) {
+			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
+					R.color.white));
 		}
-
 		holder.mName.setText(mDatas.get(position).getPpmc());
 		return convertView;
 	}
@@ -102,5 +107,13 @@ public class CategoryAdapter extends BaseAdapter {
 		public ImageView mSelectIv;
 
 		public ImageView mIconIv;
+	}
+
+	public int getmCurrentSelect() {
+		return mCurrentSelect;
+	}
+
+	public void setmCurrentSelect(int mCurrentSelect) {
+		this.mCurrentSelect = mCurrentSelect;
 	}
 }
