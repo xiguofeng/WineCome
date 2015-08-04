@@ -36,7 +36,7 @@ public class OrderManager {
 		for (Goods goods2 : sOrderList) {
 			totalPay = totalPay
 					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getPrice()));
+							.parseDouble(goods2.getSalesPrice()));
 		}
 
 		HomeActivity.modifyMainPayView(String.valueOf(totalPay));
@@ -63,7 +63,7 @@ public class OrderManager {
 		for (Goods goods2 : sOrderList) {
 			totalPay = totalPay
 					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getPrice()));
+							.parseDouble(goods2.getSalesPrice()));
 		}
 
 		HomeActivity.modifyMainPayView(String.valueOf(totalPay));

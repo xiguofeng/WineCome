@@ -227,8 +227,6 @@ public class GoodsLogic {
 
 				goods.setId(goodsID);
 				goods.setName(goodsName);
-				goods.setBrief(goodsBrief);
-				goods.setPrice(String.valueOf(goodsPrice));
 				mTempGoodsList.add(goods);
 			}
 
@@ -254,12 +252,13 @@ public class GoodsLogic {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
 							RequestUrl.goods.queryGoods);
 
-					rpc.addProperty("ppid", URLEncoder.encode("2", "UTF-8"));
+					rpc.addProperty("ppid", URLEncoder.encode(ppid, "UTF-8"));
 					rpc.addProperty("pageNum",
 							URLEncoder.encode(pageNum, "UTF-8"));
 					rpc.addProperty("pageSize",
 							URLEncoder.encode(pageSize, "UTF-8"));
-					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
+					// rpc.addProperty("md5", URLEncoder.encode("1111",
+					// "UTF-8"));
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(
 							RequestUrl.HOST_URL);
@@ -277,9 +276,9 @@ public class GoodsLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_resultStr", resultStr);
+					Log.e("xxx_getGoodsByCategroy_resultStr", resultStr);
 
-					if (TextUtils.isEmpty(resultStr)) {
+					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseGoodsListData(obj, handler);
 					}
@@ -317,8 +316,89 @@ public class GoodsLogic {
 
 				goods.setId(goodsID);
 				goods.setName(goodsName);
-				goods.setBrief(goodsBrief);
-				goods.setPrice(String.valueOf(goodsPrice));
+				mTempGoodsList.add(goods);
+			}
+
+			Message message = new Message();
+			message.what = GOODS_LIST_BY_KEY_GET_SUC;
+			message.obj = mTempGoodsList;
+			handler.sendMessage(message);
+
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(GOODS_LIST_BY_KEY_GET_EXCEPTION);
+		}
+	}
+
+	public static void getAllGoods(final Context context, final Handler handler) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.goods.queryGoods);
+
+					// rpc.addProperty("md5", URLEncoder.encode("1111",
+					// "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.goods.queryAllGoods, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+					Log.e("xxx_getAllGoods_resultStr", resultStr);
+
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseAllGoodsListData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	private static void parseAllGoodsListData(JSONObject response,
+			Handler handler) {
+		try {
+			ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
+			JSONArray goodsListArray = response.getJSONArray("goodsList");
+
+			int size = goodsListArray.length();
+			JSONObject goodsJsonObject = new JSONObject();
+			for (int i = 0; i < size; i++) {
+				goodsJsonObject = goodsListArray.getJSONObject(i);
+
+				Goods goods = new Goods();
+				String goodsID = goodsJsonObject.getString("goodsID").trim();
+				String goodsName = goodsJsonObject.getString("goodsName")
+						.trim();
+				String goodsBrief = goodsJsonObject.getString("goodsBrief")
+						.trim();
+				Double goodsPrice = goodsJsonObject.getDouble("price");
+
+				goods.setId(goodsID);
+				goods.setName(goodsName);
 				mTempGoodsList.add(goods);
 			}
 

@@ -38,7 +38,7 @@ public class OrderWineView extends LinearLayout {
 
 	public void fillData(Context context, Goods goods) {
 		mNameTv.setText(goods.getName());
-		mPriceTv.setText(goods.getPrice());
+		mPriceTv.setText(goods.getSalesPrice());
 		mNumTv.setText(goods.getNum());
 	}
 

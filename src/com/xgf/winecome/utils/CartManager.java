@@ -23,7 +23,7 @@ public class CartManager {
 		for (Goods goods : sCartList) {
 			totalPay = totalPay
 					+ (Integer.parseInt(goods.getNum()) * Double
-							.parseDouble(goods.getPrice()));
+							.parseDouble(goods.getSalesPrice()));
 		}
 		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
 				String.valueOf(sCartList.size()));
@@ -49,7 +49,7 @@ public class CartManager {
 		for (Goods goods2 : sCartList) {
 			totalPay = totalPay
 					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getPrice()));
+							.parseDouble(goods2.getSalesPrice()));
 		}
 
 		HomeActivity.modifyMainPayView(String.valueOf(totalPay));
@@ -74,7 +74,7 @@ public class CartManager {
 		for (Goods goods2 : sCartList) {
 			totalPay = totalPay
 					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getPrice()));
+							.parseDouble(goods2.getSalesPrice()));
 		}
 
 		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
@@ -102,7 +102,7 @@ public class CartManager {
 		for (Goods goods2 : sCartList) {
 			totalPay = totalPay
 					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getPrice()));
+							.parseDouble(goods2.getSalesPrice()));
 		}
 
 		HomeActivity.modifyCartPayView(String.valueOf(totalPay),

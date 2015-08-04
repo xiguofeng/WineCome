@@ -103,7 +103,7 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 		holder.mWineLl.removeAllViews();
 		Goods goods = new Goods();
 		goods.setName("洋河蓝色");
-		goods.setPrice("￥" + "108");
+		goods.setSalesPrice("￥" + "108");
 		goods.setNum("10");
 		// TODO
 		OrderWineView orderWineView = new OrderWineView(mContext, goods);

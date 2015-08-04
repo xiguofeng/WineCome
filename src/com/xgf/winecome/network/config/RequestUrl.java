@@ -30,6 +30,11 @@ public class RequestUrl {
 	}
 
 	public interface goods {
+		
+		/**
+		 * 查询全部商品
+		 */
+		public String queryAllGoods = "queryAllProduct";
 
 		/**
 		 * 查询商品种类

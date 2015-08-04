@@ -102,9 +102,9 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 		}
 
 		holder.mName.setText(mDatas.get(position).getName());
-		holder.mPrice.setText("￥" + mDatas.get(position).getPrice());
+		holder.mPrice.setText("￥" + mDatas.get(position).getSalesPrice());
 		holder.mOriginalPrice.setText("原价￥"
-				+ mDatas.get(position).getOrginPrice());
+				+ mDatas.get(position).getMarketPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
 
 		final int tempPosition = position;

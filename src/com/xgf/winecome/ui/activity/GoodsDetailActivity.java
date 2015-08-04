@@ -95,21 +95,21 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 
 		mGoodsNameTv.setText(!TextUtils.isEmpty(mGoods.getName()) ? mGoods
 				.getName() : "");
-		mGoodsPriceTv.setText(!TextUtils.isEmpty(mGoods.getPrice()) ? mGoods
-				.getPrice() : "");
+		mGoodsPriceTv.setText(!TextUtils.isEmpty(mGoods.getSalesPrice()) ? mGoods
+				.getSalesPrice() : "");
 		mGoodsOrgPriceTv
-				.setText(!TextUtils.isEmpty(mGoods.getOrginPrice()) ? mGoods
-						.getOrginPrice() : "");
+				.setText(!TextUtils.isEmpty(mGoods.getMarketPrice()) ? mGoods
+						.getMarketPrice() : "");
 		mGoodsProductAreaTv
-				.setText(!TextUtils.isEmpty(mGoods.getProductArea()) ? mGoods
-						.getProductArea() : "");
+				.setText(!TextUtils.isEmpty(mGoods.getArea()) ? mGoods
+						.getArea() : "");
 		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? mGoods
 				.getDegree() : "");
 		mGoodsNumTypeTv
-				.setText(!TextUtils.isEmpty(mGoods.getNumType()) ? mGoods
-						.getNumType() : "");
-		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getScent()) ? mGoods
-				.getScent() : "");
+				.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? mGoods
+						.getLevel() : "");
+		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? mGoods
+				.getModel() : "");
 
 	}
 

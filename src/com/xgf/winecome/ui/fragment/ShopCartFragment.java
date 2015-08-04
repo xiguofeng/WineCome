@@ -119,14 +119,6 @@ public class ShopCartFragment extends Fragment {
 	}
 
 	private void initData() {
-		for (int i = 0; i < 20; i++) {
-			Goods goods = new Goods();
-			goods.setId("" + i);
-			goods.setName("酒" + i);
-			goods.setPrice("" + i);
-			goods.setNum("1");
-			mGoodsList.add(goods);
-		}
 
 		mOrderAdapter.notifyDataSetChanged();
 
