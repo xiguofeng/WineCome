@@ -7,7 +7,7 @@ public class RequestUrl {
 
 	public static final String NAMESPACE = "http://www.diyifw.com";
 
-	public static final String HOST_URL = "http://www.diyifw.com:8080/jll/services/HtzqService";
+	public static final String HOST_URL = "http://www.diyifw.com:8080/jll/services/JllService";
 
 	// public static final String HOST_URL =
 	// "http://192.168.1.101:8080/com.igou.server";
