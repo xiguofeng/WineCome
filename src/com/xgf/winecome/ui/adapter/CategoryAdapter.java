@@ -69,9 +69,6 @@ public class CategoryAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
-		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
-				R.color.white_list_bg));
 		holder.mSelectIv.setVisibility(View.INVISIBLE);
 		holder.mIconIv.setVisibility(View.INVISIBLE);
 		if ("t_0".equals(mDatas.get(position).getPpid())) {
