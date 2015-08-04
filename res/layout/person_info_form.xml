@@ -146,7 +146,8 @@
                 android:layout_marginTop="10dip"
                 android:background="@color/white"
                 android:paddingBottom="3dip"
-                android:paddingTop="3dip" >
+                android:paddingTop="3dip"
+                android:visibility="gone" >
 
                 <TextView
                     android:id="@+id/per_info_area_tag_tv"
@@ -189,16 +190,17 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1.0px"
-                android:background="#ffcfd4da" />
+                android:background="#ffcfd4da"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/relativeLayout3"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:visibility="gone"
                 android:paddingBottom="3dip"
-                android:paddingTop="3dip" >
+                android:paddingTop="3dip"
+                android:visibility="gone" >
 
                 <EditText
                     android:id="@+id/per_info_detail_area_et"
@@ -237,6 +239,7 @@
                 android:id="@+id/relativeLayout4"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
                 android:background="@color/white"
                 android:paddingBottom="3dip"
                 android:paddingTop="3dip" >
@@ -252,6 +255,7 @@
                     android:paddingLeft="100dip"
                     android:paddingRight="0dip"
                     android:paddingTop="6.0dip"
+                    android:hint="@string/detail_info_hint"
                     android:textColor="@color/black_character"
                     android:textSize="@dimen/medium_text_size" />
 
@@ -262,7 +266,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="10.0dip"
                     android:paddingRight="10dip"
-                    android:text="@string/detail_info"
+                    android:text="@string/address"
                     android:textColor="@color/black_character"
                     android:textSize="@dimen/medium_text_size" />
             </RelativeLayout>
