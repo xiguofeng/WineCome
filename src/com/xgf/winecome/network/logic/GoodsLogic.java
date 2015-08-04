@@ -135,7 +135,7 @@ public class GoodsLogic {
 					}
 					for (int j = 0; j < categorySize; j++) {
 						JSONObject categoryJsonObject = categoryListArray
-								.getJSONObject(i);
+								.getJSONObject(j);
 
 						Category category = (Category) JsonUtils
 								.fromJsonToJava(categoryJsonObject,
@@ -241,8 +241,8 @@ public class GoodsLogic {
 	}
 
 	public static void getGoodsByCategroy(final Context context,
-			final Handler handler, final String ppid, final String pageNum,
-			final String pageSize) {
+			final Handler handler, final String ppid, final String name,
+			final String pageNum, final String pageSize) {
 
 		new Thread(new Runnable() {
 
@@ -253,6 +253,7 @@ public class GoodsLogic {
 							RequestUrl.goods.queryGoods);
 
 					rpc.addProperty("ppid", URLEncoder.encode(ppid, "UTF-8"));
+					rpc.addProperty("name", URLEncoder.encode(name, "UTF-8"));
 					rpc.addProperty("pageNum",
 							URLEncoder.encode(pageNum, "UTF-8"));
 					rpc.addProperty("pageSize",
@@ -296,36 +297,36 @@ public class GoodsLogic {
 		}).start();
 	}
 
+	// {"datas":{"total":"5","list":[{"id":"10002","goodsName":"海之蓝","salesPrice":"120","marketPrice":"198","addedTime":"2015-07-01 12:38:50.0","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/","area":"","degree":"45","level":"特级","model":"清香"},{"id":"10003","goodsName":"梦之蓝3","salesPrice":"600","marketPrice":"1024","addedTime":"2015-07-01 12:44:33.0","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/","area":"","degree":"50","level":"优质","model":"浓香"},{"id":"10005","goodsName":"天之蓝","salesPrice":"290","marketPrice":"398","addedTime":"2015-08-02 09:25:46.0","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/","area":"","degree":"50","level":"优质","model":"清香"},{"id":"10009","goodsName":"梦之蓝6","salesPrice":"800","marketPrice":"1000","addedTime":"2015-08-02 09:27:17.0","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/","area":"","degree":"50","level":"特级","model":"清香"},{"id":"2222","name":"梦之蓝9","salesPrice":"388","marketPrice":"398","addedTime":"2015-08-02 10:42:01.0","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/","area":"","degree":"","level":"优质","model":"浓香"}]},"message":"操作成功","result":"0"}
 	private static void parseGoodsListData(JSONObject response, Handler handler) {
 		try {
-			ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
-			JSONArray goodsListArray = response.getJSONArray("goodsList");
 
-			int size = goodsListArray.length();
-			JSONObject goodsJsonObject = new JSONObject();
-			for (int i = 0; i < size; i++) {
-				goodsJsonObject = goodsListArray.getJSONObject(i);
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
+				handler.sendEmptyMessage(GOODS_LIST_GET_FAIL);
+			} else {
 
-				Goods goods = new Goods();
-				String goodsID = goodsJsonObject.getString("goodsID").trim();
-				String goodsName = goodsJsonObject.getString("goodsName")
-						.trim();
-				String goodsBrief = goodsJsonObject.getString("goodsBrief")
-						.trim();
-				Double goodsPrice = goodsJsonObject.getDouble("price");
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
+				JSONArray goodsListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				int size = goodsListArray.length();
+				for (int j = 0; j < size; j++) {
+					JSONObject categoryJsonObject = goodsListArray
+							.getJSONObject(j);
 
-				goods.setId(goodsID);
-				goods.setName(goodsName);
-				mTempGoodsList.add(goods);
+					Goods goods = (Goods) JsonUtils.fromJsonToJava(
+							categoryJsonObject, Goods.class);
+					mTempGoodsList.add(goods);
+				}
+				Message message = new Message();
+				message.what = GOODS_LIST_GET_SUC;
+				message.obj = mTempGoodsList;
+				handler.sendMessage(message);
 			}
-
-			Message message = new Message();
-			message.what = GOODS_LIST_BY_KEY_GET_SUC;
-			message.obj = mTempGoodsList;
-			handler.sendMessage(message);
-
 		} catch (JSONException e) {
-			handler.sendEmptyMessage(GOODS_LIST_BY_KEY_GET_EXCEPTION);
+			handler.sendEmptyMessage(GOODS_LIST_GET_EXCEPTION);
 		}
 	}
 

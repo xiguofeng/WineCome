@@ -53,8 +53,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					mCategoryList
 							.addAll((Collection<? extends Category>) msg.obj);
 					mCategoryAdapter.notifyDataSetChanged();
-					GoodsLogic.getGoodsByCategroy(mContext, mHandler,
-							mCategoryList.get(0).getPpid(), "1", "30");
+					GoodsLogic.getGoodsByCategroy(mContext, mHandler, "1", "",
+							"0", "30");
 				}
 				break;
 			}
@@ -67,7 +67,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			case GoodsLogic.GOODS_LIST_GET_SUC: {
 				if (null != msg.obj) {
-
+					mGoodsList.clear();
+					mGoodsList.addAll((Collection<? extends Goods>) msg.obj);
+					mGoodsAdapter.notifyDataSetChanged();
 				}
 				break;
 			}
@@ -164,9 +166,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		mCategoryAdapter = new CategoryAdapter(mContext, mCategoryList);
 		mLeftLv.setAdapter(mCategoryAdapter);
 		mCategoryAdapter.notifyDataSetChanged();
-		
+
 		GoodsLogic.getCategroyList(mContext, mHandler, "");
-		GoodsLogic.getAllGoods(mContext, mHandler);
+		// GoodsLogic.getAllGoods(mContext, mHandler);
 	}
 
 	@Override
