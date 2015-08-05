@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.utils.CartManager;
@@ -96,6 +98,9 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 
 			holder.mNum = (EditText) convertView
 					.findViewById(R.id.cart_goods_count_et);
+
+			holder.mIcon = (ImageView) convertView
+					.findViewById(R.id.cart_goods_iv);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -106,6 +111,8 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 		holder.mOriginalPrice.setText("原价￥"
 				+ mDatas.get(position).getMarketPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
+		ImageLoader.getInstance().displayImage(
+				mDatas.get(position).getIconUrl(), holder.mIcon);
 
 		final int tempPosition = position;
 		holder.vId = tempPosition;
@@ -183,6 +190,8 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 		public ImageButton mReduceIb;
 
 		public EditText mNum;
+
+		public ImageView mIcon;
 	}
 
 	public static HashMap<Integer, Boolean> getmIsSelected() {

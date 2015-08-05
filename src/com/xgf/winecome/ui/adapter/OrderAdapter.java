@@ -68,8 +68,6 @@ public class OrderAdapter extends BaseAdapter implements Watched {
 			holder.mOriginalPrice = (TextView) convertView
 					.findViewById(R.id.goods_original_prices_tv);
 
-			holder.mDelIb = (ImageButton) convertView
-					.findViewById(R.id.goods_del_ib);
 			holder.mAddIb = (ImageButton) convertView
 					.findViewById(R.id.goods_add_ib);
 			holder.mReduceIb = (ImageButton) convertView
