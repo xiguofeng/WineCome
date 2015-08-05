@@ -2,6 +2,8 @@ package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -40,6 +42,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private LinearLayout mFirstBg;
 	private float y;
+	private HashMap<String, Object> mMsgMap = new HashMap<String, Object>();
 
 	Handler mHandler = new Handler() {
 
@@ -47,14 +50,33 @@ public class MainActivity extends Activity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case GoodsLogic.CATEGROY_LIST_GET_SUC: {
+			case GoodsLogic.CATEGROY_GOODS_LIST_GET_SUC: {
 				if (null != msg.obj) {
+					mMsgMap.clear();
+					mMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
 					mCategoryList.clear();
 					mCategoryList
-							.addAll((Collection<? extends Category>) msg.obj);
+							.addAll((Collection<? extends Category>) mMsgMap
+									.get("Category"));
 					mCategoryAdapter.notifyDataSetChanged();
-					GoodsLogic.getGoodsByCategroy(mContext, mHandler,
-							mCategoryList.get(1).getPpid(), "", "0", "30");
+
+					mGoodsList.clear();
+					mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
+							.get(mCategoryList.get(1).getPpid()));
+					mGoodsAdapter.notifyDataSetChanged();
+
+				}
+				break;
+			}
+			case GoodsLogic.CATEGROY_GOODS_LIST_GET_FAIL: {
+				break;
+			}
+			case GoodsLogic.CATEGROY_GOODS_LIST_GET_EXCEPTION: {
+				break;
+			}
+
+			case GoodsLogic.CATEGROY_LIST_GET_SUC: {
+				if (null != msg.obj) {
 				}
 				break;
 			}
@@ -178,15 +200,19 @@ public class MainActivity extends Activity implements OnClickListener {
 				} else {
 					mCategoryAdapter.setmCurrentSelect(position);
 					mCategoryAdapter.notifyDataSetChanged();
-					GoodsLogic.getGoodsByCategroy(mContext, mHandler,
-							mCategoryList.get(position).getPpid(), "", "0",
-							"30");
+
+					mGoodsList.clear();
+					mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
+							.get(mCategoryList.get(position).getPpid()));
+					mGoodsAdapter.notifyDataSetChanged();
 				}
 			}
 		});
 
-		GoodsLogic.getCategroyList(mContext, mHandler, "");
+		// GoodsLogic.getCategroyList(mContext, mHandler, "");
 		// GoodsLogic.getAllGoods(mContext, mHandler);
+
+		GoodsLogic.getCategroyAndGoodsList(mContext, mHandler);
 	}
 
 	@Override

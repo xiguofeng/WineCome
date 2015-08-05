@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +48,12 @@ public class GoodsLogic {
 	public static final int GOODS_LIST_BY_KEY_GET_FAIL = GOODS_LIST_BY_KEY_GET_SUC + 1;
 
 	public static final int GOODS_LIST_BY_KEY_GET_EXCEPTION = GOODS_LIST_BY_KEY_GET_FAIL + 1;
+
+	public static final int CATEGROY_GOODS_LIST_GET_SUC = GOODS_LIST_BY_KEY_GET_EXCEPTION + 1;
+
+	public static final int CATEGROY_GOODS_LIST_GET_FAIL = CATEGROY_GOODS_LIST_GET_SUC + 1;
+
+	public static final int CATEGROY_GOODS_LIST_GET_EXCEPTION = CATEGROY_GOODS_LIST_GET_FAIL + 1;
 
 	public static void getCategroyList(final Context context,
 			final Handler handler, final String categoryID) {
@@ -413,6 +420,130 @@ public class GoodsLogic {
 
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(GOODS_LIST_BY_KEY_GET_EXCEPTION);
+		}
+	}
+
+	public static void getCategroyAndGoodsList(final Context context,
+			final Handler handler) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.goods.queryAllGoods);
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.goods.queryAllGoods, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+					Log.e("xxx_getCategroyAndGoodsList_resultStr", resultStr);
+
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseCategroyAndGoodsListData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	// {"message":"操作成功","datas":{"total":7,"list":[[{"ppmc":"洋河系列","ppid":"1","plist":[{"id":"10002","salesPrice":"120","model":"清香","addedTime":"2015-07-01 12:38:50.0","marketPrice":"198","level":"特级","degree":"45","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/2015821128311.jpg","name":"海之蓝","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821143291.jpg"}]},{"id":"10003","salesPrice":"600","model":"浓香","addedTime":"2015-07-01 12:44:33.0","marketPrice":"1024","level":"优质","degree":"50","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/2015841459481.jpg","name":"梦之蓝3","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821143521.jpg"}]},{"id":"10005","salesPrice":"290","model":"清香","addedTime":"2015-08-02 09:25:46.0","marketPrice":"398","level":"优质","degree":"50","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/201584150281.jpg","name":"天之蓝","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821144361.jpg"}]},{"id":"10009","salesPrice":"800","model":"清香","addedTime":"2015-08-02 09:27:17.0","marketPrice":"1000","level":"特级","degree":"50","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/201584150521.jpg","name":"梦之蓝6","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821144541.jpg"}]},{"id":"2222","salesPrice":"388","model":"浓香","addedTime":"2015-08-02 10:42:01.0","marketPrice":"398","level":"优质","degree":"","area":"","desc":"","iconUrl":"","name":"梦之蓝9","images":[{"url":""}]}],"pplx":"01"},{"ppmc":"五粮液系列","ppid":"2","plist":[{"id":"10004","salesPrice":"700","model":"浓香","addedTime":"2015-07-01 12:52:37.0","marketPrice":"800","level":"特级","degree":"50","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/201584150111.jpg","name":"五粮液","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821144151.jpg"}]}],"pplx":"01"},{"ppmc":"国窖系列","ppid":"4","pplx":"01"},{"ppmc":"茅台系列","ppid":"7","plist":[{"id":"10010","salesPrice":"1200","model":"浓香","addedTime":"2015-08-02 09:28:53.0","marketPrice":"2000","level":"特级","degree":"52","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/20158415181.jpg","name":"茅台","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821145121.jpg"}]}],"pplx":"01"},{"ppmc":"泸州老窖","ppid":"9","plist":[{"id":"10020","salesPrice":"300","model":"浓香","addedTime":"2015-08-02 09:33:39.0","marketPrice":"500","level":"优质","degree":"52","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/201584151231.jpg","name":"泸州老窖","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821145271.jpg"}]}],"pplx":"01"}],[{"ppmc":"长城系列","ppid":"3","plist":[],"pplx":"02"},{"ppmc":"张裕系列","ppid":"5","plist":[],"pplx":"02"}]]},"result":"0"}
+	private static void parseCategroyAndGoodsListData(JSONObject response,
+			Handler handler) {
+		try {
+
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
+				handler.sendEmptyMessage(CATEGROY_GOODS_LIST_GET_FAIL);
+			} else {
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				ArrayList<Category> tempCategoryList = new ArrayList<Category>();
+				JSONArray categorysListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				HashMap<String, Object> msgMap = new HashMap<String, Object>();
+				int size = categorysListArray.length();
+				for (int i = 0; i < size; i++) {
+					JSONArray categoryListArray = categorysListArray
+							.getJSONArray(i);
+					int categorySize = categoryListArray.length();
+					if (0 == i) {
+						Category category = new Category();
+						category.setPpid("t_0");
+						category.setPplx("t_00");
+						category.setPpmc("白酒");
+						tempCategoryList.add(category);
+					} else {
+						Category category = new Category();
+						category.setPpid("t_1");
+						category.setPplx("t_10");
+						category.setPpmc("葡萄酒");
+						tempCategoryList.add(category);
+					}
+
+					for (int j = 0; j < categorySize; j++) {
+						JSONObject categoryJsonObject = categoryListArray
+								.getJSONObject(j);
+						// Category category = new Category();
+						// category.setPpid(categoryJsonObject.getString("ppid"));
+						// category.setPpmc(categoryJsonObject.getString("ppmc"));
+						// category.setPplx(categoryJsonObject.getString("pplx"));
+
+						Category category = (Category) JsonUtils
+								.fromJsonToJava(categoryJsonObject,
+										Category.class);
+
+						tempCategoryList.add(category);
+
+						ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
+						JSONArray goodsArray = categoryJsonObject
+								.getJSONArray("plist");
+
+						for (int k = 0; k < goodsArray.length(); k++) {
+							JSONObject goodsJsonObject = goodsArray
+									.getJSONObject(k);
+
+							Goods goods = (Goods) JsonUtils.fromJsonToJava(
+									goodsJsonObject, Goods.class);
+							goods.setNum("0");
+							tempGoodsList.add(goods);
+						}
+						msgMap.put(category.getPpid(), tempGoodsList);
+					}
+				}
+				msgMap.put("Category", tempCategoryList);
+
+				Message message = new Message();
+				message.what = CATEGROY_GOODS_LIST_GET_SUC;
+				message.obj = msgMap;
+				handler.sendMessage(message);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(CATEGROY_GOODS_LIST_GET_EXCEPTION);
 		}
 	}
 
