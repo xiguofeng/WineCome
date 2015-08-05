@@ -7,6 +7,8 @@ import com.xgf.winecome.ui.activity.HomeActivity;
 
 public class OrderManager {
 
+	public static String sCurrentOrderId;
+
 	public static ArrayList<Goods> sOrderList = new ArrayList<Goods>();
 
 	private static boolean sHasGoodsFlag = false;
@@ -71,6 +73,14 @@ public class OrderManager {
 
 	public static void showOrhHidePayBar(boolean flag) {
 		HomeActivity.showOrhHideMainPayBar(flag);
+	}
+
+	public static String getsCurrentOrderId() {
+		return sCurrentOrderId;
+	}
+
+	public static void setsCurrentOrderId(String sCurrentOrderId) {
+		OrderManager.sCurrentOrderId = sCurrentOrderId;
 	}
 
 }

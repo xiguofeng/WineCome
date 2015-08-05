@@ -3,7 +3,9 @@ package com.xgf.winecome.network.logic;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
@@ -18,9 +20,11 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
-import com.xgf.winecome.entity.Order.OrderState;
+import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
+import com.xgf.winecome.utils.OrderManager;
 
 public class OrderLogic {
 
@@ -39,7 +43,8 @@ public class OrderLogic {
 	public static final int ORDERLIST_GET_EXCEPTION = ORDERLIST_GET_FAIL + 1;
 
 	public static void createOrder(final Context context,
-			final Handler handler, final Order order) {
+			final Handler handler, final Order order,
+			final ArrayList<Goods> goodsList) {
 
 		new Thread(new Runnable() {
 
@@ -51,18 +56,15 @@ public class OrderLogic {
 
 					JSONObject requestJson = new JSONObject();
 
-					requestJson.put("mobilePhone",
+					requestJson.put("phone",
 							URLEncoder.encode(order.getPhone(), "UTF-8"));
-					requestJson.put("buyAddress",
+					requestJson.put("address",
 							URLEncoder.encode(order.getBuyAddress(), "UTF-8"));
 					requestJson.put("latitude",
 							URLEncoder.encode(order.getLatitude(), "UTF-8"));
 					requestJson.put("longitude",
 							URLEncoder.encode(order.getLongitude(), "UTF-8"));
-					requestJson.put("orderStatus", URLEncoder.encode(
-							String.valueOf(OrderState.created), "UTF-8"));
-					requestJson.put("deliveryDay", URLEncoder.encode(
-							order.getProbablyWaitTime(), "UTF-8"));
+					requestJson.put("deliveryTime", "30");
 					requestJson.put("invoice",
 							URLEncoder.encode(order.getInvoice(), "UTF-8"));
 					requestJson.put("invoiceTitle",
@@ -71,6 +73,18 @@ public class OrderLogic {
 							order.getInvoiceContent(), "UTF-8"));
 					requestJson.put("payType",
 							URLEncoder.encode(order.getPayType(), "UTF-8"));
+
+					JSONArray jsonArray = new JSONArray();
+					for (int i = 0; i < goodsList.size(); i++) {
+						JSONObject jsonObject = new JSONObject();
+						jsonObject.put("productId", goodsList.get(i).getId());
+						jsonObject.put("count", goodsList.get(i).getNum());
+						jsonArray.put(jsonObject);
+					}
+
+					requestJson.put("items", jsonArray);
+
+					Log.e("xxx_order_json", requestJson.toString());
 
 					rpc.addProperty("data", requestJson.toString());
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
@@ -91,9 +105,8 @@ public class OrderLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_resultStr", resultStr);
 
-					if (TextUtils.isEmpty(resultStr)) {
+					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseCreateOrderData(obj, handler);
 					}
@@ -112,20 +125,28 @@ public class OrderLogic {
 
 	}
 
+	// {"datas":{"orderId":"NO.DD2015080003"},"message":"操作成功","result":"0"}}
 	private static void parseCreateOrderData(JSONObject response,
 			Handler handler) {
+
 		try {
-			String orderID = response.getString("orderID").trim();
-
-			if (!TextUtils.isEmpty(orderID)) {
-				Message message = new Message();
-				message.what = ORDER_CREATE_SUC;
-				message.obj = orderID;
-				handler.sendMessage(message);
-			} else {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
 				handler.sendEmptyMessage(ORDER_CREATE_FAIL);
+			} else {
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				String orderID = jsonObject.getString("orderId").trim();
+				if (!TextUtils.isEmpty(orderID)) {
+					OrderManager.setsCurrentOrderId(orderID);
+					Message message = new Message();
+					message.what = ORDER_CREATE_SUC;
+					message.obj = orderID;
+					handler.sendMessage(message);
+				} else {
+					handler.sendEmptyMessage(ORDER_CREATE_FAIL);
+				}
 			}
-
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDER_CREATE_EXCEPTION);
 		}

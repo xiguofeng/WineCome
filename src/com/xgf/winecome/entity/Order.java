@@ -85,6 +85,9 @@ public class Order implements Serializable {
 
 	private String payType;
 
+	private String deliveryTime;
+
+
 	public String getId() {
 		return id;
 	}
@@ -251,6 +254,14 @@ public class Order implements Serializable {
 
 	public void setPayType(String payType) {
 		this.payType = payType;
+	}
+	
+	public String getDeliveryTime() {
+		return deliveryTime;
+	}
+
+	public void setDeliveryTime(String deliveryTime) {
+		this.deliveryTime = deliveryTime;
 	}
 
 }

@@ -23,7 +23,9 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
 
@@ -172,7 +174,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 			}
 		});
-		
+
 		mBackIv.setOnClickListener(this);
 	}
 
@@ -291,26 +293,29 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.per_info_submit_ll: {
-			// Order order = new Order();
-			// order.setPhone("1002");
-			// order.setInvoice("123");
-			// order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
-			// order.setInvoiceContent(mInvoiceContentEt.getText().toString()
-			// .trim());
-			// order.setLatitude("");
-			// order.setLongitude("");
-			// order.setProbablyWaitTime("1");
-			// order.setState("0");
-			// order.setPayType("0");
-			// order.setBuyAddress(mAreaTv.getText().toString().trim()
-			// + mDetailAreaEt.getText().toString().trim());
+			Order order = new Order();
+			order.setPhone("1002");
+			order.setInvoice("true");
+			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
+			order.setInvoiceContent(mInvoiceContentEt.getText().toString()
+					.trim());
+			order.setLatitude(mLat);
+			order.setLongitude(mLon);
+			order.setDeliveryTime(String.valueOf(java.lang.System
+					.currentTimeMillis()));
+			order.setPayType("0");
+			//mAddressEt.getText().toString().trim()
+			order.setBuyAddress("1234");
 			// OrderLogic.createOrder(mContext, mHandler, order);
 
-			Intent intent = new Intent(PersonInfoActivity.this,
-					PayActivity.class);
-			startActivity(intent);
-			PersonInfoActivity.this.finish();
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			OrderLogic.createOrder(mContext, mHandler, order,
+					CartManager.getsCartList());
+			// Intent intent = new Intent(PersonInfoActivity.this,
+			// PayActivity.class);
+			// startActivity(intent);
+			// PersonInfoActivity.this.finish();
+			// overridePendingTransition(R.anim.push_left_in,
+			// R.anim.push_left_out);
 			break;
 		}
 		case R.id.per_info_back_iv: {
