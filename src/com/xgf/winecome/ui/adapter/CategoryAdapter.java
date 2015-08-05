@@ -74,11 +74,11 @@ public class CategoryAdapter extends BaseAdapter {
 		holder.mSelectIv.setVisibility(View.INVISIBLE);
 		holder.mIconIv.setVisibility(View.INVISIBLE);
 		if ("t_0".equals(mDatas.get(position).getPpid())) {
-			
+
 			holder.mIconIv.setVisibility(View.VISIBLE);
 			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 					R.drawable.white_wine));
-			holder.mSelectIv.setVisibility(View.VISIBLE);
+
 		}
 
 		if ("t_1".equals(mDatas.get(position).getPpid())) {
@@ -87,12 +87,14 @@ public class CategoryAdapter extends BaseAdapter {
 			holder.mIconIv.setVisibility(View.VISIBLE);
 			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 					R.drawable.white_wine));
-			holder.mSelectIv.setVisibility(View.VISIBLE);
 		}
-		
+
+		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
+				R.color.gray_list_bg));
 		if (position == mCurrentSelect) {
 			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 					R.color.white));
+			holder.mSelectIv.setVisibility(View.VISIBLE);
 		}
 		holder.mName.setText(mDatas.get(position).getPpmc());
 		return convertView;

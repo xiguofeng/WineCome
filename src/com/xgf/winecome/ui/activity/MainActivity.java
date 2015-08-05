@@ -53,8 +53,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					mCategoryList
 							.addAll((Collection<? extends Category>) msg.obj);
 					mCategoryAdapter.notifyDataSetChanged();
-					GoodsLogic.getGoodsByCategroy(mContext, mHandler, "1", "",
-							"0", "30");
+					GoodsLogic.getGoodsByCategroy(mContext, mHandler,
+							mCategoryList.get(1).getPpid(), "", "0", "30");
 				}
 				break;
 			}
@@ -166,6 +166,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		mCategoryAdapter = new CategoryAdapter(mContext, mCategoryList);
 		mLeftLv.setAdapter(mCategoryAdapter);
 		mCategoryAdapter.notifyDataSetChanged();
+		mCategoryAdapter.setmCurrentSelect(1);
 		mLeftLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -175,6 +176,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						|| mCategoryList.get(position).getPpid().equals("t_0")) {
 
 				} else {
+					mCategoryAdapter.setmCurrentSelect(position);
+					mCategoryAdapter.notifyDataSetChanged();
 					GoodsLogic.getGoodsByCategroy(mContext, mHandler,
 							mCategoryList.get(position).getPpid(), "", "0",
 							"30");

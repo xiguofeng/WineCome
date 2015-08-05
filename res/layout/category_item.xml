@@ -3,7 +3,6 @@
     android:id="@+id/category_item_ll"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray_list_bg"
     android:orientation="vertical" >
 
     <LinearLayout
