@@ -53,7 +53,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
-	private EditText mDetailAreaEt;
+	private EditText mAddressEt;
 	private EditText mInvoiceTitleEt;
 	private EditText mInvoiceContentEt;
 
@@ -128,7 +128,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 		mPhoneEt = (EditText) findViewById(R.id.per_info_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.per_info_ver_code_et);
-		mDetailAreaEt = (EditText) findViewById(R.id.per_info_detail_area_et);
+		mAddressEt = (EditText) findViewById(R.id.per_info_address_et);
 		mInvoiceTitleEt = (EditText) findViewById(R.id.per_info_invoice_title_et);
 		mInvoiceContentEt = (EditText) findViewById(R.id.per_info_invoice_content_et);
 
@@ -153,7 +153,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 		mPhoneEt.addTextChangedListener(this);
 		mVerCodeEt.addTextChangedListener(this);
-		mDetailAreaEt.addTextChangedListener(this);
+		mAddressEt.addTextChangedListener(this);
 		mInvoiceTitleEt.addTextChangedListener(this);
 		mInvoiceContentEt.addTextChangedListener(this);
 
@@ -187,8 +187,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		if (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim())) {
 			mVerCodeEt.setError(getString(R.string.verification_code_hint));
 		}
-		if (TextUtils.isEmpty(mDetailAreaEt.getText().toString().trim())) {
-			mDetailAreaEt.setError(getString(R.string.detail_info_hint));
+		if (TextUtils.isEmpty(mAddressEt.getText().toString().trim())) {
+			mAddressEt.setError(getString(R.string.detail_info_hint));
 		}
 		if (TextUtils.isEmpty(mInvoiceTitleEt.getText().toString().trim())) {
 			mInvoiceTitleEt.setError(getString(R.string.invoice_title_hint));
@@ -211,14 +211,15 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 						mLon = String.valueOf(location.getLongitude());
 						String addr = location.getAddrStr();
 						if (!TextUtils.isEmpty(addr)) {
-							if (addr.contains("区")) {
-								int index = addr.indexOf("区");
-								addr = addr.substring(0, index + 1);
-								Log.e("xxx_addr", "" + addr);
-								mAreaTv.setText(addr);
-							} else {
-								mAreaTv.setText(addr);
-							}
+							mAddressEt.setText(addr);
+							// if (addr.contains("区")) {
+							// int index = addr.indexOf("区");
+							// addr = addr.substring(0, index + 1);
+							// Log.e("xxx_addr", "" + addr);
+							// mAreaTv.setText(addr);
+							// } else {
+							// mAreaTv.setText(addr);
+							// }
 						}
 					}
 				});
