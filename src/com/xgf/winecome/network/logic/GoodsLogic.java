@@ -320,6 +320,7 @@ public class GoodsLogic {
 
 					Goods goods = (Goods) JsonUtils.fromJsonToJava(
 							categoryJsonObject, Goods.class);
+					goods.setNum("0");
 					mTempGoodsList.add(goods);
 				}
 				Message message = new Message();
