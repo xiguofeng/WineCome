@@ -4,8 +4,6 @@
     android:layout_height="wrap_content"
     android:background="@color/white_list_content_bg"
     android:descendantFocusability="blocksDescendants"
-    android:paddingTop="5dip"
-    android:paddingBottom="5dip"
     android:gravity="center_horizontal" >
 
     <RelativeLayout
@@ -13,22 +11,23 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip" >
 
         <ImageView
             android:id="@+id/goods_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="66dip"
+            android:layout_height="90dip"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dip"
+            android:scaleType="centerCrop"
             android:src="@drawable/img_null" />
 
         <LinearLayout
             android:id="@+id/right_rl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
+            android:layout_marginLeft="10dip"
             android:layout_toRightOf="@+id/goods_iv"
             android:orientation="vertical" >
 
@@ -57,7 +56,7 @@
                     android:textSize="@dimen/medium_text_size" />
 
                 <RelativeLayout
-                    android:layout_width="60dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dip" >
 
@@ -72,14 +71,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:gravity="center"
                         android:maxLines="1"
-                        android:text="299"
                         android:textColor="@color/gray_text"
                         android:textSize="@dimen/small_text_size" />
                 </RelativeLayout>
             </LinearLayout>
 
-            
             <LinearLayout
                 android:id="@+id/right_bottom_rl"
                 android:layout_width="wrap_content"
@@ -90,7 +88,7 @@
 
                 <ImageButton
                     android:id="@+id/goods_reduce_ib"
-                    android:layout_width="40dip"
+                    android:layout_width="45dip"
                     android:layout_height="30dip"
                     android:background="@null"
                     android:focusable="false"
@@ -104,13 +102,13 @@
 
                 <EditText
                     android:id="@+id/goods_count_et"
-                    android:layout_width="40dip"
+                    android:layout_width="45dip"
                     android:layout_height="30dip"
+                    android:background="@null"
                     android:enabled="false"
                     android:focusable="false"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:background="@null"
                     android:textColor="@color/gray_text"
                     android:textSize="@dimen/small_text_size" />
 
@@ -122,7 +120,7 @@
 
                 <ImageButton
                     android:id="@+id/goods_add_ib"
-                    android:layout_width="40dip"
+                    android:layout_width="45dip"
                     android:layout_height="30dip"
                     android:background="@null"
                     android:focusable="false"
