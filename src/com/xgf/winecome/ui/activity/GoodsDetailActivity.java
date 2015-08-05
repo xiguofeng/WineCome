@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.utils.CartManager;
@@ -91,25 +92,25 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	}
 
 	private void fillUpGoodsData() {
-		mGoodsIconIv.setBackgroundResource(R.drawable.red_wine);
+		ImageLoader.getInstance().displayImage(mGoods.getIconUrl(),
+				mGoodsIconIv);
 
 		mGoodsNameTv.setText(!TextUtils.isEmpty(mGoods.getName()) ? mGoods
 				.getName() : "");
-		mGoodsPriceTv.setText(!TextUtils.isEmpty(mGoods.getSalesPrice()) ? mGoods
-				.getSalesPrice() : "");
+		mGoodsPriceTv.setText(!TextUtils.isEmpty(mGoods.getSalesPrice()) ? "¥"
+				+ mGoods.getSalesPrice() : "¥");
 		mGoodsOrgPriceTv
-				.setText(!TextUtils.isEmpty(mGoods.getMarketPrice()) ? mGoods
-						.getMarketPrice() : "");
+				.setText(!TextUtils.isEmpty(mGoods.getMarketPrice()) ? "原价:¥"
+						+ mGoods.getMarketPrice() : "原价:¥");
 		mGoodsProductAreaTv
-				.setText(!TextUtils.isEmpty(mGoods.getArea()) ? mGoods
-						.getArea() : "");
-		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? mGoods
-				.getDegree() : "");
-		mGoodsNumTypeTv
-				.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? mGoods
-						.getLevel() : "");
-		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? mGoods
-				.getModel() : "");
+				.setText(!TextUtils.isEmpty(mGoods.getArea()) ? "商品产地："+mGoods
+						.getArea() : "商品产地：");
+		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? "度数："+mGoods
+				.getDegree() : "度数：");
+		mGoodsNumTypeTv.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? "规格："+mGoods
+				.getLevel() : "规格：");
+		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? "香型："+mGoods
+				.getModel() : "香型：");
 
 	}
 
