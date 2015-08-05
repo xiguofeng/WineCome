@@ -36,8 +36,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:cacheColorHint="@color/white_list_bg"
-        android:divider="@color/white_list_bg"
+        android:cacheColorHint="@color/gray_list_bg"
+        android:divider="@color/gray_list_bg"
         android:dividerHeight="15dip"
         android:fastScrollEnabled="false"
         android:scrollbars="none" />

@@ -9,8 +9,8 @@
     <color name="white_common_bg">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="white_transparent">#85ffffff</color>
-    <color name="white_list_content_bg">#f7f7f7</color>
-    <color name="white_list_bg">#f8f8f8</color>
+    <color name="gray_list_content_bg">#f7f7f7</color>
+    <color name="gray_list_bg">#f8f8f8</color>
     <color name="black_tab_bg">#2f2f2f</color>
     <color name="black_character">#000000</color>
     <color name="black_character_title">#3d3d3d</color>

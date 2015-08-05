@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white_list_content_bg"
+    android:background="@color/gray_list_content_bg"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_horizontal" >
 

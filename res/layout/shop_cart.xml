@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_list_bg"
+    android:background="@color/gray_list_bg"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -48,8 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:cacheColorHint="@color/white_list_bg"
-        android:divider="@color/white_list_bg"
+        android:cacheColorHint="@color/gray_list_bg"
+        android:divider="@color/gray_list_bg"
         android:dividerHeight="15dip"
         android:fastScrollEnabled="false"
         android:focusable="true"
