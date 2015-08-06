@@ -90,8 +90,8 @@ public class OrderListActivity extends Activity implements OnClickListener {
 		for (int i = 0; i < 9; i++) {
 			Order order = new Order();
 			order.setId("订单" + i);
-			order.setTime("2015-7-20 19:30");
-			order.setState("配送");
+			order.setOrderTime("2015-7-20 19:30");
+			order.setOrderStatus("配送");
 			orderList.add(order);
 		}
 		mOrderAdapter.notifyDataSetChanged();

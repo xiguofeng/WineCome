@@ -81,8 +81,8 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 		}
 
 		holder.mNum.setText(mDatas.get(position).getId());
-		holder.mTime.setText(mDatas.get(position).getTime());
-		holder.mState.setText(mDatas.get(position).getState());
+		holder.mTime.setText(mDatas.get(position).getOrderTime());
+		holder.mState.setText(mDatas.get(position).getOrderStatus());
 
 		final int tempPosition = position;
 		holder.mCancelLl.setOnClickListener(new OnClickListener() {

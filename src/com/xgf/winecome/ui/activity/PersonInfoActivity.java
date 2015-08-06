@@ -294,7 +294,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		}
 		case R.id.per_info_submit_ll: {
 			Order order = new Order();
-			order.setPhone("1002");
+			order.setPhone(mPhoneEt.getText().toString().trim());
 			order.setInvoice("true");
 			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
 			order.setInvoiceContent(mInvoiceContentEt.getText().toString()
@@ -304,8 +304,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			order.setDeliveryTime(String.valueOf(java.lang.System
 					.currentTimeMillis()));
 			order.setPayType("0");
-			//mAddressEt.getText().toString().trim()
-			order.setBuyAddress("1234");
+			// mAddressEt.getText().toString().trim()
+			order.setAddress(mAddressEt.getText().toString().trim());
 			// OrderLogic.createOrder(mContext, mHandler, order);
 
 			OrderLogic.createOrder(mContext, mHandler, order,

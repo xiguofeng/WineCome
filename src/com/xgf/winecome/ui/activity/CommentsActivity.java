@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.network.logic.CommentLogic;
+import com.xgf.winecome.utils.OrderManager;
 
 public class CommentsActivity extends Activity implements OnClickListener {
 
@@ -95,24 +96,21 @@ public class CommentsActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.comments_very_good_ll: {
-			Intent intent = new Intent(CommentsActivity.this,
-					CommentsResultActivity.class);
-			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			CommentLogic.addComment(CommentsActivity.this, mHandler,
+					OrderManager.getsCurrentOrderId(),
+					getString(R.string.comments_very_good));
 			break;
 		}
 		case R.id.comments_good_ll: {
-			Intent intent = new Intent(CommentsActivity.this,
-					CommentsResultActivity.class);
-			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			CommentLogic.addComment(CommentsActivity.this, mHandler,
+					OrderManager.getsCurrentOrderId(),
+					getString(R.string.comments_good));
 			break;
 		}
 		case R.id.comments_not_good_ll: {
-			Intent intent = new Intent(CommentsActivity.this,
-					CommentsResultActivity.class);
-			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			CommentLogic.addComment(CommentsActivity.this, mHandler,
+					OrderManager.getsCurrentOrderId(),
+					getString(R.string.comments_not_good));
 			break;
 		}
 

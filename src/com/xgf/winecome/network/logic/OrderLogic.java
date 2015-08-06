@@ -65,7 +65,7 @@ public class OrderLogic {
 					requestJson.put("phone",
 							URLEncoder.encode(order.getPhone(), "UTF-8"));
 					requestJson.put("address",
-							URLEncoder.encode(order.getBuyAddress(), "UTF-8"));
+							URLEncoder.encode(order.getAddress(), "UTF-8"));
 					requestJson.put("latitude",
 							URLEncoder.encode(order.getLatitude(), "UTF-8"));
 					requestJson.put("longitude",
@@ -78,7 +78,7 @@ public class OrderLogic {
 					requestJson.put("invoiceContent", URLEncoder.encode(
 							order.getInvoiceContent(), "UTF-8"));
 					requestJson.put("payType",
-							URLEncoder.encode(order.getPayType(), "UTF-8"));
+							URLEncoder.encode(order.getPayStatus(), "UTF-8"));
 
 					JSONArray jsonArray = new JSONArray();
 					for (int i = 0; i < goodsList.size(); i++) {
@@ -215,6 +215,7 @@ public class OrderLogic {
 
 	}
 
+	// {"datas":{"total":"4","list":[{"phone":"1002","orderTime":"2015-08-06 16:35:26","orderStatus":"1","id":"","amount":"240","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"}]},{"phone":"1002","orderTime":"2015-08-06 16:35:47","orderStatus":"1","id":"","amount":"240","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"}]},{"phone":"1002","orderTime":"2015-08-06 16:44:35","orderStatus":"1","id":"","amount":"628","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"},{"productId":"2222","productName":"梦之蓝9","salePrice":"388","count":"1"}]},{"phone":"1002","orderTime":"2015-08-06 16:44:48","orderStatus":"1","id":"","amount":"628","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"},{"productId":"2222","productName":"梦之蓝9","salePrice":"388","count":"1"}]}]},"message":"操作成功",,"result":"0"}
 	private static void parseOrdersData(JSONObject response, Handler handler) {
 
 		try {
