@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.pay.alipay.PayDemoActivity;
+import com.xgf.winecome.pay.wxpay.WXPayActivity;
 
 public class PayActivity extends Activity implements OnClickListener {
 
@@ -76,7 +77,7 @@ public class PayActivity extends Activity implements OnClickListener {
 				}
 			}
 		});
-		
+
 		mBackIv.setOnClickListener(this);
 
 	}
@@ -94,7 +95,7 @@ public class PayActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.pay_wechat_rl: {
-			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
+			Intent intent = new Intent(PayActivity.this, WXPayActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}

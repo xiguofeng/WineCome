@@ -107,6 +107,8 @@ public class OrderLogic {
 					String resultStr = (String) so.getProperty(0);
 
 					if (!TextUtils.isEmpty(resultStr)) {
+
+						Log.e("xxx_order_result", resultStr.toString());
 						JSONObject obj = new JSONObject(resultStr);
 						parseCreateOrderData(obj, handler);
 					}
@@ -125,6 +127,7 @@ public class OrderLogic {
 
 	}
 
+	// {"message":"操作成功","datas":"{}","result":"0","orderId":"NO.DD2015080032"}
 	// {"datas":{"orderId":"NO.DD2015080003"},"message":"操作成功","result":"0"}}
 	private static void parseCreateOrderData(JSONObject response,
 			Handler handler) {
@@ -134,9 +137,7 @@ public class OrderLogic {
 			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
 				handler.sendEmptyMessage(ORDER_CREATE_FAIL);
 			} else {
-				JSONObject jsonObject = response
-						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
-				String orderID = jsonObject.getString("orderId").trim();
+				String orderID = response.getString("orderId").trim();
 				if (!TextUtils.isEmpty(orderID)) {
 					OrderManager.setsCurrentOrderId(orderID);
 					Message message = new Message();

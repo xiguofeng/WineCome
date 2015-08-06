@@ -311,7 +311,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			OrderLogic.createOrder(mContext, mHandler, order,
 					CartManager.getsCartList());
 			// Intent intent = new Intent(PersonInfoActivity.this,
-			// PayActivity.class);
+			// WXPayActivity.class);
 			// startActivity(intent);
 			// PersonInfoActivity.this.finish();
 			// overridePendingTransition(R.anim.push_left_in,

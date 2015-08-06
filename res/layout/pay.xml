@@ -146,7 +146,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:background="@color/white"
+         android:background="@drawable/common_selector"
         android:padding="8dip" >
 
         <ImageView
@@ -189,7 +189,7 @@
         android:id="@+id/pay_wechat_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/common_selector"
         android:padding="8dip" >
 
         <ImageView
@@ -232,7 +232,7 @@
         android:id="@+id/pay_unionpay_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+         android:background="@drawable/common_selector"
         android:padding="8dip" >
 
         <ImageView

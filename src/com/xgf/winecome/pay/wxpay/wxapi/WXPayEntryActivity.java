@@ -1,4 +1,4 @@
-package com.xgf.winecome.pay.wxpay.api;
+package com.xgf.winecome.pay.wxpay.wxapi;
 
 
 import android.app.Activity;
