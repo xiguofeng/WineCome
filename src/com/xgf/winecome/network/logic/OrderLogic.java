@@ -304,7 +304,7 @@ public class OrderLogic {
 
 					if (!TextUtils.isEmpty(resultStr)) {
 
-						Log.e("xxx_orders_result", resultStr.toString());
+						Log.e("xxx_cancelOrder_result", resultStr.toString());
 						JSONObject obj = new JSONObject(resultStr);
 						parseCancelOrderData(obj, handler);
 					}

@@ -18,6 +18,7 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
+import com.xgf.winecome.utils.OrderManager;
 
 public class OrderListActivity extends Activity implements OnClickListener {
 
@@ -97,6 +98,7 @@ public class OrderListActivity extends Activity implements OnClickListener {
 		mOrderAdapter.notifyDataSetChanged();
 
 		OrderLogic.getOrders(mContext, mHandler, "15112345678", "0", "30");
+		OrderLogic.cancelOrder(mContext, mHandler, OrderManager.getsCurrentOrderId());
 	}
 
 	@Override
