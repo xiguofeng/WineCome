@@ -95,17 +95,11 @@ public class PayActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.pay_wechat_rl: {
-			Intent intent = new Intent(PayActivity.this, WXPayActivity.class);
-			startActivityForResult(intent, 500);
-			break;
-		}
-		case R.id.pay_unionpay_rl: {
 			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}
-		case R.id.per_info_invoice_rl: {
-
+		case R.id.pay_unionpay_rl: {
 			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
 			startActivityForResult(intent, 500);
 			break;
