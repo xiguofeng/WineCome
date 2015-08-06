@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +25,7 @@ import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
+import com.xgf.winecome.utils.JsonUtils;
 import com.xgf.winecome.utils.OrderManager;
 
 public class OrderLogic {
@@ -78,7 +80,7 @@ public class OrderLogic {
 					requestJson.put("invoiceContent", URLEncoder.encode(
 							order.getInvoiceContent(), "UTF-8"));
 					requestJson.put("payType",
-							URLEncoder.encode(order.getPayStatus(), "UTF-8"));
+							URLEncoder.encode(order.getPayType(), "UTF-8"));
 
 					JSONArray jsonArray = new JSONArray();
 					for (int i = 0; i < goodsList.size(); i++) {
@@ -223,16 +225,45 @@ public class OrderLogic {
 			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
 				handler.sendEmptyMessage(ORDERLIST_GET_FAIL);
 			} else {
-				String orderID = response.getString("orderId").trim();
-				if (!TextUtils.isEmpty(orderID)) {
-					OrderManager.setsCurrentOrderId(orderID);
-					Message message = new Message();
-					message.what = ORDERLIST_GET_SUC;
-					message.obj = orderID;
-					handler.sendMessage(message);
-				} else {
-					handler.sendEmptyMessage(ORDERLIST_GET_FAIL);
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+
+				ArrayList<Order> tempOrderList = new ArrayList<Order>();
+				JSONArray orderListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+
+				HashMap<String, Object> msgMap = new HashMap<String, Object>();
+
+				int size = orderListArray.length();
+				for (int i = 0; i < size; i++) {
+					JSONObject orderJsonObject = orderListArray
+							.getJSONObject(i);
+					Order order = (Order) JsonUtils.fromJsonToJava(
+							orderJsonObject, Order.class);
+					tempOrderList.add(order);
+
+					ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
+					JSONArray goodsArray = orderJsonObject
+							.getJSONArray("items");
+
+					for (int j = 0; j < goodsArray.length(); j++) {
+						JSONObject goodsJsonObject = goodsArray
+								.getJSONObject(j);
+
+						Goods goods = (Goods) JsonUtils.fromJsonToJava(
+								goodsJsonObject, Goods.class);
+						goods.setNum("0");
+						tempGoodsList.add(goods);
+					}
+					msgMap.put(order.getId(), tempGoodsList);
+
 				}
+				msgMap.put("Order", tempOrderList);
+
+				Message message = new Message();
+				message.what = ORDERLIST_GET_SUC;
+				message.obj = msgMap;
+				handler.sendMessage(message);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDERLIST_GET_EXCEPTION);
