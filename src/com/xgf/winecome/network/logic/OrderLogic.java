@@ -42,6 +42,12 @@ public class OrderLogic {
 
 	public static final int ORDERLIST_GET_EXCEPTION = ORDERLIST_GET_FAIL + 1;
 
+	public static final int ORDER_CANCEL_SUC = ORDERLIST_GET_EXCEPTION + 1;
+
+	public static final int ORDER_CANCEL_FAIL = ORDER_CANCEL_SUC + 1;
+
+	public static final int ORDER_CANCEL_EXCEPTION = ORDER_CANCEL_FAIL + 1;
+
 	public static void createOrder(final Context context,
 			final Handler handler, final Order order,
 			final ArrayList<Goods> goodsList) {
@@ -164,9 +170,7 @@ public class OrderLogic {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
 							RequestUrl.order.queryOrders);
 
-					JSONObject requestJson = new JSONObject();
-
-					requestJson.put("phone", URLEncoder.encode(phone, "UTF-8"));
+					rpc.addProperty("phone", URLEncoder.encode(phone, "UTF-8"));
 					rpc.addProperty("pageNum",
 							URLEncoder.encode(pageNum, "UTF-8"));
 					rpc.addProperty("pageSize",
@@ -216,21 +220,98 @@ public class OrderLogic {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDER_CREATE_FAIL);
+				handler.sendEmptyMessage(ORDERLIST_GET_FAIL);
 			} else {
 				String orderID = response.getString("orderId").trim();
 				if (!TextUtils.isEmpty(orderID)) {
 					OrderManager.setsCurrentOrderId(orderID);
 					Message message = new Message();
-					message.what = ORDER_CREATE_SUC;
+					message.what = ORDERLIST_GET_SUC;
 					message.obj = orderID;
 					handler.sendMessage(message);
 				} else {
-					handler.sendEmptyMessage(ORDER_CREATE_FAIL);
+					handler.sendEmptyMessage(ORDERLIST_GET_FAIL);
 				}
 			}
 		} catch (JSONException e) {
-			handler.sendEmptyMessage(ORDER_CREATE_EXCEPTION);
+			handler.sendEmptyMessage(ORDERLIST_GET_EXCEPTION);
+		}
+	}
+
+	public static void cancelOrder(final Context context,
+			final Handler handler, final String orderId) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.cancelOrder);
+
+					rpc.addProperty("orderId",
+							URLEncoder.encode(orderId, "UTF-8"));
+					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.cancelOrder, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+
+					if (!TextUtils.isEmpty(resultStr)) {
+
+						Log.e("xxx_orders_result", resultStr.toString());
+						JSONObject obj = new JSONObject(resultStr);
+						parseCancelOrderData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	private static void parseCancelOrderData(JSONObject response,
+			Handler handler) {
+
+		try {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
+				handler.sendEmptyMessage(ORDER_CANCEL_FAIL);
+			} else {
+				String orderID = response.getString("orderId").trim();
+				if (!TextUtils.isEmpty(orderID)) {
+					OrderManager.setsCurrentOrderId(orderID);
+					Message message = new Message();
+					message.what = ORDER_CANCEL_SUC;
+					message.obj = orderID;
+					handler.sendMessage(message);
+				} else {
+					handler.sendEmptyMessage(ORDER_CANCEL_FAIL);
+				}
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(ORDER_CANCEL_EXCEPTION);
 		}
 	}
 

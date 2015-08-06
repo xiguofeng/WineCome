@@ -55,9 +55,20 @@ public class RequestUrl {
 		public String createOrder = "createOrder";
 
 		/**
-		 *查询订单
+		 * 查询订单
 		 */
 		public String queryOrders = "queryOrder";
+
+		/**
+		 * 取消订单
+		 */
+		public String cancelOrder = "cancelOrder";
+
+	}
+
+	public interface comment {
+
+		public String commentOrder = "commentOrder";
 
 	}
 

@@ -3,12 +3,15 @@ package com.xgf.winecome.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.network.logic.CommentLogic;
 
 public class CommentsActivity extends Activity implements OnClickListener {
 
@@ -19,6 +22,42 @@ public class CommentsActivity extends Activity implements OnClickListener {
 	private LinearLayout mNotGoodLl;
 
 	private ImageView mBackIv;
+
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case CommentLogic.COMMENT_ADD_SUC: {
+				Intent intent = new Intent(CommentsActivity.this,
+						CommentsResultActivity.class);
+				startActivity(intent);
+				CommentsActivity.this.finish();
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
+
+				break;
+			}
+			case CommentLogic.COMMENT_ADD_FAIL: {
+				// Toast.makeText(mContext, R.string.login_fail,
+				// Toast.LENGTH_SHORT).show();
+				break;
+			}
+			case CommentLogic.COMMENT_ADD_EXCEPTION: {
+				break;
+			}
+			case CommentLogic.NET_ERROR: {
+				break;
+			}
+
+			default:
+				break;
+			}
+
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

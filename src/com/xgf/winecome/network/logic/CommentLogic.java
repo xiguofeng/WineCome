@@ -30,9 +30,8 @@ public class CommentLogic {
 
 	public static final int COMMENT_ADD_EXCEPTION = COMMENT_ADD_FAIL + 1;
 
-	public static void addCommentInfo(final Context context,
-			final Handler handler, final String uid, final String gid,
-			final String score) {
+	public static void addComment(final Context context, final Handler handler,
+			final String orderId, final String comment) {
 		if (HttpUtils.checkNetWorkInfo(context)) {
 			new Thread(new Runnable() {
 
@@ -40,12 +39,12 @@ public class CommentLogic {
 				public void run() {
 					try {
 						SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
-								RequestUrl.account.login);
+								RequestUrl.comment.commentOrder);
 
-						rpc.addProperty("phone",
-								URLEncoder.encode("1002", "UTF-8"));
-						rpc.addProperty("autoCode",
-								URLEncoder.encode("1234", "UTF-8"));
+						rpc.addProperty("orderId",
+								URLEncoder.encode(orderId, "UTF-8"));
+						rpc.addProperty("comment",
+								URLEncoder.encode(comment, "UTF-8"));
 						rpc.addProperty("md5",
 								URLEncoder.encode("1111", "UTF-8"));
 
@@ -60,12 +59,12 @@ public class CommentLogic {
 						envelope.setOutputSoapObject(rpc);
 
 						ht.call(RequestUrl.NAMESPACE + "/"
-								+ RequestUrl.account.login, envelope);
+								+ RequestUrl.comment.commentOrder, envelope);
 
 						SoapObject so = (SoapObject) envelope.bodyIn;
 
 						String resultStr = (String) so.getProperty(0);
-						Log.e("xxx_resultStr", resultStr);
+						Log.e("xxx_commentOrder_resultStr", resultStr);
 
 						if (TextUtils.isEmpty(resultStr)) {
 							JSONObject obj = new JSONObject(resultStr);
