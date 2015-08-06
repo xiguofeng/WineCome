@@ -7,7 +7,7 @@
     android:paddingRight="10dp" >
 
     <TextView
-        android:id="@+id/list_order_group_num_tv"
+        android:id="@+id/list_order_group_id_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"

@@ -1,7 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -18,7 +19,6 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
-import com.xgf.winecome.utils.OrderManager;
 
 public class OrderListActivity extends Activity implements OnClickListener {
 
@@ -28,8 +28,7 @@ public class OrderListActivity extends Activity implements OnClickListener {
 	private OrderWineAdapter mOrderAdapter;
 
 	private ArrayList<Order> orderList = new ArrayList<Order>();
-	private List<String> parent = null;
-	private Map<String, List<String>> map = null;
+	private HashMap<String, Object> mMsgMap = new HashMap<String, Object>();
 
 	private ImageView mBackIv;
 
@@ -40,6 +39,9 @@ public class OrderListActivity extends Activity implements OnClickListener {
 			int what = msg.what;
 			switch (what) {
 			case OrderLogic.ORDERLIST_GET_SUC: {
+				mMsgMap.clear();
+				mMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
+				mOrderAdapter.notifyDataSetChanged();
 				break;
 			}
 			case OrderLogic.ORDERLIST_GET_FAIL: {
@@ -78,27 +80,27 @@ public class OrderListActivity extends Activity implements OnClickListener {
 	private void initView() {
 		mContext = OrderListActivity.this;
 		mOrderLv = (ListView) findViewById(R.id.order_list_lv);
-		mOrderAdapter = new OrderWineAdapter(mContext, orderList);
+		mOrderAdapter = new OrderWineAdapter(mContext, mMsgMap);
 		mOrderLv.setAdapter(mOrderAdapter);
 
 		mBackIv = (ImageView) findViewById(R.id.order_list_back_iv);
-		// mOrderLv.setAdapter(new OrderExAdapter());
 		mBackIv.setOnClickListener(this);
 	}
 
 	private void initData() {
-		orderList.clear();
-		for (int i = 0; i < 9; i++) {
-			Order order = new Order();
-			order.setId("订单" + i);
-			order.setOrderTime("2015-7-20 19:30");
-			order.setOrderStatus("配送");
-			orderList.add(order);
-		}
-		mOrderAdapter.notifyDataSetChanged();
+		// orderList.clear();
+		// for (int i = 0; i < 9; i++) {
+		// Order order = new Order();
+		// order.setId("订单" + i);
+		// order.setOrderTime("2015-7-20 19:30");
+		// order.setOrderStatus("配送");
+		// orderList.add(order);
+		// }
+		// mOrderAdapter.notifyDataSetChanged();
 
 		OrderLogic.getOrders(mContext, mHandler, "15112345678", "0", "30");
-		OrderLogic.cancelOrder(mContext, mHandler, OrderManager.getsCurrentOrderId());
+		// OrderLogic.cancelOrder(mContext, mHandler,
+		// OrderManager.getsCurrentOrderId());
 	}
 
 	@Override

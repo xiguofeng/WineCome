@@ -13,10 +13,11 @@
 
         <ImageView
             android:id="@+id/order_wine_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="66dip"
+            android:layout_height="80dip"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dip"
+            android:scaleType="centerCrop"
             android:src="@drawable/img_null" />
 
         <TextView

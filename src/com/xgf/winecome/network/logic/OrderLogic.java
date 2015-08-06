@@ -249,16 +249,22 @@ public class OrderLogic {
 					for (int j = 0; j < goodsArray.length(); j++) {
 						JSONObject goodsJsonObject = goodsArray
 								.getJSONObject(j);
-
-						Goods goods = (Goods) JsonUtils.fromJsonToJava(
-								goodsJsonObject, Goods.class);
-						goods.setNum("0");
+						Goods goods = new Goods();
+						goods.setId(goodsJsonObject.getString("productId"));
+						goods.setName(goodsJsonObject.getString("productName"));
+						goods.setSalesPrice(goodsJsonObject
+								.getString("salePrice"));
+						goods.setNum(goodsJsonObject.getString("count"));
 						tempGoodsList.add(goods);
 					}
 					msgMap.put(order.getId(), tempGoodsList);
 
 				}
-				msgMap.put("Order", tempOrderList);
+				msgMap.put(MsgResult.ORDER_TAG, tempOrderList);
+				Log.e("xxx_123",
+						""
+								+ ((ArrayList<Order>) msgMap
+										.get(MsgResult.ORDER_TAG)).size());
 
 				Message message = new Message();
 				message.what = ORDERLIST_GET_SUC;

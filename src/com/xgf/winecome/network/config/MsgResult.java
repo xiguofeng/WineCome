@@ -29,7 +29,7 @@ public class MsgResult {
 	 * datas
 	 */
 	public static final String RESULT_DATAS_TAG = "datas";
-	
+
 	/**
 	 * list
 	 */
@@ -55,12 +55,6 @@ public class MsgResult {
 	 */
 	public static final String RESULT_ERROR_MSG_TAG = "errorMessage";
 
-	public static final String B2A_RESULT_SUCCESS = "0";
-
-	public static final String B2A_RESULT_NOT_BIND = "1";
-
-	public static final String B2A_RESULT_SUCCESS_TAG = "STATE";
-
-	public static final String B2A_RESULT_DATA_TAG = "DATAS";
+	public static final String ORDER_TAG = "Order";
 
 }

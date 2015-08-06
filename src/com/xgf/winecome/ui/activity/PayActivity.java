@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.pay.alipay.PayDemoActivity;
-import com.xgf.winecome.pay.wxpay.WXPayActivity;
 
 public class PayActivity extends Activity implements OnClickListener {
 
