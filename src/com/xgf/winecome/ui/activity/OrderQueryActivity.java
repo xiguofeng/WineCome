@@ -27,8 +27,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 	private Context mContext;
 
 	private ImageView mBackIv;
-	// 登陆装填提示handler更新主线程，提示登陆状态情况
-	Handler mLoginHandler = new Handler() {
+	
+	Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -120,6 +120,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 
+			
 //			User user = new User();
 //			UserLogic.login(mContext, mLoginHandler, user);
 

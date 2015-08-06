@@ -153,4 +153,85 @@ public class OrderLogic {
 		}
 	}
 
+	public static void getOrders(final Context context, final Handler handler,
+			final String phone, final String pageNum, final String pageSize) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.queryOrders);
+
+					JSONObject requestJson = new JSONObject();
+
+					requestJson.put("phone", URLEncoder.encode(phone, "UTF-8"));
+					rpc.addProperty("pageNum",
+							URLEncoder.encode(pageNum, "UTF-8"));
+					rpc.addProperty("pageSize",
+							URLEncoder.encode(pageSize, "UTF-8"));
+					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.queryOrders, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+
+					if (!TextUtils.isEmpty(resultStr)) {
+
+						Log.e("xxx_orders_result", resultStr.toString());
+						JSONObject obj = new JSONObject(resultStr);
+						parseOrdersData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	private static void parseOrdersData(JSONObject response, Handler handler) {
+
+		try {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
+				handler.sendEmptyMessage(ORDER_CREATE_FAIL);
+			} else {
+				String orderID = response.getString("orderId").trim();
+				if (!TextUtils.isEmpty(orderID)) {
+					OrderManager.setsCurrentOrderId(orderID);
+					Message message = new Message();
+					message.what = ORDER_CREATE_SUC;
+					message.obj = orderID;
+					handler.sendMessage(message);
+				} else {
+					handler.sendEmptyMessage(ORDER_CREATE_FAIL);
+				}
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(ORDER_CREATE_EXCEPTION);
+		}
+	}
+
 }

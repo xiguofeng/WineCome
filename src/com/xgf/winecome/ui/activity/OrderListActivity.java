@@ -7,6 +7,8 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
 
 public class OrderListActivity extends Activity implements OnClickListener {
@@ -28,6 +31,33 @@ public class OrderListActivity extends Activity implements OnClickListener {
 	private Map<String, List<String>> map = null;
 
 	private ImageView mBackIv;
+
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case OrderLogic.ORDERLIST_GET_SUC: {
+				break;
+			}
+			case OrderLogic.ORDERLIST_GET_FAIL: {
+
+				break;
+			}
+			case OrderLogic.ORDERLIST_GET_EXCEPTION: {
+				break;
+			}
+			case OrderLogic.NET_ERROR: {
+				break;
+			}
+			default:
+				break;
+			}
+
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +86,6 @@ public class OrderListActivity extends Activity implements OnClickListener {
 	}
 
 	private void initData() {
-
 		orderList.clear();
 		for (int i = 0; i < 9; i++) {
 			Order order = new Order();
@@ -66,6 +95,8 @@ public class OrderListActivity extends Activity implements OnClickListener {
 			orderList.add(order);
 		}
 		mOrderAdapter.notifyDataSetChanged();
+
+		OrderLogic.getOrders(mContext, mHandler, "15112345678", "0", "30");
 	}
 
 	@Override

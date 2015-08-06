@@ -30,7 +30,7 @@ public class RequestUrl {
 	}
 
 	public interface goods {
-		
+
 		/**
 		 * 查询全部商品
 		 */
@@ -55,18 +55,9 @@ public class RequestUrl {
 		public String createOrder = "createOrder";
 
 		/**
-		 * 非标商品的创建订单请求
+		 *查询订单
 		 */
-		public String buyCreateOrder2 = "/order/create2";
-
-		/**
-		 * 买家订单
-		 */
-		public String queryBuyerOrder = "/order/queryBuyerOrder";
-		/**
-		 * 卖家订单
-		 */
-		public String querySellerOrder = "/order/querySellerOrder";
+		public String queryOrders = "queryOrder";
 
 	}
 
