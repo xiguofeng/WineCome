@@ -3,6 +3,7 @@ package com.xgf.winecome.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -17,6 +18,8 @@ public class CommentsResultActivity extends Activity implements OnClickListener 
 	private LinearLayout mOrderQueryLl;
 
 	private ImageView mBackIv;
+
+	private final int DISPLAY_LENGTH = 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,18 @@ public class CommentsResultActivity extends Activity implements OnClickListener 
 	}
 
 	private void setUpData() {
+
+		// 启动三秒后进度到登陆界面
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				Intent intent = new Intent(CommentsResultActivity.this,
+						MainActivity.class);
+				startActivity(intent);
+				CommentsResultActivity.this.finish();
+			}
+		}, DISPLAY_LENGTH);
 	}
 
 	@Override

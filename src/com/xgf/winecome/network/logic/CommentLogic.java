@@ -66,7 +66,7 @@ public class CommentLogic {
 						String resultStr = (String) so.getProperty(0);
 						Log.e("xxx_commentOrder_resultStr", resultStr);
 
-						if (TextUtils.isEmpty(resultStr)) {
+						if (!TextUtils.isEmpty(resultStr)) {
 							JSONObject obj = new JSONObject(resultStr);
 							parseData(obj, handler);
 						}
@@ -90,12 +90,11 @@ public class CommentLogic {
 
 	private static void parseData(JSONObject result, Handler handler) {
 		try {
-
 			if (result.getString(MsgResult.RESULT_TAG).equals(
-					MsgResult.RESULT_SUCCESS)) {
-				handler.sendEmptyMessage(COMMENT_ADD_SUC);
-			} else {
+					MsgResult.RESULT_FAIL)) {
 				handler.sendEmptyMessage(COMMENT_ADD_FAIL);
+			} else {
+				handler.sendEmptyMessage(COMMENT_ADD_SUC);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
