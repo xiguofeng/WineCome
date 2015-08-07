@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
+import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 
@@ -20,6 +21,7 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_state);
+		AppManager.getInstance().addActivity(OrderStateActivity.this);
 		setUpViews();
 		setUpListener();
 		setUpData();
