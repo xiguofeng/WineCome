@@ -72,6 +72,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			int what = msg.what;
 			switch (what) {
 			case OrderLogic.ORDER_CREATE_SUC: {
+				CartManager.sCartList.clear();
 				Intent intent = new Intent(PersonInfoActivity.this,
 						PayActivity.class);
 				startActivity(intent);

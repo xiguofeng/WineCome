@@ -28,6 +28,7 @@ import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.network.logic.GoodsLogic;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
 import com.xgf.winecome.ui.adapter.GoodsAdapter;
+import com.xgf.winecome.utils.CartManager;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -39,6 +40,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private GoodsAdapter mGoodsAdapter;
 	private ArrayList<Category> mCategoryList = new ArrayList<Category>();
 	private CategoryAdapter mCategoryAdapter;
+
+	private ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
 
 	private LinearLayout mFirstBg;
 	private float y;
@@ -130,35 +133,37 @@ public class MainActivity extends Activity implements OnClickListener {
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
-				y = mSearchLl.getY();
-				TranslateAnimation animation = new TranslateAnimation(0, 0, 0,
-						-y);
-				animation.setDuration(500);
-				animation.setFillAfter(true);
-				animation.setAnimationListener(new AnimationListener() {
-					@Override
-					public void onAnimationRepeat(Animation animation) {
-					}
-
-					@Override
-					public void onAnimationStart(Animation animation) {
-					}
-
-					@Override
-					public void onAnimationEnd(Animation animation) {
-						Intent intent = new Intent(MainActivity.this,
-								SearchActivity.class);
-						startActivityForResult(intent, 500);
-						overridePendingTransition(R.anim.animationb,
-								R.anim.animationa);
-					}
-				});
-				mFirstBg.startAnimation(animation);
-
-				Intent intent = new Intent(MainActivity.this,
-						SearchActivity.class);
-				startActivityForResult(intent, 500);
-				overridePendingTransition(R.anim.animationb, R.anim.animationa);
+				// y = mSearchLl.getY();
+				// TranslateAnimation animation = new TranslateAnimation(0, 0,
+				// 0,
+				// -y);
+				// animation.setDuration(500);
+				// animation.setFillAfter(true);
+				// animation.setAnimationListener(new AnimationListener() {
+				// @Override
+				// public void onAnimationRepeat(Animation animation) {
+				// }
+				//
+				// @Override
+				// public void onAnimationStart(Animation animation) {
+				// }
+				//
+				// @Override
+				// public void onAnimationEnd(Animation animation) {
+				// Intent intent = new Intent(MainActivity.this,
+				// SearchActivity.class);
+				// startActivityForResult(intent, 500);
+				// overridePendingTransition(R.anim.animationb,
+				// R.anim.animationa);
+				// }
+				// });
+				// mFirstBg.startAnimation(animation);
+				//
+				// Intent intent = new Intent(MainActivity.this,
+				// SearchActivity.class);
+				// startActivityForResult(intent, 500);
+				// overridePendingTransition(R.anim.animationb,
+				// R.anim.animationa);
 			}
 		});
 	}
@@ -204,6 +209,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					mGoodsList.clear();
 					mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
 							.get(mCategoryList.get(position).getPpid()));
+					refreshGoods();
 					mGoodsAdapter.notifyDataSetChanged();
 				}
 			}
@@ -213,6 +219,25 @@ public class MainActivity extends Activity implements OnClickListener {
 		// GoodsLogic.getAllGoods(mContext, mHandler);
 
 		GoodsLogic.getCategroyAndGoodsList(mContext, mHandler);
+	}
+
+	@Override
+	protected void onResume() {
+		refreshGoods();
+		super.onResume();
+	}
+
+	private void refreshGoods() {
+		for (int i = 0; i < CartManager.sCartList.size(); i++) {
+			for (int j = 0; j < mGoodsList.size(); j++) {
+				if (mGoodsList.get(j).getId()
+						.equals(CartManager.sCartList.get(i).getId())) {
+					mGoodsList.get(j).setNum(
+							CartManager.sCartList.get(i).getNum());
+				}
+			}
+		}
+		mGoodsAdapter.notifyDataSetChanged();
 	}
 
 	@Override
