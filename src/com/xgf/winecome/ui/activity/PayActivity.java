@@ -11,6 +11,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.pay.alipay.PayDemoActivity;
 
@@ -31,6 +32,7 @@ public class PayActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
+		AppManager.getInstance().addActivity(PayActivity.this);
 		setUpViews();
 		setUpListener();
 		setUpData();

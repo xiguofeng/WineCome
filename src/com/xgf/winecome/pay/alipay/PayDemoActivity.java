@@ -17,8 +17,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.ui.activity.OrderStateActivity;
+import com.xgf.winecome.ui.activity.PayActivity;
 
 public class PayDemoActivity extends FragmentActivity {
 
@@ -78,6 +80,7 @@ public class PayDemoActivity extends FragmentActivity {
 
 			}
 
+			AppManager.getInstance().killActivity(PayActivity.class);
 			Intent intent = new Intent(PayDemoActivity.this,
 					OrderStateActivity.class);
 			startActivity(intent);

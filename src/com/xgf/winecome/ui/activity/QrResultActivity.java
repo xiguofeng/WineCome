@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 
 public class QrResultActivity extends Activity implements OnClickListener {
@@ -24,6 +25,7 @@ public class QrResultActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.qr_result);
+		AppManager.getInstance().addActivity(QrResultActivity.this);
 		setUpViews();
 		setUpListener();
 		setUpData();

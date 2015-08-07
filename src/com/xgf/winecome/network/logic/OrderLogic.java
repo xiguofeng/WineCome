@@ -254,6 +254,7 @@ public class OrderLogic {
 						goods.setName(goodsJsonObject.getString("productName"));
 						goods.setSalesPrice(goodsJsonObject
 								.getString("salePrice"));
+						goods.setIconUrl(goodsJsonObject.getString("iconUrl"));
 						goods.setNum(goodsJsonObject.getString("count"));
 						tempGoodsList.add(goods);
 					}
@@ -261,10 +262,6 @@ public class OrderLogic {
 
 				}
 				msgMap.put(MsgResult.ORDER_TAG, tempOrderList);
-				Log.e("xxx_123",
-						""
-								+ ((ArrayList<Order>) msgMap
-										.get(MsgResult.ORDER_TAG)).size());
 
 				Message message = new Message();
 				message.what = ORDERLIST_GET_SUC;

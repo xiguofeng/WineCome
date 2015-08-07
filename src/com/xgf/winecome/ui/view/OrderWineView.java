@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 
@@ -37,6 +38,8 @@ public class OrderWineView extends LinearLayout {
 	}
 
 	public void fillData(Context context, Goods goods) {
+
+		ImageLoader.getInstance().displayImage(goods.getIconUrl(), mIv);
 		mNameTv.setText(goods.getName());
 		mPriceTv.setText(goods.getSalesPrice());
 		mNumTv.setText(goods.getNum());

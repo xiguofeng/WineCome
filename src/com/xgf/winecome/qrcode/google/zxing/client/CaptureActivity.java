@@ -60,6 +60,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
 import com.google.zxing.ResultPoint;
+import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.camera.CameraManager;
 import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryItem;
@@ -68,6 +69,7 @@ import com.xgf.winecome.qrcode.google.zxing.client.result.ResultButtonListener;
 import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
 import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
 import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
+import com.xgf.winecome.ui.activity.OrderStateActivity;
 import com.xgf.winecome.ui.activity.QrResultActivity;
 
 /**
@@ -153,7 +155,7 @@ public final class CaptureActivity extends Activity implements
 
 		mBackIv = (ImageView) findViewById(R.id.qr_back_iv);
 		mBackIv.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				CaptureActivity.this.finish();
@@ -488,8 +490,10 @@ public final class CaptureActivity extends Activity implements
 		}
 
 		// TODO
+		AppManager.getInstance().killActivity(OrderStateActivity.class);
 		Intent intent = new Intent(CaptureActivity.this, QrResultActivity.class);
 		startActivity(intent);
+		CaptureActivity.this.finish();
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 	}
 
