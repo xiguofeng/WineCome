@@ -28,7 +28,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="测试的商品"
+                android:text="酒(现在为测试商品的总价设置为0.01)"
                 android:textColor="#333333"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
@@ -52,7 +52,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="该测试商品的详细描述"
+                android:text="南京壹前零后信息技术有限公司提供的酒"
                 android:textColor="#333333"
                 tools:ignore="HardcodedText" />
         </LinearLayout>

@@ -101,7 +101,7 @@ public class PayDemoActivity extends FragmentActivity {
 	 */
 	public void pay(View v) {
 		// 订单
-		String orderInfo = getOrderInfo("酒(现在为测试商品的总价设置为0.01)", "南京壹前零后信息技术有限公司", "0.01");
+		String orderInfo = getOrderInfo("酒(现在为测试商品的总价设置为0.01)", "南京壹前零后信息技术有限公司提供的酒", "0.01");
 
 		// 对订单做RSA 签名
 		String sign = sign(orderInfo);
