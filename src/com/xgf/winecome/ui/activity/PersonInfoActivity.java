@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
@@ -31,6 +32,11 @@ import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
 
 public class PersonInfoActivity extends Activity implements OnClickListener,
 		TextWatcher {
+	public static final String ORIGIN_FROM_DETAIL_ACTION = "gooddetail";
+
+	public static final String ORIGIN_FROM_MAIN_ACTION = "main";
+
+	public static final String ORIGIN_FROM_CART_ACTION = "cart";
 
 	private Context mContext;
 
@@ -65,6 +71,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private String mLat;
 	private String mLon;
 
+	private String mNowAction = ORIGIN_FROM_MAIN_ACTION;
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -72,7 +80,13 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			int what = msg.what;
 			switch (what) {
 			case OrderLogic.ORDER_CREATE_SUC: {
+				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
+					AppManager.getInstance().killActivity(
+							GoodsDetailActivity.class);
+				}
 				CartManager.sCartList.clear();
+				CartManager.showOrhHidePayBar(false);
+				HomeActivity.modifyMainPayView("0");
 				Intent intent = new Intent(PersonInfoActivity.this,
 						PayActivity.class);
 				startActivity(intent);
@@ -181,6 +195,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 	private void setUpData() {
 		getLoc();
+		mNowAction = getIntent().getAction();
 	}
 
 	private void updateShow() {
@@ -309,8 +324,18 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			order.setAddress(mAddressEt.getText().toString().trim());
 			// OrderLogic.createOrder(mContext, mHandler, order);
 
-			OrderLogic.createOrder(mContext, mHandler, order,
-					CartManager.getsCartList());
+			// TODO
+			if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
+				OrderLogic.createOrder(mContext, mHandler, order,
+						CartManager.getsCartList());
+			} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
+				OrderLogic.createOrder(mContext, mHandler, order,
+						CartManager.getsCartList());
+			} else {
+				OrderLogic.createOrder(mContext, mHandler, order,
+						CartManager.getsCartList());
+			}
+
 			// Intent intent = new Intent(PersonInfoActivity.this,
 			// WXPayActivity.class);
 			// startActivity(intent);

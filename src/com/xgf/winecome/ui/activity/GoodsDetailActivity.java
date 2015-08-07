@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.utils.CartManager;
@@ -51,6 +53,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goods_detail);
+		AppManager.getInstance().addActivity(GoodsDetailActivity.this);
 		initView();
 		initData();
 	}
@@ -103,14 +106,14 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 				.setText(!TextUtils.isEmpty(mGoods.getMarketPrice()) ? "原价:¥"
 						+ mGoods.getMarketPrice() : "原价:¥");
 		mGoodsProductAreaTv
-				.setText(!TextUtils.isEmpty(mGoods.getArea()) ? "商品产地："+mGoods
-						.getArea() : "商品产地：");
-		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? "度数："+mGoods
-				.getDegree() : "度数：");
-		mGoodsNumTypeTv.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? "规格："+mGoods
-				.getLevel() : "规格：");
-		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? "香型："+mGoods
-				.getModel() : "香型：");
+				.setText(!TextUtils.isEmpty(mGoods.getArea()) ? "商品产地："
+						+ mGoods.getArea() : "商品产地：");
+		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? "度数："
+				+ mGoods.getDegree() : "度数：");
+		mGoodsNumTypeTv.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? "规格："
+				+ mGoods.getLevel() : "规格：");
+		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? "香型："
+				+ mGoods.getModel() : "香型：");
 
 	}
 
@@ -123,6 +126,11 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {
+			Intent intent = new Intent(GoodsDetailActivity.this,
+					PersonInfoActivity.class);
+			intent.setAction(PersonInfoActivity.ORIGIN_FROM_DETAIL_ACTION);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
 		case R.id.goods_detail_back_iv: {

@@ -223,8 +223,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onResume() {
-		refreshGoods();
 		super.onResume();
+		refreshGoods();
 	}
 
 	private void refreshGoods() {
