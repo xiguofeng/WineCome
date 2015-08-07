@@ -210,7 +210,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
 							.get(mCategoryList.get(position).getPpid()));
 					refreshGoods();
-					mGoodsAdapter.notifyDataSetChanged();
+					// mGoodsAdapter.notifyDataSetChanged();
 				}
 			}
 		});
@@ -234,6 +234,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						.equals(CartManager.sCartList.get(i).getId())) {
 					mGoodsList.get(j).setNum(
 							CartManager.sCartList.get(i).getNum());
+				} else {
+					mGoodsList.get(j).setNum("0");
 				}
 			}
 		}
