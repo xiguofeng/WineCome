@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.network.logic.CommentLogic;
 import com.xgf.winecome.utils.OrderManager;
@@ -31,6 +32,7 @@ public class CommentsActivity extends Activity implements OnClickListener {
 			int what = msg.what;
 			switch (what) {
 			case CommentLogic.COMMENT_ADD_SUC: {
+				AppManager.getInstance().killActivity(QrResultActivity.class);
 				Intent intent = new Intent(CommentsActivity.this,
 						CommentsResultActivity.class);
 				startActivity(intent);
