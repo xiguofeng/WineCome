@@ -112,6 +112,7 @@
     <string name="invoice_content_hint">请填写发票内容</string>
     <string name="login_successful">登录成功</string>
     <string name="login_fail">登录失败</string>
+    <string name="mobile_phone_and_code_hint">请填写正确的手机号码与验证码</string>
 
     <!-- integral -->
     <string name="integral_query">积分查询</string>

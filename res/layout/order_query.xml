@@ -112,7 +112,7 @@
 
                 <LinearLayout
                     android:id="@+id/order_query_ver_code_ll"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dip"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:background="@color/orange_bg"

@@ -86,7 +86,7 @@ public class UserLogic {
 					String resultStr = (String) so.getProperty(0);
 					Log.e("xxx_resultStr", resultStr);
 
-					if (TextUtils.isEmpty(resultStr)) {
+					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseLoginData(obj, handler);
 					}
@@ -159,7 +159,7 @@ public class UserLogic {
 					String resultStr = (String) so.getProperty(0);
 					Log.e("xxx_AuthCode_resultStr", resultStr);
 
-					if (TextUtils.isEmpty(resultStr)) {
+					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseSendAuthCodeData(obj, handler);
 					}

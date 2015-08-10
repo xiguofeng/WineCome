@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xgf.winecome.R;
@@ -21,17 +22,22 @@ import com.xgf.winecome.network.logic.UserLogic;
 
 public class OrderQueryActivity extends Activity implements OnClickListener,
 		TextWatcher {
+	public static final int TIME_UPDATE = 1;
+
 	private LinearLayout mQueryLl;
 	private LinearLayout mAuthCodeLl;
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
+	private TextView mTimingTv;
 	private Context mContext;
 
 	private ImageView mBackIv;
 
 	private String mPhone;
 	private String mAuthCode;
+
+	private int mTiming = 60;
 
 	Handler mHandler = new Handler() {
 
@@ -43,6 +49,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 				if (null != msg.obj) {
 					mAuthCode = (String) msg.obj;
 				}
+				mTimeHandler.sendEmptyMessage(TIME_UPDATE);
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
@@ -65,6 +72,33 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 
 	};
 
+	private Handler mTimeHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case TIME_UPDATE: {
+				if (mTiming > 0) {
+					mTiming--;
+					mTimingTv.setText(String.valueOf(mTiming));
+					mAuthCodeLl.setClickable(false);
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.gray_bg));
+					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
+				} else {
+					mAuthCodeLl.setClickable(true);
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.orange_bg));
+					mTimingTv
+							.setText(getString(R.string.get_verification_code));
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		};
+
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,12 +115,14 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 
 		mPhoneEt = (EditText) findViewById(R.id.order_query_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.order_query_ver_code_et);
+		mTimingTv = (TextView) findViewById(R.id.order_query_ver_code_btn_tv);
 
 		mBackIv = (ImageView) findViewById(R.id.order_query_back_iv);
 	}
 
 	private void setUpListener() {
 		mQueryLl.setOnClickListener(this);
+		mAuthCodeLl.setOnClickListener(this);
 
 		mPhoneEt.addTextChangedListener(this);
 		mVerCodeEt.addTextChangedListener(this);
@@ -116,8 +152,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 
 		case R.id.order_query_submit_ll: {
-			if (!TextUtils.isEmpty(mPhone)
-					|| mAuthCode.equals(mVerCodeEt.getText().toString().trim())) {
+			if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode)
+					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())) {
 				Intent intent = new Intent(OrderQueryActivity.this,
 						OrderListActivity.class);
 				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
@@ -125,6 +161,10 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 				OrderQueryActivity.this.finish();
 				overridePendingTransition(R.anim.push_left_in,
 						R.anim.push_left_out);
+			} else {
+				Toast.makeText(mContext,
+						getString(R.string.mobile_phone_and_code_hint),
+						Toast.LENGTH_SHORT).show();
 			}
 			// User user = new User();
 			// UserLogic.login(mContext, mLoginHandler, user);
