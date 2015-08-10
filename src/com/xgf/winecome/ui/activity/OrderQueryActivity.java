@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +28,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 	private Context mContext;
 
 	private ImageView mBackIv;
-	
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -37,6 +38,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 			case UserLogic.LOGIN_SUC: {
 				Intent intent = new Intent(OrderQueryActivity.this,
 						OrderListActivity.class);
+				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
 				startActivity(intent);
 				OrderQueryActivity.this.finish();
 				overridePendingTransition(R.anim.push_left_in,
@@ -114,15 +116,20 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 
 		case R.id.order_query_submit_ll: {
-			
-			Intent intent = new Intent(OrderQueryActivity.this,
-					OrderListActivity.class);
-			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			if (!TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
+				Intent intent = new Intent(OrderQueryActivity.this,
+						OrderListActivity.class);
+				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
+				startActivity(intent);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
+			} else {
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
+						Toast.LENGTH_SHORT).show();
+			}
 
-			
-//			User user = new User();
-//			UserLogic.login(mContext, mLoginHandler, user);
+			// User user = new User();
+			// UserLogic.login(mContext, mLoginHandler, user);
 
 			break;
 		}

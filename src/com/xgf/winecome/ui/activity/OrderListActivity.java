@@ -97,7 +97,8 @@ public class OrderListActivity extends Activity implements OnClickListener {
 		// }
 		// mOrderAdapter.notifyDataSetChanged();
 
-		OrderLogic.getOrders(mContext, mHandler, "15112345678", "0", "30");
+		String phone = getIntent().getStringExtra("phone");
+		OrderLogic.getOrders(mContext, mHandler, phone, "0", "30");
 		// OrderLogic.cancelOrder(mContext, mHandler,
 		// OrderManager.getsCurrentOrderId());
 	}
