@@ -14,8 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -41,7 +39,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ArrayList<Category> mCategoryList = new ArrayList<Category>();
 	private CategoryAdapter mCategoryAdapter;
 
-	private ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
+	private ArrayList<Goods> mTempCategoryGoodsList = new ArrayList<Goods>();
 
 	private LinearLayout mFirstBg;
 	private float y;
@@ -199,19 +197,41 @@ public class MainActivity extends Activity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (mCategoryList.get(position).getPpid().equals("t_1")
-						|| mCategoryList.get(position).getPpid().equals("t_0")) {
+				mCategoryAdapter.setmCurrentSelect(position);
+				mCategoryAdapter.notifyDataSetChanged();
+				if (mCategoryList.get(position).getPpid().equals("t_0")) {
+					mTempCategoryGoodsList.clear();
+					for (int i = 0; i < mCategoryList.size(); i++) {
+						if (mCategoryList.get(i).getPplx().equals("01"))
+							mTempCategoryGoodsList
+									.addAll((Collection<? extends Goods>) mMsgMap
+											.get(mCategoryList.get(i).getPpid()));
+
+					}
+					mGoodsList.clear();
+					mGoodsList.addAll(mTempCategoryGoodsList);
+
+				} else if (mCategoryList.get(position).getPpid().equals("t_1")) {
+					mTempCategoryGoodsList.clear();
+					for (int i = 0; i < mCategoryList.size(); i++) {
+						if (mCategoryList.get(i).getPplx().equals("02"))
+							mTempCategoryGoodsList
+									.addAll((Collection<? extends Goods>) mMsgMap
+											.get(mCategoryList.get(i).getPpid()));
+
+					}
+
+					mGoodsList.clear();
+					mGoodsList.addAll(mTempCategoryGoodsList);
 
 				} else {
-					mCategoryAdapter.setmCurrentSelect(position);
-					mCategoryAdapter.notifyDataSetChanged();
-
 					mGoodsList.clear();
 					mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
 							.get(mCategoryList.get(position).getPpid()));
-					refreshGoods();
+
 					// mGoodsAdapter.notifyDataSetChanged();
 				}
+				refreshGoods();
 			}
 		});
 

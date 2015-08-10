@@ -86,7 +86,7 @@ public class CategoryAdapter extends BaseAdapter {
 			// R.color.white));
 			holder.mIconIv.setVisibility(View.VISIBLE);
 			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
-					R.drawable.white_wine));
+					R.drawable.red_wine));
 		}
 
 		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
