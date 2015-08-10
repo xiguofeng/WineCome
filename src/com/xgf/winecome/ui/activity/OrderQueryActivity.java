@@ -22,6 +22,7 @@ import com.xgf.winecome.network.logic.UserLogic;
 public class OrderQueryActivity extends Activity implements OnClickListener,
 		TextWatcher {
 	private LinearLayout mQueryLl;
+	private LinearLayout mAuthCodeLl;
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
@@ -29,29 +30,27 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 
 	private ImageView mBackIv;
 
+	private String mPhone;
+	private String mAuthCode;
+
 	Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case UserLogic.LOGIN_SUC: {
-				Intent intent = new Intent(OrderQueryActivity.this,
-						OrderListActivity.class);
-				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
-				startActivity(intent);
-				OrderQueryActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
-
+			case UserLogic.SEND_AUTHCODE_SUC: {
+				if (null != msg.obj) {
+					mAuthCode = (String) msg.obj;
+				}
 				break;
 			}
-			case UserLogic.LOGIN_FAIL: {
+			case UserLogic.SEND_AUTHCODE_FAIL: {
 				Toast.makeText(mContext, R.string.login_fail,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
-			case UserLogic.LOGIN_EXCEPTION: {
+			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
 				break;
 			}
 			case UserLogic.NET_ERROR: {
@@ -78,6 +77,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 
 	private void setUpViews() {
 		mQueryLl = (LinearLayout) findViewById(R.id.order_query_submit_ll);
+		mAuthCodeLl = (LinearLayout) findViewById(R.id.order_query_ver_code_ll);
 
 		mPhoneEt = (EditText) findViewById(R.id.order_query_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.order_query_ver_code_et);
@@ -116,25 +116,34 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 
 		case R.id.order_query_submit_ll: {
-			if (!TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
+			if (!TextUtils.isEmpty(mPhone)
+					|| mAuthCode.equals(mVerCodeEt.getText().toString().trim())) {
 				Intent intent = new Intent(OrderQueryActivity.this,
 						OrderListActivity.class);
 				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
 				startActivity(intent);
+				OrderQueryActivity.this.finish();
 				overridePendingTransition(R.anim.push_left_in,
 						R.anim.push_left_out);
-			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
-						Toast.LENGTH_SHORT).show();
 			}
-
 			// User user = new User();
 			// UserLogic.login(mContext, mLoginHandler, user);
 
 			break;
 		}
-		case R.id.order_query_back_iv: {
+		case R.id.order_query_ver_code_ll: {
+			mPhone = mPhoneEt.getText().toString().trim();
+			if (!TextUtils.isEmpty(mPhone)) {
+				UserLogic.sendAuthCode(mContext, mHandler, mPhone);
 
+			} else {
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
+						Toast.LENGTH_SHORT).show();
+			}
+			break;
+		}
+
+		case R.id.order_query_back_iv: {
 			finish();
 			break;
 		}

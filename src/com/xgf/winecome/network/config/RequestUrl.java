@@ -26,6 +26,11 @@ public class RequestUrl {
 		 * 登陆
 		 */
 		public String login = "login";
+		
+		/**
+		 * 验证码
+		 */
+		public String sendAuthCode = "sendAuthCode";
 
 	}
 
