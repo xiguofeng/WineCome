@@ -23,7 +23,7 @@ public class CategoryAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 
-	private int mCurrentSelect;
+	private String mCurrentSelect;
 
 	public CategoryAdapter(Context context, ArrayList<Category> datas) {
 		this.mContext = context;
@@ -50,8 +50,11 @@ public class CategoryAdapter extends BaseAdapter {
 		return position;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.widget.Adapter#getView(int, android.view.View,
+	 * android.view.ViewGroup)
 	 */
 	@SuppressLint("NewApi")
 	@Override
@@ -79,9 +82,9 @@ public class CategoryAdapter extends BaseAdapter {
 		if ("t_0".equals(mDatas.get(position).getPpid())) {
 
 			holder.mIconIv.setVisibility(View.VISIBLE);
-			
-			holder.mIconIv.setImageDrawable(mContext.getResources().getDrawable(
-					R.drawable.white_wine));
+
+			holder.mIconIv.setImageDrawable(mContext.getResources()
+					.getDrawable(R.drawable.white_wine));
 			// holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 			// R.drawable.white_wine));
 
@@ -91,15 +94,15 @@ public class CategoryAdapter extends BaseAdapter {
 			// holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 			// R.color.white));
 			holder.mIconIv.setVisibility(View.VISIBLE);
-			holder.mIconIv.setImageDrawable(mContext.getResources().getDrawable(
-					R.drawable.red_wine));
+			holder.mIconIv.setImageDrawable(mContext.getResources()
+					.getDrawable(R.drawable.red_wine));
 			// holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 			// R.drawable.red_wine));
 		}
 
 		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 				R.color.gray_list_bg));
-		if (position == mCurrentSelect) {
+		if (mCurrentSelect.equals(mDatas.get(position).getPpid())) {
 			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 					R.color.white));
 			holder.mSelectIv.setVisibility(View.VISIBLE);
@@ -118,12 +121,13 @@ public class CategoryAdapter extends BaseAdapter {
 
 		public ImageView mIconIv;
 	}
-
-	public int getmCurrentSelect() {
+	
+	public String getmCurrentSelect() {
 		return mCurrentSelect;
 	}
 
-	public void setmCurrentSelect(int mCurrentSelect) {
+	public void setmCurrentSelect(String mCurrentSelect) {
 		this.mCurrentSelect = mCurrentSelect;
 	}
+
 }

@@ -42,6 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/corners_search_bg_red"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="horizontal" >
 
             <LinearLayout
@@ -49,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dip"
                 android:layout_centerInParent="true"
-                android:background="@drawable/corners_search_bg_red"
                 android:gravity="center"
                 android:orientation="horizontal" >
 
@@ -74,7 +75,22 @@
                 android:layout_height="30dip"
                 android:layout_centerInParent="true"
                 android:background="@null"
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:singleLine="true"
                 android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/main_search_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:padding="8dip"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:src="@drawable/search" />
         </RelativeLayout>
 
         <!-- <include -->
