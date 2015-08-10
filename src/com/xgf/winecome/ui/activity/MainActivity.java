@@ -66,7 +66,6 @@ public class MainActivity extends Activity implements OnClickListener {
 							.putAll((Map<? extends String, ? extends Object>) msg.obj);
 
 					refreshAllData(mAllMsgMap);
-
 				}
 				break;
 			}

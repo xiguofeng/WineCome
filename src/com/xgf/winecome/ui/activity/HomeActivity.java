@@ -182,21 +182,29 @@ public class HomeActivity extends TabActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.home_main_buy_ll: {
-			Intent intent = new Intent(HomeActivity.this,
-					PersonInfoActivity.class);
-			intent.setAction(PersonInfoActivity.ORIGIN_FROM_MAIN_ACTION);
-			// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
-			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			if (CartManager.getsCartList().size() > 0) {
+				Intent intent = new Intent(HomeActivity.this,
+						PersonInfoActivity.class);
+				intent.setAction(PersonInfoActivity.ORIGIN_FROM_MAIN_ACTION);
+				// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
+				startActivity(intent);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
+			}
 			break;
 		}
 		case R.id.home_cart_buy_ll: {
-			Intent intent = new Intent(HomeActivity.this,
-					PersonInfoActivity.class);
-			intent.setAction(PersonInfoActivity.ORIGIN_FROM_CART_ACTION);
-			// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
-			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			if (CartManager.getsSelectCartList().size() > 0) {
+				Intent intent = new Intent(HomeActivity.this,
+						PersonInfoActivity.class);
+				intent.setAction(PersonInfoActivity.ORIGIN_FROM_CART_ACTION);
+				// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
+				startActivity(intent);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
+			} else {
+
+			}
 			break;
 		}
 
