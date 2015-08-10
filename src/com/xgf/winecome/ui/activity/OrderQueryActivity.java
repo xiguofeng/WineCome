@@ -89,6 +89,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 							R.color.orange_bg));
 					mTimingTv
 							.setText(getString(R.string.get_verification_code));
+					mTiming = 60;
 				}
 				break;
 			}

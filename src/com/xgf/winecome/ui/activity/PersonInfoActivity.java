@@ -20,12 +20,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
@@ -38,9 +40,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 	public static final String ORIGIN_FROM_CART_ACTION = "cart";
 
+	public static final int TIME_UPDATE = 1;
+
 	private Context mContext;
 
-	private LinearLayout mVerCodeLl;
+	private LinearLayout mAuthCodeLl;
 	private LinearLayout mSubmitLl;
 	private LinearLayout mInvoiceLl;
 	private LinearLayout mBottomLl;
@@ -58,6 +62,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private TextView mAreaTagTv;
 	private TextView mTimeTagTv;
 	private TextView mDateTagTv;
+	private TextView mTimingTv;
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
@@ -72,6 +77,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private String mLon;
 
 	private String mNowAction = ORIGIN_FROM_MAIN_ACTION;
+
+	private String mPhone;
+	private String mAuthCode;
+
+	private int mTiming = 60;
 
 	Handler mHandler = new Handler() {
 
@@ -113,6 +123,67 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 	};
 
+	Handler mAuthCodeHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case UserLogic.SEND_AUTHCODE_SUC: {
+				if (null != msg.obj) {
+					mAuthCode = (String) msg.obj;
+				}
+				mTimeHandler.sendEmptyMessage(TIME_UPDATE);
+				break;
+			}
+			case UserLogic.SEND_AUTHCODE_FAIL: {
+				Toast.makeText(mContext, R.string.login_fail,
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
+				break;
+			}
+			case UserLogic.NET_ERROR: {
+				break;
+			}
+
+			default:
+				break;
+			}
+
+		}
+
+	};
+
+	private Handler mTimeHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case TIME_UPDATE: {
+				if (mTiming > 0) {
+					mTiming--;
+					mTimingTv.setText(String.valueOf(mTiming));
+					mAuthCodeLl.setClickable(false);
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.gray_bg));
+					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
+				} else {
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.orange_bg));
+					mTimingTv
+							.setText(getString(R.string.get_verification_code));
+					mAuthCodeLl.setClickable(true);
+					mTiming = 60;
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		};
+
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -123,7 +194,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void setUpViews() {
-		mVerCodeLl = (LinearLayout) findViewById(R.id.per_info_ver_code_ll);
+		mAuthCodeLl = (LinearLayout) findViewById(R.id.per_info_ver_code_ll);
 		mSubmitLl = (LinearLayout) findViewById(R.id.per_info_submit_ll);
 		mInvoiceLl = (LinearLayout) findViewById(R.id.per_info_invoice_ll);
 		mBottomLl = (LinearLayout) findViewById(R.id.per_info_bottom_ll);
@@ -143,6 +214,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mTimeTv = (TextView) findViewById(R.id.per_info_time_tv);
 		mDateTv = (TextView) findViewById(R.id.per_info_date_tv);
 
+		mTimingTv = (TextView) findViewById(R.id.per_info_ver_code_btn_tv);
+
 		mPhoneEt = (EditText) findViewById(R.id.per_info_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.per_info_ver_code_et);
 		mAddressEt = (EditText) findViewById(R.id.per_info_address_et);
@@ -154,7 +227,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void setUpListener() {
-		mVerCodeLl.setOnClickListener(this);
+		mAuthCodeLl.setOnClickListener(this);
 		mSubmitLl.setOnClickListener(this);
 		mInvoiceLl.setOnClickListener(this);
 		mAreaRl.setOnClickListener(this);
@@ -346,6 +419,17 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		}
 		case R.id.per_info_back_iv: {
 			PersonInfoActivity.this.finish();
+			break;
+		}
+		case R.id.per_info_ver_code_ll: {
+			mPhone = mPhoneEt.getText().toString().trim();
+			if (!TextUtils.isEmpty(mPhone)) {
+				UserLogic.sendAuthCode(mContext, mAuthCodeHandler, mPhone);
+
+			} else {
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
 		}
 
