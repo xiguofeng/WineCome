@@ -50,6 +50,9 @@ public class CategoryAdapter extends BaseAdapter {
 		return position;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+	 */
 	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -76,8 +79,11 @@ public class CategoryAdapter extends BaseAdapter {
 		if ("t_0".equals(mDatas.get(position).getPpid())) {
 
 			holder.mIconIv.setVisibility(View.VISIBLE);
-			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
+			
+			holder.mIconIv.setImageDrawable(mContext.getResources().getDrawable(
 					R.drawable.white_wine));
+			// holder.mIconIv.setBackground(mContext.getResources().getDrawable(
+			// R.drawable.white_wine));
 
 		}
 
@@ -85,8 +91,10 @@ public class CategoryAdapter extends BaseAdapter {
 			// holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 			// R.color.white));
 			holder.mIconIv.setVisibility(View.VISIBLE);
-			holder.mIconIv.setBackground(mContext.getResources().getDrawable(
+			holder.mIconIv.setImageDrawable(mContext.getResources().getDrawable(
 					R.drawable.red_wine));
+			// holder.mIconIv.setBackground(mContext.getResources().getDrawable(
+			// R.drawable.red_wine));
 		}
 
 		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
