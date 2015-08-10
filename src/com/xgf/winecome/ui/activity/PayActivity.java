@@ -105,6 +105,24 @@ public class PayActivity extends Activity implements OnClickListener {
 			startActivityForResult(intent, 500);
 			break;
 		}
+
+		case R.id.pay_cash_rl: {
+			if (mCashCb.isChecked()) {
+				Intent intent = new Intent(PayActivity.this,
+						PayDemoActivity.class);
+				startActivityForResult(intent, 500);
+			}
+			break;
+		}
+
+		case R.id.pay_pos_rl: {
+			if (mPosCb.isChecked()) {
+				Intent intent = new Intent(PayActivity.this,
+						PayDemoActivity.class);
+				startActivityForResult(intent, 500);
+			}
+			break;
+		}
 		case R.id.pay_back_iv: {
 			PayActivity.this.finish();
 			break;
