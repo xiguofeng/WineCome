@@ -441,9 +441,6 @@ public class DateSelectActivity extends Activity implements OnClickListener,
 			// String selectYear = selectDate.substring(0, 4);
 			// String selectMonth = selectDate.substring(5, 7);
 			// String selectDay = selectDate.substring(8, 10);
-
-			Log.e("xxx_Date1", dateYMD + " " + dateHMM);
-			Log.e("xxx_Date2", getSelectedDateValue() + " " + dateHMM);
 			long nowDate = TimeUtils.dateToLong(dateYMD + " " + dateHMM,
 					TimeUtils.FORMAT_PATTERN_DATE);
 			long selectDate = TimeUtils.dateToLong(getSelectedDateValue() + " "
