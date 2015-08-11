@@ -325,11 +325,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				break;
 			}
 			case 501: {
-				mDateTv.setText(data.getStringExtra("date"));
+				mDateTv.setText(data.getStringExtra("date_value"));
 				break;
 			}
 			case 502: {
-				mTimeTv.setText(data.getStringExtra("time"));
+				mTimeTv.setText(data.getStringExtra("time_value"));
 				break;
 			}
 			default:

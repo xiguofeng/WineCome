@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
@@ -336,6 +337,24 @@ public class DateSelectActivity extends Activity implements OnClickListener,
 				+ bigDays[mViewDay.getCurrentItem()].toString().trim();
 	}
 
+	// 2015-08-11 12:10:00
+	public String getSelectedDateValue() {
+		String year = years[mViewYear.getCurrentItem()].toString().trim();
+		int indexYear = year.indexOf("年");
+		year = year.substring(0, indexYear).trim();
+
+		String month = months[mViewMonth.getCurrentItem()].toString().trim();
+		int indexMonth = month.indexOf("月");
+		month = month.substring(0, indexMonth).trim();
+
+		String day = bigDays[mViewDay.getCurrentItem()].toString().trim();
+		int indexDay = day.indexOf("日");
+		day = day.substring(0, indexDay).trim();
+
+		return year + "-" + month + "-" + day;
+
+	}
+
 	@Override
 	public void onChanged(WheelView wheel, int oldValue, int newValue) {
 		String trim = null;
@@ -402,15 +421,35 @@ public class DateSelectActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.date_select_confirm_tv: {
-			Intent intent = new Intent();
-			intent.putExtra("date", getSelectedDate());
-			setResult(RESULT_OK, intent);
-			finish();
+
+			String today = getToday();
+			String year = today.substring(0, 4);
+			String month = today.substring(5, 7);
+			String day = today.substring(8, 10);
+
+			String selectDate = getSelectedDateValue();
+			String selectYear = selectDate.substring(0, 4);
+			String selectMonth = selectDate.substring(5, 7);
+			String selectDay = selectDate.substring(8, 10);
+
+			if (Integer.parseInt(year) <= Integer.parseInt(selectYear)
+					&& Integer.parseInt(month)  <= Integer.parseInt(selectMonth)
+					&& Integer.parseInt(day)  <= Integer.parseInt(selectDay)) {
+				Intent intent = new Intent();
+				intent.putExtra("date", getSelectedDate());
+				intent.putExtra("date_value", getSelectedDateValue());
+				setResult(RESULT_OK, intent);
+				finish();
+			} else {
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.date_after), Toast.LENGTH_SHORT)
+						.show();
+			}
+
 			break;
 		}
 		default:
 			break;
 		}
 	}
-
 }

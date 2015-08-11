@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
@@ -165,6 +166,20 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 				+ mInutes[mViewMinutes.getCurrentItem()].toString().trim();
 	}
 
+	public String getSelectedTimeValue() {
+
+		String hour = mHours[mViewHours.getCurrentItem()].toString().trim();
+		int indexHour = hour.indexOf("时");
+		hour = hour.substring(0, indexHour).trim();
+
+		String minutes = mInutes[mViewMinutes.getCurrentItem()].toString()
+				.trim();
+		int indexMinutes = minutes.indexOf("分");
+		minutes = minutes.substring(0, indexMinutes).trim();
+
+		return hour + ":" + minutes + ":" + "00";
+	}
+
 	@Override
 	public void onChanged(WheelView wheel, int oldValue, int newValue) {
 		String trim = null;
@@ -192,15 +207,31 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.time_select_confirm_tv: {
-			Intent intent = new Intent();
-			intent.putExtra("time", getSelectedTime());
-			setResult(RESULT_OK, intent);
-			finish();
+			String today = getToday();
+			String hour = today.substring(11, 13);
+			String minute = today.substring(14, 16);
+
+			String selectTime = getSelectedTimeValue();
+			String selectHour = selectTime.substring(0, 2);
+			String selectMinute = selectTime.substring(3, 5);
+
+			if (Integer.parseInt(hour) <= Integer.parseInt(selectHour)
+					&& Integer.parseInt(selectMinute)
+							- Integer.parseInt(minute) >= 20) {
+				Intent intent = new Intent();
+				intent.putExtra("time", getSelectedTime());
+				intent.putExtra("time_value", getSelectedTimeValue());
+				setResult(RESULT_OK, intent);
+				finish();
+			} else {
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.time_after), Toast.LENGTH_SHORT)
+						.show();
+			}
 			break;
 		}
 		default:
 			break;
 		}
 	}
-
 }
