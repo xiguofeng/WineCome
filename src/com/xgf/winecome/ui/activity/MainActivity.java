@@ -13,9 +13,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.TranslateAnimation;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ import com.xgf.winecome.utils.CartManager;
 public class MainActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
+	private LinearLayout mMainLl;
 	private LinearLayout mSearchLl;
 	private EditText mSearchEt;
 	private ImageView mSearchIv;
@@ -47,7 +49,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private ArrayList<Goods> mTempCategoryGoodsList = new ArrayList<Goods>();
 
-	private LinearLayout mFirstBg;
 	private float y;
 	private HashMap<String, Object> mAllMsgMap = new HashMap<String, Object>();
 	private HashMap<String, Object> mSearchMsgMap = new HashMap<String, Object>();
@@ -123,8 +124,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		mLeftLv = (ListView) findViewById(R.id.main_left_lv);
 		mRightLv = (ListView) findViewById(R.id.main_right_lv);
 
-		mFirstBg = (LinearLayout) findViewById(R.id.main_bg);
-		mSearchLl = (LinearLayout) findViewById(R.id.main_search_rl);
+		mMainLl = (LinearLayout) findViewById(R.id.main_bg);
+		mSearchLl = (LinearLayout) findViewById(R.id.main_search_ll);
 
 		mSearchIv = (ImageView) findViewById(R.id.main_search_iv);
 		mSearchIv.setOnClickListener(this);
@@ -140,11 +141,45 @@ public class MainActivity extends Activity implements OnClickListener {
 							mSearchIv.setVisibility(View.VISIBLE);
 						} else {
 							// 此处为失去焦点时的处理内容
+							mSearchEt.setText("");
 							mSearchLl.setVisibility(View.VISIBLE);
 							mSearchIv.setVisibility(View.GONE);
 						}
 					}
 				});
+
+		mMainLl.setOnTouchListener(new OnTouchListener() {
+
+			public boolean onTouch(View v, MotionEvent event) {
+
+				mMainLl.setFocusable(true);
+				mMainLl.setFocusableInTouchMode(true);
+				mMainLl.requestFocus();
+
+				return false;
+			}
+		});
+		mRightLv.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				mRightLv.setFocusable(true);
+				mRightLv.setFocusableInTouchMode(true);
+				mRightLv.requestFocus();
+				return false;
+			}
+		});
+		mLeftLv.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				mLeftLv.setFocusable(true);
+				mLeftLv.setFocusableInTouchMode(true);
+				mLeftLv.requestFocus();
+				return false;
+			}
+		});
+
 		mSearchLl.setOnClickListener(new OnClickListener() {
 
 			@SuppressLint("NewApi")
@@ -313,7 +348,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		mSearchMsgMap.put("Category", newCategoryList);
 
-		refreshAllData(mSearchMsgMap);
+		if (newCategoryList.size() > 1) {
+			refreshAllData(mSearchMsgMap);
+		}
 	}
 
 	private void refreshAllData(HashMap<String, Object> msgMap) {
@@ -329,15 +366,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
 				.get(mCategoryList.get(1).getPpid()));
 		mGoodsAdapter.notifyDataSetChanged();
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		TranslateAnimation animation = new TranslateAnimation(0, 0, -y, 0);
-		animation.setDuration(500);
-		animation.setFillAfter(true);
-		mFirstBg.startAnimation(animation);
-		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override

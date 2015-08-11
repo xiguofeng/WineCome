@@ -38,6 +38,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/main_search_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -47,7 +48,7 @@
             android:orientation="horizontal" >
 
             <LinearLayout
-                android:id="@+id/main_search_rl"
+                android:id="@+id/main_search_ll"
                 android:layout_width="match_parent"
                 android:layout_height="30dip"
                 android:layout_centerInParent="true"
