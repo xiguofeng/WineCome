@@ -92,7 +92,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 				case 0:
 
 					mGoodsList.remove(position);
-					CartManager.sCartList.remove(position);
+					CartManager.cartRemove(position);
 					// del
 					for (int i = 0; i < mGoodsList.size(); i++) {
 						if (i < position) {

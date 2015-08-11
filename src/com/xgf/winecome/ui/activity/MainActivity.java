@@ -32,8 +32,9 @@ import com.xgf.winecome.network.logic.GoodsLogic;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
 import com.xgf.winecome.ui.adapter.GoodsAdapter;
 import com.xgf.winecome.utils.CartManager;
+import com.xgf.winecome.utils.Watcher;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener, Watcher {
 
 	private Context mContext;
 	private LinearLayout mMainLl;
@@ -42,8 +43,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ImageView mSearchIv;
 	private ListView mLeftLv;
 	private ListView mRightLv;
-	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
-	private GoodsAdapter mGoodsAdapter;
+	private static ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
+	private static GoodsAdapter mGoodsAdapter;
 	private ArrayList<Category> mCategoryList = new ArrayList<Category>();
 	private CategoryAdapter mCategoryAdapter;
 
@@ -266,6 +267,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		// GoodsLogic.getAllGoods(mContext, mHandler);
 
 		GoodsLogic.getCategroyAndGoodsList(mContext, mHandler);
+
 	}
 
 	@Override
@@ -274,15 +276,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		refreshGoods();
 	}
 
-	private void refreshGoods() {
-		for (int i = 0; i < CartManager.sCartList.size(); i++) {
-			for (int j = 0; j < mGoodsList.size(); j++) {
-				if (mGoodsList.get(j).getId()
-						.equals(CartManager.sCartList.get(i).getId())) {
-					mGoodsList.get(j).setNum(
-							CartManager.sCartList.get(i).getNum());
-				} else {
-					mGoodsList.get(j).setNum("0");
+	private static void refreshGoods() {
+		for (int i = 0; i < mGoodsList.size(); i++) {
+			mGoodsList.get(i).setNum("0");
+			for (int j = 0; j < CartManager.sCartList.size(); j++) {
+				if (mGoodsList.get(i).getId()
+						.equals(CartManager.sCartList.get(j).getId())) {
+					mGoodsList.get(i).setNum(
+							CartManager.sCartList.get(j).getNum());
 				}
 			}
 		}
@@ -383,6 +384,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+
+	public static void update() {
+		refreshGoods();
+	}
+
+	@Override
+	public void update(String str) {
+
 	}
 
 }

@@ -2,11 +2,16 @@ package com.xgf.winecome.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import android.util.Log;
+
+import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.HomeActivity;
+import com.xgf.winecome.ui.activity.MainActivity;
 
-public class CartManager {
+public class CartManager implements Watched {
 
 	public static ArrayList<Goods> sCartList = new ArrayList<Goods>();
 
@@ -20,6 +25,8 @@ public class CartManager {
 
 	private static boolean sHasGoodsByDetailFlag = false;
 
+	private List<Watcher> mWatcherlist = new ArrayList<Watcher>();
+
 	public static void getTotalMoney() {
 		double totalPay = 0;
 		for (Goods goods : sCartList) {
@@ -31,8 +38,31 @@ public class CartManager {
 				String.valueOf(sCartList.size()));
 	}
 
-	public static void cartModifyByMain(Goods goods) {
+	public static void cartRemove(int position) {
+		Log.e("xxx_123", "" + sCartList.size());
+		sCartList.remove(position);
+		Log.e("xxx_123-1", "" + sCartList.size());
+		ArrayList<Goods> tempCartList = new ArrayList<Goods>();
+		for (Goods goods : sCartList) {
+			tempCartList.add(goods);
+		}
+		sCartList.clear();
+		sCartList.addAll(tempCartList);
+		Log.e("xxx_123-2", "" + sCartList.size());
 
+		double totalPay = 0;
+		for (Goods goods : sCartList) {
+			totalPay = totalPay
+					+ (Integer.parseInt(goods.getNum()) * Double
+							.parseDouble(goods.getSalesPrice()));
+		}
+		notifyWatchers();
+		//HomeActivity.modifyMainPayView(String.valueOf(totalPay));
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
+				String.valueOf(sCartList.size()));
+	}
+
+	public static void cartModifyByMain(Goods goods) {
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
 				sHasGoodsFlag = true;
@@ -79,6 +109,7 @@ public class CartManager {
 							.parseDouble(goods2.getSalesPrice()));
 		}
 
+		notifyWatchers();
 		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
 				String.valueOf(sCartList.size()));
 	}
@@ -107,6 +138,7 @@ public class CartManager {
 							.parseDouble(goods2.getSalesPrice()));
 		}
 
+		notifyWatchers();
 		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
 				String.valueOf(sCartList.size()));
 	}
@@ -146,6 +178,27 @@ public class CartManager {
 
 	public static void setsDetailBuyList(ArrayList<Goods> sDetailBuyList) {
 		CartManager.sDetailBuyList = sDetailBuyList;
+	}
+
+	@Override
+	public void addWatcher(Watcher watcher) {
+		mWatcherlist.add(watcher);
+	}
+
+	@Override
+	public void removeWatcher(Watcher watcher) {
+
+	}
+
+	@Override
+	public void notifyWatchers(String str) {
+		for (Watcher watcher : mWatcherlist) {
+			watcher.update(str);
+		}
+	}
+
+	public static void notifyWatchers() {
+		MainActivity.update();
 	}
 
 }

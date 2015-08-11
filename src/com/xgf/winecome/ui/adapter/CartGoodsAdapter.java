@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -130,9 +131,8 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 								if (CartManager.sSelectCartList
 										.get(i)
 										.getId()
-										.endsWith(
-												mDatas.get(tempPosition)
-														.getId())) {
+										.equals(mDatas.get(tempPosition)
+												.getId())) {
 									CartManager.sSelectCartList.remove(i);
 									break;
 								}
@@ -163,6 +163,7 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 				Goods goods = mDatas.get(tempPosition);
 				if (Integer.parseInt(goods.getNum()) > 1) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
+					Log.e("xxx_mReduceIb", goods.getNum());
 					mDatas.set(tempPosition, goods);
 					CartManager.cartModifyByCart(goods);
 					notifyDataSetChanged();
