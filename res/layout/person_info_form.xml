@@ -277,105 +277,151 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/per_info_date_rl"
+                android:id="@+id/per_info_intime_rl"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
                 android:background="@color/white"
-                android:paddingBottom="3dip"
-                android:paddingTop="3dip" >
+                android:paddingBottom="4dip"
+                android:paddingTop="4dip" >
 
                 <TextView
-                    android:id="@+id/per_info_date_tag_tv"
+                    android:id="@+id/per_info_intime_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:paddingLeft="10.0dip"
                     android:paddingRight="10dip"
-                    android:text="@string/distribution_date"
+                    android:text="@string/in_time"
                     android:textColor="@color/black_character"
                     android:textSize="@dimen/medium_text_size" />
 
-                <TextView
-                    android:id="@+id/per_info_date_tv"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:maxLength="16"
-                    android:maxLines="1"
-                    android:paddingBottom="6.0dip"
-                    android:paddingLeft="100dip"
-                    android:paddingRight="50dip"
-                    android:paddingTop="6.0dip"
-                    android:textColor="@color/black_character"
-                    android:textSize="@dimen/medium_text_size" >
-                </TextView>
-
-                <ImageView
-                    android:id="@+id/per_info_date_iv"
+                <CheckBox
+                    android:id="@+id/per_info_intime_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dip"
-                    android:padding="5dip"
-                    android:src="@drawable/enter_selector" />
+                    android:background="@null"
+                    android:button="@drawable/switch_selector"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:gravity="center" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1.0px"
-                android:background="#ffcfd4da" />
-
-            <RelativeLayout
-                android:id="@+id/per_info_time_rl"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:id="@+id/per_info_date_info_ll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingBottom="3dip"
-                android:paddingTop="3dip" >
+                android:orientation="vertical"
+                android:visibility="gone" >
 
-                <TextView
-                    android:id="@+id/per_info_time_tag_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="10.0dip"
-                    android:paddingRight="10dip"
-                    android:text="@string/distribution_time"
-                    android:textColor="@color/black_character"
-                    android:textSize="@dimen/medium_text_size" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:background="#ffcfd4da" />
 
-                <TextView
-                    android:id="@+id/per_info_time_tv"
+                <RelativeLayout
+                    android:id="@+id/per_info_date_rl"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:maxLength="16"
-                    android:maxLines="1"
-                    android:paddingBottom="6.0dip"
-                    android:paddingLeft="100dip"
-                    android:paddingRight="50dip"
-                    android:paddingTop="6.0dip"
-                    android:textColor="@color/black_character"
-                    android:textSize="@dimen/medium_text_size" />
+                    android:background="@color/white"
+                    android:paddingBottom="3dip"
+                    android:paddingTop="3dip" >
 
-                <ImageView
-                    android:id="@+id/per_info_time_iv"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/per_info_date_tag_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10.0dip"
+                        android:paddingRight="10dip"
+                        android:text="@string/distribution_date"
+                        android:textColor="@color/black_character"
+                        android:textSize="@dimen/medium_text_size" />
+
+                    <TextView
+                        android:id="@+id/per_info_date_tv"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:maxLength="16"
+                        android:maxLines="1"
+                        android:paddingBottom="6.0dip"
+                        android:paddingLeft="100dip"
+                        android:paddingRight="50dip"
+                        android:paddingTop="6.0dip"
+                        android:textColor="@color/black_character"
+                        android:textSize="@dimen/medium_text_size" >
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/per_info_date_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:padding="5dip"
+                        android:src="@drawable/enter_selector" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:background="#ffcfd4da" />
+
+                <RelativeLayout
+                    android:id="@+id/per_info_time_rl"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dip"
-                    android:padding="5dip"
-                    android:src="@drawable/enter_selector" />
-            </RelativeLayout>
+                    android:background="@color/white"
+                    android:paddingBottom="3dip"
+                    android:paddingTop="3dip" >
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1.0px"
-                android:background="#ffcfd4da" />
+                    <TextView
+                        android:id="@+id/per_info_time_tag_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10.0dip"
+                        android:paddingRight="10dip"
+                        android:text="@string/distribution_time"
+                        android:textColor="@color/black_character"
+                        android:textSize="@dimen/medium_text_size" />
+
+                    <TextView
+                        android:id="@+id/per_info_time_tv"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:maxLength="16"
+                        android:maxLines="1"
+                        android:paddingBottom="6.0dip"
+                        android:paddingLeft="100dip"
+                        android:paddingRight="50dip"
+                        android:paddingTop="6.0dip"
+                        android:textColor="@color/black_character"
+                        android:textSize="@dimen/medium_text_size" />
+
+                    <ImageView
+                        android:id="@+id/per_info_time_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:padding="5dip"
+                        android:src="@drawable/enter_selector" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:background="#ffcfd4da" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/per_info_invoice_ll"

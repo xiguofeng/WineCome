@@ -49,6 +49,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private LinearLayout mInvoiceLl;
 	private LinearLayout mBottomLl;
 	private LinearLayout mInvoiceInfoLl;
+	private LinearLayout mDateInfoLl;
 	private LinearLayout mBottomDivLl;
 
 	private RelativeLayout mInvoiceRl;
@@ -71,6 +72,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private EditText mInvoiceContentEt;
 
 	private CheckBox mInvoiceCb;
+	private CheckBox mInTimeCb;
 	private ImageView mBackIv;
 
 	private String mLat;
@@ -203,6 +205,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mBottomLl = (LinearLayout) findViewById(R.id.per_info_bottom_ll);
 		mBottomDivLl = (LinearLayout) findViewById(R.id.per_info_bottom_division_ll);
 		mInvoiceInfoLl = (LinearLayout) findViewById(R.id.per_info_invoice_info_ll);
+		mDateInfoLl = (LinearLayout) findViewById(R.id.per_info_date_info_ll);
 
 		mAreaRl = (RelativeLayout) findViewById(R.id.per_info_area_rl);
 		mTimeRl = (RelativeLayout) findViewById(R.id.per_info_time_rl);
@@ -226,6 +229,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mInvoiceContentEt = (EditText) findViewById(R.id.per_info_invoice_content_et);
 
 		mInvoiceCb = (CheckBox) findViewById(R.id.per_info_invoice_cb);
+		mInTimeCb = (CheckBox) findViewById(R.id.per_info_intime_cb);
 		mBackIv = (ImageView) findViewById(R.id.per_info_back_iv);
 	}
 
@@ -261,6 +265,20 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				} else {
 					mInvoiceInfoLl.setVisibility(View.VISIBLE);
 					mBottomDivLl.setVisibility(View.GONE);
+				}
+
+			}
+		});
+
+		mInTimeCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if (isChecked) {
+					mDateInfoLl.setVisibility(View.GONE);
+				} else {
+					mDateInfoLl.setVisibility(View.VISIBLE);
 				}
 
 			}

@@ -171,11 +171,17 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 		String hour = mHours[mViewHours.getCurrentItem()].toString().trim();
 		int indexHour = hour.indexOf("时");
 		hour = hour.substring(0, indexHour).trim();
+		if (hour.length() == 1) {
+			hour = "0" + hour;
+		}
 
 		String minutes = mInutes[mViewMinutes.getCurrentItem()].toString()
 				.trim();
 		int indexMinutes = minutes.indexOf("分");
 		minutes = minutes.substring(0, indexMinutes).trim();
+		if (minutes.length() == 1) {
+			minutes = "0" + minutes;
+		}
 
 		return hour + ":" + minutes + ":" + "00";
 	}
@@ -209,17 +215,23 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 		case R.id.time_select_confirm_tv: {
 			if (PersonInfoActivity.sIsNowDate) {
 				String today = getToday();
-				String hour = today.substring(11, 13);
-				String minute = today.substring(14, 16);
+				String dateYMD = today.substring(0, 10);
+				//
+				// String hour = today.substring(11, 13);
+				// String minute = today.substring(14, 16);
+				//
+				// String selectTime = getSelectedTimeValue();
+				// String[] time = selectTime.split(":");
+				// String selectHour = time[0];
+				// String selectMinute = time[1];
 
-				String selectTime = getSelectedTimeValue();
-				String[] time = selectTime.split(":");
-				String selectHour = time[0];
-				String selectMinute = time[1];
+				long nowDate = TimeUtils.dateToLong(today,
+						TimeUtils.FORMAT_PATTERN_DATE);
+				long selectDate = TimeUtils
+						.dateToLong(dateYMD + " " + getSelectedTimeValue(),
+								TimeUtils.FORMAT_PATTERN_DATE);
 
-				if (Integer.parseInt(hour) <= Integer.parseInt(selectHour)
-						&& Integer.parseInt(selectMinute)
-								- Integer.parseInt(minute) >= 20) {
+				if (selectDate - nowDate >= 20 * 60) {
 					Intent intent = new Intent();
 					intent.putExtra("time", getSelectedTime());
 					intent.putExtra("time_value", getSelectedTimeValue());
@@ -230,6 +242,20 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 							getString(R.string.time_after), Toast.LENGTH_SHORT)
 							.show();
 				}
+
+				// if (Integer.parseInt(hour) <= Integer.parseInt(selectHour)
+				// && Integer.parseInt(selectMinute)
+				// - Integer.parseInt(minute) >= 20) {
+				// Intent intent = new Intent();
+				// intent.putExtra("time", getSelectedTime());
+				// intent.putExtra("time_value", getSelectedTimeValue());
+				// setResult(RESULT_OK, intent);
+				// finish();
+				// } else {
+				// Toast.makeText(getApplicationContext(),
+				// getString(R.string.time_after), Toast.LENGTH_SHORT)
+				// .show();
+				// }
 			} else {
 				Intent intent = new Intent();
 				intent.putExtra("time", getSelectedTime());

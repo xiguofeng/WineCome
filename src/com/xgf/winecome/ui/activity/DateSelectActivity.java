@@ -21,6 +21,7 @@ import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
 import com.xgf.winecome.ui.view.wheel.widget.WheelView;
 import com.xgf.winecome.ui.view.wheel.widget.adapters.ArrayWheelAdapter;
 import com.xgf.winecome.utils.DateUtils;
+import com.xgf.winecome.utils.TimeUtils;
 
 public class DateSelectActivity extends Activity implements OnClickListener,
 		OnWheelChangedListener {
@@ -300,6 +301,13 @@ public class DateSelectActivity extends Activity implements OnClickListener,
 		return str;
 	}
 
+	private String getTodayCommonPattern() {
+		String str = TimeUtils.TimeStamp2Date(
+				String.valueOf(System.currentTimeMillis()),
+				TimeUtils.FORMAT_PATTERN_DATE);
+		return str;
+	}
+
 	/**
 	 * 判断是否是大月
 	 * 
@@ -421,28 +429,34 @@ public class DateSelectActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.date_select_confirm_tv: {
+			String today = getTodayCommonPattern();
+			String dateYMD = today.substring(0, 10);
+			String dateHMM = "00:00:00";
 
-			String today = getToday();
-			String year = today.substring(0, 4);
-			String month = today.substring(5, 7);
-			String day = today.substring(8, 10);
+			// String year = today.substring(0, 4);
+			// String month = today.substring(5, 7);
+			// String day = today.substring(8, 10);
+			//
+			// String selectDate = getSelectedDateValue();
+			// String selectYear = selectDate.substring(0, 4);
+			// String selectMonth = selectDate.substring(5, 7);
+			// String selectDay = selectDate.substring(8, 10);
 
-			String selectDate = getSelectedDateValue();
-			String selectYear = selectDate.substring(0, 4);
-			String selectMonth = selectDate.substring(5, 7);
-			String selectDay = selectDate.substring(8, 10);
+			Log.e("xxx_Date1", dateYMD + " " + dateHMM);
+			Log.e("xxx_Date2", getSelectedDateValue() + " " + dateHMM);
+			long nowDate = TimeUtils.dateToLong(dateYMD + " " + dateHMM,
+					TimeUtils.FORMAT_PATTERN_DATE);
+			long selectDate = TimeUtils.dateToLong(getSelectedDateValue() + " "
+					+ dateHMM, TimeUtils.FORMAT_PATTERN_DATE);
 
-			if (Integer.parseInt(year) == Integer.parseInt(selectYear)
-					&& Integer.parseInt(month) == Integer.parseInt(selectMonth)
-					&& Integer.parseInt(day) == Integer.parseInt(selectDay)) {
-				PersonInfoActivity.sIsNowDate = true;
-			} else {
-				PersonInfoActivity.sIsNowDate = false;
-			}
-
-			if (Integer.parseInt(year) <= Integer.parseInt(selectYear)
-					&& Integer.parseInt(month) <= Integer.parseInt(selectMonth)
-					&& Integer.parseInt(day) <= Integer.parseInt(selectDay)) {
+			if (selectDate >= nowDate) {
+				if (nowDate == selectDate) {
+					PersonInfoActivity.sIsNowDate = true;
+				} else {
+					PersonInfoActivity.sIsNowDate = false;
+				}
+				
+				
 				Intent intent = new Intent();
 				intent.putExtra("date", getSelectedDate());
 				intent.putExtra("date_value", getSelectedDateValue());
