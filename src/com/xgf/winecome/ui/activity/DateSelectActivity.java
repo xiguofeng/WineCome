@@ -432,9 +432,17 @@ public class DateSelectActivity extends Activity implements OnClickListener,
 			String selectMonth = selectDate.substring(5, 7);
 			String selectDay = selectDate.substring(8, 10);
 
+			if (Integer.parseInt(year) == Integer.parseInt(selectYear)
+					&& Integer.parseInt(month) == Integer.parseInt(selectMonth)
+					&& Integer.parseInt(day) == Integer.parseInt(selectDay)) {
+				PersonInfoActivity.sIsNowDate = true;
+			} else {
+				PersonInfoActivity.sIsNowDate = false;
+			}
+
 			if (Integer.parseInt(year) <= Integer.parseInt(selectYear)
-					&& Integer.parseInt(month)  <= Integer.parseInt(selectMonth)
-					&& Integer.parseInt(day)  <= Integer.parseInt(selectDay)) {
+					&& Integer.parseInt(month) <= Integer.parseInt(selectMonth)
+					&& Integer.parseInt(day) <= Integer.parseInt(selectDay)) {
 				Intent intent = new Intent();
 				intent.putExtra("date", getSelectedDate());
 				intent.putExtra("date_value", getSelectedDateValue());

@@ -83,6 +83,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 	private int mTiming = 60;
 
+	public static boolean sIsNowDate = true;
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -188,6 +190,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_info_form);
+		mContext = PersonInfoActivity.this;
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -376,10 +379,15 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		case R.id.per_info_time_rl:
 		case R.id.per_info_time_tv:
 		case R.id.per_info_time_tag_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					TimeSelectActivity.class);
-			startActivityForResult(intent, 502);
-			break;
+			if (!TextUtils.isEmpty(mDateTv.getText().toString().trim())) {
+				Intent intent = new Intent(PersonInfoActivity.this,
+						TimeSelectActivity.class);
+				startActivityForResult(intent, 502);
+				break;
+			} else {
+				Toast.makeText(mContext, getString(R.string.date_select),
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 		case R.id.per_info_submit_ll: {
 			Order order = new Order();
@@ -390,8 +398,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					.trim());
 			order.setLatitude(mLat);
 			order.setLongitude(mLon);
-			order.setDeliveryTime(String.valueOf(java.lang.System
-					.currentTimeMillis()));
+			order.setDeliveryTime(mDateTv.getText() + " " + mTimeTv.getText());
 			order.setPayType("0");
 			// mAddressEt.getText().toString().trim()
 			order.setAddress(mAddressEt.getText().toString().trim());

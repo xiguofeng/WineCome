@@ -207,26 +207,35 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.time_select_confirm_tv: {
-			String today = getToday();
-			String hour = today.substring(11, 13);
-			String minute = today.substring(14, 16);
+			if (PersonInfoActivity.sIsNowDate) {
+				String today = getToday();
+				String hour = today.substring(11, 13);
+				String minute = today.substring(14, 16);
 
-			String selectTime = getSelectedTimeValue();
-			String selectHour = selectTime.substring(0, 2);
-			String selectMinute = selectTime.substring(3, 5);
+				String selectTime = getSelectedTimeValue();
+				String[] time = selectTime.split(":");
+				String selectHour = time[0];
+				String selectMinute = time[1];
 
-			if (Integer.parseInt(hour) <= Integer.parseInt(selectHour)
-					&& Integer.parseInt(selectMinute)
-							- Integer.parseInt(minute) >= 20) {
+				if (Integer.parseInt(hour) <= Integer.parseInt(selectHour)
+						&& Integer.parseInt(selectMinute)
+								- Integer.parseInt(minute) >= 20) {
+					Intent intent = new Intent();
+					intent.putExtra("time", getSelectedTime());
+					intent.putExtra("time_value", getSelectedTimeValue());
+					setResult(RESULT_OK, intent);
+					finish();
+				} else {
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.time_after), Toast.LENGTH_SHORT)
+							.show();
+				}
+			} else {
 				Intent intent = new Intent();
 				intent.putExtra("time", getSelectedTime());
 				intent.putExtra("time_value", getSelectedTimeValue());
 				setResult(RESULT_OK, intent);
 				finish();
-			} else {
-				Toast.makeText(getApplicationContext(),
-						getString(R.string.time_after), Toast.LENGTH_SHORT)
-						.show();
 			}
 			break;
 		}
