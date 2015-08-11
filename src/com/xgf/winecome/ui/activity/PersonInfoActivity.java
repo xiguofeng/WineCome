@@ -30,8 +30,8 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
-import com.xgf.winecome.utils.TimeUtils;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
+import com.xgf.winecome.utils.TimeUtils;
 
 public class PersonInfoActivity extends Activity implements OnClickListener,
 		TextWatcher {
@@ -438,7 +438,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			// TODO
 			if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
 				OrderLogic.createOrder(mContext, mHandler, order,
-						CartManager.getsCartList());
+						CartManager.getsDetailBuyList());
 			} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
 				OrderLogic.createOrder(mContext, mHandler, order,
 						CartManager.getsCartList());

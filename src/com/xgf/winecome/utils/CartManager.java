@@ -12,6 +12,8 @@ public class CartManager {
 
 	public static ArrayList<Goods> sSelectCartList = new ArrayList<Goods>();
 
+	public static ArrayList<Goods> sDetailBuyList = new ArrayList<Goods>();
+
 	private static HashMap<Integer, Boolean> sIsSelected = new HashMap<Integer, Boolean>();
 
 	private static boolean sHasGoodsFlag = false;
@@ -136,6 +138,14 @@ public class CartManager {
 
 	public static void setsIsSelected(HashMap<Integer, Boolean> sIsSelected) {
 		CartManager.sIsSelected = sIsSelected;
+	}
+
+	public static ArrayList<Goods> getsDetailBuyList() {
+		return sDetailBuyList;
+	}
+
+	public static void setsDetailBuyList(ArrayList<Goods> sDetailBuyList) {
+		CartManager.sDetailBuyList = sDetailBuyList;
 	}
 
 }

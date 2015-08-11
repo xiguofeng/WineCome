@@ -1,5 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -98,6 +100,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		ImageLoader.getInstance().displayImage(mGoods.getIconUrl(),
 				mGoodsIconIv);
 
+		mGoods.setNum("1");
 		mGoodsNameTv.setText(!TextUtils.isEmpty(mGoods.getName()) ? mGoods
 				.getName() : "");
 		mGoodsPriceTv.setText(!TextUtils.isEmpty(mGoods.getSalesPrice()) ? "¥"
@@ -126,9 +129,13 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {
+			ArrayList<Goods> goodsList = new ArrayList<Goods>();
+			goodsList.add(mGoods);
+			CartManager.setsDetailBuyList(goodsList);
 			Intent intent = new Intent(GoodsDetailActivity.this,
 					PersonInfoActivity.class);
 			intent.setAction(PersonInfoActivity.ORIGIN_FROM_DETAIL_ACTION);
+
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
