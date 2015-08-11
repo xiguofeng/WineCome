@@ -72,7 +72,7 @@ public class OrderLogic {
 							URLEncoder.encode(order.getLatitude(), "UTF-8"));
 					requestJson.put("longitude",
 							URLEncoder.encode(order.getLongitude(), "UTF-8"));
-					requestJson.put("deliveryTime", "30");
+					requestJson.put("deliveryTime", order.getDeliveryTime());
 					requestJson.put("invoice",
 							URLEncoder.encode(order.getInvoice(), "UTF-8"));
 					requestJson.put("invoiceTitle",

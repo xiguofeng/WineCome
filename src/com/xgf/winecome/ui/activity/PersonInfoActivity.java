@@ -30,6 +30,7 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
+import com.xgf.winecome.utils.TimeUtils;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
 
 public class PersonInfoActivity extends Activity implements OnClickListener,
@@ -86,6 +87,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private int mTiming = 60;
 
 	public static boolean sIsNowDate = true;
+	private boolean mIsIntime = true;
+	private boolean mIsInvoice = false;
 
 	Handler mHandler = new Handler() {
 
@@ -262,9 +265,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				if (!isChecked) {
 					mInvoiceInfoLl.setVisibility(View.GONE);
 					mBottomDivLl.setVisibility(View.VISIBLE);
+					mIsInvoice = false;
 				} else {
 					mInvoiceInfoLl.setVisibility(View.VISIBLE);
 					mBottomDivLl.setVisibility(View.GONE);
+					mIsInvoice = true;
 				}
 
 			}
@@ -277,8 +282,10 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					boolean isChecked) {
 				if (isChecked) {
 					mDateInfoLl.setVisibility(View.GONE);
+					mIsIntime = true;
 				} else {
 					mDateInfoLl.setVisibility(View.VISIBLE);
+					mIsIntime = false;
 				}
 
 			}
@@ -416,11 +423,17 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					.trim());
 			order.setLatitude(mLat);
 			order.setLongitude(mLon);
-			order.setDeliveryTime(mDateTv.getText() + " " + mTimeTv.getText());
+			if (mIsIntime) {
+				String date = TimeUtils.TimeStamp2Date(String.valueOf(System
+						.currentTimeMillis() + 20 * 60 * 1000),
+						TimeUtils.FORMAT_PATTERN_DATE);
+				order.setDeliveryTime(date);
+			} else {
+				order.setDeliveryTime(mDateTv.getText() + " "
+						+ mTimeTv.getText());
+			}
 			order.setPayType("0");
-			// mAddressEt.getText().toString().trim()
 			order.setAddress(mAddressEt.getText().toString().trim());
-			// OrderLogic.createOrder(mContext, mHandler, order);
 
 			// TODO
 			if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
@@ -434,12 +447,6 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 						CartManager.getsCartList());
 			}
 
-			// Intent intent = new Intent(PersonInfoActivity.this,
-			// WXPayActivity.class);
-			// startActivity(intent);
-			// PersonInfoActivity.this.finish();
-			// overridePendingTransition(R.anim.push_left_in,
-			// R.anim.push_left_out);
 			break;
 		}
 		case R.id.per_info_back_iv: {
