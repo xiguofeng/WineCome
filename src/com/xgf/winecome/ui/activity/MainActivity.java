@@ -278,13 +278,17 @@ public class MainActivity extends Activity implements OnClickListener, Watcher {
 
 	private static void refreshGoods() {
 		for (int i = 0; i < mGoodsList.size(); i++) {
-			mGoodsList.get(i).setNum("0");
+			boolean isHas = false;
 			for (int j = 0; j < CartManager.sCartList.size(); j++) {
 				if (mGoodsList.get(i).getId()
 						.equals(CartManager.sCartList.get(j).getId())) {
 					mGoodsList.get(i).setNum(
 							CartManager.sCartList.get(j).getNum());
+					isHas = true;
 				}
+			}
+			if (!isHas) {
+				mGoodsList.get(i).setNum("0");
 			}
 		}
 		mGoodsAdapter.notifyDataSetChanged();
