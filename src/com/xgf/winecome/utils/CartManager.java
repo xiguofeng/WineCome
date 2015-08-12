@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.util.Log;
-
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.HomeActivity;
 import com.xgf.winecome.ui.activity.MainActivity;
 
 public class CartManager implements Watched {
 
-	public static ArrayList<Goods> sCartList = new ArrayList<Goods>();
+	private static ArrayList<Goods> sCartList = new ArrayList<Goods>();
 
-	public static ArrayList<Goods> sSelectCartList = new ArrayList<Goods>();
+	private static ArrayList<Goods> sSelectCartList = new ArrayList<Goods>();
 
-	public static ArrayList<Goods> sDetailBuyList = new ArrayList<Goods>();
+	private static ArrayList<Goods> sDetailBuyList = new ArrayList<Goods>();
 
 	private static HashMap<Integer, Boolean> sIsSelected = new HashMap<Integer, Boolean>();
 
@@ -26,41 +24,80 @@ public class CartManager implements Watched {
 
 	private List<Watcher> mWatcherlist = new ArrayList<Watcher>();
 
-	public static void getTotalMoney() {
+	/**
+	 * 购物车菜单栏价格更新
+	 */
+	public static void setCartTotalMoney() {
+		double totalPay = 0;
+		for (Goods goods : sSelectCartList) {
+			totalPay = totalPay
+					+ (Integer.parseInt(goods.getNum()) * Double
+							.parseDouble(goods.getSalesPrice()));
+		}
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
+				String.valueOf(sSelectCartList.size()));
+	}
+
+	/**
+	 * 首页菜单栏价格更新
+	 */
+	public static void setTotalMoney(boolean isShow) {
 		double totalPay = 0;
 		for (Goods goods : sCartList) {
 			totalPay = totalPay
 					+ (Integer.parseInt(goods.getNum()) * Double
 							.parseDouble(goods.getSalesPrice()));
 		}
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
-				String.valueOf(sCartList.size()));
+		HomeActivity.modifyMainPayView(String.valueOf(totalPay), isShow);
 	}
 
+	/**
+	 * 购物车删除
+	 * 
+	 * @param position
+	 */
 	public static void cartRemove(int position) {
-		Log.e("xxx_123", "" + sCartList.size());
+		// 更新sSelectCartList
+		boolean isHasSelect = false;
+		for (int i = 0; i < sSelectCartList.size(); i++) {
+			if (sSelectCartList.get(i).getId().equals(sCartList.get(position))) {
+				sSelectCartList.remove(i);
+				isHasSelect = true;
+				break;
+			}
+		}
+		if (isHasSelect) {
+			ArrayList<Goods> tempCartSelectList = new ArrayList<Goods>();
+			for (Goods goods : sSelectCartList) {
+				tempCartSelectList.add(goods);
+			}
+			sSelectCartList.clear();
+			sSelectCartList.addAll(tempCartSelectList);
+		}
+
+		// 更新sCartList
 		sCartList.remove(position);
-		Log.e("xxx_123-1", "" + sCartList.size());
 		ArrayList<Goods> tempCartList = new ArrayList<Goods>();
 		for (Goods goods : sCartList) {
 			tempCartList.add(goods);
 		}
 		sCartList.clear();
 		sCartList.addAll(tempCartList);
-		Log.e("xxx_123-2", "" + sCartList.size());
 
-		double totalPay = 0;
-		for (Goods goods : sCartList) {
-			totalPay = totalPay
-					+ (Integer.parseInt(goods.getNum()) * Double
-							.parseDouble(goods.getSalesPrice()));
-		}
+		// 更新首页菜单价格 并不显示
 		notifyWatchers();
-		//HomeActivity.modifyMainPayView(String.valueOf(totalPay));
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
-				String.valueOf(sCartList.size()));
+		setTotalMoney(false);
+
+		if (isHasSelect) {
+			setCartTotalMoney();
+		}
 	}
 
+	/**
+	 * 首页商品购买更新
+	 * 
+	 * @param goods
+	 */
 	public static void cartModifyByMain(Goods goods) {
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
@@ -76,17 +113,16 @@ public class CartManager implements Watched {
 		}
 		sHasGoodsFlag = false;
 
-		double totalPay = 0;
-		for (Goods goods2 : sCartList) {
-			totalPay = totalPay
-					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getSalesPrice()));
-		}
-
-		HomeActivity.modifyMainPayView(String.valueOf(totalPay));
+		setTotalMoney(true);
 	}
 
-	public static void cartModifyByCart(Goods goods) {
+	/**
+	 * 购物车商品更新
+	 * 
+	 * @param goods
+	 * @param isChecked
+	 */
+	public static void cartModifyByCart(Goods goods, boolean isChecked) {
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
 				sHasGoodsFlag = true;
@@ -101,20 +137,21 @@ public class CartManager implements Watched {
 		}
 		sHasGoodsFlag = false;
 
-		double totalPay = 0;
-		for (Goods goods2 : sCartList) {
-			totalPay = totalPay
-					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getSalesPrice()));
-		}
-
+		// 更新首页菜单价格 并不显示
 		notifyWatchers();
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
-				String.valueOf(sCartList.size()));
+		setTotalMoney(false);
+
+		if (isChecked) {
+			setCartTotalMoney();
+		}
 	}
 
+	/**
+	 * 商品详情购买商品更新
+	 * 
+	 * @param goods
+	 */
 	public static void cartModifyByDetail(Goods goods) {
-
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
 				sHasGoodsByDetailFlag = true;
@@ -130,16 +167,10 @@ public class CartManager implements Watched {
 		}
 		sHasGoodsByDetailFlag = false;
 
-		double totalPay = 0;
-		for (Goods goods2 : sCartList) {
-			totalPay = totalPay
-					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getSalesPrice()));
-		}
-
+		// 更新首页菜单价格 并不显示
 		notifyWatchers();
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
-				String.valueOf(sCartList.size()));
+		setTotalMoney(false);
+		setCartTotalMoney();
 	}
 
 	public static void showOrhHidePayBar(boolean flag) {

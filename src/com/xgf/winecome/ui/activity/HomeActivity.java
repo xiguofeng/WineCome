@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -98,7 +99,7 @@ public class HomeActivity extends TabActivity implements
 							mTabHost.setCurrentTabByTag(TAB_MAIN);
 							showOrHideCartPayBar(false);
 							mCheckAllIb.setChecked(false);
-							if (CartManager.sCartList.size() > 0) {
+							if (CartManager.getsCartList().size() > 0) {
 								showOrhHideMainPayBar(true);
 							} else {
 								showOrhHideMainPayBar(false);
@@ -130,7 +131,18 @@ public class HomeActivity extends TabActivity implements
 					public void onCheckedChanged(CompoundButton buttonView,
 							boolean isChecked) {
 						ShopCartActivity.refreshView(isChecked);
-						CartManager.getTotalMoney();
+
+						CartManager.getsSelectCartList().clear();
+						if (isChecked) {
+							CartManager.getsSelectCartList().addAll(
+									CartManager.getsCartList());
+							Log.e("xxx_sSelectCartList", ""
+									+ CartManager.getsSelectCartList().size());
+						} else {
+						}
+						Log.e("xxx_CartManager.setCartTotalMoney()_home", ""
+								+ CartManager.getsSelectCartList().size());
+						CartManager.setCartTotalMoney();
 					}
 
 				});
@@ -146,14 +158,16 @@ public class HomeActivity extends TabActivity implements
 		super.onPause();
 	}
 
-	public static void modifyMainPayView(String totalPrice) {
+	public static void modifyMainPayView(String totalPrice, boolean isShow) {
 		mMainTotalMoneyTv.setText(totalPrice);
-		if (Double.parseDouble(totalPrice) > 0) {
+		if (isShow && Double.parseDouble(totalPrice) > 0) {
 			showOrhHideMainPayBar(true);
 		}
 	}
 
 	public static void modifyCartPayView(String totalPrice, String totalNum) {
+		Log.e("xxx_modifyCartPayView", "totalPrice" + totalPrice + "totalNum"
+				+ totalNum);
 		mCartTotalMoneyTv.setText(totalPrice);
 		mCartTotalNumTv.setText("(" + totalNum + ")");
 	}

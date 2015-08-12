@@ -41,7 +41,7 @@ public class OrderManager {
 							.parseDouble(goods2.getSalesPrice()));
 		}
 
-		HomeActivity.modifyMainPayView(String.valueOf(totalPay));
+		HomeActivity.modifyMainPayView(String.valueOf(totalPay), true);
 	}
 
 	public static void orderModifyByDetail(Goods goods) {
@@ -68,7 +68,7 @@ public class OrderManager {
 							.parseDouble(goods2.getSalesPrice()));
 		}
 
-		HomeActivity.modifyMainPayView(String.valueOf(totalPay));
+		HomeActivity.modifyMainPayView(String.valueOf(totalPay), true);
 	}
 
 	public static void showOrhHidePayBar(boolean flag) {

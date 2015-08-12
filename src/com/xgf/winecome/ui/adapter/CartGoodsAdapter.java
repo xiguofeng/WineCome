@@ -126,33 +126,51 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 							boolean isChecked) {
 						getmIsSelected().put(tempPosition, isChecked);
 						if (!isChecked) {
-							for (int i = 0; i < CartManager.sSelectCartList
-									.size(); i++) {
-								if (CartManager.sSelectCartList
+							for (int i = 0; i < CartManager
+									.getsSelectCartList().size(); i++) {
+								if (CartManager
+										.getsSelectCartList()
 										.get(i)
 										.getId()
 										.equals(mDatas.get(tempPosition)
 												.getId())) {
-									CartManager.sSelectCartList.remove(i);
+									CartManager.getsSelectCartList().remove(i);
 									break;
 								}
 							}
 						} else {
-							CartManager.sSelectCartList.add(mDatas
-									.get(tempPosition));
+							boolean isHas = false;
+							for (int i = 0; i < CartManager
+									.getsSelectCartList().size(); i++) {
+								if (CartManager
+										.getsSelectCartList()
+										.get(i)
+										.getId()
+										.equals(mDatas.get(tempPosition)
+												.getId())) {
+									isHas = true;
+									break;
+								}
+							}
+							if (!isHas) {
+								CartManager.getsSelectCartList().add(
+										mDatas.get(tempPosition));
+							}
 						}
+						CartManager.setCartTotalMoney();
 					}
 				});
 
 		holder.mCheckIb.setChecked(getmIsSelected().get(position));
 
+		final boolean isChecked = getmIsSelected().get(position);
 		holder.mAddIb.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Goods goods = mDatas.get(tempPosition);
 				goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) + 1));
 				mDatas.set(tempPosition, goods);
-				CartManager.cartModifyByCart(goods);
+				CartManager.cartModifyByCart(goods, isChecked);
 				notifyDataSetChanged();
 
 			}
@@ -165,7 +183,7 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
 					Log.e("xxx_mReduceIb", goods.getNum());
 					mDatas.set(tempPosition, goods);
-					CartManager.cartModifyByCart(goods);
+					CartManager.cartModifyByCart(goods, isChecked);
 					notifyDataSetChanged();
 				}
 

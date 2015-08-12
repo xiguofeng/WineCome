@@ -23,8 +23,8 @@ import com.xgf.winecome.ui.fragment.MoreFragment;
 import com.xgf.winecome.ui.fragment.ShopCartFragment;
 import com.xgf.winecome.utils.CartManager;
 
-public class HomeFragmentActivity extends FragmentActivity implements OnClickListener,
-		OnPageChangeListener {
+public class HomeFragmentActivity extends FragmentActivity implements
+		OnClickListener, OnPageChangeListener {
 	private ViewPager viewPager;
 	// 底部菜单图片
 	private ImageView[] menusImageViews;
@@ -162,7 +162,7 @@ public class HomeFragmentActivity extends FragmentActivity implements OnClickLis
 		}
 		viewPager.setCurrentItem(position);
 		if (0 == position) {
-			if (CartManager.sCartList.size() > 0) {
+			if (CartManager.getsCartList().size() > 0) {
 				showOrhHidePayBar(true);
 			}
 		} else {
@@ -184,7 +184,7 @@ public class HomeFragmentActivity extends FragmentActivity implements OnClickLis
 		currentIndex = position;
 
 		if (0 == position) {
-			if (CartManager.sCartList.size() > 0) {
+			if (CartManager.getsCartList().size() > 0) {
 				showOrhHidePayBar(true);
 			}
 		} else {

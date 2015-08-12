@@ -121,7 +121,6 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Log.e("xxx_mRightLv_onItemClick", "1");
 				Intent intent = new Intent(ShopCartActivity.this,
 						GoodsDetailActivity.class);
 				Bundle bundle = new Bundle();
@@ -136,7 +135,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 
 	private void initData() {
 		mGoodsList.clear();
-		mGoodsList.addAll(CartManager.sCartList);
+		mGoodsList.addAll(CartManager.getsCartList());
 		mGoodsAdapter.initCheck();
 		mGoodsAdapter.notifyDataSetChanged();
 		mTotalNumTv.setText("(" + String.valueOf(mGoodsList.size()) + ")");

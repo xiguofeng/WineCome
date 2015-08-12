@@ -98,12 +98,21 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			switch (what) {
 			case OrderLogic.ORDER_CREATE_SUC: {
 				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
+					CartManager.getsDetailBuyList().clear();
+					
 					AppManager.getInstance().killActivity(
 							GoodsDetailActivity.class);
+				} else if (ORIGIN_FROM_MAIN_ACTION.equals(mNowAction)) {
+					CartManager.getsCartList().clear();
+					CartManager.showOrhHidePayBar(false);
+
+					HomeActivity.modifyMainPayView("0", false);
+				} else {
+					CartManager.getsSelectCartList().clear();
+
+					HomeActivity.modifyCartPayView("0", "0");
 				}
-				CartManager.sCartList.clear();
-				CartManager.showOrhHidePayBar(false);
-				HomeActivity.modifyMainPayView("0");
+
 				Intent intent = new Intent(PersonInfoActivity.this,
 						PayActivity.class);
 				startActivity(intent);
@@ -441,7 +450,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 						CartManager.getsDetailBuyList());
 			} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
 				OrderLogic.createOrder(mContext, mHandler, order,
-						CartManager.getsCartList());
+						CartManager.getsSelectCartList());
 			} else {
 				OrderLogic.createOrder(mContext, mHandler, order,
 						CartManager.getsCartList());
