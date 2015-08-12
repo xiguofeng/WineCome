@@ -136,12 +136,7 @@ public class HomeActivity extends TabActivity implements
 						if (isChecked) {
 							CartManager.getsSelectCartList().addAll(
 									CartManager.getsCartList());
-							Log.e("xxx_sSelectCartList", ""
-									+ CartManager.getsSelectCartList().size());
-						} else {
 						}
-						Log.e("xxx_CartManager.setCartTotalMoney()_home", ""
-								+ CartManager.getsSelectCartList().size());
 						CartManager.setCartTotalMoney();
 					}
 
@@ -166,8 +161,6 @@ public class HomeActivity extends TabActivity implements
 	}
 
 	public static void modifyCartPayView(String totalPrice, String totalNum) {
-		Log.e("xxx_modifyCartPayView", "totalPrice" + totalPrice + "totalNum"
-				+ totalNum);
 		mCartTotalMoneyTv.setText(totalPrice);
 		mCartTotalNumTv.setText("(" + totalNum + ")");
 	}

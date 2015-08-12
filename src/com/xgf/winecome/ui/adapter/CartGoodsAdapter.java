@@ -181,7 +181,6 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 				Goods goods = mDatas.get(tempPosition);
 				if (Integer.parseInt(goods.getNum()) > 1) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
-					Log.e("xxx_mReduceIb", goods.getNum());
 					mDatas.set(tempPosition, goods);
 					CartManager.cartModifyByCart(goods, isChecked);
 					notifyDataSetChanged();
