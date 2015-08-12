@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.AppManager;
@@ -126,6 +127,8 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		case R.id.goods_detail_cart_iv:
 		case R.id.goods_detail_add_cart_ll: {
 			CartManager.cartModifyByDetail(mGoods);
+			Toast.makeText(getApplicationContext(), getString(R.string.add_cart_suc),
+					Toast.LENGTH_SHORT).show();
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {
