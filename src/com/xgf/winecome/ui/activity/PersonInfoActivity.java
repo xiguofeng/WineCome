@@ -99,7 +99,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			case OrderLogic.ORDER_CREATE_SUC: {
 				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
 					CartManager.getsDetailBuyList().clear();
-					
+
 					AppManager.getInstance().killActivity(
 							GoodsDetailActivity.class);
 				} else if (ORIGIN_FROM_MAIN_ACTION.equals(mNowAction)) {
