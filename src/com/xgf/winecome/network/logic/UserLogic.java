@@ -108,10 +108,10 @@ public class UserLogic {
 	private static void parseLoginData(JSONObject response, Handler handler) {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(LOGIN_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 				handler.sendEmptyMessage(LOGIN_SUC);
+			} else {
+				handler.sendEmptyMessage(LOGIN_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(LOGIN_EXCEPTION);
@@ -183,9 +183,8 @@ public class UserLogic {
 			Handler handler) {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(SEND_AUTHCODE_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
@@ -194,6 +193,9 @@ public class UserLogic {
 				message.what = SEND_AUTHCODE_SUC;
 				message.obj = authCode;
 				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(SEND_AUTHCODE_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(SEND_AUTHCODE_EXCEPTION);

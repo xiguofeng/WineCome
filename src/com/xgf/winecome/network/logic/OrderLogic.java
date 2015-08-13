@@ -142,9 +142,8 @@ public class OrderLogic {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDER_CREATE_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				String orderID = response.getString("orderId").trim();
 				if (!TextUtils.isEmpty(orderID)) {
 					OrderManager.setsCurrentOrderId(orderID);
@@ -155,6 +154,9 @@ public class OrderLogic {
 				} else {
 					handler.sendEmptyMessage(ORDER_CREATE_FAIL);
 				}
+
+			} else {
+				handler.sendEmptyMessage(ORDER_CREATE_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDER_CREATE_EXCEPTION);
@@ -222,9 +224,8 @@ public class OrderLogic {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDERLIST_GET_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
@@ -267,6 +268,9 @@ public class OrderLogic {
 				message.what = ORDERLIST_GET_SUC;
 				message.obj = msgMap;
 				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(ORDERLIST_GET_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDERLIST_GET_EXCEPTION);
@@ -331,9 +335,8 @@ public class OrderLogic {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDER_CANCEL_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				String orderID = response.getString("orderId").trim();
 				if (!TextUtils.isEmpty(orderID)) {
 					OrderManager.setsCurrentOrderId(orderID);
@@ -344,6 +347,9 @@ public class OrderLogic {
 				} else {
 					handler.sendEmptyMessage(ORDER_CANCEL_FAIL);
 				}
+
+			} else {
+				handler.sendEmptyMessage(ORDER_CANCEL_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDER_CANCEL_EXCEPTION);

@@ -113,9 +113,7 @@ public class GoodsLogic {
 		try {
 
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(CATEGROY_LIST_GET_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
@@ -155,6 +153,9 @@ public class GoodsLogic {
 				message.what = CATEGROY_LIST_GET_SUC;
 				message.obj = mTempCategoryList;
 				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(CATEGROY_LIST_GET_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(CATEGROY_LIST_GET_EXCEPTION);
@@ -309,9 +310,7 @@ public class GoodsLogic {
 		try {
 
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(GOODS_LIST_GET_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
@@ -334,6 +333,9 @@ public class GoodsLogic {
 				message.what = GOODS_LIST_GET_SUC;
 				message.obj = mTempGoodsList;
 				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(GOODS_LIST_GET_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(GOODS_LIST_GET_EXCEPTION);
@@ -348,7 +350,7 @@ public class GoodsLogic {
 			public void run() {
 				try {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
-							RequestUrl.goods.queryGoods);
+							RequestUrl.goods.queryAllGoods);
 
 					// rpc.addProperty("md5", URLEncoder.encode("1111",
 					// "UTF-8"));
@@ -477,9 +479,8 @@ public class GoodsLogic {
 		try {
 
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(CATEGROY_GOODS_LIST_GET_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 				ArrayList<Category> tempCategoryList = new ArrayList<Category>();
@@ -541,6 +542,9 @@ public class GoodsLogic {
 				message.what = CATEGROY_GOODS_LIST_GET_SUC;
 				message.obj = msgMap;
 				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(CATEGROY_GOODS_LIST_GET_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(CATEGROY_GOODS_LIST_GET_EXCEPTION);

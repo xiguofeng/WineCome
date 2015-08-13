@@ -91,10 +91,10 @@ public class CommentLogic {
 	private static void parseData(JSONObject result, Handler handler) {
 		try {
 			if (result.getString(MsgResult.RESULT_TAG).equals(
-					MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(COMMENT_ADD_FAIL);
-			} else {
+					MsgResult.RESULT_SUCCESS)) {
 				handler.sendEmptyMessage(COMMENT_ADD_SUC);
+			} else {
+				handler.sendEmptyMessage(COMMENT_ADD_FAIL);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
