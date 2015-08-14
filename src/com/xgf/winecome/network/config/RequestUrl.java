@@ -26,7 +26,7 @@ public class RequestUrl {
 		 * 登陆
 		 */
 		public String login = "login";
-		
+
 		/**
 		 * 验证码
 		 */
@@ -53,6 +53,30 @@ public class RequestUrl {
 		 */
 		public String queryGoodsByKey = "/goods/queryGoodsByKeyword";
 
+	}
+
+	public interface integral {
+
+		/**
+		 * 查询全部积分商品
+		 */
+		public String queryAllOnIntegralMall = "queryAllOnIntegralMall";
+		
+		/**
+		 * 根据条件查询积分商品
+		 */
+		public String queryProductOnIntegralMall = "queryProductOnIntegralMall";
+		
+		/**
+		 * 积分兑换
+		 */
+		public String exchange = "exchange";
+		
+		/**
+		 * 积分兑换历史
+		 */
+		public String queryIntegralConsume = "queryIntegralConsume";
+		
 	}
 
 	public interface order {

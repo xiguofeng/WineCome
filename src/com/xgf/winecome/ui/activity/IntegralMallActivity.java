@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.IntegralGoods;
+import com.xgf.winecome.network.logic.IntegralGoodsLogic;
 import com.xgf.winecome.ui.adapter.IntegralGoodsGvAdapter;
 import com.xgf.winecome.ui.view.CustomProgressDialog;
 
@@ -31,6 +34,33 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 	private ArrayList<IntegralGoods> mIntegralGoodsList = new ArrayList<IntegralGoods>();
 
 	private CustomProgressDialog mProgressDialog;
+
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_SUC: {
+				if (null != msg.obj) {
+
+				}
+				break;
+			}
+			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_FAIL: {
+				break;
+			}
+			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_EXCEPTION: {
+				break;
+			}
+
+			default:
+				break;
+			}
+			mProgressDialog.dismiss();
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +96,16 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpData() {
+
+		IntegralGoodsLogic.getAllIntegralGoods(mContext, mHandler);
+
 		mIntegralGoodsList.clear();
-		for (int i = 0; i < 10; i++) {
-			IntegralGoods integralGoods = new IntegralGoods();
-			integralGoods.setName("兑换商品" + i);
-			integralGoods.setIntegral("" + i + "积分");
-			mIntegralGoodsList.add(integralGoods);
-		}
+		// for (int i = 0; i < 10; i++) {
+		// IntegralGoods integralGoods = new IntegralGoods();
+		// integralGoods.setName("兑换商品" + i);
+		// integralGoods.setIntegral("" + i + "积分");
+		// mIntegralGoodsList.add(integralGoods);
+		// }
 		mGvAdapter.notifyDataSetChanged();
 	}
 
