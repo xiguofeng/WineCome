@@ -10,13 +10,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.entity.OrderState;
 import com.xgf.winecome.network.config.MsgResult;
+import com.xgf.winecome.ui.utils.ListItemClickHelp;
 import com.xgf.winecome.ui.view.OrderWineView;
 import com.xgf.winecome.utils.Watched;
 import com.xgf.winecome.utils.Watcher;
@@ -31,9 +34,13 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 	private List<Watcher> mWatcherlist = new ArrayList<Watcher>();
 
-	public OrderWineAdapter(Context context, HashMap<String, Object> datas) {
+	private ListItemClickHelp mCallback;
+
+	public OrderWineAdapter(Context context, HashMap<String, Object> datas,
+			ListItemClickHelp callback) {
 		this.mContext = context;
 		this.mMap = datas;
+		this.mCallback = callback;
 		mInflater = LayoutInflater.from(mContext);
 
 	}
@@ -70,10 +77,10 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 			holder.mState = (TextView) convertView
 					.findViewById(R.id.list_order_group_state_tv);
 
-			holder.mCancelLl = (LinearLayout) convertView
-					.findViewById(R.id.list_order_group_cancel_ll);
-			holder.mDelOrViewLl = (LinearLayout) convertView
-					.findViewById(R.id.list_order_group_del_or_see_ll);
+			holder.mCancelBtn = (Button) convertView
+					.findViewById(R.id.list_order_group_cancel_btn);
+			holder.mDelOrViewBtn = (Button) convertView
+					.findViewById(R.id.list_order_group_del_or_see_btn);
 			holder.mWineLl = (LinearLayout) convertView
 					.findViewById(R.id.list_order_group_wine_ll);
 
@@ -86,23 +93,28 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 				.get(position).getId());
 		holder.mTime.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
 				.get(position).getOrderTime());
-		holder.mState
-				.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-						.get(position).getOrderStatus());
+
+		holder.mState.setText(OrderState.state[(Integer
+				.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+						.get(position).getOrderStatus()) - 1)]);
 
 		final int tempPosition = position;
-		holder.mCancelLl.setOnClickListener(new OnClickListener() {
+		final View view = convertView;
+		final int whichCancel = holder.mCancelBtn.getId();
+		final int whichDelOrView = holder.mDelOrViewBtn.getId();
+
+		holder.mCancelBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
-				mMap.remove(tempPosition);
+				mCallback.onClick(view, v, tempPosition, whichCancel);
 
 			}
 		});
-		holder.mDelOrViewLl.setOnClickListener(new OnClickListener() {
+		holder.mDelOrViewBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				mCallback.onClick(view, v, tempPosition, whichDelOrView);
 			}
 		});
 
@@ -128,9 +140,9 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 		public TextView mId;
 
-		public LinearLayout mCancelLl;
+		public Button mCancelBtn;
 
-		public LinearLayout mDelOrViewLl;
+		public Button mDelOrViewBtn;
 
 		public LinearLayout mWineLl;
 

@@ -17,10 +17,13 @@ import android.widget.Toast;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
+import com.xgf.winecome.ui.utils.ListItemClickHelp;
 
-public class OrderListActivity extends Activity implements OnClickListener {
+public class OrderListActivity extends Activity implements OnClickListener,
+		ListItemClickHelp {
 
 	private Context mContext;
 
@@ -94,7 +97,7 @@ public class OrderListActivity extends Activity implements OnClickListener {
 	private void initView() {
 		mContext = OrderListActivity.this;
 		mOrderLv = (ListView) findViewById(R.id.order_list_lv);
-		mOrderAdapter = new OrderWineAdapter(mContext, mMsgMap);
+		mOrderAdapter = new OrderWineAdapter(mContext, mMsgMap, this);
 		mOrderLv.setAdapter(mOrderAdapter);
 
 		mBackIv = (ImageView) findViewById(R.id.order_list_back_iv);
@@ -123,6 +126,31 @@ public class OrderListActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.order_list_back_iv: {
 			finish();
+			break;
+		}
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onClick(View item, View widget, int position, int which) {
+		switch (which) {
+		case R.id.list_order_group_del_or_see_btn: {
+
+			break;
+		}
+		case R.id.list_order_group_cancel_btn: {
+			if ((Integer.parseInt(((ArrayList<Order>) mMsgMap
+					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) - 1) > 1) {
+				OrderLogic.cancelOrder(mContext, mHandler,
+						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
+								.get(position).getId());
+			} else {
+				Toast.makeText(mContext, getString(R.string.order_cancel_no),
+						Toast.LENGTH_SHORT).show();
+			}
+
 			break;
 		}
 		default:
