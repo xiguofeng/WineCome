@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
@@ -48,6 +49,20 @@ public class OrderListActivity extends Activity implements OnClickListener {
 				break;
 			}
 			case OrderLogic.ORDERLIST_GET_EXCEPTION: {
+				break;
+			}
+
+			case OrderLogic.ORDER_CANCEL_SUC: {
+				Toast.makeText(mContext, getString(R.string.order_cancel_suc),
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+			case OrderLogic.ORDER_CANCEL_FAIL: {
+				Toast.makeText(mContext, getString(R.string.order_cancel_fail),
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+			case OrderLogic.ORDER_CANCEL_EXCEPTION: {
 				break;
 			}
 			case OrderLogic.NET_ERROR: {

@@ -83,6 +83,7 @@ public class PayDemoActivity extends FragmentActivity {
 			AppManager.getInstance().killActivity(PayActivity.class);
 			Intent intent = new Intent(PayDemoActivity.this,
 					OrderStateActivity.class);
+			intent.putExtra("order_state", "2");
 			startActivity(intent);
 			PayDemoActivity.this.finish();
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

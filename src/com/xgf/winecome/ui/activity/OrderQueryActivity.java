@@ -153,8 +153,9 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 
 		case R.id.order_query_submit_ll: {
-			if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode)
-					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())) {
+			mAuthCode = mVerCodeEt.getText().toString();
+			// && mAuthCode.equals(mVerCodeEt.getText().toString().trim())
+			if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode)) {
 				Intent intent = new Intent(OrderQueryActivity.this,
 						OrderListActivity.class);
 				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
