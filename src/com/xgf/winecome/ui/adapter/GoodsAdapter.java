@@ -63,20 +63,14 @@ public class GoodsAdapter extends BaseAdapter implements Watched {
 			convertView = mInflater.inflate(R.layout.list_goods_item, null);
 
 			holder = new ViewHolder();
-			holder.mName = (TextView) convertView
-					.findViewById(R.id.goods_name_tv);
-			holder.mPrice = (TextView) convertView
-					.findViewById(R.id.goods_price_tv);
-			holder.mOriginalPrice = (TextView) convertView
-					.findViewById(R.id.goods_original_prices_tv);
+			holder.mName = (TextView) convertView.findViewById(R.id.goods_name_tv);
+			holder.mPrice = (TextView) convertView.findViewById(R.id.goods_price_tv);
+			holder.mOriginalPrice = (TextView) convertView.findViewById(R.id.goods_original_prices_tv);
 
-			holder.mAddIb = (ImageButton) convertView
-					.findViewById(R.id.goods_add_ib);
-			holder.mReduceIb = (ImageButton) convertView
-					.findViewById(R.id.goods_reduce_ib);
+			holder.mAddIb = (ImageButton) convertView.findViewById(R.id.goods_add_ib);
+			holder.mReduceIb = (ImageButton) convertView.findViewById(R.id.goods_reduce_ib);
 
-			holder.mNum = (EditText) convertView
-					.findViewById(R.id.goods_count_et);
+			holder.mNum = (EditText) convertView.findViewById(R.id.goods_count_et);
 			holder.mIcon = (ImageView) convertView.findViewById(R.id.goods_iv);
 
 			convertView.setTag(holder);
@@ -86,12 +80,10 @@ public class GoodsAdapter extends BaseAdapter implements Watched {
 
 		holder.mName.setText(mDatas.get(position).getName());
 		holder.mPrice.setText("￥" + mDatas.get(position).getSalesPrice());
-		holder.mOriginalPrice.setText("原价￥"
-				+ mDatas.get(position).getMarketPrice());
+		holder.mOriginalPrice.setText("原价￥" + mDatas.get(position).getMarketPrice());
 		holder.mNum.setText(mDatas.get(position).getNum());
 
-		ImageLoader.getInstance().displayImage(
-				mDatas.get(position).getIconUrl(), holder.mIcon);
+		ImageLoader.getInstance().displayImage(mDatas.get(position).getIconUrl(), holder.mIcon);
 
 		final int tempPosition = position;
 		holder.mAddIb.setOnClickListener(new OnClickListener() {
@@ -109,7 +101,7 @@ public class GoodsAdapter extends BaseAdapter implements Watched {
 			@Override
 			public void onClick(View v) {
 				Goods goods = mDatas.get(tempPosition);
-				if (Integer.parseInt(goods.getNum()) > 1) {
+				if (Integer.parseInt(goods.getNum()) > 0) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
 					mDatas.set(tempPosition, goods);
 					CartManager.cartModifyByMain(goods);

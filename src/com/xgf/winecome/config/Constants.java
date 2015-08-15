@@ -3,6 +3,16 @@ package com.xgf.winecome.config;
 import android.os.Environment;
 
 public class Constants {
+
+	/************************************************
+	 * 支付方式: cashpay-现金支付 pospay-POS机支付 alipay-支付宝支付 unionpay-银联支付 wxpay-微信支付
+	 ************************************************/
+	public static final String PAY_WAY_CASHPAY = "cashpay";
+	public static final String PAY_WAY_POSPAY = "pospay";
+	public static final String PAY_WAY_ALIPAY = "alipay";
+	public static final String PAY_WAY_UNIONPAY = "unionpay";
+	public static final String PAY_WAY_WXPAY = "wxpay";
+
 	/**
 	 ******************************************* 参数设置信息开始 ******************************************
 	 */
@@ -14,8 +24,7 @@ public class Constants {
 	public static final String SHARED_PREFERENCE_NAME = "ggonline_prefs";
 
 	// SDCard路径
-	public static final String SD_PATH = Environment
-			.getExternalStorageDirectory().getAbsolutePath();
+	public static final String SD_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
 
 	// 图片存储路径
 	public static final String BASE_PATH = SD_PATH + "/ggonline/";

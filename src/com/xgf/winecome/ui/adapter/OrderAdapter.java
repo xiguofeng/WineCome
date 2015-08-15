@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.Watched;
 import com.xgf.winecome.utils.Watcher;
 
@@ -101,7 +100,6 @@ public class OrderAdapter extends BaseAdapter implements Watched {
 				Goods goods = mDatas.get(tempPosition);
 				goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) + 1));
 				mDatas.set(tempPosition, goods);
-				OrderManager.orderModify(goods);
 				notifyDataSetChanged();
 
 			}
@@ -113,7 +111,6 @@ public class OrderAdapter extends BaseAdapter implements Watched {
 				if (Integer.parseInt(goods.getNum()) > 1) {
 					goods.setNum(String.valueOf(Integer.parseInt(goods.getNum()) - 1));
 					mDatas.set(tempPosition, goods);
-					OrderManager.orderModify(goods);
 					notifyDataSetChanged();
 				}
 

@@ -12,6 +12,7 @@ import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.ui.activity.OrderStateActivity;
 import com.xgf.winecome.ui.activity.PayActivity;
+import com.xgf.winecome.utils.OrderManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-public class PayDemoActivity extends FragmentActivity {
+public class AliPayActivity extends FragmentActivity {
 
 	// 商户PID
 	public static final String PARTNER = "2088021154672354";
@@ -50,29 +51,25 @@ public class PayDemoActivity extends FragmentActivity {
 
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
-					Toast.makeText(PayDemoActivity.this, "支付成功",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(AliPayActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
 
 				} else {
 
 					// 判断resultStatus 为非“9000”则代表可能支付失败
 					// “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
 					if (TextUtils.equals(resultStatus, "8000")) {
-						Toast.makeText(PayDemoActivity.this, "支付结果确认中",
-								Toast.LENGTH_SHORT).show();
+						Toast.makeText(AliPayActivity.this, "支付结果确认中", Toast.LENGTH_SHORT).show();
 
 					} else {
 						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-						Toast.makeText(PayDemoActivity.this, "支付失败",
-								Toast.LENGTH_SHORT).show();
+						Toast.makeText(AliPayActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
 
 					}
 				}
 				break;
 			}
 			case SDK_CHECK_FLAG: {
-				Toast.makeText(PayDemoActivity.this, "检查结果为：" + msg.obj,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(AliPayActivity.this, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
 				break;
 			}
 			default:
@@ -81,11 +78,10 @@ public class PayDemoActivity extends FragmentActivity {
 			}
 
 			AppManager.getInstance().killActivity(PayActivity.class);
-			Intent intent = new Intent(PayDemoActivity.this,
-					OrderStateActivity.class);
+			Intent intent = new Intent(AliPayActivity.this, OrderStateActivity.class);
 			intent.putExtra("order_state", "2");
 			startActivity(intent);
-			PayDemoActivity.this.finish();
+			AliPayActivity.this.finish();
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 		};
 	};
@@ -94,15 +90,17 @@ public class PayDemoActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alipay_main);
+		pay();
 	}
 
 	/**
 	 * call alipay sdk pay. 调用SDK支付
 	 * 
 	 */
-	public void pay(View v) {
+	public void pay() {
 		// 订单
-		String orderInfo = getOrderInfo("酒(现在为测试商品的总价设置为0.01)", "南京壹前零后信息技术有限公司提供的酒", "0.01");
+		String orderInfo = getOrderInfo(OrderManager.getsCurrentOrder().getId(), "南京壹前零后科技有限公司提供的酒", "0.01",
+				OrderManager.getsCurrentOrder().getNotifyUrl());
 
 		// 对订单做RSA 签名
 		String sign = sign(orderInfo);
@@ -114,15 +112,14 @@ public class PayDemoActivity extends FragmentActivity {
 		}
 
 		// 完整的符合支付宝参数规范的订单信息
-		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
-				+ getSignType();
+		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
 
 		Runnable payRunnable = new Runnable() {
 
 			@Override
 			public void run() {
 				// 构造PayTask 对象
-				PayTask alipay = new PayTask(PayDemoActivity.this);
+				PayTask alipay = new PayTask(AliPayActivity.this);
 				// 调用支付接口，获取支付结果
 				String result = alipay.pay(payInfo);
 
@@ -149,7 +146,7 @@ public class PayDemoActivity extends FragmentActivity {
 			@Override
 			public void run() {
 				// 构造PayTask 对象
-				PayTask payTask = new PayTask(PayDemoActivity.this);
+				PayTask payTask = new PayTask(AliPayActivity.this);
 				// 调用查询接口，获取查询结果
 				boolean isExist = payTask.checkAccountIfExist();
 
@@ -179,7 +176,7 @@ public class PayDemoActivity extends FragmentActivity {
 	 * create the order info. 创建订单信息
 	 * 
 	 */
-	public String getOrderInfo(String subject, String body, String price) {
+	public String getOrderInfo(String orderId, String body, String price, String notifyUrl) {
 		// 签约合作者身份ID
 		String orderInfo = "partner=" + "\"" + PARTNER + "\"";
 
@@ -190,7 +187,7 @@ public class PayDemoActivity extends FragmentActivity {
 		orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
 
 		// 商品名称
-		orderInfo += "&subject=" + "\"" + subject + "\"";
+		orderInfo += "&subject=" + "\"" + orderId + "\"";
 
 		// 商品详情
 		orderInfo += "&body=" + "\"" + body + "\"";
@@ -199,8 +196,7 @@ public class PayDemoActivity extends FragmentActivity {
 		orderInfo += "&total_fee=" + "\"" + price + "\"";
 
 		// 服务器异步通知页面路径
-		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
-				+ "\"";
+		orderInfo += "&notify_url=" + "\"" + notifyUrl + "\"";
 
 		// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";
@@ -235,8 +231,7 @@ public class PayDemoActivity extends FragmentActivity {
 	 * 
 	 */
 	public String getOutTradeNo() {
-		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
-				Locale.getDefault());
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss", Locale.getDefault());
 		Date date = new Date();
 		String key = format.format(date);
 

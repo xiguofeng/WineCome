@@ -22,7 +22,7 @@ public class Order implements Serializable {
 
 	private String payStatus;
 
-	private String payType;
+	private String payWay;
 
 	private String memo;
 
@@ -35,6 +35,8 @@ public class Order implements Serializable {
 	private String invoiceTitle;
 
 	private String invoiceContent;
+
+	private String notifyUrl;
 
 	public String getId() {
 		return id;
@@ -100,12 +102,12 @@ public class Order implements Serializable {
 		this.payStatus = payStatus;
 	}
 
-	public String getPayType() {
-		return payType;
+	public String getPayWay() {
+		return payWay;
 	}
 
-	public void setPayType(String payType) {
-		this.payType = payType;
+	public void setPayWay(String payWay) {
+		this.payWay = payWay;
 	}
 
 	public String getMemo() {
@@ -155,5 +157,14 @@ public class Order implements Serializable {
 	public void setInvoiceContent(String invoiceContent) {
 		this.invoiceContent = invoiceContent;
 	}
+
+	public String getNotifyUrl() {
+		return notifyUrl;
+	}
+
+	public void setNotifyUrl(String notifyUrl) {
+		this.notifyUrl = notifyUrl;
+	}
+
 
 }

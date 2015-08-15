@@ -1,12 +1,28 @@
 package com.xgf.winecome.ui.activity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
-import com.xgf.winecome.pay.alipay.PayDemoActivity;
+import com.xgf.winecome.config.Constants;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.config.MsgResult;
+import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.pay.alipay.AliPayActivity;
+import com.xgf.winecome.pay.alipay.AlipayApi;
+import com.xgf.winecome.pay.alipay.PayResult;
+import com.xgf.winecome.ui.view.CustomProgressDialog;
+import com.xgf.winecome.utils.OrderManager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -14,8 +30,11 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class PayActivity extends Activity implements OnClickListener {
+
+	private Context mContext;
 
 	private RelativeLayout mCashRl;
 	private RelativeLayout mPosRl;
@@ -28,11 +47,108 @@ public class PayActivity extends Activity implements OnClickListener {
 
 	private ImageView mBackIv;
 
+	private HashMap<String, Object> mMsgMap = new HashMap<String, Object>();
+
+	private CustomProgressDialog mProgressDialog;
+
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case OrderLogic.ORDER_PAY_TYPE_SET_SUC: {
+				if (null != msg.obj) {
+					mMsgMap.clear();
+					mMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
+					OrderManager.setsCurrentOrder(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(0));
+
+					AlipayApi apAlipayApi = new AlipayApi();
+					apAlipayApi.pay(PayActivity.this, mAlipayHandler);
+					// Intent intent = new Intent(PayActivity.this,
+					// AliPayActivity.class);
+					// startActivityForResult(intent, 500);
+				}
+				break;
+			}
+			case OrderLogic.ORDER_PAY_TYPE_SET_FAIL: {
+				// Toast.makeText(mContext, R.string.login_fail,
+				// Toast.LENGTH_SHORT).show();
+				break;
+			}
+			case OrderLogic.ORDER_PAY_TYPE_SET_EXCEPTION: {
+				break;
+			}
+			case OrderLogic.NET_ERROR: {
+				break;
+			}
+
+			default:
+				break;
+			}
+			if (null != mProgressDialog && mProgressDialog.isShowing()) {
+				mProgressDialog.dismiss();
+			}
+		}
+
+	};
+
+	private Handler mAlipayHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case com.xgf.winecome.pay.alipay.Constants.SDK_PAY_FLAG: {
+				PayResult payResult = new PayResult((String) msg.obj);
+
+				// 支付宝返回此次支付结果及加签，建议对支付宝签名信息拿签约时支付宝提供的公钥做验签
+				String resultInfo = payResult.getResult();
+
+				String resultStatus = payResult.getResultStatus();
+
+				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+				if (TextUtils.equals(resultStatus, "9000")) {
+					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
+					AppManager.getInstance().killActivity(PayActivity.class);
+					Intent intent = new Intent(mContext, OrderStateActivity.class);
+					intent.putExtra("order_state", "2");
+					startActivity(intent);
+					PayActivity.this.finish();
+					overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				} else {
+
+					// 判断resultStatus 为非“9000”则代表可能支付失败
+					// “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+					if (TextUtils.equals(resultStatus, "8000")) {
+						Toast.makeText(mContext, "支付结果确认中", Toast.LENGTH_SHORT).show();
+
+					} else {
+						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+						Toast.makeText(mContext, "支付失败", Toast.LENGTH_SHORT).show();
+
+					}
+				}
+				break;
+			}
+			case com.xgf.winecome.pay.alipay.Constants.SDK_CHECK_FLAG: {
+				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
+				break;
+			}
+			default:
+				break;
+
+			}
+			if (null != mProgressDialog && mProgressDialog.isShowing()) {
+				mProgressDialog.dismiss();
+			}
+		};
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
+		mContext = PayActivity.this;
 		AppManager.getInstance().addActivity(PayActivity.this);
+		mProgressDialog = new CustomProgressDialog(mContext);
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -61,8 +177,7 @@ public class PayActivity extends Activity implements OnClickListener {
 		mCashCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					mPosCb.setChecked(false);
 				}
@@ -71,8 +186,7 @@ public class PayActivity extends Activity implements OnClickListener {
 		mPosCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					mCashCb.setChecked(false);
 				}
@@ -91,35 +205,33 @@ public class PayActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 
 		case R.id.pay_alipay_rl: {
-			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
-			startActivityForResult(intent, 500);
+			mProgressDialog.show();
+			OrderLogic.setPayType(mContext, mHandler, OrderManager.getsCurrentOrderId(), Constants.PAY_WAY_ALIPAY);
 			break;
 		}
 		case R.id.pay_wechat_rl: {
-			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
-			startActivityForResult(intent, 500);
+			mProgressDialog.show();
+			OrderLogic.setPayType(mContext, mHandler, OrderManager.getsCurrentOrderId(), Constants.PAY_WAY_WXPAY);
 			break;
 		}
 		case R.id.pay_unionpay_rl: {
-			Intent intent = new Intent(PayActivity.this, PayDemoActivity.class);
-			startActivityForResult(intent, 500);
+			mProgressDialog.show();
+			OrderLogic.setPayType(mContext, mHandler, OrderManager.getsCurrentOrderId(), Constants.PAY_WAY_UNIONPAY);
 			break;
 		}
 
 		case R.id.pay_cash_rl: {
 			if (mCashCb.isChecked()) {
-				Intent intent = new Intent(PayActivity.this,
-						PayDemoActivity.class);
-				startActivityForResult(intent, 500);
+				mProgressDialog.show();
+				OrderLogic.setPayType(mContext, mHandler, OrderManager.getsCurrentOrderId(), Constants.PAY_WAY_CASHPAY);
 			}
 			break;
 		}
 
 		case R.id.pay_pos_rl: {
 			if (mPosCb.isChecked()) {
-				Intent intent = new Intent(PayActivity.this,
-						PayDemoActivity.class);
-				startActivityForResult(intent, 500);
+				mProgressDialog.show();
+				OrderLogic.setPayType(mContext, mHandler, OrderManager.getsCurrentOrderId(), Constants.PAY_WAY_POSPAY);
 			}
 			break;
 		}

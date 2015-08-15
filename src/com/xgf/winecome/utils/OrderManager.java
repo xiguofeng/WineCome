@@ -2,77 +2,30 @@ package com.xgf.winecome.utils;
 
 import java.util.ArrayList;
 
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.activity.HomeActivity;
+import com.xgf.winecome.entity.Order;
 
 public class OrderManager {
 
 	public static String sCurrentOrderId;
 
-	public static ArrayList<Goods> sOrderList = new ArrayList<Goods>();
+	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
 
-	private static boolean sHasGoodsFlag = false;
+	public static Order sCurrentOrder = new Order();
 
-	private static boolean sHasGoodsByDetailFlag = false;
-
-	public static void orderModify(Goods goods) {
-
-		for (int i = 0; i < sOrderList.size(); i++) {
-			if (sOrderList.get(i).getId().endsWith(goods.getId())) {
-				sHasGoodsFlag = true;
-				// int appendNum = Integer.parseInt(goods.getNum());
-				// int beforeNum = Integer.parseInt(sOrderList.get(i).getNum());
-				// goods.setNum(String.valueOf(beforeNum + appendNum));
-				sOrderList.set(i, goods);
-				break;
-
-			}
-		}
-
-		if (!sHasGoodsFlag) {
-			sOrderList.add(goods);
-		}
-		sHasGoodsFlag = false;
-
-		double totalPay = 0;
-		for (Goods goods2 : sOrderList) {
-			totalPay = totalPay
-					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getSalesPrice()));
-		}
-
-		HomeActivity.modifyMainPayView(String.valueOf(totalPay), true);
+	public static ArrayList<Order> getsOrderList() {
+		return sOrderList;
 	}
 
-	public static void orderModifyByDetail(Goods goods) {
-
-		for (int i = 0; i < sOrderList.size(); i++) {
-			if (sOrderList.get(i).getId().endsWith(goods.getId())) {
-				sHasGoodsByDetailFlag = true;
-				int appendNum = Integer.parseInt(goods.getNum());
-				int beforeNum = Integer.parseInt(sOrderList.get(i).getNum());
-				goods.setNum(String.valueOf(beforeNum + appendNum));
-				sOrderList.set(i, goods);
-				break;
-			}
-		}
-		if (!sHasGoodsByDetailFlag) {
-			sOrderList.add(goods);
-		}
-		sHasGoodsByDetailFlag = false;
-
-		double totalPay = 0;
-		for (Goods goods2 : sOrderList) {
-			totalPay = totalPay
-					+ (Integer.parseInt(goods2.getNum()) * Double
-							.parseDouble(goods2.getSalesPrice()));
-		}
-
-		HomeActivity.modifyMainPayView(String.valueOf(totalPay), true);
+	public static void setsOrderList(ArrayList<Order> sOrderList) {
+		OrderManager.sOrderList = sOrderList;
 	}
 
-	public static void showOrhHidePayBar(boolean flag) {
-		HomeActivity.showOrhHideMainPayBar(flag);
+	public static Order getsCurrentOrder() {
+		return sCurrentOrder;
+	}
+
+	public static void setsCurrentOrder(Order sCurrentOrder) {
+		OrderManager.sCurrentOrder = sCurrentOrder;
 	}
 
 	public static String getsCurrentOrderId() {

@@ -428,7 +428,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 			} else {
 				order.setDeliveryTime(mDateTv.getText() + " " + mTimeTv.getText());
 			}
-			order.setPayType("0");
+			order.setPayWay("");
 			order.setAddress(mAddressEt.getText().toString().trim());
 
 			// TODO
