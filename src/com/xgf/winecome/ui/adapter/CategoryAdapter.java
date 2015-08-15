@@ -64,14 +64,10 @@ public class CategoryAdapter extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.category_item, null);
 
 			holder = new ViewHolder();
-			holder.mName = (TextView) convertView
-					.findViewById(R.id.category_item_name_tv);
-			holder.mBg = (LinearLayout) convertView
-					.findViewById(R.id.category_item_ll);
-			holder.mSelectIv = (ImageView) convertView
-					.findViewById(R.id.category_item_select_iv);
-			holder.mIconIv = (ImageView) convertView
-					.findViewById(R.id.category_item_icon_iv);
+			holder.mName = (TextView) convertView.findViewById(R.id.category_item_name_tv);
+			holder.mBg = (LinearLayout) convertView.findViewById(R.id.category_item_ll);
+			holder.mSelectIv = (ImageView) convertView.findViewById(R.id.category_item_select_iv);
+			holder.mIconIv = (ImageView) convertView.findViewById(R.id.category_item_icon_iv);
 
 			convertView.setTag(holder);
 		} else {
@@ -83,8 +79,7 @@ public class CategoryAdapter extends BaseAdapter {
 
 			holder.mIconIv.setVisibility(View.VISIBLE);
 
-			holder.mIconIv.setImageDrawable(mContext.getResources()
-					.getDrawable(R.drawable.white_wine));
+			holder.mIconIv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.white_wine));
 			// holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 			// R.drawable.white_wine));
 
@@ -94,17 +89,12 @@ public class CategoryAdapter extends BaseAdapter {
 			// holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 			// R.color.white));
 			holder.mIconIv.setVisibility(View.VISIBLE);
-			holder.mIconIv.setImageDrawable(mContext.getResources()
-					.getDrawable(R.drawable.red_wine));
+			holder.mIconIv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.red_wine));
 			// holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 			// R.drawable.red_wine));
 		}
 
-		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
-				R.color.gray_list_bg));
 		if (mCurrentSelect.equals(mDatas.get(position).getPpid())) {
-			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
-					R.color.white));
 			holder.mSelectIv.setVisibility(View.VISIBLE);
 		}
 		holder.mName.setText(mDatas.get(position).getPpmc());
@@ -121,7 +111,7 @@ public class CategoryAdapter extends BaseAdapter {
 
 		public ImageView mIconIv;
 	}
-	
+
 	public String getmCurrentSelect() {
 		return mCurrentSelect;
 	}
