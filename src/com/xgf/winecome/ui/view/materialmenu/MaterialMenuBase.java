@@ -3,13 +3,14 @@ package com.xgf.winecome.ui.view.materialmenu;
 import static com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.DEFAULT_PRESSED_DURATION;
 import static com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.DEFAULT_SCALE;
 import static com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.DEFAULT_TRANSFORM_DURATION;
+
+import com.xgf.winecome.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
-
-import com.xgf.winecome.R;
 
 public abstract class MaterialMenuBase implements MaterialMenu {
 

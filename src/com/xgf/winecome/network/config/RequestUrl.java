@@ -92,7 +92,12 @@ public class RequestUrl {
 		 * 取消订单
 		 */
 		public String cancelOrder = "cancelOrder";
-
+		
+		/**
+		 * 设置支付方式
+		 */
+		public String setOrderPayType = "payWay";
+		
 	}
 
 	public interface comment {

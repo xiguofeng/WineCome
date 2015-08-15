@@ -16,11 +16,11 @@
 
 package com.xgf.winecome.qrcode.google.zxing.client.result;
 
-import android.app.Activity;
-
 import com.google.zxing.client.result.EmailAddressParsedResult;
 import com.google.zxing.client.result.ParsedResult;
 import com.xgf.winecome.R;
+
+import android.app.Activity;
 
 /**
  * Handles email addresses.

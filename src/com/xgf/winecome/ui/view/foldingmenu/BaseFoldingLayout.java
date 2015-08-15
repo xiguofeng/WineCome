@@ -1,5 +1,7 @@
 package com.xgf.winecome.ui.view.foldingmenu;
 
+import com.xgf.winecome.R;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -14,8 +16,6 @@ import android.graphics.Shader.TileMode;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.xgf.winecome.R;
 
 /**
  * The folding layout where the number of folds, the anchor point and the

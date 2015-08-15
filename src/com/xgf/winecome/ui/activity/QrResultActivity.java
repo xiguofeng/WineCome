@@ -1,5 +1,8 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.AppManager;
+import com.xgf.winecome.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.xgf.winecome.AppManager;
-import com.xgf.winecome.R;
 
 public class QrResultActivity extends Activity implements OnClickListener {
 

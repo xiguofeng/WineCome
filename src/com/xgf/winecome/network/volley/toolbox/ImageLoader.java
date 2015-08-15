@@ -18,17 +18,17 @@ package com.xgf.winecome.network.volley.toolbox;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.ImageView;
-
 import com.xgf.winecome.network.volley.Request;
 import com.xgf.winecome.network.volley.RequestQueue;
 import com.xgf.winecome.network.volley.Response.ErrorListener;
 import com.xgf.winecome.network.volley.Response.Listener;
 import com.xgf.winecome.network.volley.VolleyError;
+
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.ImageView;
 
 /**
  * Helper that handles loading and caching images from remote URLs.

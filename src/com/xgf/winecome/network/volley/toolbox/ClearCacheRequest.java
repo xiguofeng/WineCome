@@ -16,13 +16,13 @@
 
 package com.xgf.winecome.network.volley.toolbox;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import com.xgf.winecome.network.volley.Cache;
 import com.xgf.winecome.network.volley.NetworkResponse;
 import com.xgf.winecome.network.volley.Request;
 import com.xgf.winecome.network.volley.Response;
+
+import android.os.Handler;
+import android.os.Looper;
 
 /**
  * A synthetic request used for clearing the cache.

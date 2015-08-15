@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -30,8 +32,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-
-import com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity;
 
 /**
  * A class which deals with reading, parsing, and setting the camera parameters

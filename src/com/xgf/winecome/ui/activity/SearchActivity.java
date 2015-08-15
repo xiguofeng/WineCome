@@ -2,6 +2,11 @@ package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.adapter.GoodsAdapter;
+import com.xgf.winecome.ui.view.AutoClearEditText;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,11 +23,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.adapter.GoodsAdapter;
-import com.xgf.winecome.ui.view.AutoClearEditText;
 
 public class SearchActivity extends Activity implements OnClickListener {
 

@@ -3,6 +3,17 @@ package com.xgf.winecome.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Category;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.activity.GoodsDetailActivity;
+import com.xgf.winecome.ui.activity.SearchActivity;
+import com.xgf.winecome.ui.adapter.CategoryAdapter;
+import com.xgf.winecome.ui.adapter.GoodsAdapter;
+import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView;
+import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView.AnimatedExpandableListAdapter;
+import com.xgf.winecome.utils.Watcher;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -20,17 +31,6 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Category;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.activity.GoodsDetailActivity;
-import com.xgf.winecome.ui.activity.SearchActivity;
-import com.xgf.winecome.ui.adapter.CategoryAdapter;
-import com.xgf.winecome.ui.adapter.GoodsAdapter;
-import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView;
-import com.xgf.winecome.ui.view.listview.AnimatedExpandableListView.AnimatedExpandableListAdapter;
-import com.xgf.winecome.utils.Watcher;
 
 public class MainFragment extends Fragment implements Watcher {
 

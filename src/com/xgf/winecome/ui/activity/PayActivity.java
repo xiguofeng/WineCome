@@ -1,5 +1,9 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.AppManager;
+import com.xgf.winecome.R;
+import com.xgf.winecome.pay.alipay.PayDemoActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.xgf.winecome.AppManager;
-import com.xgf.winecome.R;
-import com.xgf.winecome.pay.alipay.PayDemoActivity;
 
 public class PayActivity extends Activity implements OnClickListener {
 

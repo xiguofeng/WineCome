@@ -16,12 +16,12 @@
 
 package com.xgf.winecome.qrcode.google.zxing.client.result;
 
-import android.app.Activity;
-import android.telephony.PhoneNumberUtils;
-
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.SMSParsedResult;
 import com.xgf.winecome.R;
+
+import android.app.Activity;
+import android.telephony.PhoneNumberUtils;
 
 /**
  * Handles SMS addresses, offering a choice of composing a new SMS or MMS message.

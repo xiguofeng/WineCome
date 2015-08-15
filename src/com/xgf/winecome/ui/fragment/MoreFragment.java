@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.ui.adapter.CommonAdapter;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,9 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.ui.adapter.CommonAdapter;
 
 public class MoreFragment extends Fragment implements OnItemClickListener {
 

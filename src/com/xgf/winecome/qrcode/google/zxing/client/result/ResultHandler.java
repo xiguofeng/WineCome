@@ -19,6 +19,17 @@ package com.xgf.winecome.qrcode.google.zxing.client.result;
 import java.util.Collection;
 import java.util.Locale;
 
+import com.google.zxing.Result;
+import com.google.zxing.client.result.ParsedResult;
+import com.google.zxing.client.result.ParsedResultType;
+import com.google.zxing.client.result.ResultParser;
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.Contents;
+import com.xgf.winecome.qrcode.google.zxing.client.Intents;
+import com.xgf.winecome.qrcode.google.zxing.client.LocaleManager;
+import com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity;
+import com.xgf.winecome.qrcode.google.zxing.client.book.SearchBookContentsActivity;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
@@ -32,17 +43,6 @@ import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
-
-import com.google.zxing.Result;
-import com.google.zxing.client.result.ParsedResult;
-import com.google.zxing.client.result.ParsedResultType;
-import com.google.zxing.client.result.ResultParser;
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.Contents;
-import com.xgf.winecome.qrcode.google.zxing.client.Intents;
-import com.xgf.winecome.qrcode.google.zxing.client.LocaleManager;
-import com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity;
-import com.xgf.winecome.qrcode.google.zxing.client.book.SearchBookContentsActivity;
 
 /**
  * A base class for the Android-specific barcode handlers. These allow the app to polymorphically

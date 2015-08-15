@@ -3,6 +3,10 @@ package com.xgf.winecome.service;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.NotifyInfo;
+import com.xgf.winecome.ui.activity.HomeFragmentActivity;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -17,10 +21,6 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.NotifyInfo;
-import com.xgf.winecome.ui.activity.HomeFragmentActivity;
 
 public class MsgService extends Service {
 

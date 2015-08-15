@@ -19,16 +19,16 @@ package com.xgf.winecome.qrcode.google.zxing.client.camera;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity;
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity;
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
 
 final class AutoFocusManager implements Camera.AutoFocusCallback {
 

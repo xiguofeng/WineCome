@@ -2,6 +2,9 @@ package com.xgf.winecome.ui.adapter;
 
 import java.util.ArrayList;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Category;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Category;
 
 public class CategoryAdapter extends BaseAdapter {
 

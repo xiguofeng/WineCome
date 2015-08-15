@@ -2,6 +2,15 @@ package com.xgf.winecome.ui.fragment;
 
 import java.util.ArrayList;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.activity.GoodsDetailActivity;
+import com.xgf.winecome.ui.adapter.OrderAdapter;
+import com.xgf.winecome.ui.view.listview.SwipeMenu;
+import com.xgf.winecome.ui.view.listview.SwipeMenuCreator;
+import com.xgf.winecome.ui.view.listview.SwipeMenuItem;
+import com.xgf.winecome.ui.view.listview.SwipeMenuListView;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,15 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.activity.GoodsDetailActivity;
-import com.xgf.winecome.ui.adapter.OrderAdapter;
-import com.xgf.winecome.ui.view.listview.SwipeMenu;
-import com.xgf.winecome.ui.view.listview.SwipeMenuCreator;
-import com.xgf.winecome.ui.view.listview.SwipeMenuItem;
-import com.xgf.winecome.ui.view.listview.SwipeMenuListView;
 
 public class ShopCartFragment extends Fragment {
 

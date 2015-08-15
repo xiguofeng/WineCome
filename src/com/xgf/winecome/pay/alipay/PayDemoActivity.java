@@ -7,6 +7,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+import com.alipay.sdk.app.PayTask;
+import com.xgf.winecome.AppManager;
+import com.xgf.winecome.R;
+import com.xgf.winecome.ui.activity.OrderStateActivity;
+import com.xgf.winecome.ui.activity.PayActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,12 +21,6 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
-
-import com.alipay.sdk.app.PayTask;
-import com.xgf.winecome.AppManager;
-import com.xgf.winecome.R;
-import com.xgf.winecome.ui.activity.OrderStateActivity;
-import com.xgf.winecome.ui.activity.PayActivity;
 
 public class PayDemoActivity extends FragmentActivity {
 

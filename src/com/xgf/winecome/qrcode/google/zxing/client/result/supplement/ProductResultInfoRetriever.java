@@ -21,14 +21,14 @@ import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.content.Context;
-import android.text.Html;
-import android.widget.TextView;
-
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.HttpHelper;
 import com.xgf.winecome.qrcode.google.zxing.client.LocaleManager;
 import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
+
+import android.content.Context;
+import android.text.Html;
+import android.widget.TextView;
 
 final class ProductResultInfoRetriever extends SupplementalInfoRetriever {
 

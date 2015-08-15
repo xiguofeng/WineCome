@@ -5,7 +5,6 @@ import com.xgf.winecome.entity.User;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * 用户信息管理类

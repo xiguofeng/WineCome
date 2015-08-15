@@ -18,14 +18,14 @@ package com.xgf.winecome.network.volley.toolbox;
 
 import java.io.File;
 
+import com.xgf.winecome.network.volley.Network;
+import com.xgf.winecome.network.volley.RequestQueue;
+
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.http.AndroidHttpClient;
 import android.os.Build;
-
-import com.xgf.winecome.network.volley.Network;
-import com.xgf.winecome.network.volley.RequestQueue;
 
 public class Volley {
 

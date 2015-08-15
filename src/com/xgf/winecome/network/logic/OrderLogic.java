@@ -15,18 +15,18 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
 import com.xgf.winecome.utils.JsonUtils;
 import com.xgf.winecome.utils.OrderManager;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class OrderLogic {
 
@@ -49,6 +49,12 @@ public class OrderLogic {
 	public static final int ORDER_CANCEL_FAIL = ORDER_CANCEL_SUC + 1;
 
 	public static final int ORDER_CANCEL_EXCEPTION = ORDER_CANCEL_FAIL + 1;
+	
+	public static final int ORDER_PAY_TYPE_SET_SUC = ORDER_CANCEL_EXCEPTION + 1;
+
+	public static final int ORDER_PAY_TYPE_SET_FAIL = ORDER_CANCEL_SUC + 1;
+
+	public static final int ORDER_PAY_TYPE_SET_EXCEPTION = ORDER_CANCEL_FAIL + 1;
 
 	public static void createOrder(final Context context,
 			final Handler handler, final Order order,
@@ -353,6 +359,87 @@ public class OrderLogic {
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDER_CANCEL_EXCEPTION);
+		}
+	}
+	
+	public static void setPayType(final Context context,
+			final Handler handler, final String orderId,final String payWay) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.setOrderPayType);
+
+					rpc.addProperty("orderId",
+							URLEncoder.encode(orderId, "UTF-8"));
+					rpc.addProperty("payWay",
+							URLEncoder.encode(payWay, "UTF-8"));
+					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.setOrderPayType, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+
+					Log.e("xxx_setOrderPayType_result", resultStr.toString());
+					if (TextUtils.isEmpty(resultStr)) {
+
+						JSONObject obj = new JSONObject(resultStr);
+						parseCancelOrderData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	private static void parseSetPayTypeData(JSONObject response,
+			Handler handler) {
+
+		try {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
+				String orderID = response.getString("orderId").trim();
+				if (!TextUtils.isEmpty(orderID)) {
+					OrderManager.setsCurrentOrderId(orderID);
+					Message message = new Message();
+					message.what = ORDER_CANCEL_SUC;
+					message.obj = orderID;
+					handler.sendMessage(message);
+				} else {
+					handler.sendEmptyMessage(ORDER_PAY_TYPE_SET_SUC);
+				}
+
+			} else {
+				handler.sendEmptyMessage(ORDER_PAY_TYPE_SET_FAIL);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(ORDER_PAY_TYPE_SET_EXCEPTION);
 		}
 	}
 

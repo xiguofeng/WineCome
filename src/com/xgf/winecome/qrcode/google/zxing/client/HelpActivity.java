@@ -16,6 +16,8 @@
 
 package com.xgf.winecome.qrcode.google.zxing.client;
 
+import com.xgf.winecome.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,8 +27,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-
-import com.xgf.winecome.R;
 
 /**
  * An HTML-based help screen with Back and Done buttons at the bottom.

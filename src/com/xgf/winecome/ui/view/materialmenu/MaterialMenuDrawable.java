@@ -2,6 +2,11 @@
 package com.xgf.winecome.ui.view.materialmenu;
 
 
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.util.Property;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -15,11 +20,6 @@ import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.util.Property;
 
 public class MaterialMenuDrawable extends Drawable implements Animatable {
 

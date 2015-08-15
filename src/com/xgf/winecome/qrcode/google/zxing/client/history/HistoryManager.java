@@ -26,6 +26,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Result;
+import com.xgf.winecome.qrcode.google.zxing.client.Intents;
+import com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity;
+import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
@@ -37,12 +43,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
-import com.xgf.winecome.qrcode.google.zxing.client.Intents;
-import com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity;
-import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
 
 /**
  * <p>Manages functionality related to scan history.</p>

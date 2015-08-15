@@ -16,6 +16,11 @@
 
 package com.xgf.winecome.qrcode.google.zxing.client.share;
 
+import com.google.zxing.BarcodeFormat;
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.Contents;
+import com.xgf.winecome.qrcode.google.zxing.client.Intents;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -31,11 +36,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.zxing.BarcodeFormat;
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.Contents;
-import com.xgf.winecome.qrcode.google.zxing.client.Intents;
 
 /**
  * Barcode Scanner can share data like contacts and bookmarks by displaying a QR Code on screen,

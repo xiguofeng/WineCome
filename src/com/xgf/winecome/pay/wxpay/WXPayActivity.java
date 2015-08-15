@@ -11,6 +11,14 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
 
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.xgf.winecome.R;
+import com.xgf.winecome.pay.wxpay.simcpux.Constants;
+import com.xgf.winecome.pay.wxpay.simcpux.MD5;
+import com.xgf.winecome.pay.wxpay.simcpux.Util;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,14 +27,6 @@ import android.util.Xml;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.tencent.mm.sdk.modelpay.PayReq;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.xgf.winecome.R;
-import com.xgf.winecome.pay.wxpay.simcpux.Constants;
-import com.xgf.winecome.pay.wxpay.simcpux.MD5;
-import com.xgf.winecome.pay.wxpay.simcpux.Util;
 
 public class WXPayActivity extends Activity {
 

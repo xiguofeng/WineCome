@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import android.content.Context;
-import android.widget.TextView;
-
 import com.google.zxing.client.result.URIParsedResult;
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.HttpHelper;
 import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
+
+import android.content.Context;
+import android.widget.TextView;
 
 final class URIResultInfoRetriever extends SupplementalInfoRetriever {
 

@@ -1,13 +1,13 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.R;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
 
 public class M_ContentFragment extends Fragment {
 

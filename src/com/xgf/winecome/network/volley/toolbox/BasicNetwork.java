@@ -32,8 +32,6 @@ import org.apache.http.StatusLine;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.cookie.DateUtils;
 
-import android.os.SystemClock;
-
 import com.xgf.winecome.network.volley.AuthFailureError;
 import com.xgf.winecome.network.volley.Cache;
 import com.xgf.winecome.network.volley.Network;
@@ -46,6 +44,8 @@ import com.xgf.winecome.network.volley.ServerError;
 import com.xgf.winecome.network.volley.TimeoutError;
 import com.xgf.winecome.network.volley.VolleyError;
 import com.xgf.winecome.network.volley.VolleyLog;
+
+import android.os.SystemClock;
 
 /**
  * A network performing Volley requests over an {@link HttpStack}.

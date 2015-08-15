@@ -16,16 +16,16 @@
 
 package com.xgf.winecome.network.volley.toolbox;
 
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
-
 import com.xgf.winecome.network.volley.DefaultRetryPolicy;
 import com.xgf.winecome.network.volley.NetworkResponse;
 import com.xgf.winecome.network.volley.ParseError;
 import com.xgf.winecome.network.volley.Request;
 import com.xgf.winecome.network.volley.Response;
 import com.xgf.winecome.network.volley.VolleyLog;
+
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 
 /**
  * A canned request for getting an image at a given URL and calling

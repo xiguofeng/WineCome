@@ -1,5 +1,17 @@
 package com.xgf.winecome.ui.activity;
 
+import com.baidu.location.BDLocation;
+import com.xgf.winecome.AppManager;
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.network.logic.UserLogic;
+import com.xgf.winecome.utils.CartManager;
+import com.xgf.winecome.utils.LocationUtilsV5;
+import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
+import com.xgf.winecome.utils.TimeUtils;
+import com.xgf.winecome.utils.UserInfoManager;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,18 +33,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.baidu.location.BDLocation;
-import com.xgf.winecome.AppManager;
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Order;
-import com.xgf.winecome.network.logic.OrderLogic;
-import com.xgf.winecome.network.logic.UserLogic;
-import com.xgf.winecome.utils.CartManager;
-import com.xgf.winecome.utils.LocationUtilsV5;
-import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
-import com.xgf.winecome.utils.TimeUtils;
-import com.xgf.winecome.utils.UserInfoManager;
 
 public class PersonInfoActivity extends Activity implements OnClickListener, TextWatcher {
 	public static final String ORIGIN_FROM_DETAIL_ACTION = "gooddetail";
