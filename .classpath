@@ -2,10 +2,16 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry exported="true" kind="lib" path="D:/workspace/WineCome/libs/nineoldandroids-2.4.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/workspace/WineCome/libs/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/workSpaceforAndroid/WineCome/libs/alipaySDK-20150724.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/workSpaceforAndroid/WineCome/libs/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/workSpaceforAndroid/WineCome/libs/core.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/workSpaceforAndroid/WineCome/libs/ksoap2-android.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/workSpaceforAndroid/WineCome/libs/libammsdk.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/workSpaceforAndroid/WineCome/libs/locSDK_5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/workSpaceforAndroid/WineCome/libs/nineoldandroids-2.4.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/workSpaceforAndroid/WineCome/libs/universal-image-loader-1.8.6-with-sources.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

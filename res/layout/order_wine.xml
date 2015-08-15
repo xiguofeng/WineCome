@@ -44,8 +44,18 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dip"
-            android:textColor="@color/orange_bg"
+            android:textColor="@color/gray_text"
             android:textSize="@dimen/middle_text_size" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="2dip"
+        android:layout_marginBottom="2dip"
+        android:background="@drawable/h_line"
+        android:orientation="vertical" >
+    </LinearLayout>
 
 </LinearLayout>
