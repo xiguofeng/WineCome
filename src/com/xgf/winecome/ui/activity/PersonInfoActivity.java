@@ -32,9 +32,9 @@ import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
 import com.xgf.winecome.utils.TimeUtils;
+import com.xgf.winecome.utils.UserInfoManager;
 
-public class PersonInfoActivity extends Activity implements OnClickListener,
-		TextWatcher {
+public class PersonInfoActivity extends Activity implements OnClickListener, TextWatcher {
 	public static final String ORIGIN_FROM_DETAIL_ACTION = "gooddetail";
 
 	public static final String ORIGIN_FROM_MAIN_ACTION = "main";
@@ -52,6 +52,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private LinearLayout mInvoiceInfoLl;
 	private LinearLayout mDateInfoLl;
 	private LinearLayout mBottomDivLl;
+	private LinearLayout mAuthLl;
 
 	private RelativeLayout mInvoiceRl;
 	private RelativeLayout mAreaRl;
@@ -100,8 +101,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
 					CartManager.getsDetailBuyList().clear();
 
-					AppManager.getInstance().killActivity(
-							GoodsDetailActivity.class);
+					AppManager.getInstance().killActivity(GoodsDetailActivity.class);
 				} else if (ORIGIN_FROM_MAIN_ACTION.equals(mNowAction)) {
 					CartManager.getsCartList().clear();
 					CartManager.showOrhHidePayBar(false);
@@ -113,12 +113,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					HomeActivity.modifyCartPayView("0", "0");
 				}
 
-				Intent intent = new Intent(PersonInfoActivity.this,
-						PayActivity.class);
+				UserInfoManager.setIsMustAuth(mContext, false);
+				Intent intent = new Intent(PersonInfoActivity.this, PayActivity.class);
 				startActivity(intent);
 				PersonInfoActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 				break;
 			}
 			case OrderLogic.ORDER_CREATE_FAIL: {
@@ -153,8 +152,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
-				Toast.makeText(mContext, R.string.login_fail,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, R.string.login_fail, Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
@@ -180,14 +178,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					mTiming--;
 					mTimingTv.setText(String.valueOf(mTiming));
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(
-							R.color.gray_bg));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.gray_divide_line));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(
-							R.color.orange_bg));
-					mTimingTv
-							.setText(getString(R.string.get_verification_code));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.orange_bg));
+					mTimingTv.setText(getString(R.string.get_verification_code));
 					mAuthCodeLl.setClickable(true);
 					mTiming = 60;
 				}
@@ -211,6 +206,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void setUpViews() {
+		mAuthLl = (LinearLayout) findViewById(R.id.per_info_auth_ll);
 		mAuthCodeLl = (LinearLayout) findViewById(R.id.per_info_ver_code_ll);
 		mSubmitLl = (LinearLayout) findViewById(R.id.per_info_submit_ll);
 		mInvoiceLl = (LinearLayout) findViewById(R.id.per_info_invoice_ll);
@@ -269,8 +265,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mInvoiceCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (!isChecked) {
 					mInvoiceInfoLl.setVisibility(View.GONE);
 					mBottomDivLl.setVisibility(View.VISIBLE);
@@ -287,8 +282,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mInTimeCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					mDateInfoLl.setVisibility(View.GONE);
 					mIsIntime = true;
@@ -304,6 +298,9 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void setUpData() {
+		if (UserInfoManager.getIsMustAuth(mContext)) {
+			mAuthLl.setVisibility(View.GONE);
+		}
 		getLoc();
 		mNowAction = getIntent().getAction();
 	}
@@ -322,35 +319,33 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			mInvoiceTitleEt.setError(getString(R.string.invoice_title_hint));
 		}
 		if (TextUtils.isEmpty(mInvoiceContentEt.getText().toString().trim())) {
-			mInvoiceContentEt
-					.setError(getString(R.string.invoice_content_hint));
+			mInvoiceContentEt.setError(getString(R.string.invoice_content_hint));
 		}
 	}
 
 	private void getLoc() {
-		LocationUtilsV5.getLocation(getApplicationContext(),
-				new LocationCallback() {
-					@Override
-					public void onGetLocation(BDLocation location) {
-						Log.e("xxx_latitude", "" + location.getLatitude());
-						Log.e("xxx_longitude", "" + location.getLongitude());
+		LocationUtilsV5.getLocation(getApplicationContext(), new LocationCallback() {
+			@Override
+			public void onGetLocation(BDLocation location) {
+				Log.e("xxx_latitude", "" + location.getLatitude());
+				Log.e("xxx_longitude", "" + location.getLongitude());
 
-						mLat = String.valueOf(location.getLatitude());
-						mLon = String.valueOf(location.getLongitude());
-						String addr = location.getAddrStr();
-						if (!TextUtils.isEmpty(addr)) {
-							mAddressEt.setText(addr);
-							// if (addr.contains("区")) {
-							// int index = addr.indexOf("区");
-							// addr = addr.substring(0, index + 1);
-							// Log.e("xxx_addr", "" + addr);
-							// mAreaTv.setText(addr);
-							// } else {
-							// mAreaTv.setText(addr);
-							// }
-						}
-					}
-				});
+				mLat = String.valueOf(location.getLatitude());
+				mLon = String.valueOf(location.getLongitude());
+				String addr = location.getAddrStr();
+				if (!TextUtils.isEmpty(addr)) {
+					mAddressEt.setText(addr);
+					// if (addr.contains("区")) {
+					// int index = addr.indexOf("区");
+					// addr = addr.substring(0, index + 1);
+					// Log.e("xxx_addr", "" + addr);
+					// mAreaTv.setText(addr);
+					// } else {
+					// mAreaTv.setText(addr);
+					// }
+				}
+			}
+		});
 	}
 
 	@Override
@@ -377,8 +372,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 	}
 
 	@Override
@@ -397,16 +391,14 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		case R.id.per_info_area_rl:
 		case R.id.per_info_area_tv:
 		case R.id.per_info_area_tag_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					AreaSelectActivity.class);
+			Intent intent = new Intent(PersonInfoActivity.this, AreaSelectActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.per_info_date_rl:
 		case R.id.per_info_date_tv:
 		case R.id.per_info_date_tag_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					DateSelectActivity.class);
+			Intent intent = new Intent(PersonInfoActivity.this, DateSelectActivity.class);
 			startActivityForResult(intent, 501);
 			break;
 		}
@@ -414,13 +406,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		case R.id.per_info_time_tv:
 		case R.id.per_info_time_tag_tv: {
 			if (!TextUtils.isEmpty(mDateTv.getText().toString().trim())) {
-				Intent intent = new Intent(PersonInfoActivity.this,
-						TimeSelectActivity.class);
+				Intent intent = new Intent(PersonInfoActivity.this, TimeSelectActivity.class);
 				startActivityForResult(intent, 502);
 				break;
 			} else {
-				Toast.makeText(mContext, getString(R.string.date_select),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.date_select), Toast.LENGTH_SHORT).show();
 			}
 		}
 		case R.id.per_info_submit_ll: {
@@ -428,32 +418,26 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			order.setPhone(mPhoneEt.getText().toString().trim());
 			order.setInvoice("true");
 			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
-			order.setInvoiceContent(mInvoiceContentEt.getText().toString()
-					.trim());
+			order.setInvoiceContent(mInvoiceContentEt.getText().toString().trim());
 			order.setLatitude(mLat);
 			order.setLongitude(mLon);
 			if (mIsIntime) {
-				String date = TimeUtils.TimeStamp2Date(String.valueOf(System
-						.currentTimeMillis() + 20 * 60 * 1000),
+				String date = TimeUtils.TimeStamp2Date(String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
 						TimeUtils.FORMAT_PATTERN_DATE);
 				order.setDeliveryTime(date);
 			} else {
-				order.setDeliveryTime(mDateTv.getText() + " "
-						+ mTimeTv.getText());
+				order.setDeliveryTime(mDateTv.getText() + " " + mTimeTv.getText());
 			}
 			order.setPayType("0");
 			order.setAddress(mAddressEt.getText().toString().trim());
 
 			// TODO
 			if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
-				OrderLogic.createOrder(mContext, mHandler, order,
-						CartManager.getsDetailBuyList());
+				OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsDetailBuyList());
 			} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
-				OrderLogic.createOrder(mContext, mHandler, order,
-						CartManager.getsSelectCartList());
+				OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsSelectCartList());
 			} else {
-				OrderLogic.createOrder(mContext, mHandler, order,
-						CartManager.getsCartList());
+				OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsCartList());
 			}
 
 			break;
@@ -468,8 +452,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				UserLogic.sendAuthCode(mContext, mAuthCodeHandler, mPhone);
 
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}

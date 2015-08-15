@@ -28,8 +28,14 @@ import com.xgf.winecome.utils.JsonUtils;
 public class IntegralGoodsLogic {
 
 	public static final int NET_ERROR = 0;
+	
+	public static final int INTEGRAL_TOTAL_GET_SUC = NET_ERROR + 1;
 
-	public static final int INTEGRAL_GOODS_LIST_GET_SUC = NET_ERROR + 1;
+	public static final int INTEGRAL_TOTAL_GET_FAIL = INTEGRAL_TOTAL_GET_SUC + 1;
+
+	public static final int INTEGRAL_TOTAL_GET_EXCEPTION = INTEGRAL_TOTAL_GET_FAIL + 1;
+
+	public static final int INTEGRAL_GOODS_LIST_GET_SUC = INTEGRAL_TOTAL_GET_EXCEPTION + 1;
 
 	public static final int INTEGRAL_GOODS_LIST_GET_FAIL = INTEGRAL_GOODS_LIST_GET_SUC + 1;
 

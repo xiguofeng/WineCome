@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.utils.UserInfoManager;
 
 public class MoreActivity extends Activity implements OnClickListener {
 
@@ -44,27 +45,36 @@ public class MoreActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.more_order_rl: {
-			Intent intent = new Intent(MoreActivity.this,
-					OrderQueryActivity.class);
-			startActivity(intent);
+			if (UserInfoManager.getIsMustAuth(getApplicationContext())) {
+				Intent intent = new Intent(MoreActivity.this, OrderQueryActivity.class);
+				startActivity(intent);
+			} else {
+				Intent intent = new Intent(MoreActivity.this, OrderListActivity.class);
+				startActivity(intent);
+			}
 			break;
 		}
 		case R.id.more_integral_shop_rl: {
-			Intent intent = new Intent(MoreActivity.this,
-					IntegralMallActivity.class);
+			Intent intent = new Intent(MoreActivity.this, IntegralMallActivity.class);
 			startActivity(intent);
 
 			break;
 		}
 		case R.id.more_integral_search_rl: {
-			Intent intent = new Intent(MoreActivity.this,
-					IntegralQueryActivity.class);
+
+			if (UserInfoManager.getIsMustAuth(getApplicationContext())) {
+				Intent intent = new Intent(MoreActivity.this, IntegralQueryActivity.class);
+				startActivity(intent);
+			} else {
+				Intent intent = new Intent(MoreActivity.this, IntegralQueryResultActivity.class);
+				startActivity(intent);
+			}
+			Intent intent = new Intent(MoreActivity.this, IntegralQueryActivity.class);
 			startActivity(intent);
 			break;
 		}
 		case R.id.more_integral_exchange_rl: {
-			Intent intent = new Intent(MoreActivity.this,
-					IntegralOrderListActivity.class);
+			Intent intent = new Intent(MoreActivity.this, IntegralOrderListActivity.class);
 			startActivity(intent);
 			break;
 		}

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/red_title_bg"
         android:orientation="vertical"
-        android:paddingTop="20dip" >
+        android:paddingTop="5dip" >
 
         <LinearLayout
             android:id="@+id/main_title_ll"
@@ -41,7 +41,7 @@
             android:id="@+id/main_search_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dip"
             android:background="@drawable/corners_search_bg_red"
             android:focusable="true"
             android:focusableInTouchMode="true"
