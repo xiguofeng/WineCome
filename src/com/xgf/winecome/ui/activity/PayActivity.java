@@ -118,7 +118,6 @@ public class PayActivity extends Activity implements OnClickListener {
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
-					AppManager.getInstance().killActivity(PayActivity.class);
 					Intent intent = new Intent(mContext, OrderStateActivity.class);
 					intent.putExtra("order_state", "2");
 					startActivity(intent);
@@ -266,9 +265,14 @@ public class PayActivity extends Activity implements OnClickListener {
 			switch (requestCode) {
 			case 80: {
 				if (data.getBooleanExtra("pay_result", false)) {
-
+					Toast.makeText(mContext, getString(R.string.pay_suc), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(mContext, OrderStateActivity.class);
+					intent.putExtra("order_state", "1");
+					startActivity(intent);
+					PayActivity.this.finish();
+					overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 				} else {
-					Toast.makeText(mContext, getString(R.string.wifi_type_label), Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, getString(R.string.pay_fail), Toast.LENGTH_SHORT).show();
 				}
 				break;
 			}
@@ -304,7 +308,11 @@ public class PayActivity extends Activity implements OnClickListener {
 				Intent intent = new Intent(mContext, PrePayActivity.class);
 				intent.putExtra("order_pre_price", "2");
 				startActivity(intent);
-				PayActivity.this.finish();
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			} else {
+				Intent intent = new Intent(mContext, OrderStateActivity.class);
+				intent.putExtra("order_state", "2");
+				startActivity(intent);
 				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			}
 
@@ -321,6 +329,12 @@ public class PayActivity extends Activity implements OnClickListener {
 				Intent intent = new Intent(mContext, PrePayActivity.class);
 				intent.putExtra("order_pre_price", String.valueOf(preMoney));
 				startActivityForResult(intent, 80);
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			} else {
+				Intent intent = new Intent(mContext, OrderStateActivity.class);
+				intent.putExtra("order_state", "1");
+				startActivity(intent);
+				PayActivity.this.finish();
 				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			}
 

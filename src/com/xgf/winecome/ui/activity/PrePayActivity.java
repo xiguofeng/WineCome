@@ -225,6 +225,7 @@ public class PrePayActivity extends Activity implements OnClickListener {
 		Intent intent = new Intent();
 		intent.putExtra("pay_result", isSuc);
 		setResult(RESULT_OK, intent);
+		finish();
 	}
 
 	@Override

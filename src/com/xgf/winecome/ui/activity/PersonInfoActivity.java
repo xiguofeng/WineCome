@@ -78,8 +78,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 	private CheckBox mInTimeCb;
 	private ImageView mBackIv;
 
-	private String mLat="0";
-	private String mLon="0";
+	private String mLat = "0";
+	private String mLon = "0";
 
 	private String mNowAction = ORIGIN_FROM_MAIN_ACTION;
 
@@ -101,27 +101,26 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 			case OrderLogic.ORDER_CREATE_SUC: {
 				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
 					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsDetailBuyList());
-					
+
 					CartManager.getsDetailBuyList().clear();
 
 					AppManager.getInstance().killActivity(GoodsDetailActivity.class);
 				} else if (ORIGIN_FROM_MAIN_ACTION.equals(mNowAction)) {
 					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsCartList());
-					
+
 					CartManager.getsCartList().clear();
 					CartManager.showOrhHidePayBar(false);
 
 					HomeActivity.modifyMainPayView("0", false);
 				} else {
 					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsSelectCartList());
-					
+
 					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsSelectCartList());
 					CartManager.getsSelectCartList().clear();
 
 					HomeActivity.modifyCartPayView("0", "0");
 				}
 
-				UserInfoManager.setIsMustAuth(mContext, false);
 				Intent intent = new Intent(PersonInfoActivity.this, PayActivity.class);
 				startActivity(intent);
 				PersonInfoActivity.this.finish();
@@ -155,6 +154,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 			case UserLogic.SEND_AUTHCODE_SUC: {
 				if (null != msg.obj) {
 					mAuthCode = (String) msg.obj;
+					UserInfoManager.setPhone(mContext, mPhone);
+					UserInfoManager.setIsMustAuth(mContext, false);
 				}
 				mTimeHandler.sendEmptyMessage(TIME_UPDATE);
 				break;
@@ -306,9 +307,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 	}
 
 	private void setUpData() {
-		if (UserInfoManager.getIsMustAuth(mContext)) {
-			mAuthLl.setVisibility(View.GONE);
-		}
+		// if (!UserInfoManager.getIsMustAuth(mContext)) {
+		// mAuthLl.setVisibility(View.GONE);
+		// mPhone = UserInfoManager.getPhone(mContext);
+		// }
+		mPhoneEt.setText(UserInfoManager.getPhone(mContext));
 		getLoc();
 		mNowAction = getIntent().getAction();
 	}
@@ -423,7 +426,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 		}
 		case R.id.per_info_submit_ll: {
 			Order order = new Order();
-			order.setPhone(mPhoneEt.getText().toString().trim());
+			mPhone = mPhoneEt.getText().toString().trim();
+			order.setPhone(mPhone);
 			order.setInvoice("true");
 			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
 			order.setInvoiceContent(mInvoiceContentEt.getText().toString().trim());

@@ -188,15 +188,15 @@
 
     <Button
         android:id="@+id/pre_pay_confirm_btn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="20dip"
         android:background="@drawable/corners_bg_red"
         android:gravity="center"
-        android:paddingBottom="8dip"
-        android:paddingTop="8dip"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip"
         android:text="@string/pay_confirm"
         android:textColor="@color/white"
         android:textSize="@dimen/large_text_size" />

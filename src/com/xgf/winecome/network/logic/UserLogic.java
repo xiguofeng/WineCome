@@ -15,6 +15,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.xgf.winecome.entity.User;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
+import com.xgf.winecome.utils.UserInfoManager;
 
 import android.content.Context;
 import android.os.Handler;
@@ -193,7 +194,6 @@ public class UserLogic {
 				message.what = SEND_AUTHCODE_SUC;
 				message.obj = authCode;
 				handler.sendMessage(message);
-
 			} else {
 				handler.sendEmptyMessage(SEND_AUTHCODE_FAIL);
 			}

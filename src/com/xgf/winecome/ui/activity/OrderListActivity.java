@@ -10,20 +10,21 @@ import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
 import com.xgf.winecome.ui.utils.ListItemClickHelp;
+import com.xgf.winecome.utils.UserInfoManager;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.UserManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class OrderListActivity extends Activity implements OnClickListener,
-		ListItemClickHelp {
+public class OrderListActivity extends Activity implements OnClickListener, ListItemClickHelp {
 
 	private Context mContext;
 
@@ -56,13 +57,11 @@ public class OrderListActivity extends Activity implements OnClickListener,
 			}
 
 			case OrderLogic.ORDER_CANCEL_SUC: {
-				Toast.makeText(mContext, getString(R.string.order_cancel_suc),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_suc), Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_FAIL: {
-				Toast.makeText(mContext, getString(R.string.order_cancel_fail),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_fail), Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_EXCEPTION: {
@@ -115,7 +114,9 @@ public class OrderListActivity extends Activity implements OnClickListener,
 		// }
 		// mOrderAdapter.notifyDataSetChanged();
 
-		String phone = getIntent().getStringExtra("phone");
+		// String phone = getIntent().getStringExtra("phone");
+
+		String phone = UserInfoManager.getPhone(mContext);
 		OrderLogic.getOrders(mContext, mHandler, phone, "0", "30");
 		// OrderLogic.cancelOrder(mContext, mHandler,
 		// OrderManager.getsCurrentOrderId());
@@ -141,14 +142,12 @@ public class OrderListActivity extends Activity implements OnClickListener,
 			break;
 		}
 		case R.id.list_order_group_cancel_btn: {
-			if ((Integer.parseInt(((ArrayList<Order>) mMsgMap
-					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) - 1) > 1) {
+			if ((Integer.parseInt(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus())
+					- 1) > 1) {
 				OrderLogic.cancelOrder(mContext, mHandler,
-						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
-								.get(position).getId());
+						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getId());
 			} else {
-				Toast.makeText(mContext, getString(R.string.order_cancel_no),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_no), Toast.LENGTH_SHORT).show();
 			}
 
 			break;

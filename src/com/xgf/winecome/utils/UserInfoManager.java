@@ -23,6 +23,8 @@ public class UserInfoManager {
 
 	public static final String USER_SEX_KEY = "sex";
 
+	public static final String USER_PHONE_KEY = "user_phone";
+
 	public static final String USER_SIGNATURE_KEY = "signature";
 
 	public static final String USER_LAST_LOGINIP_KEY = "last_login_ip";
@@ -277,8 +279,26 @@ public class UserInfoManager {
 
 	public static boolean setIsMustAuth(Context context, boolean isMust) {
 		SharedPreferences userInfo = context.getSharedPreferences(USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE);
+		return userInfo.getBoolean(USER_AUTH_IS_MUST, isMust);
+	}
 
-		return userInfo.getBoolean(USER_GESTURUE_PWD_IS_HAS, isMust);
+	public static String getPhone(Context context) {
+		SharedPreferences userInfo = context.getSharedPreferences(USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE);
+		return userInfo.getString(USER_PHONE_KEY, "");
+
+	}
+
+	public static void setPhone(Context context, String phone) {
+		SharedPreferences.Editor userInfo = context.getSharedPreferences(USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE)
+				.edit();
+
+		if (!TextUtils.isEmpty(phone)) {
+			userInfo.putString(USER_PHONE_KEY, phone);
+		} else {
+			userInfo.putString(USER_PHONE_KEY, "");
+		}
+		userInfo.commit();
+
 	}
 
 }
