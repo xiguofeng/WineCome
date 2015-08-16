@@ -9,6 +9,7 @@ import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
+import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.TimeUtils;
 import com.xgf.winecome.utils.UserInfoManager;
 
@@ -77,8 +78,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 	private CheckBox mInTimeCb;
 	private ImageView mBackIv;
 
-	private String mLat;
-	private String mLon;
+	private String mLat="0";
+	private String mLon="0";
 
 	private String mNowAction = ORIGIN_FROM_MAIN_ACTION;
 
@@ -99,15 +100,22 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 			switch (what) {
 			case OrderLogic.ORDER_CREATE_SUC: {
 				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsDetailBuyList());
+					
 					CartManager.getsDetailBuyList().clear();
 
 					AppManager.getInstance().killActivity(GoodsDetailActivity.class);
 				} else if (ORIGIN_FROM_MAIN_ACTION.equals(mNowAction)) {
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsCartList());
+					
 					CartManager.getsCartList().clear();
 					CartManager.showOrhHidePayBar(false);
 
 					HomeActivity.modifyMainPayView("0", false);
 				} else {
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsSelectCartList());
+					
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsSelectCartList());
 					CartManager.getsSelectCartList().clear();
 
 					HomeActivity.modifyCartPayView("0", "0");

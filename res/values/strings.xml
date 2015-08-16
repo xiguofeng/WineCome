@@ -36,6 +36,8 @@
     <string name="no_data">没有找到符合条件的房源</string>
 
     <!-- pay -->
+
+    <string name="pre_pay_type">预支付</string>
     <string name="total_price">总金额：</string>
     <string name="to_settlement">去结算</string>
     <string name="add_cart">加入购物车</string>
@@ -51,6 +53,9 @@
     <string name="alipay">支付宝</string>
     <string name="wechat">微信</string>
     <string name="unionpay">银联</string>
+    <string name="pay_suc">微信</string>
+    <string name="pay_fail">银联</string>
+    <string name="pre_pay_hint">因您购买的酒超过12瓶，需预先支付30%的金额</string>
 
     <!-- order -->
     <string name="order_list">订单列表</string>

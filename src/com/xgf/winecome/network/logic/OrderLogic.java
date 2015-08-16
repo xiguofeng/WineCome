@@ -335,7 +335,7 @@ public class OrderLogic {
 		}
 	}
 
-	public static void setPayType(final Context context, final Handler handler, final String orderId,
+	public static void setPayWay(final Context context, final Handler handler, final String orderId,
 			final String payWay) {
 
 		new Thread(new Runnable() {

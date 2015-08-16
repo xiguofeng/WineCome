@@ -37,6 +37,16 @@ public class Order implements Serializable {
 	private String invoiceContent;
 
 	private String notifyUrl;
+	
+	private String opid;
+
+	public String getOpid() {
+		return opid;
+	}
+
+	public void setOpid(String opid) {
+		this.opid = opid;
+	}
 
 	public String getId() {
 		return id;

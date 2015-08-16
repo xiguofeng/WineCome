@@ -2,6 +2,7 @@ package com.xgf.winecome.utils;
 
 import java.util.ArrayList;
 
+import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
 
 public class OrderManager {
@@ -11,6 +12,8 @@ public class OrderManager {
 	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
 
 	public static Order sCurrentOrder = new Order();
+	
+	public static  ArrayList<Goods> sCurrentOrderGoodsList = new ArrayList<Goods>();
 
 	public static ArrayList<Order> getsOrderList() {
 		return sOrderList;
@@ -34,6 +37,14 @@ public class OrderManager {
 
 	public static void setsCurrentOrderId(String sCurrentOrderId) {
 		OrderManager.sCurrentOrderId = sCurrentOrderId;
+	}
+
+	public static ArrayList<Goods> getsCurrentOrderGoodsList() {
+		return sCurrentOrderGoodsList;
+	}
+
+	public static void setsCurrentOrderGoodsList(ArrayList<Goods> sCurrentOrderGoodsList) {
+		OrderManager.sCurrentOrderGoodsList = sCurrentOrderGoodsList;
 	}
 
 }

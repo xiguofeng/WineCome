@@ -35,7 +35,7 @@ public class AlipayApi {
 	public void pay(final Activity activity, final Handler handler) {
 		// 订单
 		String orderInfo = getOrderInfo(OrderManager.getsCurrentOrder().getId(), "南京壹前零后科技有限公司提供的酒", "0.01",
-				OrderManager.getsCurrentOrder().getNotifyUrl());
+				OrderManager.getsCurrentOrder().getNotifyUrl(),OrderManager.getsCurrentOrder().getOpid());
 
 		// 对订单做RSA 签名
 		String sign = sign(orderInfo);
@@ -110,7 +110,7 @@ public class AlipayApi {
 	 * create the order info. 创建订单信息
 	 * 
 	 */
-	public String getOrderInfo(String orderId, String body, String price, String notifyUrl) {
+	public String getOrderInfo(String orderId, String body, String price, String notifyUrl,String tradeNo) {
 		// 签约合作者身份ID
 		String orderInfo = "partner=" + "\"" + Constants.PARTNER + "\"";
 
@@ -118,7 +118,7 @@ public class AlipayApi {
 		orderInfo += "&seller_id=" + "\"" + Constants.SELLER + "\"";
 
 		// 商户网站唯一订单号
-		orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+		orderInfo += "&out_trade_no=" + "\"" + tradeNo + "\"";
 
 		// 商品名称
 		orderInfo += "&subject=" + "\"" + orderId + "\"";

@@ -1,14 +1,12 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.config.Constants;
-import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
@@ -29,42 +27,36 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class PayActivity extends Activity implements OnClickListener {
+public class PrePayActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
 
-	private RelativeLayout mCashRl;
-	private RelativeLayout mPosRl;
 	private RelativeLayout mAlipayRl;
 	private RelativeLayout mWeChatRl;
 	private RelativeLayout mUnionpayRl;
 
-	private CheckBox mCashCb;
-	private CheckBox mPosCb;
 	private CheckBox mAlipayCb;
 	private CheckBox mWeChatCb;
 	private CheckBox mUnionpayCb;
 
-	private Button mPayConfirmBtn;
-
 	private ImageView mBackIv;
+
+	private Button mPayConfirmBtn;
 
 	private HashMap<String, Object> mMsgMap = new HashMap<String, Object>();
 
-	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
-
-	private int mTotalNum = 0;
+	private CustomProgressDialog mProgressDialog;
 
 	private String mCurrentPayWay;
 
 	private String mCurrentSelectPayWay;
 
-	private CustomProgressDialog mProgressDialog;
+	private boolean isPaySuc = false;
 
 	Handler mHandler = new Handler() {
 
@@ -77,8 +69,13 @@ public class PayActivity extends Activity implements OnClickListener {
 					mMsgMap.clear();
 					mMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
 					OrderManager.setsCurrentOrder(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(0));
-					mCurrentPayWay = mCurrentSelectPayWay;
-					hanlder();
+					mCurrentSelectPayWay = mCurrentPayWay;
+
+					AlipayApi apAlipayApi = new AlipayApi();
+					apAlipayApi.pay(PrePayActivity.this, mAlipayHandler);
+					// Intent intent = new Intent(PayActivity.this,
+					// AliPayActivity.class);
+					// startActivityForResult(intent, 500);
 				}
 				break;
 			}
@@ -118,11 +115,11 @@ public class PayActivity extends Activity implements OnClickListener {
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
-					AppManager.getInstance().killActivity(PayActivity.class);
+					AppManager.getInstance().killActivity(PrePayActivity.class);
 					Intent intent = new Intent(mContext, OrderStateActivity.class);
 					intent.putExtra("order_state", "2");
 					startActivity(intent);
-					PayActivity.this.finish();
+					PrePayActivity.this.finish();
 					overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 				} else {
 
@@ -137,6 +134,8 @@ public class PayActivity extends Activity implements OnClickListener {
 
 					}
 				}
+
+				setResult(true);
 				break;
 			}
 			case com.xgf.winecome.pay.alipay.Constants.SDK_CHECK_FLAG: {
@@ -156,9 +155,9 @@ public class PayActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.pay);
-		mContext = PayActivity.this;
-		AppManager.getInstance().addActivity(PayActivity.this);
+		setContentView(R.layout.pre_pay);
+		mContext = PrePayActivity.this;
+		AppManager.getInstance().addActivity(PrePayActivity.this);
 		mProgressDialog = new CustomProgressDialog(mContext);
 		setUpViews();
 		setUpListener();
@@ -166,62 +165,27 @@ public class PayActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpViews() {
-		mCashRl = (RelativeLayout) findViewById(R.id.pay_cash_rl);
-		mPosRl = (RelativeLayout) findViewById(R.id.pay_pos_rl);
-		mAlipayRl = (RelativeLayout) findViewById(R.id.pay_alipay_rl);
-		mWeChatRl = (RelativeLayout) findViewById(R.id.pay_wechat_rl);
-		mUnionpayRl = (RelativeLayout) findViewById(R.id.pay_unionpay_rl);
+		mAlipayRl = (RelativeLayout) findViewById(R.id.pre_pay_alipay_rl);
+		mWeChatRl = (RelativeLayout) findViewById(R.id.pre_pay_wechat_rl);
+		mUnionpayRl = (RelativeLayout) findViewById(R.id.pre_pay_unionpay_rl);
 
-		mCashCb = (CheckBox) findViewById(R.id.pay_cash_cb);
-		mPosCb = (CheckBox) findViewById(R.id.pay_pos_cb);
-		mAlipayCb = (CheckBox) findViewById(R.id.pay_alipay_cb);
-		mWeChatCb = (CheckBox) findViewById(R.id.pay_wechat_cb);
-		mUnionpayCb = (CheckBox) findViewById(R.id.pay_unionpay_cb);
+		mAlipayCb = (CheckBox) findViewById(R.id.pre_pay_alipay_cb);
+		mWeChatCb = (CheckBox) findViewById(R.id.pre_pay_wechat_cb);
+		mUnionpayCb = (CheckBox) findViewById(R.id.pre_pay_unionpay_cb);
 
-		mPayConfirmBtn = (Button) findViewById(R.id.pay_confirm_btn);
-		mBackIv = (ImageView) findViewById(R.id.pay_back_iv);
+		mBackIv = (ImageView) findViewById(R.id.pre_pay_back_iv);
+		mPayConfirmBtn = (Button) findViewById(R.id.pre_pay_confirm_btn);
 	}
 
 	private void setUpListener() {
+		mBackIv.setOnClickListener(this);
+		mPayConfirmBtn.setOnClickListener(this);
 
-		mPosRl.setOnClickListener(this);
-		mAlipayRl.setOnClickListener(this);
-		mWeChatRl.setOnClickListener(this);
-		mCashRl.setOnClickListener(this);
-		mUnionpayRl.setOnClickListener(this);
-		mCashCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPosCb.setChecked(false);
-					mAlipayCb.setChecked(false);
-					mWeChatCb.setChecked(false);
-					mUnionpayCb.setChecked(false);
-					mCurrentSelectPayWay = Constants.PAY_WAY_CASHPAY;
-				}
-			}
-		});
-		mPosCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mCashCb.setChecked(false);
-					mAlipayCb.setChecked(false);
-					mWeChatCb.setChecked(false);
-					mUnionpayCb.setChecked(false);
-					mCurrentSelectPayWay = Constants.PAY_WAY_POSPAY;
-				}
-			}
-		});
 		mAlipayCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					mCashCb.setChecked(false);
-					mPosCb.setChecked(false);
 					mWeChatCb.setChecked(false);
 					mUnionpayCb.setChecked(false);
 					mCurrentSelectPayWay = Constants.PAY_WAY_ALIPAY;
@@ -233,8 +197,6 @@ public class PayActivity extends Activity implements OnClickListener {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					mCashCb.setChecked(false);
-					mPosCb.setChecked(false);
 					mAlipayCb.setChecked(false);
 					mUnionpayCb.setChecked(false);
 					mCurrentSelectPayWay = Constants.PAY_WAY_WXPAY;
@@ -246,8 +208,6 @@ public class PayActivity extends Activity implements OnClickListener {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
-					mCashCb.setChecked(false);
-					mPosCb.setChecked(false);
 					mWeChatCb.setChecked(false);
 					mAlipayCb.setChecked(false);
 					mCurrentSelectPayWay = Constants.PAY_WAY_UNIONPAY;
@@ -255,91 +215,30 @@ public class PayActivity extends Activity implements OnClickListener {
 			}
 		});
 
-		mPayConfirmBtn.setOnClickListener(this);
-		mBackIv.setOnClickListener(this);
-
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
-			switch (requestCode) {
-			case 80: {
-				if (data.getBooleanExtra("pay_result", false)) {
-
-				} else {
-					Toast.makeText(mContext, getString(R.string.wifi_type_label), Toast.LENGTH_SHORT).show();
-				}
-				break;
-			}
-			default:
-				break;
-			}
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-	}
-
-	private void hanlder() {
-		if (Constants.PAY_WAY_ALIPAY.equals(mCurrentPayWay)) {
-			AlipayApi apAlipayApi = new AlipayApi();
-			apAlipayApi.pay(PayActivity.this, mAlipayHandler);
-
-		} else if (Constants.PAY_WAY_WXPAY.equals(mCurrentPayWay)) {
-			AlipayApi apAlipayApi = new AlipayApi();
-			apAlipayApi.pay(PayActivity.this, mAlipayHandler);
-
-		} else if (Constants.PAY_WAY_UNIONPAY.equals(mCurrentPayWay)) {
-			AlipayApi apAlipayApi = new AlipayApi();
-			apAlipayApi.pay(PayActivity.this, mAlipayHandler);
-
-		} else if (Constants.PAY_WAY_CASHPAY.equals(mCurrentPayWay)) {
-			mGoodsList.clear();
-			mGoodsList.addAll((Collection<? extends Goods>) mMsgMap.get(OrderManager.getsCurrentOrder().getId()));
-
-			for (Goods goods : mGoodsList) {
-				mTotalNum = Integer.parseInt(goods.getNum()) + mTotalNum;
-			}
-
-			if (mTotalNum >= 12) {
-				Intent intent = new Intent(mContext, PrePayActivity.class);
-				intent.putExtra("order_pre_price", "2");
-				startActivity(intent);
-				PayActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-			}
-
-		} else if (Constants.PAY_WAY_POSPAY.equals(mCurrentPayWay)) {
-			mGoodsList.clear();
-			mGoodsList.addAll((Collection<? extends Goods>) mMsgMap.get(OrderManager.getsCurrentOrder().getId()));
-
-			for (Goods goods : mGoodsList) {
-				mTotalNum = Integer.parseInt(goods.getNum()) + mTotalNum;
-			}
-
-			if (mTotalNum >= 12) {
-				Double preMoney = (Double.parseDouble(OrderManager.getsCurrentOrder().getAmount())) * 0.3;
-				Intent intent = new Intent(mContext, PrePayActivity.class);
-				intent.putExtra("order_pre_price", String.valueOf(preMoney));
-				startActivityForResult(intent, 80);
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-			}
-
-		}
 	}
 
 	private void setUpData() {
+		String price = getIntent().getStringExtra("order_pre_price");
+	}
+
+	private void setResult(boolean isSuc) {
+		Intent intent = new Intent();
+		intent.putExtra("pay_result", isSuc);
+		setResult(RESULT_OK, intent);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.pay_confirm_btn: {
+
+		case R.id.pre_pay_confirm_btn: {
+			mProgressDialog.show();
 			OrderLogic.setPayWay(mContext, mHandler, OrderManager.getsCurrentOrderId(), mCurrentSelectPayWay);
 			break;
 		}
 
-		case R.id.pay_back_iv: {
-			PayActivity.this.finish();
+		case R.id.pre_pay_back_iv: {
+			PrePayActivity.this.finish();
 			break;
 		}
 		default:
