@@ -30,12 +30,9 @@ public class CartManager implements Watched {
 	public static void setCartTotalMoney() {
 		double totalPay = 0;
 		for (Goods goods : sSelectCartList) {
-			totalPay = totalPay
-					+ (Integer.parseInt(goods.getNum()) * Double
-							.parseDouble(goods.getSalesPrice()));
+			totalPay = totalPay + (Integer.parseInt(goods.getNum()) * Double.parseDouble(goods.getSalesPrice()));
 		}
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
-				String.valueOf(sSelectCartList.size()));
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay), String.valueOf(sSelectCartList.size()));
 	}
 
 	/**
@@ -44,9 +41,7 @@ public class CartManager implements Watched {
 	public static void setTotalMoney(boolean isShow) {
 		double totalPay = 0;
 		for (Goods goods : sCartList) {
-			totalPay = totalPay
-					+ (Integer.parseInt(goods.getNum()) * Double
-							.parseDouble(goods.getSalesPrice()));
+			totalPay = totalPay + (Integer.parseInt(goods.getNum()) * Double.parseDouble(goods.getSalesPrice()));
 		}
 		HomeActivity.modifyMainPayView(String.valueOf(totalPay), isShow);
 	}
@@ -151,13 +146,12 @@ public class CartManager implements Watched {
 	 * 
 	 * @param goods
 	 */
-	public static void cartModifyByDetail(Goods goods) {
+	public static boolean cartModifyByDetail(Goods goods) {
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
 				sHasGoodsByDetailFlag = true;
-				int appendNum = Integer.parseInt(goods.getNum());
 				int beforeNum = Integer.parseInt(sCartList.get(i).getNum());
-				goods.setNum(String.valueOf(beforeNum + appendNum));
+				goods.setNum(String.valueOf(beforeNum + 1));
 				sCartList.set(i, goods);
 				break;
 			}
@@ -171,6 +165,7 @@ public class CartManager implements Watched {
 		notifyWatchers();
 		setTotalMoney(false);
 		setCartTotalMoney();
+		return true;
 	}
 
 	public static void showOrhHidePayBar(boolean flag) {
