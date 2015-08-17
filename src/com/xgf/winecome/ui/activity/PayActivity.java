@@ -76,7 +76,8 @@ public class PayActivity extends Activity implements OnClickListener {
 				if (null != msg.obj) {
 					mMsgMap.clear();
 					mMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
-					OrderManager.setsCurrentOrder(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(0));
+					OrderManager.setsCurrentOrder(((ArrayList<Order>) mMsgMap
+							.get(MsgResult.ORDER_TAG)).get(0));
 					mCurrentPayWay = mCurrentSelectPayWay;
 					hanlder();
 				}
@@ -118,28 +119,33 @@ public class PayActivity extends Activity implements OnClickListener {
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(mContext, OrderStateActivity.class);
+					Intent intent = new Intent(mContext,
+							OrderStateActivity.class);
 					intent.putExtra("order_state", "2");
 					startActivity(intent);
 					PayActivity.this.finish();
-					overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+					overridePendingTransition(R.anim.push_left_in,
+							R.anim.push_left_out);
 				} else {
 
 					// 判断resultStatus 为非“9000”则代表可能支付失败
 					// “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
 					if (TextUtils.equals(resultStatus, "8000")) {
-						Toast.makeText(mContext, "支付结果确认中", Toast.LENGTH_SHORT).show();
+						Toast.makeText(mContext, "支付结果确认中", Toast.LENGTH_SHORT)
+								.show();
 
 					} else {
 						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-						Toast.makeText(mContext, "支付失败", Toast.LENGTH_SHORT).show();
+						Toast.makeText(mContext, "支付失败", Toast.LENGTH_SHORT)
+								.show();
 
 					}
 				}
 				break;
 			}
 			case com.xgf.winecome.pay.alipay.Constants.SDK_CHECK_FLAG: {
-				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
+						.show();
 				break;
 			}
 			default:
@@ -191,7 +197,8 @@ public class PayActivity extends Activity implements OnClickListener {
 		mCashCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
 				if (isChecked) {
 					mPosCb.setChecked(false);
 					mAlipayCb.setChecked(false);
@@ -204,7 +211,8 @@ public class PayActivity extends Activity implements OnClickListener {
 		mPosCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
 				if (isChecked) {
 					mCashCb.setChecked(false);
 					mAlipayCb.setChecked(false);
@@ -217,7 +225,8 @@ public class PayActivity extends Activity implements OnClickListener {
 		mAlipayCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
 				if (isChecked) {
 					mCashCb.setChecked(false);
 					mPosCb.setChecked(false);
@@ -230,7 +239,8 @@ public class PayActivity extends Activity implements OnClickListener {
 		mWeChatCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
 				if (isChecked) {
 					mCashCb.setChecked(false);
 					mPosCb.setChecked(false);
@@ -243,7 +253,8 @@ public class PayActivity extends Activity implements OnClickListener {
 		mUnionpayCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
 				if (isChecked) {
 					mCashCb.setChecked(false);
 					mPosCb.setChecked(false);
@@ -265,14 +276,18 @@ public class PayActivity extends Activity implements OnClickListener {
 			switch (requestCode) {
 			case 80: {
 				if (data.getBooleanExtra("pay_result", false)) {
-					Toast.makeText(mContext, getString(R.string.pay_suc), Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(mContext, OrderStateActivity.class);
+					Toast.makeText(mContext, getString(R.string.pay_suc),
+							Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(mContext,
+							OrderStateActivity.class);
 					intent.putExtra("order_state", "1");
 					startActivity(intent);
 					PayActivity.this.finish();
-					overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+					overridePendingTransition(R.anim.push_left_in,
+							R.anim.push_left_out);
 				} else {
-					Toast.makeText(mContext, getString(R.string.pay_fail), Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, getString(R.string.pay_fail),
+							Toast.LENGTH_SHORT).show();
 				}
 				break;
 			}
@@ -298,7 +313,8 @@ public class PayActivity extends Activity implements OnClickListener {
 
 		} else if (Constants.PAY_WAY_CASHPAY.equals(mCurrentPayWay)) {
 			mGoodsList.clear();
-			mGoodsList.addAll((Collection<? extends Goods>) mMsgMap.get(OrderManager.getsCurrentOrder().getId()));
+			mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
+					.get(OrderManager.getsCurrentOrder().getId()));
 
 			for (Goods goods : mGoodsList) {
 				mTotalNum = Integer.parseInt(goods.getNum()) + mTotalNum;
@@ -308,34 +324,40 @@ public class PayActivity extends Activity implements OnClickListener {
 				Intent intent = new Intent(mContext, PrePayActivity.class);
 				intent.putExtra("order_pre_price", "2");
 				startActivity(intent);
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
 			} else {
 				Intent intent = new Intent(mContext, OrderStateActivity.class);
 				intent.putExtra("order_state", "2");
 				startActivity(intent);
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
 			}
 
 		} else if (Constants.PAY_WAY_POSPAY.equals(mCurrentPayWay)) {
 			mGoodsList.clear();
-			mGoodsList.addAll((Collection<? extends Goods>) mMsgMap.get(OrderManager.getsCurrentOrder().getId()));
+			mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
+					.get(OrderManager.getsCurrentOrder().getId()));
 
 			for (Goods goods : mGoodsList) {
 				mTotalNum = Integer.parseInt(goods.getNum()) + mTotalNum;
 			}
 
 			if (mTotalNum >= 12) {
-				Double preMoney = (Double.parseDouble(OrderManager.getsCurrentOrder().getAmount())) * 0.3;
+				Double preMoney = (Double.parseDouble(OrderManager
+						.getsCurrentOrder().getAmount())) * 0.3;
 				Intent intent = new Intent(mContext, PrePayActivity.class);
 				intent.putExtra("order_pre_price", String.valueOf(preMoney));
 				startActivityForResult(intent, 80);
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
 			} else {
 				Intent intent = new Intent(mContext, OrderStateActivity.class);
 				intent.putExtra("order_state", "1");
 				startActivity(intent);
 				PayActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
 			}
 
 		}
@@ -348,7 +370,15 @@ public class PayActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.pay_confirm_btn: {
-			OrderLogic.setPayWay(mContext, mHandler, OrderManager.getsCurrentOrderId(), mCurrentSelectPayWay);
+			if (!TextUtils.isEmpty(mCurrentSelectPayWay)) {
+				OrderLogic
+						.setPayWay(mContext, mHandler,
+								OrderManager.getsCurrentOrderId(),
+								mCurrentSelectPayWay);
+			} else {
+				Toast.makeText(mContext, getString(R.string.pay_way_hint),
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
 		}
 
