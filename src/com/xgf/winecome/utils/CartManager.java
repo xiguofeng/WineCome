@@ -100,6 +100,43 @@ public class CartManager implements Watched {
 	}
 
 	/**
+	 * 购物车选择信息刷新
+	 * 
+	 * @param position
+	 */
+	public static void cartCheckDataRefresh(Goods goods, boolean isCheck) {
+
+		if (!isCheck) {
+			for (int i = 0; i < getsSelectCartList().size(); i++) {
+				if (getsSelectCartList().get(i).getId().equals(goods.getId())) {
+					getsSelectCartList().remove(i);
+					break;
+				}
+			}
+
+			ArrayList<Goods> tempCartSelectList = new ArrayList<Goods>();
+			for (Goods tempGoods : getsSelectCartList()) {
+				tempCartSelectList.add(tempGoods);
+			}
+			getsSelectCartList().clear();
+			getsSelectCartList().addAll(tempCartSelectList);
+		} else {
+
+			boolean isHas = false;
+			for (int i = 0; i < getsSelectCartList().size(); i++) {
+				if (getsSelectCartList().get(i).getId().equals(goods.getId())) {
+					isHas = true;
+					break;
+				}
+			}
+			if (!isHas) {
+				getsSelectCartList().add(goods);
+			}
+		}
+
+	}
+
+	/**
 	 * 首页商品购买更新
 	 * 
 	 * @param goods

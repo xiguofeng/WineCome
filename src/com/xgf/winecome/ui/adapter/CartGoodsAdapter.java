@@ -12,6 +12,7 @@ import com.xgf.winecome.utils.Watched;
 import com.xgf.winecome.utils.Watcher;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -124,45 +125,50 @@ public class CartGoodsAdapter extends BaseAdapter implements Watched {
 					public void onCheckedChanged(CompoundButton buttonView,
 							boolean isChecked) {
 						getmIsSelected().put(tempPosition, isChecked);
-						if (!isChecked) {
-							for (int i = 0; i < CartManager
-									.getsSelectCartList().size(); i++) {
-								if (CartManager
-										.getsSelectCartList()
-										.get(i)
-										.getId()
-										.equals(mDatas.get(tempPosition)
-												.getId())) {
-									CartManager.getsSelectCartList().remove(i);
-									break;
-								}
-							}
-						} else {
-							boolean isHas = false;
-							for (int i = 0; i < CartManager
-									.getsSelectCartList().size(); i++) {
-								if (CartManager
-										.getsSelectCartList()
-										.get(i)
-										.getId()
-										.equals(mDatas.get(tempPosition)
-												.getId())) {
-									isHas = true;
-									break;
-								}
-							}
-							if (!isHas) {
-								CartManager.getsSelectCartList().add(
-										mDatas.get(tempPosition));
-							}
-						}
+
+						CartManager.cartCheckDataRefresh(
+								mDatas.get(tempPosition), isChecked);
+						// if (!isChecked) {
+						//
+						// for (int i = 0; i < CartManager
+						// .getsSelectCartList().size(); i++) {
+						// if (CartManager
+						// .getsSelectCartList()
+						// .get(i)
+						// .getId()
+						// .equals(mDatas.get(tempPosition)
+						// .getId())) {
+						// CartManager.getsSelectCartList().remove(i);
+						// break;
+						// }
+						// }
+						// } else {
+						// boolean isHas = false;
+						// for (int i = 0; i < CartManager
+						// .getsSelectCartList().size(); i++) {
+						// if (CartManager
+						// .getsSelectCartList()
+						// .get(i)
+						// .getId()
+						// .equals(mDatas.get(tempPosition)
+						// .getId())) {
+						// isHas = true;
+						// break;
+						// }
+						// }
+						// if (!isHas) {
+						// CartManager.getsSelectCartList().add(
+						// mDatas.get(tempPosition));
+						// }
+						// }
 						CartManager.setCartTotalMoney();
+						notifyDataSetChanged();
 					}
 				});
 
 		holder.mCheckIb.setChecked(getmIsSelected().get(position));
-
 		final boolean isChecked = getmIsSelected().get(position);
+		
 		holder.mAddIb.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
