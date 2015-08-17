@@ -311,22 +311,13 @@ public class OrderLogic {
 
 	}
 
+	//{"datas":{},"message":"操作成功","result":"0"}
 	private static void parseCancelOrderData(JSONObject response, Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
-
-				String orderID = response.getString("orderId").trim();
-				if (!TextUtils.isEmpty(orderID)) {
-					Message message = new Message();
-					message.what = ORDER_CANCEL_SUC;
-					message.obj = orderID;
-					handler.sendMessage(message);
-				} else {
-					handler.sendEmptyMessage(ORDER_CANCEL_FAIL);
-				}
-
+				handler.sendEmptyMessage(ORDER_CANCEL_SUC);
 			} else {
 				handler.sendEmptyMessage(ORDER_CANCEL_FAIL);
 			}

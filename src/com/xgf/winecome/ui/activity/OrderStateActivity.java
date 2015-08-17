@@ -51,7 +51,7 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 
 	private Button mCancelBtn;
 
-	private int mStateCode;
+	private int mStateCode = 0;
 
 	Handler mHandler = new Handler() {
 
@@ -62,6 +62,7 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 			case OrderLogic.ORDER_CANCEL_SUC: {
 				Toast.makeText(mContext, getString(R.string.order_cancel_suc),
 						Toast.LENGTH_SHORT).show();
+				finish();
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_FAIL: {
@@ -118,18 +119,21 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 	private void setUpListener() {
 		mQrcodeIv.setOnClickListener(this);
 		mBackIv.setOnClickListener(this);
+		mCancelBtn.setOnClickListener(this);
 	}
 
 	@SuppressLint("ResourceAsColor")
 	private void setUpData() {
 		String state = getIntent().getStringExtra("order_state");
-		int stateCode = Integer.parseInt(state);
-		switch (stateCode) {
+
+		mStateCode = Integer.parseInt(state);
+		switch (mStateCode) {
 		case 0: {
 
 			break;
 		}
-		case 2: {
+		// 配送
+		case 3: {
 			mStepTwoTv.setTextColor(R.color.black_character);
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
@@ -137,7 +141,8 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 			mTimingTv.setText("00:29:29");
 		}
 
-		case 3: {
+		// 收货
+		case 4: {
 			mStepTwoTv.setTextColor(R.color.black_character);
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
@@ -148,7 +153,8 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 
 		}
 
-		case 4: {
+		// 验货
+		case 5: {
 
 			mStepTwoTv.setTextColor(R.color.black_character);
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
@@ -185,7 +191,7 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 		}
 
 		case R.id.order_state_cancel_btn: {
-			if (mStateCode < 2) {
+			if (mStateCode < 3) {
 				OrderLogic.cancelOrder(mContext, mHandler,
 						OrderManager.getsCurrentOrderId());
 			} else {
