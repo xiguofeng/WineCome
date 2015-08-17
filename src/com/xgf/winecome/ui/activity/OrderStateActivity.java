@@ -23,6 +23,10 @@ import android.widget.Toast;
 
 public class OrderStateActivity extends Activity implements OnClickListener {
 
+	public static final String ORIGIN_FROM_PAY_ACTION = "pay";
+
+	public static final String ORIGIN_FROM_QR_RESULT_ACTION = "qr_result";
+
 	private Context mContext;
 
 	private ImageView mBackIv;
@@ -50,6 +54,8 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 	private ImageView mStepFourIv;
 
 	private Button mCancelBtn;
+
+	private String mNowAction = ORIGIN_FROM_PAY_ACTION;
 
 	private int mStateCode = 0;
 
@@ -182,6 +188,7 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 		case R.id.order_state_qr_iv: {
 			Intent intent = new Intent(OrderStateActivity.this,
 					CaptureActivity.class);
+			intent.setAction(CaptureActivity.ORIGIN_FROM_ORDER_STATE_ACTION);
 			startActivity(intent);
 			break;
 		}

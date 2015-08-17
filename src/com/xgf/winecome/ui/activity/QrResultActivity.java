@@ -62,6 +62,7 @@ public class QrResultActivity extends Activity implements OnClickListener {
 		case R.id.qr_result_go_on_ll: {
 			Intent intent = new Intent(QrResultActivity.this,
 					CaptureActivity.class);
+			intent.setAction(CaptureActivity.ORIGIN_FROM_QR_RESULT_ACTION);
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;

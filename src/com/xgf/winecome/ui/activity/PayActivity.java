@@ -327,8 +327,7 @@ public class PayActivity extends Activity implements OnClickListener {
 				overridePendingTransition(R.anim.push_left_in,
 						R.anim.push_left_out);
 			} else {
-				Intent intent = new Intent(mContext,
-						OrderStateActivity.class);
+				Intent intent = new Intent(mContext, OrderStateActivity.class);
 				intent.putExtra("order_state", "2");
 				startActivity(intent);
 				PayActivity.this.finish();

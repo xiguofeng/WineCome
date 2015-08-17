@@ -124,9 +124,9 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			ArrayList<Goods> goodsList = new ArrayList<Goods>();
 			goodsList.add(mGoods);
 			CartManager.setsDetailBuyList(goodsList);
+			
 			Intent intent = new Intent(GoodsDetailActivity.this, PersonInfoActivity.class);
 			intent.setAction(PersonInfoActivity.ORIGIN_FROM_DETAIL_ACTION);
-
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;

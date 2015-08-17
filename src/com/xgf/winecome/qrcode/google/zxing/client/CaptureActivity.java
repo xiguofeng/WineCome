@@ -84,6 +84,9 @@ import android.widget.Toast;
 public final class CaptureActivity extends Activity implements
 		SurfaceHolder.Callback {
 
+	public static final String ORIGIN_FROM_ORDER_STATE_ACTION = "order_state";
+	public static final String ORIGIN_FROM_QR_RESULT_ACTION = "qr_result";
+
 	private static final String TAG = CaptureActivity.class.getSimpleName();
 
 	private static final long DEFAULT_INTENT_RESULT_DURATION_MS = 1500L;
@@ -125,6 +128,8 @@ public final class CaptureActivity extends Activity implements
 	private InactivityTimer inactivityTimer;
 	private BeepManager beepManager;
 
+	private String mNowAction = ORIGIN_FROM_ORDER_STATE_ACTION;
+
 	private ImageView mBackIv;
 
 	ViewfinderView getViewfinderView() {
@@ -164,6 +169,7 @@ public final class CaptureActivity extends Activity implements
 
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
+		mNowAction = getIntent().getAction();
 		// showHelpOnFirstLaunch();
 	}
 
@@ -490,8 +496,12 @@ public final class CaptureActivity extends Activity implements
 		}
 
 		// TODO
-		AppManager.getInstance().killActivity(OrderStateActivity.class);
-		AppManager.getInstance().killActivity(QrResultActivity.class);
+		if (ORIGIN_FROM_ORDER_STATE_ACTION.equals(mNowAction)) {
+			AppManager.getInstance().killActivity(OrderStateActivity.class);
+		} else if (ORIGIN_FROM_QR_RESULT_ACTION.equals(mNowAction)) {
+			AppManager.getInstance().killActivity(QrResultActivity.class);
+		}
+
 		Intent intent = new Intent(CaptureActivity.this, QrResultActivity.class);
 		startActivity(intent);
 		CaptureActivity.this.finish();
