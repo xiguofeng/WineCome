@@ -156,6 +156,8 @@ public class HomeActivity extends TabActivity implements
 		mMainTotalMoneyTv.setText(totalPrice);
 		if (isShow && Double.parseDouble(totalPrice) > 0) {
 			showOrhHideMainPayBar(true);
+		} else if (!isShow) {
+			showOrhHideMainPayBar(false);
 		}
 	}
 
@@ -170,7 +172,7 @@ public class HomeActivity extends TabActivity implements
 			mMainPayMenuLl.setVisibility(View.VISIBLE);
 			mCartPayMenuLl.setVisibility(View.GONE);
 		} else {
-			mPayMenuRl.setVisibility(View.GONE);
+			mMainPayMenuLl.setVisibility(View.GONE);
 		}
 	}
 

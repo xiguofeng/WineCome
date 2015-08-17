@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.util.Log;
+
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.HomeActivity;
 import com.xgf.winecome.ui.activity.MainActivity;
@@ -30,9 +32,12 @@ public class CartManager implements Watched {
 	public static void setCartTotalMoney() {
 		double totalPay = 0;
 		for (Goods goods : sSelectCartList) {
-			totalPay = totalPay + (Integer.parseInt(goods.getNum()) * Double.parseDouble(goods.getSalesPrice()));
+			totalPay = totalPay
+					+ (Integer.parseInt(goods.getNum()) * Double
+							.parseDouble(goods.getSalesPrice()));
 		}
-		HomeActivity.modifyCartPayView(String.valueOf(totalPay), String.valueOf(sSelectCartList.size()));
+		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
+				String.valueOf(sSelectCartList.size()));
 	}
 
 	/**
@@ -41,7 +46,13 @@ public class CartManager implements Watched {
 	public static void setTotalMoney(boolean isShow) {
 		double totalPay = 0;
 		for (Goods goods : sCartList) {
-			totalPay = totalPay + (Integer.parseInt(goods.getNum()) * Double.parseDouble(goods.getSalesPrice()));
+			totalPay = totalPay
+					+ (Integer.parseInt(goods.getNum()) * Double
+							.parseDouble(goods.getSalesPrice()));
+		}
+
+		if (0 == (int) totalPay) {
+			isShow = false;
 		}
 		HomeActivity.modifyMainPayView(String.valueOf(totalPay), isShow);
 	}
