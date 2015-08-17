@@ -265,11 +265,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 		mDateTagTv.setOnClickListener(this);
 		mTimeTagTv.setOnClickListener(this);
 
-		mPhoneEt.addTextChangedListener(this);
-		mVerCodeEt.addTextChangedListener(this);
-		mAddressEt.addTextChangedListener(this);
-		mInvoiceTitleEt.addTextChangedListener(this);
-		mInvoiceContentEt.addTextChangedListener(this);
+		// mPhoneEt.addTextChangedListener(this);
+		// mVerCodeEt.addTextChangedListener(this);
+		// mAddressEt.addTextChangedListener(this);
+		// mInvoiceTitleEt.addTextChangedListener(this);
+		// mInvoiceContentEt.addTextChangedListener(this);
 
 		mInvoiceCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 

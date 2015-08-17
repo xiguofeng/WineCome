@@ -96,6 +96,7 @@
     <string name="verification_code">验证码</string>
     <string name="get_verification_code">获取验证码</string>
     <string name="address">地址</string>
+    <string name="dev_address">配送地址</string>
     <string name="street">街道</string>
     <string name="detail_info">详细信息</string>
     <string name="distribution_date">配送日期</string>
