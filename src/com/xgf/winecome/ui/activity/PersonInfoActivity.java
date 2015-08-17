@@ -121,8 +121,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					OrderManager.getsCurrentOrderGoodsList().addAll(
 							CartManager.getsSelectCartList());
 
-					CartManager.getsSelectCartList().clear();
-
+					CartManager.removeCartSelect();
 					HomeActivity.modifyCartPayView("0", "0");
 				}
 

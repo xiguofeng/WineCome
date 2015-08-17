@@ -214,6 +214,40 @@ public class CartManager implements Watched {
 		return true;
 	}
 
+	/**
+	 * 订单创建成功后 删除已经选择的购物车里的商品数据
+	 */
+	public static void removeCartSelect() {
+
+		// 更新sSelectCartList
+		boolean isHasSelect = false;
+		for (int i = 0; i < sCartList.size(); i++) {
+			String id = sCartList.get(i).getId();
+			for (int j = 0; j < sSelectCartList.size(); j++) {
+				if (id.equals(sSelectCartList.get(j).getId())) {
+					sCartList.remove(i);
+				}
+			}
+		}
+
+		sSelectCartList.clear();
+		// 更新sCartList
+		ArrayList<Goods> tempCartList = new ArrayList<Goods>();
+		for (Goods goods : sCartList) {
+			tempCartList.add(goods);
+		}
+		sCartList.clear();
+		sCartList.addAll(tempCartList);
+
+		// 更新首页菜单价格 并不显示
+		notifyWatchers();
+		setTotalMoney(false);
+
+		if (isHasSelect) {
+			setCartTotalMoney();
+		}
+	}
+
 	public static void showOrhHidePayBar(boolean flag) {
 		HomeActivity.showOrhHideMainPayBar(flag);
 
