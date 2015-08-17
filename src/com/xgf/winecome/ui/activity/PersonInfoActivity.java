@@ -192,7 +192,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			case TIME_UPDATE: {
 				if (mTiming > 0) {
 					mTiming--;
-					mTimingTv.setText(String.valueOf(mTiming));
+					mTimingTv.setText(String.valueOf(mTiming) + "秒");
 					mAuthCodeLl.setClickable(false);
 					mAuthCodeLl.setBackgroundColor(getResources().getColor(
 							R.color.gray_divide_line));
@@ -319,11 +319,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void setUpData() {
-		// if (!UserInfoManager.getIsMustAuth(mContext)) {
-		// mAuthLl.setVisibility(View.GONE);
-		// mPhone = UserInfoManager.getPhone(mContext);
-		// }
-		mPhoneEt.setText(UserInfoManager.getPhone(mContext));
+		if (!UserInfoManager.getIsMustAuth(mContext)) {
+			mAuthLl.setVisibility(View.GONE);
+			mPhone = UserInfoManager.getPhone(mContext);
+		}
+		mPhoneEt.setText(mPhone);
 		getLoc();
 		mNowAction = getIntent().getAction();
 	}
