@@ -67,7 +67,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/list_order_group_del_or_see_btn"
+            android:id="@+id/list_order_group_see_btn"
             android:layout_width="80dip"
             android:layout_height="35dip"
             android:layout_alignParentRight="true"
@@ -81,11 +81,11 @@
             android:textSize="@dimen/small_text_size" />
 
         <Button
-            android:id="@+id/list_order_group_cancel_btn"
+            android:id="@+id/list_order_group_del_or_cancel_btn"
             android:layout_width="80dip"
             android:layout_height="35dip"
             android:layout_marginRight="15dip"
-            android:layout_toLeftOf="@+id/list_order_group_del_or_see_btn"
+            android:layout_toLeftOf="@+id/list_order_group_see_btn"
             android:background="@drawable/corners_bg_orange"
             android:gravity="center"
             android:paddingBottom="8dip"

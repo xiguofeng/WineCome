@@ -77,10 +77,10 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 			holder.mState = (TextView) convertView
 					.findViewById(R.id.list_order_group_state_tv);
 
-			holder.mCancelBtn = (Button) convertView
-					.findViewById(R.id.list_order_group_cancel_btn);
-			holder.mDelOrViewBtn = (Button) convertView
-					.findViewById(R.id.list_order_group_del_or_see_btn);
+			holder.mCancelOrDelBtn = (Button) convertView
+					.findViewById(R.id.list_order_group_del_or_cancel_btn);
+			holder.mViewBtn = (Button) convertView
+					.findViewById(R.id.list_order_group_see_btn);
 			holder.mWineLl = (LinearLayout) convertView
 					.findViewById(R.id.list_order_group_wine_ll);
 
@@ -100,10 +100,20 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 		final int tempPosition = position;
 		final View view = convertView;
-		final int whichCancel = holder.mCancelBtn.getId();
-		final int whichDelOrView = holder.mDelOrViewBtn.getId();
+		final int whichCancel = holder.mCancelOrDelBtn.getId();
+		final int whichDelOrView = holder.mViewBtn.getId();
 
-		holder.mCancelBtn.setOnClickListener(new OnClickListener() {
+		holder.mCancelOrDelBtn.setText(mContext.getString(R.string.order_del));
+		if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position)
+				.getOrderStatus().equals(OrderState.ORDER_STATUS_ORDERED)
+				|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+						.get(position).getOrderStatus()
+						.equals(OrderState.ORDER_STATUS_GRABBED)) {
+			holder.mCancelOrDelBtn.setText(mContext
+					.getString(R.string.order_cancel));
+		}
+
+		holder.mCancelOrDelBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
@@ -111,7 +121,7 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 			}
 		});
-		holder.mDelOrViewBtn.setOnClickListener(new OnClickListener() {
+		holder.mViewBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mCallback.onClick(view, v, tempPosition, whichDelOrView);
@@ -140,9 +150,9 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 		public TextView mId;
 
-		public Button mCancelBtn;
+		public Button mCancelOrDelBtn;
 
-		public Button mDelOrViewBtn;
+		public Button mViewBtn;
 
 		public LinearLayout mWineLl;
 

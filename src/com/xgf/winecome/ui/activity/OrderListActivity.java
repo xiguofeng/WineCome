@@ -23,7 +23,8 @@ import com.xgf.winecome.ui.adapter.OrderWineAdapter;
 import com.xgf.winecome.ui.utils.ListItemClickHelp;
 import com.xgf.winecome.utils.UserInfoManager;
 
-public class OrderListActivity extends Activity implements OnClickListener, ListItemClickHelp {
+public class OrderListActivity extends Activity implements OnClickListener,
+		ListItemClickHelp {
 
 	private Context mContext;
 
@@ -34,6 +35,8 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 	private HashMap<String, Object> mMsgMap = new HashMap<String, Object>();
 
 	private ImageView mBackIv;
+
+	private String mPhone;
 
 	Handler mHandler = new Handler() {
 
@@ -56,11 +59,14 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 			}
 
 			case OrderLogic.ORDER_CANCEL_SUC: {
-				Toast.makeText(mContext, getString(R.string.order_cancel_suc), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_suc),
+						Toast.LENGTH_SHORT).show();
+				OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "30");
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_FAIL: {
-				Toast.makeText(mContext, getString(R.string.order_cancel_fail), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_fail),
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_EXCEPTION: {
@@ -115,8 +121,8 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 
 		// String phone = getIntent().getStringExtra("phone");
 
-		String phone = UserInfoManager.getPhone(mContext);
-		OrderLogic.getOrders(mContext, mHandler, phone, "0", "30");
+		mPhone = UserInfoManager.getPhone(mContext);
+		OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "30");
 		// OrderLogic.cancelOrder(mContext, mHandler,
 		// OrderManager.getsCurrentOrderId());
 	}
@@ -136,17 +142,19 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 	@Override
 	public void onClick(View item, View widget, int position, int which) {
 		switch (which) {
-		case R.id.list_order_group_del_or_see_btn: {
+		case R.id.list_order_group_see_btn: {
 
 			break;
 		}
-		case R.id.list_order_group_cancel_btn: {
-			if ((Integer.parseInt(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus())
-					- 1) > 1) {
+		case R.id.list_order_group_del_or_cancel_btn: {
+			if (Integer.parseInt(((ArrayList<Order>) mMsgMap
+					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 3) {
 				OrderLogic.cancelOrder(mContext, mHandler,
-						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getId());
+						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
+								.get(position).getId());
 			} else {
-				Toast.makeText(mContext, getString(R.string.order_cancel_no), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_no),
+						Toast.LENGTH_SHORT).show();
 			}
 
 			break;
