@@ -2,6 +2,7 @@ package com.xgf.winecome.ui.activity;
 
 import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -59,7 +60,10 @@ public class QrResultActivity extends Activity implements OnClickListener {
 		}
 
 		case R.id.qr_result_go_on_ll: {
-
+			Intent intent = new Intent(QrResultActivity.this,
+					CaptureActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
 		case R.id.qr_result_order_search_ll: {

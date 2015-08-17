@@ -491,6 +491,7 @@ public final class CaptureActivity extends Activity implements
 
 		// TODO
 		AppManager.getInstance().killActivity(OrderStateActivity.class);
+		AppManager.getInstance().killActivity(QrResultActivity.class);
 		Intent intent = new Intent(CaptureActivity.this, QrResultActivity.class);
 		startActivity(intent);
 		CaptureActivity.this.finish();
