@@ -2,6 +2,9 @@ package com.xgf.winecome.utils.image;
 
 import java.io.File;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -12,9 +15,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.xgf.winecome.R;
-
-import android.content.Context;
-import android.graphics.Bitmap;
 
 public class ImageLoaderConfig {
 

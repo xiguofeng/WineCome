@@ -19,14 +19,14 @@ package com.xgf.winecome.qrcode.google.zxing.client.result;
 import java.text.DateFormat;
 import java.util.Date;
 
-import com.google.zxing.client.result.CalendarParsedResult;
-import com.google.zxing.client.result.ParsedResult;
-import com.xgf.winecome.R;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.util.Log;
+
+import com.google.zxing.client.result.CalendarParsedResult;
+import com.google.zxing.client.result.ParsedResult;
+import com.xgf.winecome.R;
 
 /**
  * Handles calendar entries encoded in QR Codes.

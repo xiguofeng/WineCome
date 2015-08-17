@@ -1,11 +1,5 @@
 package com.xgf.winecome.ui.activity;
 
-import com.xgf.winecome.AppManager;
-import com.xgf.winecome.R;
-import com.xgf.winecome.network.logic.OrderLogic;
-import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
-import com.xgf.winecome.utils.OrderManager;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -20,6 +14,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.xgf.winecome.AppManager;
+import com.xgf.winecome.R;
+import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
+import com.xgf.winecome.utils.OrderManager;
 
 public class OrderStateActivity extends Activity implements OnClickListener {
 

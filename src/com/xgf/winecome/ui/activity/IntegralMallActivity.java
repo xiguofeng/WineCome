@@ -2,12 +2,6 @@ package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.IntegralGoods;
-import com.xgf.winecome.network.logic.IntegralGoodsLogic;
-import com.xgf.winecome.ui.adapter.IntegralGoodsGvAdapter;
-import com.xgf.winecome.ui.view.CustomProgressDialog;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +14,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.IntegralGoods;
+import com.xgf.winecome.network.logic.IntegralGoodsLogic;
+import com.xgf.winecome.ui.adapter.IntegralGoodsGvAdapter;
+import com.xgf.winecome.ui.view.CustomProgressDialog;
 
 public class IntegralMallActivity extends Activity implements OnClickListener {
 

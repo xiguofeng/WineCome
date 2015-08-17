@@ -1,17 +1,17 @@
 package com.xgf.winecome.pay.wxpay.wxapi;
 
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.xgf.winecome.pay.wxpay.simcpux.Constants;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 	

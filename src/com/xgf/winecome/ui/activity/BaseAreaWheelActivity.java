@@ -8,13 +8,13 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import android.app.Activity;
+import android.content.res.AssetManager;
+
 import com.xgf.winecome.entity.CityModel;
 import com.xgf.winecome.entity.DistrictModel;
 import com.xgf.winecome.entity.ProvinceModel;
 import com.xgf.winecome.utils.XmlParserHandler;
-
-import android.app.Activity;
-import android.content.res.AssetManager;
 
 public class BaseAreaWheelActivity extends Activity {
 	

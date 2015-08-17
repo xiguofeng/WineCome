@@ -22,11 +22,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-import com.google.zxing.WriterException;
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.FinishListener;
-import com.xgf.winecome.qrcode.google.zxing.client.Intents;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -39,6 +34,11 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.zxing.WriterException;
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.FinishListener;
+import com.xgf.winecome.qrcode.google.zxing.client.Intents;
 
 /**
  * This class encodes data from an Intent into a QR code, and then displays it full screen so that

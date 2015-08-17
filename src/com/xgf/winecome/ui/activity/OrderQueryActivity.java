@@ -1,9 +1,5 @@
 package com.xgf.winecome.ui.activity;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.network.logic.UserLogic;
-import com.xgf.winecome.utils.UserInfoManager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.network.logic.UserLogic;
+import com.xgf.winecome.utils.UserInfoManager;
 
 public class OrderQueryActivity extends Activity implements OnClickListener, TextWatcher {
 	public static final int TIME_UPDATE = 1;

@@ -26,6 +26,15 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
+import android.util.Log;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -38,15 +47,6 @@ import com.google.zxing.common.BitMatrix;
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.Contents;
 import com.xgf.winecome.qrcode.google.zxing.client.Intents;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 
 /**
  * This class does the work of decoding the user's request and extracting all the data

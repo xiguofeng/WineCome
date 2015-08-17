@@ -12,14 +12,14 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.xgf.winecome.network.HttpUtils;
-import com.xgf.winecome.network.config.MsgResult;
-import com.xgf.winecome.network.config.RequestUrl;
-
 import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.xgf.winecome.network.HttpUtils;
+import com.xgf.winecome.network.config.MsgResult;
+import com.xgf.winecome.network.config.RequestUrl;
 
 public class CommentLogic {
 	public static final int NET_ERROR = 0;

@@ -22,10 +22,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.google.zxing.BarcodeFormat;
-
 import android.content.Intent;
 import android.net.Uri;
+
+import com.google.zxing.BarcodeFormat;
 
 final class DecodeFormatManager {
 

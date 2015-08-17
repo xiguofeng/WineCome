@@ -3,11 +3,6 @@ package com.xgf.winecome.ui.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.utils.Watched;
-import com.xgf.winecome.utils.Watcher;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.utils.Watched;
+import com.xgf.winecome.utils.Watcher;
 
 public class OrderAdapter extends BaseAdapter implements Watched {
 

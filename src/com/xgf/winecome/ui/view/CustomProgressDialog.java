@@ -1,9 +1,9 @@
 package com.xgf.winecome.ui.view;
 
-import com.xgf.winecome.R;
-
 import android.app.Dialog;
 import android.content.Context;
+
+import com.xgf.winecome.R;
 
 public class CustomProgressDialog extends Dialog {
 

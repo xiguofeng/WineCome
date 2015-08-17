@@ -1,7 +1,5 @@
 package com.xgf.winecome.ui.view;
 
-import com.xgf.winecome.R;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
@@ -14,6 +12,8 @@ import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
+
+import com.xgf.winecome.R;
 
 public class AutoClearEditText extends EditText implements
 		OnFocusChangeListener, TextWatcher {

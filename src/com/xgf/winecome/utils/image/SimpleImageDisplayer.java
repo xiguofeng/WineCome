@@ -1,10 +1,10 @@
 package com.xgf.winecome.utils.image;
 
-import com.nostra13.universalimageloader.core.assist.LoadedFrom;
-import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
-
 import android.graphics.Bitmap;
 import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.assist.LoadedFrom;
+import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 
 
 public class SimpleImageDisplayer implements BitmapDisplayer {

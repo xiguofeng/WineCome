@@ -18,10 +18,6 @@ package com.xgf.winecome.qrcode.google.zxing.client.history;
 
 import java.util.List;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
-import com.xgf.winecome.qrcode.google.zxing.client.Intents;
-
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -32,6 +28,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
+import com.xgf.winecome.qrcode.google.zxing.client.Intents;
 
 public final class HistoryActivity extends ListActivity {
 

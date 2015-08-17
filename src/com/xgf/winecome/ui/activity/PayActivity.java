@@ -5,18 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xgf.winecome.AppManager;
-import com.xgf.winecome.R;
-import com.xgf.winecome.config.Constants;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.entity.Order;
-import com.xgf.winecome.network.config.MsgResult;
-import com.xgf.winecome.network.logic.OrderLogic;
-import com.xgf.winecome.pay.alipay.AlipayApi;
-import com.xgf.winecome.pay.alipay.PayResult;
-import com.xgf.winecome.ui.view.CustomProgressDialog;
-import com.xgf.winecome.utils.OrderManager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +21,18 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.xgf.winecome.AppManager;
+import com.xgf.winecome.R;
+import com.xgf.winecome.config.Constants;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.config.MsgResult;
+import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.pay.alipay.AlipayApi;
+import com.xgf.winecome.pay.alipay.PayResult;
+import com.xgf.winecome.ui.view.CustomProgressDialog;
+import com.xgf.winecome.utils.OrderManager;
 
 public class PayActivity extends Activity implements OnClickListener {
 

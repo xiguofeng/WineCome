@@ -16,14 +16,14 @@
 
 package com.xgf.winecome.network.volley.toolbox;
 
-import com.xgf.winecome.network.volley.AuthFailureError;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.xgf.winecome.network.volley.AuthFailureError;
 
 /**
  * An Authenticator that uses {@link AccountManager} to get auth

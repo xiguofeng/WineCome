@@ -21,14 +21,14 @@ import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Map;
 
-import com.xgf.winecome.network.volley.VolleyLog.MarkerLog;
-
 import android.net.TrafficStats;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
+
+import com.xgf.winecome.network.volley.VolleyLog.MarkerLog;
 
 /**
  * Base class for all network requests.

@@ -1,8 +1,8 @@
 package com.xgf.winecome.ui.view.wheel.widget.adapters;
 
-import com.xgf.winecome.ui.view.wheel.widget.WheelAdapter;
-
 import android.content.Context;
+
+import com.xgf.winecome.ui.view.wheel.widget.WheelAdapter;
 
 /**
  * Adapter class for old wheel adapter (deprecated WheelAdapter class).

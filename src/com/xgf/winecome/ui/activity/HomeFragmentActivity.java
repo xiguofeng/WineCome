@@ -3,12 +3,6 @@ package com.xgf.winecome.ui.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.ui.fragment.MainFragment;
-import com.xgf.winecome.ui.fragment.MoreFragment;
-import com.xgf.winecome.ui.fragment.ShopCartFragment;
-import com.xgf.winecome.utils.CartManager;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -22,6 +16,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.ui.fragment.MainFragment;
+import com.xgf.winecome.ui.fragment.MoreFragment;
+import com.xgf.winecome.ui.fragment.ShopCartFragment;
+import com.xgf.winecome.utils.CartManager;
 
 public class HomeFragmentActivity extends FragmentActivity implements
 		OnClickListener, OnPageChangeListener {

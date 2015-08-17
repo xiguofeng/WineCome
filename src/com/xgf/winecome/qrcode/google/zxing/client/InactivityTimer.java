@@ -16,9 +16,6 @@
 
 package com.xgf.winecome.qrcode.google.zxing.client;
 
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -27,6 +24,9 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.util.Log;
+
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
 
 /**
  * Finishes an activity after a period of inactivity if the device is on battery power.

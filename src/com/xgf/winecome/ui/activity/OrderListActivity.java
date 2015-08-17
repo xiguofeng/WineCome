@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.config.MsgResult;
@@ -11,18 +22,6 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
 import com.xgf.winecome.ui.utils.ListItemClickHelp;
 import com.xgf.winecome.utils.UserInfoManager;
-
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.UserManager;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 public class OrderListActivity extends Activity implements OnClickListener, ListItemClickHelp {
 

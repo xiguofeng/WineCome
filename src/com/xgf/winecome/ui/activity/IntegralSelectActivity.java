@@ -1,10 +1,5 @@
 package com.xgf.winecome.ui.activity;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
-import com.xgf.winecome.ui.view.wheel.widget.WheelView;
-import com.xgf.winecome.ui.view.wheel.widget.adapters.ArrayWheelAdapter;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +9,11 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.ui.view.wheel.widget.OnWheelChangedListener;
+import com.xgf.winecome.ui.view.wheel.widget.WheelView;
+import com.xgf.winecome.ui.view.wheel.widget.adapters.ArrayWheelAdapter;
 
 public class IntegralSelectActivity extends Activity implements
 		OnClickListener, OnWheelChangedListener {

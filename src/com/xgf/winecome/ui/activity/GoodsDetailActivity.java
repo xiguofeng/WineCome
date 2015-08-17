@@ -2,12 +2,6 @@ package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.xgf.winecome.AppManager;
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.utils.CartManager;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.xgf.winecome.AppManager;
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.utils.CartManager;
 
 public class GoodsDetailActivity extends Activity implements OnClickListener {
 

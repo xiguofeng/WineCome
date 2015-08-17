@@ -15,15 +15,15 @@
  */
 package com.xgf.winecome.network.volley.toolbox;
 
-import com.xgf.winecome.network.volley.VolleyError;
-import com.xgf.winecome.network.volley.toolbox.ImageLoader.ImageContainer;
-import com.xgf.winecome.network.volley.toolbox.ImageLoader.ImageListener;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
+
+import com.xgf.winecome.network.volley.VolleyError;
+import com.xgf.winecome.network.volley.toolbox.ImageLoader.ImageContainer;
+import com.xgf.winecome.network.volley.toolbox.ImageLoader.ImageListener;
 
 /**
  * Handles fetching an image from a URL as well as the life-cycle of the

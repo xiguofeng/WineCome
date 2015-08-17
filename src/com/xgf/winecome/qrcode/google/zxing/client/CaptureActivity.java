@@ -26,22 +26,6 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
-import com.google.zxing.ResultMetadataType;
-import com.google.zxing.ResultPoint;
-import com.xgf.winecome.AppManager;
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.camera.CameraManager;
-import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryItem;
-import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
-import com.xgf.winecome.qrcode.google.zxing.client.result.ResultButtonListener;
-import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
-import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
-import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
-import com.xgf.winecome.ui.activity.OrderStateActivity;
-import com.xgf.winecome.ui.activity.QrResultActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -71,6 +55,22 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Result;
+import com.google.zxing.ResultMetadataType;
+import com.google.zxing.ResultPoint;
+import com.xgf.winecome.AppManager;
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.camera.CameraManager;
+import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryItem;
+import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
+import com.xgf.winecome.qrcode.google.zxing.client.result.ResultButtonListener;
+import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
+import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
+import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
+import com.xgf.winecome.ui.activity.OrderStateActivity;
+import com.xgf.winecome.ui.activity.QrResultActivity;
 
 /**
  * This activity opens the camera and does the actual scanning on a background

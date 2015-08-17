@@ -18,12 +18,12 @@ package com.xgf.winecome.qrcode.google.zxing.client.result;
 
 import java.util.Locale;
 
+import android.app.Activity;
+
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.URIParsedResult;
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.LocaleManager;
-
-import android.app.Activity;
 
 /**
  * Offers appropriate actions for URLS.

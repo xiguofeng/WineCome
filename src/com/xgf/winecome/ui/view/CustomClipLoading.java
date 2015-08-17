@@ -1,8 +1,6 @@
 
 package com.xgf.winecome.ui.view;
 
-import com.xgf.winecome.R;
-
 import android.content.Context;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Handler;
@@ -12,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.xgf.winecome.R;
 
 public class CustomClipLoading extends FrameLayout {
 

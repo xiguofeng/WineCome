@@ -18,13 +18,13 @@ package com.xgf.winecome.qrcode.google.zxing.client.book;
 
 import java.util.List;
 
-import com.xgf.winecome.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+
+import com.xgf.winecome.R;
 
 /**
  * Manufactures list items which represent SBC results.

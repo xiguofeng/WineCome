@@ -2,9 +2,6 @@ package com.xgf.winecome.ui.adapter;
 
 import java.util.ArrayList;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.IntegralGoods;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.IntegralGoods;
 
 public class IntegralGoodsGvAdapter extends BaseAdapter {
 

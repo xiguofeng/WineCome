@@ -16,6 +16,10 @@
 
 package com.xgf.winecome.qrcode.google.zxing.client.result;
 
+import android.content.Context;
+import android.net.wifi.WifiManager;
+import android.widget.Toast;
+
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.WifiParsedResult;
 import com.xgf.winecome.R;
@@ -23,10 +27,6 @@ import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
 import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
 import com.xgf.winecome.qrcode.google.zxing.client.wifi.WifiConfigManager;
-
-import android.content.Context;
-import android.net.wifi.WifiManager;
-import android.widget.Toast;
 
 /**
  * Handles address book entries.

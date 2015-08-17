@@ -25,13 +25,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.content.Context;
+import android.widget.TextView;
+
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.HttpHelper;
 import com.xgf.winecome.qrcode.google.zxing.client.LocaleManager;
 import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
-
-import android.content.Context;
-import android.widget.TextView;
 
 /**
  * @author Kamil Kaczmarczyk

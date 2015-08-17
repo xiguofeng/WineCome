@@ -19,14 +19,14 @@ package com.xgf.winecome.qrcode.google.zxing.client;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.xgf.winecome.R;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+
+import com.xgf.winecome.R;
 
 /**
  * The main settings activity.

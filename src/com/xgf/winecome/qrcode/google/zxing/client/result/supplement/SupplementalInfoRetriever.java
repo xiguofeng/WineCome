@@ -21,14 +21,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.zxing.client.result.ISBNParsedResult;
-import com.google.zxing.client.result.ParsedResult;
-import com.google.zxing.client.result.ProductParsedResult;
-import com.google.zxing.client.result.URIParsedResult;
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
-import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.Spannable;
@@ -38,6 +30,14 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.google.zxing.client.result.ISBNParsedResult;
+import com.google.zxing.client.result.ParsedResult;
+import com.google.zxing.client.result.ProductParsedResult;
+import com.google.zxing.client.result.URIParsedResult;
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
+import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
 
 public abstract class SupplementalInfoRetriever extends AsyncTask<Object,Object,Object> {
 

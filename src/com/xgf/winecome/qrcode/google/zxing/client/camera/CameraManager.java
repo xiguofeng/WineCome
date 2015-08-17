@@ -18,9 +18,6 @@ package com.xgf.winecome.qrcode.google.zxing.client.camera;
 
 import java.io.IOException;
 
-import com.google.zxing.PlanarYUVLuminanceSource;
-import com.xgf.winecome.qrcode.google.zxing.client.camera.open.OpenCameraManager;
-
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -28,6 +25,9 @@ import android.hardware.Camera;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
+
+import com.google.zxing.PlanarYUVLuminanceSource;
+import com.xgf.winecome.qrcode.google.zxing.client.camera.open.OpenCameraManager;
 
 /**
  * This object wraps the Camera service object and expects to be the only one

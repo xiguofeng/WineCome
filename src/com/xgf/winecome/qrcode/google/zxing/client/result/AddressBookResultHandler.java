@@ -22,15 +22,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.google.zxing.client.result.AddressBookParsedResult;
-import com.google.zxing.client.result.ParsedResult;
-import com.xgf.winecome.R;
-
 import android.app.Activity;
 import android.telephony.PhoneNumberUtils;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+
+import com.google.zxing.client.result.AddressBookParsedResult;
+import com.google.zxing.client.result.ParsedResult;
+import com.xgf.winecome.R;
 
 /**
  * Handles address book entries.

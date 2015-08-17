@@ -19,12 +19,12 @@ package com.xgf.winecome.qrcode.google.zxing.client.wifi;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.google.zxing.client.result.WifiParsedResult;
-
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.google.zxing.client.result.WifiParsedResult;
 
 /**
  * @author Vikram Aggarwal
