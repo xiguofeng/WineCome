@@ -29,12 +29,13 @@
 
         <ImageView
             android:id="@+id/order_state_qr_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
-            android:padding="8dip"
+            android:layout_marginRight="8dip"
+            android:scaleType="centerCrop"
             android:src="@drawable/qr_code" />
     </RelativeLayout>
 
