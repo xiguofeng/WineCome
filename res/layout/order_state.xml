@@ -181,14 +181,15 @@
                         android:id="@+id/custom_timer_dialog_loading"
                         android:layout_width="60dip"
                         android:layout_height="60dip"
-                        android:layout_centerInParent="true" >
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" >
                     </com.xgf.winecome.ui.view.CircleTimerView>
 
-                    <!-- <com.xgf.winecome.ui.view.CustomClipLoading -->
-                    <!-- android:id="@+id/custom_dialog_loading" -->
-                    <!-- android:layout_width="wrap_content" -->
-                    <!-- android:layout_height="wrap_content" > -->
-                    <!-- </com.xgf.winecome.ui.view.CustomClipLoading> -->
+                    <com.xgf.winecome.ui.view.CustomClipLoading
+                        android:id="@+id/custom_dialog_loading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                    </com.xgf.winecome.ui.view.CustomClipLoading>
 
                     <TextView
                         android:id="@+id/order_state_timing_tv"
