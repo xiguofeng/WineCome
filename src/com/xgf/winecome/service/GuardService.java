@@ -1,9 +1,13 @@
 package com.xgf.winecome.service;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
@@ -29,14 +33,15 @@ public class GuardService extends Service {
 
 				@Override
 				public void run() {
-					Log.e(TAG, "GuardService Run: " + System.currentTimeMillis());
-					boolean b = false;
-					// HomeFragmentActivity.isServiceWorked(GuardService.this,
-					// "com.example.servicedemo.ServiceOne");
+					Log.e(TAG,
+							"GuardService Run: " + System.currentTimeMillis());
+					boolean b = isServiceWorked(GuardService.this,
+							"com.xgf.wineserver.service.MsgService");
 					if (!b) {
 						Intent service = new Intent(GuardService.this,
 								MsgService.class);
 						startService(service);
+						Log.e(TAG, "Start MsgService");
 					}
 				}
 			};
@@ -47,6 +52,20 @@ public class GuardService extends Service {
 	@Override
 	public IBinder onBind(Intent arg0) {
 		return null;
+	}
+
+	public boolean isServiceWorked(Context context, String serviceName) {
+		ActivityManager myManager = (ActivityManager) context
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		ArrayList<RunningServiceInfo> runningService = (ArrayList<RunningServiceInfo>) myManager
+				.getRunningServices(Integer.MAX_VALUE);
+		for (int i = 0; i < runningService.size(); i++) {
+			if (runningService.get(i).service.getClassName().toString()
+					.equals(serviceName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

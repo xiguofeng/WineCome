@@ -320,7 +320,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 	private void setUpData() {
 		if (!UserInfoManager.getIsMustAuth(mContext)) {
-			mAuthLl.setVisibility(View.GONE);
+			//mAuthLl.setVisibility(View.GONE);
 			mPhone = UserInfoManager.getPhone(mContext);
 		}
 		mPhoneEt.setText(mPhone);

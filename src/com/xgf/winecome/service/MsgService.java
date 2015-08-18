@@ -1,8 +1,13 @@
 package com.xgf.winecome.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,7 +25,11 @@ import android.util.Log;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.NotifyInfo;
-import com.xgf.winecome.ui.activity.HomeFragmentActivity;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.config.MsgResult;
+import com.xgf.winecome.network.logic.MsgLogic;
+import com.xgf.winecome.ui.activity.HomeActivity;
+import com.xgf.winecome.utils.UserInfoManager;
 
 public class MsgService extends Service {
 
@@ -44,12 +53,18 @@ public class MsgService extends Service {
 
 	public int count = 0;
 
+	private static HashMap<String, Object> sOrderMsgMap = new HashMap<String, Object>();
+
+	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
+
 	private Handler mMsgHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case NOTIFY_UPDATE: {
 				if (!sIsClose) {
-					sendHeartbeatPackage();
+					if (!TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
+						sendHeartbeatPackage();
+					}
 					mMsgHandler.sendEmptyMessageDelayed(NOTIFY_UPDATE, 5000);
 				}
 				break;
@@ -61,23 +76,47 @@ public class MsgService extends Service {
 
 	};
 
+	private Handler mHeartBeatHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case MsgLogic.MSG_GET_SUC: {
+				if (null != msg.obj) {
+				}
+				break;
+			}
+			case MsgLogic.MSG_GET_FAIL: {
+
+				break;
+			}
+			case MsgLogic.MSG_GET_EXCEPTION: {
+				break;
+			}
+			case MsgLogic.NET_ERROR: {
+				break;
+			}
+			default:
+				break;
+			}
+
+		};
+
+	};
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		mContext = this;
 		// initNotify();
 		String version = getVersion();
-		if (!TextUtils.isEmpty(version)) {
-			// ConnectLogic.connect(mContext, mHandler,
-			// Integer.parseInt(version));
-		}
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.e(TAG, "onStartCommand");
 
-		monitorThread.start();
+		// monitorThread.start();
+		mMsgHandler.sendEmptyMessage(NOTIFY_UPDATE);
 		flags = START_STICKY;
 		return super.onStartCommand(intent, flags, startId);
 	}
@@ -95,8 +134,8 @@ public class MsgService extends Service {
 	}
 
 	private void sendHeartbeatPackage() {
-		// HeartbeatLogic.sendHeartbeatPackage(NotifyService.this,
-		// mHeartHandler);
+		MsgLogic.getPushMsg(mContext, mHeartBeatHandler,
+				UserInfoManager.getPhone(mContext));
 	}
 
 	/** 初始化通知栏 */
@@ -118,7 +157,7 @@ public class MsgService extends Service {
 				.setTicker("点我").setSmallIcon(R.drawable.ic_launcher)
 				.setDefaults(Notification.DEFAULT_VIBRATE);
 		// 点击的意图ACTION是跳转到Intent
-		Intent resultIntent = new Intent(this, HomeFragmentActivity.class);
+		Intent resultIntent = new Intent(this, HomeActivity.class);
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -153,10 +192,8 @@ public class MsgService extends Service {
 				@Override
 				public void run() {
 					Log.e(TAG, "MsgService Run: " + System.currentTimeMillis());
-					boolean b = false;
-
-					// HomeFragmentActivity.isServiceWorked(MsgService.this,
-					// "com.example.servicedemo.ServiceTwo");
+					boolean b = isServiceWorked(MsgService.this,
+							"com.xgf.wineserver.service.GuardService");
 					if (!b) {
 						Intent service = new Intent(MsgService.this,
 								GuardService.class);
@@ -168,5 +205,19 @@ public class MsgService extends Service {
 			timer.schedule(task, 0, 1000);
 		}
 	});
+
+	public boolean isServiceWorked(Context context, String serviceName) {
+		ActivityManager myManager = (ActivityManager) context
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		ArrayList<RunningServiceInfo> runningService = (ArrayList<RunningServiceInfo>) myManager
+				.getRunningServices(Integer.MAX_VALUE);
+		for (int i = 0; i < runningService.size(); i++) {
+			if (runningService.get(i).service.getClassName().toString()
+					.equals(serviceName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

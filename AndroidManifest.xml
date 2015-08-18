@@ -167,7 +167,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop" >
         </activity>
-         <activity
+        <activity
             android:name="com.xgf.winecome.ui.activity.PrePayActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop" >
@@ -407,9 +407,7 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name="com.xgf.winecome.service.MsgService"
-            android:process=":remote" >
+        <service android:name="com.xgf.winecome.service.MsgService" >
             <intent-filter>
                 <action android:name="com.xgf.winecome.service.MsgService" />
             </intent-filter>

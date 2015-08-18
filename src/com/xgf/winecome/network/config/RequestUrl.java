@@ -12,11 +12,11 @@ public class RequestUrl {
 	// public static final String HOST_URL =
 	// "http://192.168.1.101:8080/com.igou.server";
 
-	public interface connect {
+	public interface msg {
 		/**
 		 * 连接 获取推送
 		 */
-		public String connect = "/user/connect";
+		public String pushMsg = "pushMsg";
 
 	}
 
@@ -61,22 +61,22 @@ public class RequestUrl {
 		 * 查询全部积分商品
 		 */
 		public String queryAllOnIntegralMall = "queryAllOnIntegralMall";
-		
+
 		/**
 		 * 根据条件查询积分商品
 		 */
 		public String queryProductOnIntegralMall = "queryProductOnIntegralMall";
-		
+
 		/**
 		 * 积分兑换
 		 */
 		public String exchange = "exchange";
-		
+
 		/**
 		 * 积分兑换历史
 		 */
 		public String queryIntegralConsume = "queryIntegralConsume";
-		
+
 	}
 
 	public interface order {
@@ -92,12 +92,12 @@ public class RequestUrl {
 		 * 取消订单
 		 */
 		public String cancelOrder = "cancelOrder";
-		
+
 		/**
 		 * 设置支付方式
 		 */
 		public String setOrderPayType = "payWay";
-		
+
 	}
 
 	public interface comment {
