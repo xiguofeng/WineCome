@@ -50,9 +50,6 @@ public class CommentsResultActivity extends Activity implements OnClickListener 
 
 			@Override
 			public void run() {
-				Intent intent = new Intent(CommentsResultActivity.this,
-						MainActivity.class);
-				startActivity(intent);
 				CommentsResultActivity.this.finish();
 			}
 		}, DISPLAY_LENGTH);
