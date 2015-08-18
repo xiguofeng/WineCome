@@ -26,7 +26,6 @@ public class QrResultActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.qr_result);
-		AppManager.getInstance().addActivity(QrResultActivity.this);
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -60,6 +59,7 @@ public class QrResultActivity extends Activity implements OnClickListener {
 		}
 
 		case R.id.qr_result_go_on_ll: {
+			AppManager.getInstance().addActivity(QrResultActivity.this);
 			Intent intent = new Intent(QrResultActivity.this,
 					CaptureActivity.class);
 			intent.setAction(CaptureActivity.ORIGIN_FROM_QR_RESULT_ACTION);
