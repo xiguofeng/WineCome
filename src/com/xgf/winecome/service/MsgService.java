@@ -2,7 +2,6 @@ package com.xgf.winecome.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,7 +25,6 @@ import android.util.Log;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.NotifyInfo;
 import com.xgf.winecome.entity.Order;
-import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.MsgLogic;
 import com.xgf.winecome.ui.activity.HomeActivity;
 import com.xgf.winecome.utils.UserInfoManager;

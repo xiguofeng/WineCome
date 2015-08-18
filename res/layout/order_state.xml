@@ -31,11 +31,11 @@
             android:id="@+id/order_state_qr_iv"
             android:layout_width="35dip"
             android:layout_height="35dip"
-            android:paddingTop="2dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:contentDescription="@null"
             android:layout_marginRight="8dip"
+            android:contentDescription="@null"
+            android:paddingTop="2dip"
             android:scaleType="centerCrop"
             android:src="@drawable/qr_code" />
     </RelativeLayout>
@@ -177,11 +177,18 @@
                     android:layout_centerInParent="true"
                     android:orientation="horizontal" >
 
-                    <com.xgf.winecome.ui.view.CustomClipLoading
-                        android:id="@+id/custom_dialog_loading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-                    </com.xgf.winecome.ui.view.CustomClipLoading>
+                    <com.xgf.winecome.ui.view.CircleTimerView
+                        android:id="@+id/custom_timer_dialog_loading"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:layout_centerInParent="true" >
+                    </com.xgf.winecome.ui.view.CircleTimerView>
+
+                    <!-- <com.xgf.winecome.ui.view.CustomClipLoading -->
+                    <!-- android:id="@+id/custom_dialog_loading" -->
+                    <!-- android:layout_width="wrap_content" -->
+                    <!-- android:layout_height="wrap_content" > -->
+                    <!-- </com.xgf.winecome.ui.view.CustomClipLoading> -->
 
                     <TextView
                         android:id="@+id/order_state_timing_tv"

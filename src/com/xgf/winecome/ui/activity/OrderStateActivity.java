@@ -19,9 +19,12 @@ import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
+import com.xgf.winecome.ui.view.CircleTimerView;
+import com.xgf.winecome.ui.view.CircleTimerView.CircleTimerListener;
 import com.xgf.winecome.utils.OrderManager;
 
-public class OrderStateActivity extends Activity implements OnClickListener {
+public class OrderStateActivity extends Activity implements OnClickListener,
+		CircleTimerListener {
 
 	public static final String ORIGIN_FROM_PAY_ACTION = "pay";
 
@@ -56,6 +59,8 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 	private Button mCancelBtn;
 
 	private String mNowAction = ORIGIN_FROM_PAY_ACTION;
+
+	private CircleTimerView mTimerView;
 
 	private int mStateCode = 0;
 
@@ -120,6 +125,9 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 		mCancelBtn = (Button) findViewById(R.id.order_state_cancel_btn);
 
 		mWaitViewRl = (RelativeLayout) findViewById(R.id.order_state_wait_rl);
+
+		mTimerView = (CircleTimerView) findViewById(R.id.custom_timer_dialog_loading);
+		mTimerView.setCircleTimerListener(this);
 	}
 
 	private void setUpListener() {
@@ -133,6 +141,7 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 		String state = getIntent().getStringExtra("order_state");
 
 		mStateCode = Integer.parseInt(state);
+		mStateCode = 3;
 		switch (mStateCode) {
 		case 0: {
 
@@ -211,6 +220,21 @@ public class OrderStateActivity extends Activity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onTimerStop() {
+
+	}
+
+	@Override
+	public void onTimerStart(int time) {
+
+	}
+
+	@Override
+	public void onTimerPause(int time) {
+
 	}
 
 }
