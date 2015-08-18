@@ -26,10 +26,12 @@
     <color name="orange_stroke">#f5a623</color>
     <color name="orange_bg">#f5a623</color>
     <color name="yello_bottom_bg">#ffa204</color>
-    <color name="blue_content_bg">#4FC1E9</color>
+    <color name="yello_transparent">#50ffa204</color>
+    <color name="blue_content_bg">#504FC1E9</color>
     <!-- <color name="red_title_bg">#cf021b</color> -->
     <color name="red_title_bg">#D0021B</color>
     <color name="red_search_bg">#bb091e</color>
+    <color name="red_transparent">#60D0021B</color>
     <color name="zero_all">#00000000</color>
     <color name="transparent_background">#50000000</color>
 
