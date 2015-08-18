@@ -31,6 +31,7 @@
             android:id="@+id/order_state_qr_iv"
             android:layout_width="35dip"
             android:layout_height="35dip"
+            android:paddingTop="2dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
