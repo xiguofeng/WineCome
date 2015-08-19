@@ -379,15 +379,22 @@ public class PersonInfoActivity extends Activity implements OnClickListener, Tex
 
 	private void submitCreateOrder() {
 		Order order = new Order();
-		if (TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
+
+		if ((UserInfoManager.getIsMustAuth(mContext) || TextUtils.isEmpty(mPhone))
+				&& TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
 			Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
 			return;
+		} else {
+			if (TextUtils.isEmpty(mPhone)) {
+				mPhone = mPhoneEt.getText().toString().trim();
+			}
 		}
-		mPhone = mPhoneEt.getText().toString().trim();
+
 		order.setPhone(mPhone);
 
-		if (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim())
-				|| !mVerCodeEt.getText().toString().trim().equals(mAuthCode)) {
+		if ((UserInfoManager.getIsMustAuth(mContext) || TextUtils.isEmpty(mPhone))
+				&& (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim())
+						|| !mVerCodeEt.getText().toString().trim().equals(mAuthCode))) {
 			Toast.makeText(mContext, getString(R.string.verification_code_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
