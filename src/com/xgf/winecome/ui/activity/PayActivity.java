@@ -121,7 +121,7 @@ public class PayActivity extends Activity implements OnClickListener {
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(mContext,
 							OrderStateActivity.class);
-					intent.putExtra("order_state", "1");
+					intent.putExtra("order_state", "2");
 					intent.putExtra("delivery_time", OrderManager
 							.getsCurrentOrder().getDeliveryTime());
 					startActivity(intent);
@@ -289,7 +289,7 @@ public class PayActivity extends Activity implements OnClickListener {
 							Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(mContext,
 							OrderStateActivity.class);
-					intent.putExtra("order_state", "1");
+					intent.putExtra("order_state", "2");
 					intent.putExtra("delivery_time", OrderManager
 							.getsCurrentOrder().getDeliveryTime());
 					startActivity(intent);

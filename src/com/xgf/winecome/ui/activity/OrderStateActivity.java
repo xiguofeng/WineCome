@@ -183,7 +183,6 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 							String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
 							TimeUtils.FORMAT_PATTERN_DATE);
 		}
-
 		mStateCode = Integer.parseInt(state);
 
 		mTimeHandler.sendEmptyMessage(TIME_UPDATE);
@@ -195,7 +194,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		}
 		// 配送
 		case 3: {
-			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setTextColor(mContext.getResources().getColor(mContext.getResources().getColor(R.color.black_character)));
 			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
@@ -205,12 +204,12 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 
 		// 收货
 		case 4: {
-			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
-			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepThreeIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
@@ -219,17 +218,17 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		// 验货
 		case 5: {
 
-			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
-			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepThreeTv.setText(getString(R.string.confirm_goods));
 			mStepThreeIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
-			mStepFourTv.setTextColor(R.color.black_character);
+			mStepFourTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepFourTv.setText(getString(R.string.identification_goods));
 			mStepFourIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
@@ -238,17 +237,17 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		// 已取消
 		case 6: {
 
-			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
-			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepThreeTv.setText(getString(R.string.confirm_goods));
 			mStepThreeIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
-			mStepFourTv.setTextColor(R.color.black_character);
+			mStepFourTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepFourTv.setText(getString(R.string.identification_goods));
 			mStepFourIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
@@ -257,17 +256,17 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		// 已删除
 		case 7: {
 
-			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
-			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepThreeTv.setText(getString(R.string.confirm_goods));
 			mStepThreeIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
-			mStepFourTv.setTextColor(R.color.black_character);
+			mStepFourTv.setTextColor(mContext.getResources().getColor(R.color.black_character));
 			mStepFourTv.setText(getString(R.string.identification_goods));
 			mStepFourIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
