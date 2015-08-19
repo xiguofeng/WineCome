@@ -2,7 +2,14 @@ package com.xgf.winecome.ui.adapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.entity.OrderState;
+import com.xgf.winecome.network.config.MsgResult;
+import com.xgf.winecome.ui.utils.ListItemClickHelp;
+import com.xgf.winecome.ui.view.OrderWineView;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,17 +22,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.entity.Order;
-import com.xgf.winecome.entity.OrderState;
-import com.xgf.winecome.network.config.MsgResult;
-import com.xgf.winecome.ui.utils.ListItemClickHelp;
-import com.xgf.winecome.ui.view.OrderWineView;
-import com.xgf.winecome.utils.Watched;
-import com.xgf.winecome.utils.Watcher;
-
-public class OrderWineAdapter extends BaseAdapter implements Watched {
+public class OrderWineAdapter extends BaseAdapter {
 
 	private Context mContext;
 
@@ -33,12 +30,9 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 	private LayoutInflater mInflater;
 
-	private List<Watcher> mWatcherlist = new ArrayList<Watcher>();
-
 	private ListItemClickHelp mCallback;
 
-	public OrderWineAdapter(Context context, HashMap<String, Object> datas,
-			ListItemClickHelp callback) {
+	public OrderWineAdapter(Context context, HashMap<String, Object> datas, ListItemClickHelp callback) {
 		this.mContext = context;
 		this.mMap = datas;
 		this.mCallback = callback;
@@ -71,19 +65,13 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 			convertView = mInflater.inflate(R.layout.list_order_item, null);
 
 			holder = new ViewHolder();
-			holder.mId = (TextView) convertView
-					.findViewById(R.id.list_order_group_id_tv);
-			holder.mTime = (TextView) convertView
-					.findViewById(R.id.list_order_group_time_tv);
-			holder.mState = (TextView) convertView
-					.findViewById(R.id.list_order_group_state_tv);
+			holder.mId = (TextView) convertView.findViewById(R.id.list_order_group_id_tv);
+			holder.mTime = (TextView) convertView.findViewById(R.id.list_order_group_time_tv);
+			holder.mState = (TextView) convertView.findViewById(R.id.list_order_group_state_tv);
 
-			holder.mCancelOrDelBtn = (Button) convertView
-					.findViewById(R.id.list_order_group_del_or_cancel_btn);
-			holder.mViewBtn = (Button) convertView
-					.findViewById(R.id.list_order_group_see_btn);
-			holder.mWineLl = (LinearLayout) convertView
-					.findViewById(R.id.list_order_group_wine_ll);
+			holder.mCancelOrDelBtn = (Button) convertView.findViewById(R.id.list_order_group_del_or_cancel_btn);
+			holder.mViewBtn = (Button) convertView.findViewById(R.id.list_order_group_see_btn);
+			holder.mWineLl = (LinearLayout) convertView.findViewById(R.id.list_order_group_wine_ll);
 
 			convertView.setTag(holder);
 		} else {
@@ -92,47 +80,30 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 		if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).size() > position) {
 
-			Log.e("xxx_size",
-					""
-							+ ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-									.size());
-			Log.e("xxx_position", "" + position);
+			holder.mId.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId());
+			holder.mTime.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderTime());
 
-			holder.mId.setText(((ArrayList<Order>) mMap
-					.get(MsgResult.ORDER_TAG)).get(position).getId());
-			holder.mTime.setText(((ArrayList<Order>) mMap
-					.get(MsgResult.ORDER_TAG)).get(position).getOrderTime());
-
-			holder.mState
-					.setText(OrderState.state[(Integer
-							.parseInt(((ArrayList<Order>) mMap
-									.get(MsgResult.ORDER_TAG)).get(position)
-									.getOrderStatus()) - 1)]);
-			Log.e("xxx_orderstate",
-					""
-							+ ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-									.get(position).getOrderStatus());
+			int orderStateCode = Integer
+					.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus());
+			if (orderStateCode <= OrderState.state.length) {
+				holder.mState.setText(OrderState.state[orderStateCode - 1]);
+			}
 
 			final int tempPosition = position;
 			final View view = convertView;
 			final int whichCancel = holder.mCancelOrDelBtn.getId();
 			final int whichDelOrView = holder.mViewBtn.getId();
 
-			holder.mCancelOrDelBtn.setText(mContext
-					.getString(R.string.order_del));
+			holder.mCancelOrDelBtn.setText(mContext.getString(R.string.order_del));
 			holder.mCancelOrDelBtn.setVisibility(View.GONE);
-			if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-					.get(position).getOrderStatus()
+			if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
 					.equals(OrderState.ORDER_STATUS_ORDERED)
-					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-							.get(position).getOrderStatus()
+					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
 							.equals(OrderState.ORDER_STATUS_GRABBED)
-					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-							.get(position).getOrderStatus()
+					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
 							.equals(OrderState.ORDER_STATUS_DELIVERY)) {
 				holder.mCancelOrDelBtn.setVisibility(View.VISIBLE);
-				holder.mCancelOrDelBtn.setText(mContext
-						.getString(R.string.order_cancel));
+				holder.mCancelOrDelBtn.setText(mContext.getString(R.string.order_cancel));
 			}
 
 			holder.mCancelOrDelBtn.setOnClickListener(new OnClickListener() {
@@ -154,8 +125,7 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 			ArrayList<Goods> goodsList = new ArrayList<Goods>();
 			goodsList.addAll(((ArrayList<Goods>) mMap
-					.get(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-							.get(position).getId())));
+					.get(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId())));
 			for (int i = 0; i < goodsList.size(); i++) {
 				// TODO
 				Goods goods = goodsList.get(i);
@@ -182,18 +152,4 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 
 	}
 
-	@Override
-	public void addWatcher(Watcher watcher) {
-		mWatcherlist.add(watcher);
-	}
-
-	@Override
-	public void removeWatcher(Watcher watcher) {
-
-	}
-
-	@Override
-	public void notifyWatchers(String str) {
-
-	}
 }
