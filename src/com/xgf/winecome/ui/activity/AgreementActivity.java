@@ -5,13 +5,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.xgf.winecome.R;
 
 public class AgreementActivity extends BaseActivity implements OnClickListener {
 
 	private ImageView mBackIv;
+
+	// private CustomTextView mContentTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +25,15 @@ public class AgreementActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void findViewById() {
 		mBackIv = (ImageView) findViewById(R.id.agreement_back_iv);
+		// mContentTv = (CustomTextView)
+		// findViewById(R.id.agreement_content_tv);
 	}
 
 	@Override
 	protected void initView() {
 		mBackIv.setOnClickListener(this);
+		// mContentTv.setText(getString(R.string.agreement_content));
+		// mContentTv.setMovementMethod(ScrollingMovementMethod.getInstance());
 	}
 
 	@Override
