@@ -9,6 +9,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -21,7 +22,8 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.UserInfoManager;
 
-public class OrderQueryActivity extends Activity implements OnClickListener, TextWatcher {
+public class OrderQueryActivity extends Activity implements OnClickListener,
+		TextWatcher {
 	public static final int TIME_UPDATE = 1;
 
 	private LinearLayout mQueryLl;
@@ -55,7 +57,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
-				Toast.makeText(mContext, R.string.login_fail, Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, R.string.auth_get_fail,
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
@@ -79,14 +82,17 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 			case TIME_UPDATE: {
 				if (mTiming > 0) {
 					mTiming--;
-					mTimingTv.setText(String.valueOf(mTiming)+ "秒");
+					mTimingTv.setText(String.valueOf(mTiming) + "秒");
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.gray_divide_line));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.gray_divide_line));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
 					mAuthCodeLl.setClickable(true);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.orange_bg));
-					mTimingTv.setText(getString(R.string.get_verification_code));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.orange_bg));
+					mTimingTv
+							.setText(getString(R.string.get_verification_code));
 					mTiming = 60;
 				}
 				break;
@@ -136,7 +142,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
 	}
 
 	@Override
@@ -154,15 +161,21 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 
 		case R.id.order_query_submit_ll: {
 			mAuthCode = mVerCodeEt.getText().toString();
-			// && mAuthCode.equals(mVerCodeEt.getText().toString().trim())
-			if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode)) {
-				Intent intent = new Intent(OrderQueryActivity.this, OrderListActivity.class);
+			mPhone = mPhoneEt.getText().toString().trim();
+			// TODO
+			if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode)
+					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())) {
+				Intent intent = new Intent(OrderQueryActivity.this,
+						OrderListActivity.class);
 				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
 				startActivity(intent);
 				OrderQueryActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_and_code_hint), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext,
+						getString(R.string.mobile_phone_and_code_hint),
+						Toast.LENGTH_SHORT).show();
 			}
 			// User user = new User();
 			// UserLogic.login(mContext, mLoginHandler, user);
@@ -175,7 +188,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 				UserLogic.sendAuthCode(mContext, mHandler, mPhone);
 
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
+						Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
