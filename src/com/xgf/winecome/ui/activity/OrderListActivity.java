@@ -109,22 +109,11 @@ public class OrderListActivity extends Activity implements OnClickListener,
 	}
 
 	private void initData() {
-		// orderList.clear();
-		// for (int i = 0; i < 9; i++) {
-		// Order order = new Order();
-		// order.setId("订单" + i);
-		// order.setOrderTime("2015-7-20 19:30");
-		// order.setOrderStatus("配送");
-		// orderList.add(order);
-		// }
-		// mOrderAdapter.notifyDataSetChanged();
 
 		// String phone = getIntent().getStringExtra("phone");
 
 		mPhone = UserInfoManager.getPhone(mContext);
-		OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "30");
-		// OrderLogic.cancelOrder(mContext, mHandler,
-		// OrderManager.getsCurrentOrderId());
+		OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "50");
 	}
 
 	@Override

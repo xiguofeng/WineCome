@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -97,6 +98,10 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 		holder.mState.setText(OrderState.state[(Integer
 				.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
 						.get(position).getOrderStatus()) - 1)]);
+		Log.e("xxx_orderstate",
+				""
+						+ ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+								.get(position).getOrderStatus());
 
 		final int tempPosition = position;
 		final View view = convertView;
@@ -104,11 +109,13 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 		final int whichDelOrView = holder.mViewBtn.getId();
 
 		holder.mCancelOrDelBtn.setText(mContext.getString(R.string.order_del));
+		holder.mCancelOrDelBtn.setVisibility(View.GONE);
 		if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position)
 				.getOrderStatus().equals(OrderState.ORDER_STATUS_ORDERED)
 				|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
 						.get(position).getOrderStatus()
 						.equals(OrderState.ORDER_STATUS_GRABBED)) {
+			holder.mCancelOrDelBtn.setVisibility(View.VISIBLE);
 			holder.mCancelOrDelBtn.setText(mContext
 					.getString(R.string.order_cancel));
 		}

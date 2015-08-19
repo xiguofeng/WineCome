@@ -2,8 +2,8 @@ package com.xgf.winecome.entity;
 
 public class OrderState {
 
-	public static String[] state = new String[] { "下单", "抢单", "配送", "收货 ",
-			"验货", "取消 ", "删除" };
+	public static String[] state = new String[] { "已下单", "已抢单", "已配送", "已收货 ",
+			"已验货", "已取消 ", "已取消" };
 
 	/** 下单 */
 	public static final String ORDER_STATUS_ORDERED = "1";
