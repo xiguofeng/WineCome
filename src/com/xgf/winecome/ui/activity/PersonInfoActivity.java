@@ -108,7 +108,13 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 					AppManager.getInstance().killActivity(
 							GoodsDetailActivity.class);
-				} else if (ORIGIN_FROM_MAIN_ACTION.equals(mNowAction)) {
+				} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
+					OrderManager.getsCurrentOrderGoodsList().addAll(
+							CartManager.getsSelectCartList());
+
+					CartManager.removeCartSelect();
+					HomeActivity.modifyCartPayView("0", "0");
+				} else {
 					OrderManager.getsCurrentOrderGoodsList().addAll(
 							CartManager.getsCartList());
 
@@ -117,12 +123,6 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					CartManager.showOrhHidePayBar(false);
 
 					HomeActivity.modifyMainPayView("0", false);
-				} else {
-					OrderManager.getsCurrentOrderGoodsList().addAll(
-							CartManager.getsSelectCartList());
-
-					CartManager.removeCartSelect();
-					HomeActivity.modifyCartPayView("0", "0");
 				}
 
 				Intent intent = new Intent(PersonInfoActivity.this,
@@ -167,7 +167,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
-				Toast.makeText(mContext, R.string.login_fail,
+				Toast.makeText(mContext, R.string.auth_get_fail,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -319,10 +319,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void setUpData() {
-		if (!UserInfoManager.getIsMustAuth(mContext)) {
-			//mAuthLl.setVisibility(View.GONE);
-			mPhone = UserInfoManager.getPhone(mContext);
-		}
+		// if (!UserInfoManager.getIsMustAuth(mContext)) {
+		// //mAuthLl.setVisibility(View.GONE);
+		//
+		// }
+		mPhone = UserInfoManager.getPhone(mContext);
 		mPhoneEt.setText(mPhone);
 		getLoc();
 		mNowAction = getIntent().getAction();
@@ -359,18 +360,86 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 						mLon = String.valueOf(location.getLongitude());
 						String addr = location.getAddrStr();
 						if (!TextUtils.isEmpty(addr)) {
-							mAddressEt.setText(addr);
-							// if (addr.contains("区")) {
-							// int index = addr.indexOf("区");
-							// addr = addr.substring(0, index + 1);
-							// Log.e("xxx_addr", "" + addr);
-							// mAreaTv.setText(addr);
-							// } else {
-							// mAreaTv.setText(addr);
-							// }
+							if (addr.contains("省")) {
+								int index = addr.indexOf("省");
+								addr = addr.substring(index + 1);
+								Log.e("xxx_addr", "" + addr);
+								mAddressEt.setText(addr);
+							} else {
+								mAddressEt.setText(addr);
+							}
 						}
 					}
 				});
+	}
+
+	private void submitCreateOrder() {
+		Order order = new Order();
+		mPhone = mPhoneEt.getText().toString().trim();
+		order.setPhone(mPhone);
+		if (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim())) {
+			Toast.makeText(mContext,
+					getString(R.string.verification_code_hint),
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		// address
+		if (TextUtils.isEmpty(mAddressEt.getText().toString().trim())) {
+			Toast.makeText(mContext, getString(R.string.detail_info_hint),
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		order.setAddress(mAddressEt.getText().toString().trim());
+		order.setLatitude(mLat);
+		order.setLongitude(mLon);
+
+		// inTime
+		if (!mIsIntime
+				&& (TextUtils.isEmpty(mDateTv.getText()) || TextUtils
+						.isEmpty(mDateTv.getText() + " " + mTimeTv.getText()))) {
+			Toast.makeText(mContext,
+					getString(R.string.distribution_time_hint),
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		if (!mIsIntime) {
+			order.setDeliveryTime(mDateTv.getText() + " " + mTimeTv.getText());
+		} else {
+			String date = TimeUtils
+					.TimeStamp2Date(
+							String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
+							TimeUtils.FORMAT_PATTERN_DATE);
+			order.setDeliveryTime(date);
+		}
+
+		// invoice
+		order.setInvoice(String.valueOf(mIsInvoice));
+
+		if (mIsInvoice
+				&& (TextUtils.isEmpty(mInvoiceTitleEt.getText().toString()
+						.trim()) || TextUtils.isEmpty(mInvoiceContentEt
+						.getText().toString().trim()))) {
+			Toast.makeText(mContext, getString(R.string.invoice_hint),
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
+		order.setInvoiceContent(mInvoiceContentEt.getText().toString().trim());
+
+		order.setPayWay("");
+
+		// TODO
+		if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
+			OrderLogic.createOrder(mContext, mHandler, order,
+					CartManager.getsDetailBuyList());
+		} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
+			OrderLogic.createOrder(mContext, mHandler, order,
+					CartManager.getsSelectCartList());
+		} else {
+			OrderLogic.createOrder(mContext, mHandler, order,
+					CartManager.getsCartList());
+		}
 	}
 
 	@Override
@@ -444,39 +513,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			}
 		}
 		case R.id.per_info_submit_ll: {
-			Order order = new Order();
-			mPhone = mPhoneEt.getText().toString().trim();
-			order.setPhone(mPhone);
-			order.setInvoice("true");
-			order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
-			order.setInvoiceContent(mInvoiceContentEt.getText().toString()
-					.trim());
-			order.setLatitude(mLat);
-			order.setLongitude(mLon);
-			if (mIsIntime) {
-				String date = TimeUtils.TimeStamp2Date(String.valueOf(System
-						.currentTimeMillis() + 20 * 60 * 1000),
-						TimeUtils.FORMAT_PATTERN_DATE);
-				order.setDeliveryTime(date);
-			} else {
-				order.setDeliveryTime(mDateTv.getText() + " "
-						+ mTimeTv.getText());
-			}
-			order.setPayWay("");
-			order.setAddress(mAddressEt.getText().toString().trim());
-
-			// TODO
-			if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
-				OrderLogic.createOrder(mContext, mHandler, order,
-						CartManager.getsDetailBuyList());
-			} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
-				OrderLogic.createOrder(mContext, mHandler, order,
-						CartManager.getsSelectCartList());
-			} else {
-				OrderLogic.createOrder(mContext, mHandler, order,
-						CartManager.getsCartList());
-			}
-
+			submitCreateOrder();
 			break;
 		}
 		case R.id.per_info_back_iv: {

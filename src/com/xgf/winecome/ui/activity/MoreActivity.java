@@ -45,13 +45,15 @@ public class MoreActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.more_order_rl: {
-			if (UserInfoManager.getIsMustAuth(getApplicationContext())) {
-				Intent intent = new Intent(MoreActivity.this, OrderQueryActivity.class);
-				startActivity(intent);
-			} else {
-				Intent intent = new Intent(MoreActivity.this, OrderListActivity.class);
-				startActivity(intent);
-			}
+			Intent intent = new Intent(MoreActivity.this, OrderQueryActivity.class);
+			startActivity(intent);
+			// if (UserInfoManager.getIsMustAuth(getApplicationContext())) {
+			//
+			// } else {
+			// Intent intent = new Intent(MoreActivity.this,
+			// OrderListActivity.class);
+			// startActivity(intent);
+			// }
 			break;
 		}
 		case R.id.more_integral_shop_rl: {
