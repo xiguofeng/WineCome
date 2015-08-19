@@ -35,6 +35,19 @@ import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 
 public class PayActivity extends Activity implements OnClickListener {
+	
+	/**************************************************
+	 *  支付状态 : 1-未支付
+	 *            2-已支付
+	 *            3-申请退款
+	 *            4-已经退款
+	 *            5-预支付
+	 *************************************************/
+	public static final String PAY_STATUS_UNPAID = "1";
+	public static final String PAY_STATUS_PAID = "2";
+	public static final String PAY_STATUS_APPLY_REFUND = "3";
+	public static final String PAY_STATUS_REFUND = "4";
+	public static final String PAY_STATUS_PREPAID = "5";
 
 	private Context mContext;
 
