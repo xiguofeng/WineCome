@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements OnClickListener, Watcher {
 					mAllMsgMap
 							.putAll((Map<? extends String, ? extends Object>) msg.obj);
 
-					refreshAllData(mAllMsgMap);
+					firstShowData(mAllMsgMap);
 				}
 				break;
 			}
@@ -356,6 +356,22 @@ public class MainActivity extends Activity implements OnClickListener, Watcher {
 		if (newCategoryList.size() > 1) {
 			refreshAllData(mSearchMsgMap);
 		}
+	}
+
+	private void firstShowData(HashMap<String, Object> msgMap) {
+		refreshAllData(msgMap);
+		mCategoryAdapter.setmCurrentSelect(mCategoryList.get(0).getPpid());
+		mTempCategoryGoodsList.clear();
+		for (int i = 0; i < mCategoryList.size(); i++) {
+			if (mCategoryList.get(i).getPplx().equals("01"))
+				mTempCategoryGoodsList
+						.addAll((Collection<? extends Goods>) mShowMsgMap
+								.get(mCategoryList.get(i).getPpid()));
+
+		}
+		mGoodsList.clear();
+		mGoodsList.addAll(mTempCategoryGoodsList);
+		mGoodsAdapter.notifyDataSetChanged();
 	}
 
 	private void refreshAllData(HashMap<String, Object> msgMap) {
