@@ -68,6 +68,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private TextView mTimeTagTv;
 	private TextView mDateTagTv;
 	private TextView mTimingTv;
+	private TextView mAgreementTv;
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
@@ -248,6 +249,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mDateTv = (TextView) findViewById(R.id.per_info_date_tv);
 
 		mTimingTv = (TextView) findViewById(R.id.per_info_ver_code_btn_tv);
+		mAgreementTv = (TextView) findViewById(R.id.per_info_agreement_tv);
 
 		mPhoneEt = (EditText) findViewById(R.id.per_info_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.per_info_ver_code_et);
@@ -274,6 +276,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mAreaTagTv.setOnClickListener(this);
 		mDateTagTv.setOnClickListener(this);
 		mTimeTagTv.setOnClickListener(this);
+		mAgreementTv.setOnClickListener(this);
 
 		// mPhoneEt.addTextChangedListener(this);
 		// mVerCodeEt.addTextChangedListener(this);
@@ -529,6 +532,14 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
 						Toast.LENGTH_SHORT).show();
 			}
+			break;
+		}
+
+		case R.id.per_info_agreement_tv: {
+			Intent intent = new Intent(PersonInfoActivity.this,
+					AgreementActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
 

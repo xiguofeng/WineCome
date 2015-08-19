@@ -614,7 +614,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dip"
+                    android:padding="5dip"
+                    android:layout_marginTop="3dip"
                     android:text="@string/agreement"
                     android:textColor="@color/blue_content_bg"
                     android:textSize="@dimen/small_text_size" />
