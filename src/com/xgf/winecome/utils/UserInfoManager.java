@@ -25,6 +25,8 @@ public class UserInfoManager {
 
 	public static final String USER_PHONE_KEY = "user_phone";
 
+	public static final String USER_ADDRESS_KEY = "address";
+
 	public static final String USER_SIGNATURE_KEY = "signature";
 
 	public static final String USER_LAST_LOGINIP_KEY = "last_login_ip";
@@ -315,6 +317,26 @@ public class UserInfoManager {
 			userInfo.putString(USER_PHONE_KEY, phone);
 		} else {
 			userInfo.putString(USER_PHONE_KEY, "");
+		}
+		userInfo.commit();
+
+	}
+
+	public static String getAddress(Context context) {
+		SharedPreferences userInfo = context.getSharedPreferences(
+				USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE);
+		return userInfo.getString(USER_ADDRESS_KEY, "");
+
+	}
+
+	public static void setAddress(Context context, String address) {
+		SharedPreferences.Editor userInfo = context.getSharedPreferences(
+				USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE).edit();
+
+		if (!TextUtils.isEmpty(address)) {
+			userInfo.putString(USER_ADDRESS_KEY, address);
+		} else {
+			userInfo.putString(USER_ADDRESS_KEY, "");
 		}
 		userInfo.commit();
 

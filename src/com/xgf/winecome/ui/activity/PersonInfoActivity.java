@@ -113,12 +113,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					OrderManager.getsCurrentOrderGoodsList().addAll(
 							CartManager.getsSelectCartList());
 
-					
 					CartManager.removeCartSelect();
-					Log.e("xxx_cart_select_create_1", ""+CartManager.getsSelectCartList()
-							.size());
-					Log.e("xxx_cart_create_1", ""+CartManager.getsCartList()
-							.size());
 					HomeActivity.modifyCartPayView("0", "0");
 				} else {
 					OrderManager.getsCurrentOrderGoodsList().addAll(
@@ -331,6 +326,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		// //mAuthLl.setVisibility(View.GONE);
 		//
 		// }
+		mAddressEt.setText(UserInfoManager.getAddress(mContext));
 		mPhone = UserInfoManager.getPhone(mContext);
 		mPhoneEt.setText(mPhone);
 		getLoc();
@@ -399,6 +395,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			return;
 		}
 		order.setAddress(mAddressEt.getText().toString().trim());
+		UserInfoManager.setAddress(mContext, mAddressEt.getText().toString()
+				.trim());
 		order.setLatitude(mLat);
 		order.setLongitude(mLon);
 
@@ -442,10 +440,6 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			OrderLogic.createOrder(mContext, mHandler, order,
 					CartManager.getsDetailBuyList());
 		} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
-			Log.e("xxx_cart_select_create_0", ""+CartManager.getsSelectCartList()
-					.size());
-			Log.e("xxx_cart_create_0", ""+CartManager.getsCartList()
-					.size());
 			OrderLogic.createOrder(mContext, mHandler, order,
 					CartManager.getsSelectCartList());
 		} else {

@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.network.logic.CommentLogic;
 import com.xgf.winecome.utils.ActivitiyInfoManager;

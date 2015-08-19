@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.config.Constants;
 import com.xgf.winecome.entity.Goods;

@@ -60,7 +60,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
 import com.google.zxing.ResultPoint;
-import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.camera.CameraManager;
 import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryItem;
@@ -69,7 +68,6 @@ import com.xgf.winecome.qrcode.google.zxing.client.result.ResultButtonListener;
 import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
 import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
 import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
-import com.xgf.winecome.ui.activity.OrderStateActivity;
 import com.xgf.winecome.ui.activity.QrResultActivity;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 
