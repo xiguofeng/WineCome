@@ -35,8 +35,7 @@ import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.TimeUtils;
 import com.xgf.winecome.utils.UserInfoManager;
 
-public class PersonInfoActivity extends Activity implements OnClickListener,
-		TextWatcher {
+public class PersonInfoActivity extends Activity implements OnClickListener, TextWatcher {
 	public static final String ORIGIN_FROM_DETAIL_ACTION = "gooddetail";
 
 	public static final String ORIGIN_FROM_MAIN_ACTION = "main";
@@ -55,11 +54,13 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private LinearLayout mDateInfoLl;
 	private LinearLayout mBottomDivLl;
 	private LinearLayout mAuthLl;
+	private LinearLayout mReplaceLl;
 
 	private RelativeLayout mInvoiceRl;
 	private RelativeLayout mAreaRl;
 	private RelativeLayout mTimeRl;
 	private RelativeLayout mDateRl;
+	private RelativeLayout mAuthRl;
 
 	private TextView mAreaTv;
 	private TextView mTimeTv;
@@ -69,6 +70,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private TextView mDateTagTv;
 	private TextView mTimingTv;
 	private TextView mAgreementTv;
+	private TextView mPhoneTv;
 
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
@@ -86,7 +88,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private String mNowAction = ORIGIN_FROM_MAIN_ACTION;
 
 	private String mPhone;
-	private String mAuthCode;
+	private String mAuthCode = "0000";
 
 	private int mTiming = 60;
 
@@ -102,22 +104,18 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			switch (what) {
 			case OrderLogic.ORDER_CREATE_SUC: {
 				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
-					OrderManager.getsCurrentOrderGoodsList().addAll(
-							CartManager.getsDetailBuyList());
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsDetailBuyList());
 
 					CartManager.getsDetailBuyList().clear();
 
-					ActivitiyInfoManager
-							.finishActivity("com.xgf.winecome.ui.activity.GoodsDetailActivity");
+					ActivitiyInfoManager.finishActivity("com.xgf.winecome.ui.activity.GoodsDetailActivity");
 				} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
-					OrderManager.getsCurrentOrderGoodsList().addAll(
-							CartManager.getsSelectCartList());
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsSelectCartList());
 
 					CartManager.removeCartSelect();
 					HomeActivity.modifyCartPayView("0", "0");
 				} else {
-					OrderManager.getsCurrentOrderGoodsList().addAll(
-							CartManager.getsCartList());
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsCartList());
 
 					CartManager.getsCartList().clear();
 					CartManager.getsSelectCartList().clear();
@@ -126,12 +124,10 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					HomeActivity.modifyMainPayView("0", false);
 				}
 
-				Intent intent = new Intent(PersonInfoActivity.this,
-						PayActivity.class);
+				Intent intent = new Intent(PersonInfoActivity.this, PayActivity.class);
 				startActivity(intent);
 				PersonInfoActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 				break;
 			}
 			case OrderLogic.ORDER_CREATE_FAIL: {
@@ -168,8 +164,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
-				Toast.makeText(mContext, R.string.auth_get_fail,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, R.string.auth_get_fail, Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
@@ -195,14 +190,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					mTiming--;
 					mTimingTv.setText(String.valueOf(mTiming) + "秒");
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(
-							R.color.gray_divide_line));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.gray_divide_line));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(
-							R.color.orange_bg));
-					mTimingTv
-							.setText(getString(R.string.get_verification_code));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.orange_bg));
+					mTimingTv.setText(getString(R.string.get_verification_code));
 					mAuthCodeLl.setClickable(true);
 					mTiming = 60;
 				}
@@ -234,11 +226,13 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mBottomDivLl = (LinearLayout) findViewById(R.id.per_info_bottom_division_ll);
 		mInvoiceInfoLl = (LinearLayout) findViewById(R.id.per_info_invoice_info_ll);
 		mDateInfoLl = (LinearLayout) findViewById(R.id.per_info_date_info_ll);
+		mReplaceLl = (LinearLayout) findViewById(R.id.per_info_replace_phone_ll);
 
 		mAreaRl = (RelativeLayout) findViewById(R.id.per_info_area_rl);
 		mTimeRl = (RelativeLayout) findViewById(R.id.per_info_time_rl);
 		mDateRl = (RelativeLayout) findViewById(R.id.per_info_date_rl);
 		mInvoiceRl = (RelativeLayout) findViewById(R.id.per_info_invoice_rl);
+		mAuthRl = (RelativeLayout) findViewById(R.id.per_info_ver_code_rl);
 
 		mAreaTagTv = (TextView) findViewById(R.id.per_info_area_tag_tv);
 		mDateTagTv = (TextView) findViewById(R.id.per_info_date_tag_tv);
@@ -250,6 +244,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 		mTimingTv = (TextView) findViewById(R.id.per_info_ver_code_btn_tv);
 		mAgreementTv = (TextView) findViewById(R.id.per_info_agreement_tv);
+		mPhoneTv = (TextView) findViewById(R.id.per_info_phone_tv);
 
 		mPhoneEt = (EditText) findViewById(R.id.per_info_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.per_info_ver_code_et);
@@ -277,6 +272,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mDateTagTv.setOnClickListener(this);
 		mTimeTagTv.setOnClickListener(this);
 		mAgreementTv.setOnClickListener(this);
+		mReplaceLl.setOnClickListener(this);
 
 		// mPhoneEt.addTextChangedListener(this);
 		// mVerCodeEt.addTextChangedListener(this);
@@ -287,8 +283,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mInvoiceCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (!isChecked) {
 					mInvoiceInfoLl.setVisibility(View.GONE);
 					mBottomDivLl.setVisibility(View.VISIBLE);
@@ -305,8 +300,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mInTimeCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					mDateInfoLl.setVisibility(View.GONE);
 					mIsIntime = true;
@@ -322,13 +316,21 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	private void setUpData() {
-		// if (!UserInfoManager.getIsMustAuth(mContext)) {
-		// //mAuthLl.setVisibility(View.GONE);
-		//
-		// }
+		if (!UserInfoManager.getIsMustAuth(mContext) && !TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
+			mPhone = UserInfoManager.getPhone(mContext);
+			mAuthRl.setVisibility(View.GONE);
+			mPhoneTv.setVisibility(View.VISIBLE);
+			mPhoneTv.setText(mPhone);
+			mPhoneEt.setVisibility(View.GONE);
+			mReplaceLl.setVisibility(View.VISIBLE);
+		} else {
+			mAuthRl.setVisibility(View.VISIBLE);
+			mPhoneTv.setVisibility(View.GONE);
+			mPhoneEt.setVisibility(View.VISIBLE);
+			mReplaceLl.setVisibility(View.GONE);
+		}
+
 		mAddressEt.setText(UserInfoManager.getAddress(mContext));
-		mPhone = UserInfoManager.getPhone(mContext);
-		mPhoneEt.setText(mPhone);
 		getLoc();
 		mNowAction = getIntent().getAction();
 	}
@@ -347,87 +349,79 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			mInvoiceTitleEt.setError(getString(R.string.invoice_title_hint));
 		}
 		if (TextUtils.isEmpty(mInvoiceContentEt.getText().toString().trim())) {
-			mInvoiceContentEt
-					.setError(getString(R.string.invoice_content_hint));
+			mInvoiceContentEt.setError(getString(R.string.invoice_content_hint));
 		}
 	}
 
 	private void getLoc() {
-		LocationUtilsV5.getLocation(getApplicationContext(),
-				new LocationCallback() {
-					@Override
-					public void onGetLocation(BDLocation location) {
-						Log.e("xxx_latitude", "" + location.getLatitude());
-						Log.e("xxx_longitude", "" + location.getLongitude());
+		LocationUtilsV5.getLocation(getApplicationContext(), new LocationCallback() {
+			@Override
+			public void onGetLocation(BDLocation location) {
+				Log.e("xxx_latitude", "" + location.getLatitude());
+				Log.e("xxx_longitude", "" + location.getLongitude());
 
-						mLat = String.valueOf(location.getLatitude());
-						mLon = String.valueOf(location.getLongitude());
-						String addr = location.getAddrStr();
-						if (!TextUtils.isEmpty(addr)) {
-							if (addr.contains("省")) {
-								int index = addr.indexOf("省");
-								addr = addr.substring(index + 1);
-								Log.e("xxx_addr", "" + addr);
-								mAddressEt.setText(addr);
-							} else {
-								mAddressEt.setText(addr);
-							}
-						}
+				mLat = String.valueOf(location.getLatitude());
+				mLon = String.valueOf(location.getLongitude());
+				String addr = location.getAddrStr();
+				if (!TextUtils.isEmpty(addr)) {
+					if (addr.contains("省")) {
+						int index = addr.indexOf("省");
+						addr = addr.substring(index + 1);
+						Log.e("xxx_addr", "" + addr);
+						mAddressEt.setText(addr);
+					} else {
+						mAddressEt.setText(addr);
 					}
-				});
+				}
+			}
+		});
 	}
 
 	private void submitCreateOrder() {
 		Order order = new Order();
+		if (TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
+			Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
+			return;
+		}
 		mPhone = mPhoneEt.getText().toString().trim();
 		order.setPhone(mPhone);
-		if (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim())) {
-			Toast.makeText(mContext,
-					getString(R.string.verification_code_hint),
-					Toast.LENGTH_SHORT).show();
+
+		if (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim())
+				|| !mVerCodeEt.getText().toString().trim().equals(mAuthCode)) {
+			Toast.makeText(mContext, getString(R.string.verification_code_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
 
 		// address
 		if (TextUtils.isEmpty(mAddressEt.getText().toString().trim())) {
-			Toast.makeText(mContext, getString(R.string.detail_info_hint),
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, getString(R.string.detail_info_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
 		order.setAddress(mAddressEt.getText().toString().trim());
-		UserInfoManager.setAddress(mContext, mAddressEt.getText().toString()
-				.trim());
+		UserInfoManager.setAddress(mContext, mAddressEt.getText().toString().trim());
 		order.setLatitude(mLat);
 		order.setLongitude(mLon);
 
 		// inTime
-		if (!mIsIntime
-				&& (TextUtils.isEmpty(mDateTv.getText()) || TextUtils
-						.isEmpty(mDateTv.getText() + " " + mTimeTv.getText()))) {
-			Toast.makeText(mContext,
-					getString(R.string.distribution_time_hint),
-					Toast.LENGTH_SHORT).show();
+		if (!mIsIntime && (TextUtils.isEmpty(mDateTv.getText())
+				|| TextUtils.isEmpty(mDateTv.getText() + " " + mTimeTv.getText()))) {
+			Toast.makeText(mContext, getString(R.string.distribution_time_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (!mIsIntime) {
 			order.setDeliveryTime(mDateTv.getText() + " " + mTimeTv.getText());
 		} else {
-			String date = TimeUtils
-					.TimeStamp2Date(
-							String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
-							TimeUtils.FORMAT_PATTERN_DATE);
+			String date = TimeUtils.TimeStamp2Date(String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
+					TimeUtils.FORMAT_PATTERN_DATE);
 			order.setDeliveryTime(date);
 		}
 
 		// invoice
 		order.setInvoice(String.valueOf(mIsInvoice));
 
-		if (mIsInvoice
-				&& (TextUtils.isEmpty(mInvoiceTitleEt.getText().toString()
-						.trim()) || TextUtils.isEmpty(mInvoiceContentEt
-						.getText().toString().trim()))) {
-			Toast.makeText(mContext, getString(R.string.invoice_hint),
-					Toast.LENGTH_SHORT).show();
+		if (mIsInvoice && (TextUtils.isEmpty(mInvoiceTitleEt.getText().toString().trim())
+				|| TextUtils.isEmpty(mInvoiceContentEt.getText().toString().trim()))) {
+			Toast.makeText(mContext, getString(R.string.invoice_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
 		order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
@@ -437,14 +431,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 		// TODO
 		if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
-			OrderLogic.createOrder(mContext, mHandler, order,
-					CartManager.getsDetailBuyList());
+			OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsDetailBuyList());
 		} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
-			OrderLogic.createOrder(mContext, mHandler, order,
-					CartManager.getsSelectCartList());
+			OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsSelectCartList());
 		} else {
-			OrderLogic.createOrder(mContext, mHandler, order,
-					CartManager.getsCartList());
+			OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsCartList());
 		}
 	}
 
@@ -472,8 +463,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 	}
 
 	@Override
@@ -492,16 +482,14 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		case R.id.per_info_area_rl:
 		case R.id.per_info_area_tv:
 		case R.id.per_info_area_tag_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					AreaSelectActivity.class);
+			Intent intent = new Intent(PersonInfoActivity.this, AreaSelectActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.per_info_date_rl:
 		case R.id.per_info_date_tv:
 		case R.id.per_info_date_tag_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					DateSelectActivity.class);
+			Intent intent = new Intent(PersonInfoActivity.this, DateSelectActivity.class);
 			startActivityForResult(intent, 501);
 			break;
 		}
@@ -509,13 +497,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		case R.id.per_info_time_tv:
 		case R.id.per_info_time_tag_tv: {
 			if (!TextUtils.isEmpty(mDateTv.getText().toString().trim())) {
-				Intent intent = new Intent(PersonInfoActivity.this,
-						TimeSelectActivity.class);
+				Intent intent = new Intent(PersonInfoActivity.this, TimeSelectActivity.class);
 				startActivityForResult(intent, 502);
 				break;
 			} else {
-				Toast.makeText(mContext, getString(R.string.date_select),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.date_select), Toast.LENGTH_SHORT).show();
 			}
 		}
 		case R.id.per_info_submit_ll: {
@@ -532,17 +518,26 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 				UserLogic.sendAuthCode(mContext, mAuthCodeHandler, mPhone);
 
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
 
 		case R.id.per_info_agreement_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					AgreementActivity.class);
+			Intent intent = new Intent(PersonInfoActivity.this, AgreementActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			break;
+		}
+
+		case R.id.per_info_replace_phone_ll: {
+			mAuthRl.setVisibility(View.VISIBLE);
+			mPhoneTv.setVisibility(View.GONE);
+			mPhoneEt.setVisibility(View.VISIBLE);
+			mReplaceLl.setVisibility(View.GONE);
+
+			UserInfoManager.setPhone(mContext, "");
+			UserInfoManager.setIsMustAuth(mContext, true);
 			break;
 		}
 
