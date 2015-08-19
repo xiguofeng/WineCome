@@ -8,6 +8,8 @@ import com.xgf.winecome.entity.Order;
 public class OrderManager {
 
 	public static String sCurrentOrderId;
+	
+	public static String sCurrentCommentOrderId;
 
 	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
 
@@ -45,6 +47,14 @@ public class OrderManager {
 
 	public static void setsCurrentOrderGoodsList(ArrayList<Goods> sCurrentOrderGoodsList) {
 		OrderManager.sCurrentOrderGoodsList = sCurrentOrderGoodsList;
+	}
+	
+	public static String getsCurrentCommentOrderId() {
+		return sCurrentCommentOrderId;
+	}
+
+	public static void setsCurrentCommentOrderId(String sCurrentCommentOrderId) {
+		OrderManager.sCurrentCommentOrderId = sCurrentCommentOrderId;
 	}
 
 }

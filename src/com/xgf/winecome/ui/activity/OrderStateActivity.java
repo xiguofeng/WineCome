@@ -100,7 +100,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_state);
 		mContext = OrderStateActivity.this;
-		
+
 		if (!ActivitiyInfoManager.activitityMap
 				.containsKey(ActivitiyInfoManager
 						.getCurrentActivityName(mContext))) {
@@ -149,7 +149,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		String state = getIntent().getStringExtra("order_state");
 
 		mStateCode = Integer.parseInt(state);
-		mStateCode = 3;
+		// mStateCode = 3;
 		switch (mStateCode) {
 		case 0: {
 
@@ -192,8 +192,45 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 					R.drawable.dot_green));
 		}
 
+		// 已取消
+		case 6: {
+
+			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoIv.setImageDrawable(getResources().getDrawable(
+					R.drawable.dot_green));
+
+			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeIv.setImageDrawable(getResources().getDrawable(
+					R.drawable.dot_green));
+
+			mStepFourTv.setTextColor(R.color.black_character);
+			mStepFourIv.setImageDrawable(getResources().getDrawable(
+					R.drawable.dot_green));
+		}
+
+		// 已删除
+		case 7: {
+
+			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoIv.setImageDrawable(getResources().getDrawable(
+					R.drawable.dot_green));
+
+			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeIv.setImageDrawable(getResources().getDrawable(
+					R.drawable.dot_green));
+
+			mStepFourTv.setTextColor(R.color.black_character);
+			mStepFourIv.setImageDrawable(getResources().getDrawable(
+					R.drawable.dot_green));
+		}
+
 		default:
 			break;
+		}
+
+		mCancelBtn.setVisibility(View.VISIBLE);
+		if (mStateCode >= 3) {
+			mCancelBtn.setVisibility(View.GONE);
 		}
 
 	}

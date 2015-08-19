@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,7 @@ import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
 import com.xgf.winecome.ui.utils.ListItemClickHelp;
+import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.UserInfoManager;
 
 public class OrderListActivity extends Activity implements OnClickListener,
@@ -132,7 +134,15 @@ public class OrderListActivity extends Activity implements OnClickListener,
 	public void onClick(View item, View widget, int position, int which) {
 		switch (which) {
 		case R.id.list_order_group_see_btn: {
-
+			OrderManager.setsCurrentCommentOrderId(((ArrayList<Order>) mMsgMap
+					.get(MsgResult.ORDER_TAG)).get(position).getId());
+			Intent intent = new Intent(mContext, OrderStateActivity.class);
+			intent.putExtra(
+					"order_state",
+					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(
+							position).getOrderStatus());
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
 		case R.id.list_order_group_del_or_cancel_btn: {

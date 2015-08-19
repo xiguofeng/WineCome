@@ -56,7 +56,8 @@ public class OrderLogic {
 
 	public static final int ORDER_PAY_TYPE_SET_EXCEPTION = ORDER_CANCEL_FAIL + 1;
 
-	public static void createOrder(final Context context, final Handler handler, final Order order,
+	public static void createOrder(final Context context,
+			final Handler handler, final Order order,
 			final ArrayList<Goods> goodsList) {
 
 		new Thread(new Runnable() {
@@ -64,19 +65,28 @@ public class OrderLogic {
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.createOrder);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.createOrder);
 
 					JSONObject requestJson = new JSONObject();
 
-					requestJson.put("phone", URLEncoder.encode(order.getPhone(), "UTF-8"));
-					requestJson.put("address", URLEncoder.encode(order.getAddress(), "UTF-8"));
-					requestJson.put("latitude", URLEncoder.encode(order.getLatitude(), "UTF-8"));
-					requestJson.put("longitude", URLEncoder.encode(order.getLongitude(), "UTF-8"));
+					requestJson.put("phone",
+							URLEncoder.encode(order.getPhone(), "UTF-8"));
+					requestJson.put("address",
+							URLEncoder.encode(order.getAddress(), "UTF-8"));
+					requestJson.put("latitude",
+							URLEncoder.encode(order.getLatitude(), "UTF-8"));
+					requestJson.put("longitude",
+							URLEncoder.encode(order.getLongitude(), "UTF-8"));
 					requestJson.put("deliveryTime", order.getDeliveryTime());
-					requestJson.put("invoice", URLEncoder.encode(order.getInvoice(), "UTF-8"));
-					requestJson.put("invoiceTitle", URLEncoder.encode(order.getInvoiceTitle(), "UTF-8"));
-					requestJson.put("invoiceContent", URLEncoder.encode(order.getInvoiceContent(), "UTF-8"));
-					requestJson.put("payWay", URLEncoder.encode(order.getPayWay(), "UTF-8"));
+					requestJson.put("invoice",
+							URLEncoder.encode(order.getInvoice(), "UTF-8"));
+					requestJson.put("invoiceTitle",
+							URLEncoder.encode(order.getInvoiceTitle(), "UTF-8"));
+					requestJson.put("invoiceContent", URLEncoder.encode(
+							order.getInvoiceContent(), "UTF-8"));
+					requestJson.put("payWay",
+							URLEncoder.encode(order.getPayWay(), "UTF-8"));
 
 					JSONArray jsonArray = new JSONArray();
 					for (int i = 0; i < goodsList.size(); i++) {
@@ -93,15 +103,18 @@ public class OrderLogic {
 					rpc.addProperty("data", requestJson.toString());
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.createOrder, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.createOrder, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -130,7 +143,8 @@ public class OrderLogic {
 
 	// {"message":"操作成功","datas":"{}","result":"0","orderId":"NO.DD2015080032"}
 	// {"datas":{"orderId":"NO.DD2015080003"},"message":"操作成功","result":"0"}}
-	private static void parseCreateOrderData(JSONObject response, Handler handler) {
+	private static void parseCreateOrderData(JSONObject response,
+			Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
@@ -139,6 +153,7 @@ public class OrderLogic {
 				String orderID = response.getString("orderId").trim();
 				if (!TextUtils.isEmpty(orderID)) {
 					OrderManager.setsCurrentOrderId(orderID);
+					OrderManager.setsCurrentCommentOrderId(orderID);
 					Message message = new Message();
 					message.what = ORDER_CREATE_SUC;
 					message.obj = orderID;
@@ -155,30 +170,36 @@ public class OrderLogic {
 		}
 	}
 
-	public static void getOrders(final Context context, final Handler handler, final String phone, final String pageNum,
-			final String pageSize) {
+	public static void getOrders(final Context context, final Handler handler,
+			final String phone, final String pageNum, final String pageSize) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.queryOrders);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.queryOrders);
 
 					rpc.addProperty("phone", URLEncoder.encode(phone, "UTF-8"));
-					rpc.addProperty("pageNum", URLEncoder.encode(pageNum, "UTF-8"));
-					rpc.addProperty("pageSize", URLEncoder.encode(pageSize, "UTF-8"));
+					rpc.addProperty("pageNum",
+							URLEncoder.encode(pageNum, "UTF-8"));
+					rpc.addProperty("pageSize",
+							URLEncoder.encode(pageSize, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.queryOrders, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.queryOrders, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -220,28 +241,35 @@ public class OrderLogic {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
-				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
 				ArrayList<Order> tempOrderList = new ArrayList<Order>();
-				JSONArray orderListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				JSONArray orderListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
 
 				HashMap<String, Object> msgMap = new HashMap<String, Object>();
 
 				int size = orderListArray.length();
 				for (int i = 0; i < size; i++) {
-					JSONObject orderJsonObject = orderListArray.getJSONObject(i);
-					Order order = (Order) JsonUtils.fromJsonToJava(orderJsonObject, Order.class);
+					JSONObject orderJsonObject = orderListArray
+							.getJSONObject(i);
+					Order order = (Order) JsonUtils.fromJsonToJava(
+							orderJsonObject, Order.class);
 					tempOrderList.add(order);
 
 					ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
-					JSONArray goodsArray = orderJsonObject.getJSONArray("items");
+					JSONArray goodsArray = orderJsonObject
+							.getJSONArray("items");
 
 					for (int j = 0; j < goodsArray.length(); j++) {
-						JSONObject goodsJsonObject = goodsArray.getJSONObject(j);
+						JSONObject goodsJsonObject = goodsArray
+								.getJSONObject(j);
 						Goods goods = new Goods();
 						goods.setId(goodsJsonObject.getString("productId"));
 						goods.setName(goodsJsonObject.getString("productName"));
-						goods.setSalesPrice(goodsJsonObject.getString("salePrice"));
+						goods.setSalesPrice(goodsJsonObject
+								.getString("salePrice"));
 						goods.setIconUrl(goodsJsonObject.getString("iconUrl"));
 						goods.setNum(goodsJsonObject.getString("count"));
 						tempGoodsList.add(goods);
@@ -264,27 +292,33 @@ public class OrderLogic {
 		}
 	}
 
-	public static void cancelOrder(final Context context, final Handler handler, final String orderId) {
+	public static void cancelOrder(final Context context,
+			final Handler handler, final String orderId) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.cancelOrder);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.cancelOrder);
 
-					rpc.addProperty("orderId", URLEncoder.encode(orderId, "UTF-8"));
+					rpc.addProperty("orderId",
+							URLEncoder.encode(orderId, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.cancelOrder, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.cancelOrder, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -311,8 +345,9 @@ public class OrderLogic {
 
 	}
 
-	//{"datas":{},"message":"操作成功","result":"0"}
-	private static void parseCancelOrderData(JSONObject response, Handler handler) {
+	// {"datas":{},"message":"操作成功","result":"0"}
+	private static void parseCancelOrderData(JSONObject response,
+			Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
@@ -326,29 +361,35 @@ public class OrderLogic {
 		}
 	}
 
-	public static void setPayWay(final Context context, final Handler handler, final String orderId,
-			final String payWay) {
+	public static void setPayWay(final Context context, final Handler handler,
+			final String orderId, final String payWay) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.setOrderPayType);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.setOrderPayType);
 
-					rpc.addProperty("orderId", URLEncoder.encode(orderId, "UTF-8"));
-					rpc.addProperty("payWay", URLEncoder.encode(payWay, "UTF-8"));
+					rpc.addProperty("orderId",
+							URLEncoder.encode(orderId, "UTF-8"));
+					rpc.addProperty("payWay",
+							URLEncoder.encode(payWay, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.setOrderPayType, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.setOrderPayType, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -380,12 +421,14 @@ public class OrderLogic {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
-				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
 				HashMap<String, Object> msgMap = new HashMap<String, Object>();
 
 				ArrayList<Order> tempOrderList = new ArrayList<Order>();
-				Order order = (Order) JsonUtils.fromJsonToJava(jsonObject, Order.class);
+				Order order = (Order) JsonUtils.fromJsonToJava(jsonObject,
+						Order.class);
 				tempOrderList.add(order);
 
 				ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();

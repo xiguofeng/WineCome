@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -100,21 +101,31 @@ public class CommentsActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.comments_very_good_ll: {
-			CommentLogic.addComment(CommentsActivity.this, mHandler,
-					OrderManager.getsCurrentOrderId(),
-					getString(R.string.comments_very_good));
+			if (!TextUtils.isEmpty(OrderManager.getsCurrentCommentOrderId())) {
+				CommentLogic.addComment(CommentsActivity.this, mHandler,
+						OrderManager.getsCurrentCommentOrderId(),
+						getString(R.string.comments_very_good));
+			} else {
+
+			}
 			break;
 		}
 		case R.id.comments_good_ll: {
-			CommentLogic.addComment(CommentsActivity.this, mHandler,
-					OrderManager.getsCurrentOrderId(),
-					getString(R.string.comments_good));
-			break;
+			if (!TextUtils.isEmpty(OrderManager.getsCurrentCommentOrderId())) {
+				CommentLogic.addComment(CommentsActivity.this, mHandler,
+						OrderManager.getsCurrentCommentOrderId(),
+						getString(R.string.comments_good));
+			} else
+				break;
 		}
 		case R.id.comments_not_good_ll: {
-			CommentLogic.addComment(CommentsActivity.this, mHandler,
-					OrderManager.getsCurrentOrderId(),
-					getString(R.string.comments_not_good));
+			if (!TextUtils.isEmpty(OrderManager.getsCurrentCommentOrderId())) {
+				CommentLogic.addComment(CommentsActivity.this, mHandler,
+						OrderManager.getsCurrentCommentOrderId(),
+						getString(R.string.comments_not_good));
+			} else {
+
+			}
 			break;
 		}
 
