@@ -121,7 +121,9 @@ public class PayActivity extends Activity implements OnClickListener {
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(mContext,
 							OrderStateActivity.class);
-					intent.putExtra("order_state", "2");
+					intent.putExtra("order_state", "1");
+					intent.putExtra("delivery_time", OrderManager
+							.getsCurrentOrder().getDeliveryTime());
 					startActivity(intent);
 					PayActivity.this.finish();
 					overridePendingTransition(R.anim.push_left_in,
@@ -163,7 +165,7 @@ public class PayActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
 		mContext = PayActivity.this;
-		//AppManager.getInstance().addActivity(PayActivity.this);
+		// AppManager.getInstance().addActivity(PayActivity.this);
 		if (!ActivitiyInfoManager.activitityMap
 				.containsKey(ActivitiyInfoManager
 						.getCurrentActivityName(mContext))) {
@@ -288,6 +290,8 @@ public class PayActivity extends Activity implements OnClickListener {
 					Intent intent = new Intent(mContext,
 							OrderStateActivity.class);
 					intent.putExtra("order_state", "1");
+					intent.putExtra("delivery_time", OrderManager
+							.getsCurrentOrder().getDeliveryTime());
 					startActivity(intent);
 					PayActivity.this.finish();
 					overridePendingTransition(R.anim.push_left_in,
@@ -328,14 +332,18 @@ public class PayActivity extends Activity implements OnClickListener {
 			}
 
 			if (mTotalNum >= 12) {
+				Double preMoney = (Double.parseDouble(OrderManager
+						.getsCurrentOrder().getAmount())) * 0.3;
 				Intent intent = new Intent(mContext, PrePayActivity.class);
-				intent.putExtra("order_pre_price", "2");
-				startActivity(intent);
+				intent.putExtra("order_pre_price", String.valueOf(preMoney));
+				startActivityForResult(intent, 80);
 				overridePendingTransition(R.anim.push_left_in,
 						R.anim.push_left_out);
 			} else {
 				Intent intent = new Intent(mContext, OrderStateActivity.class);
 				intent.putExtra("order_state", "2");
+				intent.putExtra("delivery_time", OrderManager
+						.getsCurrentOrder().getDeliveryTime());
 				startActivity(intent);
 				PayActivity.this.finish();
 				overridePendingTransition(R.anim.push_left_in,
@@ -361,7 +369,9 @@ public class PayActivity extends Activity implements OnClickListener {
 						R.anim.push_left_out);
 			} else {
 				Intent intent = new Intent(mContext, OrderStateActivity.class);
-				intent.putExtra("order_state", "1");
+				intent.putExtra("order_state", "2");
+				intent.putExtra("delivery_time", OrderManager
+						.getsCurrentOrder().getDeliveryTime());
 				startActivity(intent);
 				PayActivity.this.finish();
 				overridePendingTransition(R.anim.push_left_in,

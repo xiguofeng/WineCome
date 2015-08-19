@@ -126,7 +126,10 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 					.equals(OrderState.ORDER_STATUS_ORDERED)
 					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
 							.get(position).getOrderStatus()
-							.equals(OrderState.ORDER_STATUS_GRABBED)) {
+							.equals(OrderState.ORDER_STATUS_GRABBED)
+					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+							.get(position).getOrderStatus()
+							.equals(OrderState.ORDER_STATUS_DELIVERY)) {
 				holder.mCancelOrDelBtn.setVisibility(View.VISIBLE);
 				holder.mCancelOrDelBtn.setText(mContext
 						.getString(R.string.order_cancel));

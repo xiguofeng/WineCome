@@ -116,13 +116,6 @@ public class PrePayActivity extends Activity implements OnClickListener {
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(mContext,
-							OrderStateActivity.class);
-					intent.putExtra("order_state", "2");
-					startActivity(intent);
-					PrePayActivity.this.finish();
-					overridePendingTransition(R.anim.push_left_in,
-							R.anim.push_left_out);
 				} else {
 
 					// 判断resultStatus 为非“9000”则代表可能支付失败

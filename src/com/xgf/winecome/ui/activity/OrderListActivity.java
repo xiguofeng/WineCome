@@ -141,13 +141,18 @@ public class OrderListActivity extends Activity implements OnClickListener,
 					"order_state",
 					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(
 							position).getOrderStatus());
+			intent.putExtra(
+					"delivery_time",
+					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(
+							position).getDeliveryTime());
+
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
 		case R.id.list_order_group_del_or_cancel_btn: {
 			if (Integer.parseInt(((ArrayList<Order>) mMsgMap
-					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 3) {
+					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 4) {
 				OrderLogic.cancelOrder(mContext, mHandler,
 						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
 								.get(position).getId());

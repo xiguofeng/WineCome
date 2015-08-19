@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.xgf.winecome.ui.view.CircleTimerView;
 import com.xgf.winecome.ui.view.CircleTimerView.CircleTimerListener;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
+import com.xgf.winecome.utils.TimeUtils;
 
 public class OrderStateActivity extends Activity implements OnClickListener,
 		CircleTimerListener {
@@ -29,6 +31,8 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 	public static final String ORIGIN_FROM_PAY_ACTION = "pay";
 
 	public static final String ORIGIN_FROM_QR_RESULT_ACTION = "qr_result";
+
+	public static final int TIME_UPDATE = 1;
 
 	private Context mContext;
 
@@ -64,6 +68,10 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 
 	private int mStateCode = 0;
 
+	private String mDeliveryTime;
+
+	private int mTiming = 0;
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -92,6 +100,27 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 			}
 
 		}
+
+	};
+
+	private Handler mTimeHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case TIME_UPDATE: {
+				long deliveryTime = TimeUtils.dateToLong(mDeliveryTime,
+						TimeUtils.FORMAT_PATTERN_DATE);
+				int waitTime = (int) (deliveryTime - (System
+						.currentTimeMillis() / 1000));
+				if (waitTime > 0) {
+					mTimingTv.setText(TimeUtils.secToTime(waitTime));
+					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		};
 
 	};
 
@@ -147,8 +176,17 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 	@SuppressLint("ResourceAsColor")
 	private void setUpData() {
 		String state = getIntent().getStringExtra("order_state");
+		mDeliveryTime = getIntent().getStringExtra("delivery_time");
+		if (TextUtils.isEmpty(mDeliveryTime)) {
+			mDeliveryTime = TimeUtils
+					.TimeStamp2Date(
+							String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
+							TimeUtils.FORMAT_PATTERN_DATE);
+		}
 
 		mStateCode = Integer.parseInt(state);
+
+		mTimeHandler.sendEmptyMessage(TIME_UPDATE);
 		// mStateCode = 3;
 		switch (mStateCode) {
 		case 0: {
@@ -158,6 +196,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		// 配送
 		case 3: {
 			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 			mWaitViewRl.setVisibility(View.VISIBLE);
@@ -167,6 +206,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		// 收货
 		case 4: {
 			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
@@ -180,14 +220,17 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		case 5: {
 
 			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
 			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeTv.setText(getString(R.string.confirm_goods));
 			mStepThreeIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
 			mStepFourTv.setTextColor(R.color.black_character);
+			mStepFourTv.setText(getString(R.string.identification_goods));
 			mStepFourIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 		}
@@ -196,14 +239,17 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		case 6: {
 
 			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
 			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeTv.setText(getString(R.string.confirm_goods));
 			mStepThreeIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
 			mStepFourTv.setTextColor(R.color.black_character);
+			mStepFourTv.setText(getString(R.string.identification_goods));
 			mStepFourIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 		}
@@ -212,14 +258,17 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		case 7: {
 
 			mStepTwoTv.setTextColor(R.color.black_character);
+			mStepTwoTv.setText(getString(R.string.began_delivery));
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
 			mStepThreeTv.setTextColor(R.color.black_character);
+			mStepThreeTv.setText(getString(R.string.confirm_goods));
 			mStepThreeIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 
 			mStepFourTv.setTextColor(R.color.black_character);
+			mStepFourTv.setText(getString(R.string.identification_goods));
 			mStepFourIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 		}
@@ -229,7 +278,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		}
 
 		mCancelBtn.setVisibility(View.VISIBLE);
-		if (mStateCode >= 3) {
+		if (mStateCode >= 5) {
 			mCancelBtn.setVisibility(View.GONE);
 		}
 
@@ -252,7 +301,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		}
 
 		case R.id.order_state_cancel_btn: {
-			if (mStateCode < 3) {
+			if (mStateCode < 4) {
 				OrderLogic.cancelOrder(mContext, mHandler,
 						OrderManager.getsCurrentOrderId());
 			} else {
