@@ -79,9 +79,9 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 			case TIME_UPDATE: {
 				if (mTiming > 0) {
 					mTiming--;
-					mTimingTv.setText(String.valueOf(mTiming));
+					mTimingTv.setText(String.valueOf(mTiming)+ "秒");
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.gray_bg));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.gray_divide_line));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
 					mAuthCodeLl.setClickable(true);
