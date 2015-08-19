@@ -41,8 +41,8 @@ public class OrderWineView extends LinearLayout {
 
 		ImageLoader.getInstance().displayImage(goods.getIconUrl(), mIv);
 		mNameTv.setText(goods.getName());
-		mPriceTv.setText(goods.getSalesPrice());
-		mNumTv.setText(goods.getNum());
+		mPriceTv.setText("￥"+goods.getSalesPrice());
+		mNumTv.setText(goods.getNum()+"瓶");
 	}
 
 }

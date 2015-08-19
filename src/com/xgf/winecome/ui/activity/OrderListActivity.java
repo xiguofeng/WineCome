@@ -113,7 +113,7 @@ public class OrderListActivity extends Activity implements OnClickListener,
 		// String phone = getIntent().getStringExtra("phone");
 
 		mPhone = UserInfoManager.getPhone(mContext);
-		OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "50");
+		OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "20");
 	}
 
 	@Override

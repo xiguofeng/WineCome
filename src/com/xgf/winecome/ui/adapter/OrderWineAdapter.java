@@ -90,61 +90,75 @@ public class OrderWineAdapter extends BaseAdapter implements Watched {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mId.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-				.get(position).getId());
-		holder.mTime.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-				.get(position).getOrderTime());
+		if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).size() > position) {
 
-		holder.mState.setText(OrderState.state[(Integer
-				.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-						.get(position).getOrderStatus()) - 1)]);
-		Log.e("xxx_orderstate",
-				""
-						+ ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-								.get(position).getOrderStatus());
+			Log.e("xxx_size",
+					""
+							+ ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+									.size());
+			Log.e("xxx_position", "" + position);
 
-		final int tempPosition = position;
-		final View view = convertView;
-		final int whichCancel = holder.mCancelOrDelBtn.getId();
-		final int whichDelOrView = holder.mViewBtn.getId();
+			holder.mId.setText(((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getId());
+			holder.mTime.setText(((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getOrderTime());
 
-		holder.mCancelOrDelBtn.setText(mContext.getString(R.string.order_del));
-		holder.mCancelOrDelBtn.setVisibility(View.GONE);
-		if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position)
-				.getOrderStatus().equals(OrderState.ORDER_STATUS_ORDERED)
-				|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-						.get(position).getOrderStatus()
-						.equals(OrderState.ORDER_STATUS_GRABBED)) {
-			holder.mCancelOrDelBtn.setVisibility(View.VISIBLE);
+			holder.mState
+					.setText(OrderState.state[(Integer
+							.parseInt(((ArrayList<Order>) mMap
+									.get(MsgResult.ORDER_TAG)).get(position)
+									.getOrderStatus()) - 1)]);
+			Log.e("xxx_orderstate",
+					""
+							+ ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+									.get(position).getOrderStatus());
+
+			final int tempPosition = position;
+			final View view = convertView;
+			final int whichCancel = holder.mCancelOrDelBtn.getId();
+			final int whichDelOrView = holder.mViewBtn.getId();
+
 			holder.mCancelOrDelBtn.setText(mContext
-					.getString(R.string.order_cancel));
-		}
-
-		holder.mCancelOrDelBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				mCallback.onClick(view, v, tempPosition, whichCancel);
-
+					.getString(R.string.order_del));
+			holder.mCancelOrDelBtn.setVisibility(View.GONE);
+			if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+					.get(position).getOrderStatus()
+					.equals(OrderState.ORDER_STATUS_ORDERED)
+					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+							.get(position).getOrderStatus()
+							.equals(OrderState.ORDER_STATUS_GRABBED)) {
+				holder.mCancelOrDelBtn.setVisibility(View.VISIBLE);
+				holder.mCancelOrDelBtn.setText(mContext
+						.getString(R.string.order_cancel));
 			}
-		});
-		holder.mViewBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mCallback.onClick(view, v, tempPosition, whichDelOrView);
+
+			holder.mCancelOrDelBtn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+
+					mCallback.onClick(view, v, tempPosition, whichCancel);
+
+				}
+			});
+			holder.mViewBtn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mCallback.onClick(view, v, tempPosition, whichDelOrView);
+				}
+			});
+
+			holder.mWineLl.removeAllViews();
+
+			ArrayList<Goods> goodsList = new ArrayList<Goods>();
+			goodsList.addAll(((ArrayList<Goods>) mMap
+					.get(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+							.get(position).getId())));
+			for (int i = 0; i < goodsList.size(); i++) {
+				// TODO
+				Goods goods = goodsList.get(i);
+				OrderWineView orderWineView = new OrderWineView(mContext, goods);
+				holder.mWineLl.addView(orderWineView);
 			}
-		});
-
-		holder.mWineLl.removeAllViews();
-
-		ArrayList<Goods> goodsList = new ArrayList<Goods>();
-		goodsList.addAll(((ArrayList<Goods>) mMap.get(((ArrayList<Order>) mMap
-				.get(MsgResult.ORDER_TAG)).get(position).getId())));
-		for (int i = 0; i < goodsList.size(); i++) {
-			// TODO
-			Goods goods = goodsList.get(i);
-			OrderWineView orderWineView = new OrderWineView(mContext, goods);
-			holder.mWineLl.addView(orderWineView);
 		}
 		return convertView;
 	}
