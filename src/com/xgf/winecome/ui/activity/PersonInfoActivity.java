@@ -31,6 +31,7 @@ import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.TimeUtils;
 import com.xgf.winecome.utils.UserInfoManager;
@@ -107,8 +108,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 					CartManager.getsDetailBuyList().clear();
 
-					AppManager.getInstance().killActivity(
-							GoodsDetailActivity.class);
+					ActivitiyInfoManager
+					.finishActivity("com.xgf.winecome.ui.activity.GoodsDetailActivity");
 				} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
 					OrderManager.getsCurrentOrderGoodsList().addAll(
 							CartManager.getsSelectCartList());

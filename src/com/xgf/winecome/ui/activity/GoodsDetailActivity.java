@@ -3,6 +3,7 @@ package com.xgf.winecome.ui.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,11 +19,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.CartManager;
 
 public class GoodsDetailActivity extends Activity implements OnClickListener {
 
 	public static final String GOODS_KEY = "GoodsKey";
+
+	private Context mContext;
 
 	private TextView mGoodsNameTv;
 
@@ -56,7 +60,15 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goods_detail);
-		AppManager.getInstance().addActivity(GoodsDetailActivity.this);
+		mContext = GoodsDetailActivity.this;
+		if (!ActivitiyInfoManager.activitityMap
+				.containsKey(ActivitiyInfoManager
+						.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap
+					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
+							this);
+		}
+		// AppManager.getInstance().addActivity(GoodsDetailActivity.this);
 		initView();
 		initData();
 	}
@@ -90,24 +102,34 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	}
 
 	private void initData() {
-		mGoods = (Goods) getIntent().getSerializableExtra(GoodsDetailActivity.GOODS_KEY);
+		mGoods = (Goods) getIntent().getSerializableExtra(
+				GoodsDetailActivity.GOODS_KEY);
 		if (null != mGoods) {
 			fillUpGoodsData();
 		}
 	}
 
 	private void fillUpGoodsData() {
-		ImageLoader.getInstance().displayImage(mGoods.getIconUrl(), mGoodsIconIv);
+		ImageLoader.getInstance().displayImage(mGoods.getIconUrl(),
+				mGoodsIconIv);
 
 		mGoods.setNum("1");
-		mGoodsNameTv.setText(!TextUtils.isEmpty(mGoods.getName()) ? mGoods.getName() : "");
-		mGoodsPriceTv.setText(!TextUtils.isEmpty(mGoods.getSalesPrice()) ? "¥" + mGoods.getSalesPrice() : "¥");
+		mGoodsNameTv.setText(!TextUtils.isEmpty(mGoods.getName()) ? mGoods
+				.getName() : "");
+		mGoodsPriceTv.setText(!TextUtils.isEmpty(mGoods.getSalesPrice()) ? "¥"
+				+ mGoods.getSalesPrice() : "¥");
 		mGoodsOrgPriceTv
-				.setText(!TextUtils.isEmpty(mGoods.getMarketPrice()) ? "原价:¥" + mGoods.getMarketPrice() : "原价:¥");
-		mGoodsProductAreaTv.setText(!TextUtils.isEmpty(mGoods.getArea()) ? "商品产地：" + mGoods.getArea() : "商品产地：");
-		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? "度数：" + mGoods.getDegree() : "度数：");
-		mGoodsNumTypeTv.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? "规格：" + mGoods.getLevel() : "规格：");
-		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? "香型：" + mGoods.getModel() : "香型：");
+				.setText(!TextUtils.isEmpty(mGoods.getMarketPrice()) ? "原价:¥"
+						+ mGoods.getMarketPrice() : "原价:¥");
+		mGoodsProductAreaTv
+				.setText(!TextUtils.isEmpty(mGoods.getArea()) ? "商品产地："
+						+ mGoods.getArea() : "商品产地：");
+		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? "度数："
+				+ mGoods.getDegree() : "度数：");
+		mGoodsNumTypeTv.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? "规格："
+				+ mGoods.getLevel() : "规格：");
+		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? "香型："
+				+ mGoods.getModel() : "香型：");
 
 	}
 
@@ -117,15 +139,18 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		case R.id.goods_detail_cart_iv:
 		case R.id.goods_detail_add_cart_ll: {
 			boolean isSuc = CartManager.cartModifyByDetail(mGoods);
-			Toast.makeText(getApplicationContext(), getString(R.string.add_cart_suc), Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.add_cart_suc), Toast.LENGTH_SHORT)
+					.show();
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {
 			ArrayList<Goods> goodsList = new ArrayList<Goods>();
 			goodsList.add(mGoods);
 			CartManager.setsDetailBuyList(goodsList);
-			
-			Intent intent = new Intent(GoodsDetailActivity.this, PersonInfoActivity.class);
+
+			Intent intent = new Intent(GoodsDetailActivity.this,
+					PersonInfoActivity.class);
 			intent.setAction(PersonInfoActivity.ORIGIN_FROM_DETAIL_ACTION);
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

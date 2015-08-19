@@ -32,6 +32,7 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.alipay.AlipayApi;
 import com.xgf.winecome.pay.alipay.PayResult;
 import com.xgf.winecome.ui.view.CustomProgressDialog;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 
 public class PayActivity extends Activity implements OnClickListener {
@@ -163,7 +164,14 @@ public class PayActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
 		mContext = PayActivity.this;
-		AppManager.getInstance().addActivity(PayActivity.this);
+		//AppManager.getInstance().addActivity(PayActivity.this);
+		if (!ActivitiyInfoManager.activitityMap
+				.containsKey(ActivitiyInfoManager
+						.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap
+					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
+							this);
+		}
 		mProgressDialog = new CustomProgressDialog(mContext);
 		setUpViews();
 		setUpListener();

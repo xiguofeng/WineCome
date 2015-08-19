@@ -71,6 +71,7 @@ import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
 import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
 import com.xgf.winecome.ui.activity.OrderStateActivity;
 import com.xgf.winecome.ui.activity.QrResultActivity;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
 
 /**
  * This activity opens the camera and does the actual scanning on a background
@@ -495,11 +496,16 @@ public final class CaptureActivity extends Activity implements
 			break;
 		}
 
+	
 		// TODO
 		if (ORIGIN_FROM_ORDER_STATE_ACTION.equals(mNowAction)) {
-			AppManager.getInstance().killActivity(OrderStateActivity.class);
+			ActivitiyInfoManager
+					.finishActivity("com.xgf.winecome.ui.activity.OrderStateActivity");
+			// AppManager.getInstance().killActivity(OrderStateActivity.class);
 		} else if (ORIGIN_FROM_QR_RESULT_ACTION.equals(mNowAction)) {
-			AppManager.getInstance().killActivity(QrResultActivity.class);
+			ActivitiyInfoManager
+			.finishActivity("com.xgf.winecome.ui.activity.QrResultActivity");
+			//AppManager.getInstance().killActivity(QrResultActivity.class);
 		}
 
 		Intent intent = new Intent(CaptureActivity.this, QrResultActivity.class);

@@ -21,6 +21,7 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 import com.xgf.winecome.ui.view.CircleTimerView;
 import com.xgf.winecome.ui.view.CircleTimerView.CircleTimerListener;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 
 public class OrderStateActivity extends Activity implements OnClickListener,
@@ -100,7 +101,15 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_state);
 		mContext = OrderStateActivity.this;
-		AppManager.getInstance().addActivity(OrderStateActivity.this);
+		
+		if (!ActivitiyInfoManager.activitityMap
+				.containsKey(ActivitiyInfoManager
+						.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap
+					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
+							this);
+		}
+		// AppManager.getInstance().addActivity(OrderStateActivity.this);
 		setUpViews();
 		setUpListener();
 		setUpData();
