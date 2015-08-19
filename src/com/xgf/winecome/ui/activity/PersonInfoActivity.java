@@ -23,15 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
-import com.xgf.winecome.AppManager;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.network.logic.UserLogic;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
 import com.xgf.winecome.utils.LocationUtilsV5.LocationCallback;
-import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.TimeUtils;
 import com.xgf.winecome.utils.UserInfoManager;
@@ -109,12 +108,17 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					CartManager.getsDetailBuyList().clear();
 
 					ActivitiyInfoManager
-					.finishActivity("com.xgf.winecome.ui.activity.GoodsDetailActivity");
+							.finishActivity("com.xgf.winecome.ui.activity.GoodsDetailActivity");
 				} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
 					OrderManager.getsCurrentOrderGoodsList().addAll(
 							CartManager.getsSelectCartList());
 
+					
 					CartManager.removeCartSelect();
+					Log.e("xxx_cart_select_create_1", ""+CartManager.getsSelectCartList()
+							.size());
+					Log.e("xxx_cart_create_1", ""+CartManager.getsCartList()
+							.size());
 					HomeActivity.modifyCartPayView("0", "0");
 				} else {
 					OrderManager.getsCurrentOrderGoodsList().addAll(
@@ -438,6 +442,10 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			OrderLogic.createOrder(mContext, mHandler, order,
 					CartManager.getsDetailBuyList());
 		} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
+			Log.e("xxx_cart_select_create_0", ""+CartManager.getsSelectCartList()
+					.size());
+			Log.e("xxx_cart_create_0", ""+CartManager.getsCartList()
+					.size());
 			OrderLogic.createOrder(mContext, mHandler, order,
 					CartManager.getsSelectCartList());
 		} else {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.util.Log;
+
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.HomeActivity;
 import com.xgf.winecome.ui.activity.MainActivity;
@@ -221,11 +223,12 @@ public class CartManager implements Watched {
 
 		// 更新sSelectCartList
 		boolean isHasSelect = false;
-		for (int i = 0; i < sCartList.size(); i++) {
-			String id = sCartList.get(i).getId();
-			for (int j = 0; j < sSelectCartList.size(); j++) {
-				if (id.equals(sSelectCartList.get(j).getId())) {
-					sCartList.remove(i);
+		for (int i = 0; i < sSelectCartList.size(); i++) {
+			String id = sSelectCartList.get(i).getId();
+			for (int j = 0; j < sCartList.size(); j++) {
+				if (id.equals(sCartList.get(j).getId())) {
+					sCartList.remove(j);
+					Log.e("xxx_c_remove", "");
 				}
 			}
 		}
