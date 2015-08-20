@@ -34,8 +34,11 @@ public class AlipayApi {
 	 */
 	public void pay(final Activity activity, final Handler handler) {
 		// 订单
-		String orderInfo = getOrderInfo(OrderManager.getsCurrentOrder().getId(), "南京壹前零后科技有限公司提供的酒", "0.01",
-				OrderManager.getsCurrentOrder().getNotifyUrl(),OrderManager.getsCurrentOrder().getOpid());
+		String orderInfo = getOrderInfo(
+				OrderManager.getsCurrentOrder().getId(), "南京壹前零后科技有限公司提供的酒",
+				OrderManager.getsCurrentOrder().getAmount(), OrderManager
+						.getsCurrentOrder().getNotifyUrl(), OrderManager
+						.getsCurrentOrder().getOpid());
 
 		// 对订单做RSA 签名
 		String sign = sign(orderInfo);
@@ -47,7 +50,8 @@ public class AlipayApi {
 		}
 
 		// 完整的符合支付宝参数规范的订单信息
-		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
+		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
+				+ getSignType();
 
 		Runnable payRunnable = new Runnable() {
 
@@ -110,7 +114,8 @@ public class AlipayApi {
 	 * create the order info. 创建订单信息
 	 * 
 	 */
-	public String getOrderInfo(String orderId, String body, String price, String notifyUrl,String tradeNo) {
+	public String getOrderInfo(String orderId, String body, String price,
+			String notifyUrl, String tradeNo) {
 		// 签约合作者身份ID
 		String orderInfo = "partner=" + "\"" + Constants.PARTNER + "\"";
 
@@ -165,7 +170,8 @@ public class AlipayApi {
 	 * 
 	 */
 	public String getOutTradeNo() {
-		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss", Locale.getDefault());
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
+				Locale.getDefault());
 		Date date = new Date();
 		String key = format.format(date);
 

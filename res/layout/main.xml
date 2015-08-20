@@ -18,23 +18,18 @@
             android:id="@+id/main_title_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="horizontal" >
 
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/logo_titile" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/large_text_size" />
         </LinearLayout>
 
         <RelativeLayout
@@ -90,8 +85,8 @@
                 android:contentDescription="@string/app_name"
                 android:padding="8dip"
                 android:scaleType="centerCrop"
-                android:visibility="gone"
-                android:src="@drawable/search" />
+                android:src="@drawable/search"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <!-- <include -->
