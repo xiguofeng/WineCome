@@ -103,7 +103,7 @@
                 android:layout_alignParentLeft="true"
                 android:maxLines="1"
                 android:text="299"
-                android:textColor="@color/red_title_bg"
+                android:textColor="@color/gray_text"
                 android:textSize="@dimen/small_text_size" />
 
             <TextView
