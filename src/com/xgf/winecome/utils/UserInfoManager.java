@@ -352,12 +352,16 @@ public class UserInfoManager {
 		String string = getAddressHistory(context);
 		if (!TextUtils.isEmpty(string)) {
 			String[] strings = string.substring(0, string.length()).split(";");
-			for (String s : strings) {
-				if (!address.equals(s)) {
+			int size = 5;
+			if (strings.length < 5) {
+				size = strings.length;
+			}
+			for (int i = 0; i < size; i++) {
+				if (!address.equals(strings[i])) {
 					if (!TextUtils.isEmpty(tempString)) {
-						tempString = tempString + ";" + s;
+						tempString = tempString + ";" + strings[i];
 					} else {
-						tempString = s;
+						tempString = strings[i];
 					}
 				}
 			}
