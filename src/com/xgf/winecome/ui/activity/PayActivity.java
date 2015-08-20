@@ -369,60 +369,71 @@ public class PayActivity extends Activity implements OnClickListener {
 			apAlipayApi.pay(PayActivity.this, mAlipayHandler);
 
 		} else if (Constants.PAY_WAY_CASHPAY.equals(mCurrentPayWay)) {
-			mGoodsList.clear();
-			mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
-					.get(OrderManager.getsCurrentOrder().getId()));
+			Intent intent = new Intent(mContext, OrderStateActivity.class);
+			intent.putExtra("order_state", "2");
+			intent.putExtra("delivery_time", OrderManager.getsCurrentOrder()
+					.getDeliveryTime());
+			startActivity(intent);
+			PayActivity.this.finish();
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 
-			for (Goods goods : mGoodsList) {
-				mTotalNum = Integer.parseInt(goods.getNum()) + mTotalNum;
-			}
-
-			if (mTotalNum >= 12) {
-				Double preMoney = (Double.parseDouble(OrderManager
-						.getsCurrentOrder().getAmount())) * 0.3;
-				Intent intent = new Intent(mContext, PrePayActivity.class);
-				intent.putExtra("order_pre_price", String.valueOf(preMoney));
-				startActivityForResult(intent, 80);
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
-			} else {
-				Intent intent = new Intent(mContext, OrderStateActivity.class);
-				intent.putExtra("order_state", "2");
-				intent.putExtra("delivery_time", OrderManager
-						.getsCurrentOrder().getDeliveryTime());
-				startActivity(intent);
-				PayActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
-			}
+			//
+			// mGoodsList.clear();
+			// mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
+			// .get(OrderManager.getsCurrentOrder().getId()));
+			//
+			// for (Goods goods : mGoodsList) {
+			// mTotalNum = Integer.parseInt(goods.getNum()) + mTotalNum;
+			// }
+			//
+			// if (mTotalNum >= 12) {
+			// Double preMoney = (Double.parseDouble(OrderManager
+			// .getsCurrentOrder().getAmount())) * 0.3;
+			// Intent intent = new Intent(mContext, PrePayActivity.class);
+			// intent.putExtra("order_pre_price", String.valueOf(preMoney));
+			// startActivityForResult(intent, 80);
+			// overridePendingTransition(R.anim.push_left_in,
+			// R.anim.push_left_out);
+			// } else {
+			// Intent intent = new Intent(mContext, OrderStateActivity.class);
+			// intent.putExtra("order_state", "2");
+			// intent.putExtra("delivery_time", OrderManager
+			// .getsCurrentOrder().getDeliveryTime());
+			// startActivity(intent);
+			// PayActivity.this.finish();
+			// overridePendingTransition(R.anim.push_left_in,
+			// R.anim.push_left_out);
+			// }
 
 		} else if (Constants.PAY_WAY_POSPAY.equals(mCurrentPayWay)) {
-			mGoodsList.clear();
-			mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
-					.get(OrderManager.getsCurrentOrder().getId()));
 
-			for (Goods goods : mGoodsList) {
-				mTotalNum = Integer.parseInt(goods.getNum()) + mTotalNum;
-			}
+			Intent intent = new Intent(mContext, OrderStateActivity.class);
+			intent.putExtra("order_state", "2");
+			intent.putExtra("delivery_time", OrderManager.getsCurrentOrder()
+					.getDeliveryTime());
+			startActivity(intent);
+			PayActivity.this.finish();
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 
-			if (mTotalNum >= 12) {
-				Double preMoney = (Double.parseDouble(OrderManager
-						.getsCurrentOrder().getAmount())) * 0.3;
-				Intent intent = new Intent(mContext, PrePayActivity.class);
-				intent.putExtra("order_pre_price", String.valueOf(preMoney));
-				startActivityForResult(intent, 80);
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
-			} else {
-				Intent intent = new Intent(mContext, OrderStateActivity.class);
-				intent.putExtra("order_state", "2");
-				intent.putExtra("delivery_time", OrderManager
-						.getsCurrentOrder().getDeliveryTime());
-				startActivity(intent);
-				PayActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
-			}
+			// mGoodsList.clear();
+			// mGoodsList.addAll((Collection<? extends Goods>) mMsgMap
+			// .get(OrderManager.getsCurrentOrder().getId()));
+			//
+			// for (Goods goods : mGoodsList) {
+			// mTotalNum = Integer.parseInt(goods.getNum()) + mTotalNum;
+			// }
+			//
+			// if (mTotalNum >= 12) {
+			// Double preMoney = (Double.parseDouble(OrderManager
+			// .getsCurrentOrder().getAmount())) * 0.3;
+			// Intent intent = new Intent(mContext, PrePayActivity.class);
+			// intent.putExtra("order_pre_price", String.valueOf(preMoney));
+			// startActivityForResult(intent, 80);
+			// overridePendingTransition(R.anim.push_left_in,
+			// R.anim.push_left_out);
+			// } else {
+			//
+			// }
 
 		}
 	}
