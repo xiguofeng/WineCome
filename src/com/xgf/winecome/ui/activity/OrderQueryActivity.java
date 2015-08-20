@@ -22,7 +22,8 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.UserInfoManager;
 
-public class OrderQueryActivity extends Activity implements OnClickListener, TextWatcher {
+public class OrderQueryActivity extends Activity implements OnClickListener,
+		TextWatcher {
 	public static final int TIME_UPDATE = 1;
 
 	private LinearLayout mQueryLl;
@@ -43,6 +44,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 	private String mPhone;
 	private String mAuthCode;
 
+	private boolean mIsNeedAuth = false;
+
 	private int mTiming = 60;
 
 	Handler mHandler = new Handler() {
@@ -61,7 +64,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
-				Toast.makeText(mContext, R.string.auth_get_fail, Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, R.string.auth_get_fail,
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
@@ -87,12 +91,15 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 					mTiming--;
 					mTimingTv.setText(String.valueOf(mTiming) + "秒");
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.gray_divide_line));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.gray_divide_line));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
 					mAuthCodeLl.setClickable(true);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.orange_bg));
-					mTimingTv.setText(getString(R.string.get_verification_code));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.orange_bg));
+					mTimingTv
+							.setText(getString(R.string.get_verification_code));
 					mTiming = 60;
 				}
 				break;
@@ -141,7 +148,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 	}
 
 	private void setUpData() {
-		if (!UserInfoManager.getIsMustAuth(mContext) && !TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
+		if (!UserInfoManager.getIsMustAuth(mContext)
+				&& !TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
 			mPhone = UserInfoManager.getPhone(mContext);
 			mAuthRl.setVisibility(View.GONE);
 			mPhoneTv.setVisibility(View.VISIBLE);
@@ -149,6 +157,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 			mPhoneEt.setVisibility(View.GONE);
 			mReplaceLl.setVisibility(View.VISIBLE);
 		} else {
+			mIsNeedAuth = true;
 			mAuthRl.setVisibility(View.VISIBLE);
 			mPhoneTv.setVisibility(View.GONE);
 			mPhoneEt.setVisibility(View.VISIBLE);
@@ -157,7 +166,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
 	}
 
 	@Override
@@ -174,25 +184,38 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 		switch (v.getId()) {
 
 		case R.id.order_query_submit_ll: {
-			mAuthCode = mVerCodeEt.getText().toString();
-			mPhone = mPhoneEt.getText().toString().trim();
-
-			if (!UserInfoManager.getIsMustAuth(mContext)) {
-				Intent intent = new Intent(OrderQueryActivity.this, OrderListActivity.class);
-				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
-				startActivity(intent);
-				OrderQueryActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-			} else if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode)
+			if (!mIsNeedAuth) {
+				if (!TextUtils.isEmpty(mPhone)) {
+					Intent intent = new Intent(OrderQueryActivity.this,
+							OrderListActivity.class);
+					intent.putExtra("phone", mPhone);
+					startActivity(intent);
+					OrderQueryActivity.this.finish();
+					overridePendingTransition(R.anim.push_left_in,
+							R.anim.push_left_out);
+				} else {
+					mIsNeedAuth = true;
+					mAuthRl.setVisibility(View.VISIBLE);
+					mPhoneTv.setVisibility(View.GONE);
+					mPhoneEt.setVisibility(View.VISIBLE);
+					mReplaceLl.setVisibility(View.GONE);
+				}
+			} else if (!TextUtils.isEmpty(mPhone)
+					&& !TextUtils.isEmpty(mAuthCode)
 					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())
-					&& mVerCodeEt.getText().toString().trim().endsWith(mAuthCode)) {
-				Intent intent = new Intent(OrderQueryActivity.this, OrderListActivity.class);
-				intent.putExtra("phone", mPhoneEt.getText().toString().trim());
+					&& mVerCodeEt.getText().toString().trim()
+							.endsWith(mAuthCode)) {
+				Intent intent = new Intent(OrderQueryActivity.this,
+						OrderListActivity.class);
+				intent.putExtra("phone", mPhone);
 				startActivity(intent);
 				OrderQueryActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_and_code_hint), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext,
+						getString(R.string.mobile_phone_and_code_hint),
+						Toast.LENGTH_SHORT).show();
 			}
 			// User user = new User();
 			// UserLogic.login(mContext, mLoginHandler, user);
@@ -205,7 +228,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 				UserLogic.sendAuthCode(mContext, mHandler, mPhone);
 
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
+						Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
@@ -215,7 +239,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener, Tex
 			break;
 		}
 
-		case R.id.per_info_replace_phone_ll: {
+		case R.id.order_query_replace_phone_ll: {
+			mIsNeedAuth = true;
 			mAuthRl.setVisibility(View.VISIBLE);
 			mPhoneTv.setVisibility(View.GONE);
 			mPhoneEt.setVisibility(View.VISIBLE);

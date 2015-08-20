@@ -268,7 +268,7 @@
     <string name="area_select">选择地区</string>
     <string name="date_select">选择日期</string>
     <string name="mobile_phone_hint">请填写手机号码</string>
-    <string name="verification_code_hint">请输入验证码</string>
+    <string name="verification_code_hint">请输入正确的验证码</string>
     <string name="address_hint">请选择省市区</string>
     <string name="detail_info_hint">请填写详细地址信息</string>
     <string name="distribution_date_hint">请选择日期</string>
