@@ -97,6 +97,16 @@ public class RequestUrl {
 		 * 设置支付方式
 		 */
 		public String setOrderPayType = "payWay";
+		
+		/**
+		 * 设置预支付方式
+		 */
+		public String setOrderPrePayType = "prePayWay";
+		
+		/**
+		 * 支付结果确认
+		 */
+		public String payResultCheck = "payResultCheck";
 
 	}
 

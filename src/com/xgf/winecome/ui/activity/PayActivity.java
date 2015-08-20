@@ -100,6 +100,45 @@ public class PayActivity extends Activity implements OnClickListener {
 			case OrderLogic.ORDER_PAY_TYPE_SET_EXCEPTION: {
 				break;
 			}
+			case OrderLogic.ORDER_PAY_RESULT_CHECK_SUC: {
+				if (null != msg.obj) {
+					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(mContext,
+							OrderStateActivity.class);
+					intent.putExtra("order_state", "2");
+					intent.putExtra("delivery_time", OrderManager
+							.getsCurrentOrder().getDeliveryTime());
+					startActivity(intent);
+					PayActivity.this.finish();
+					overridePendingTransition(R.anim.push_left_in,
+							R.anim.push_left_out);
+				}
+				break;
+			}
+			case OrderLogic.ORDER_PAY_RESULT_CHECK_FAIL: {
+				Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(mContext, OrderStateActivity.class);
+				intent.putExtra("order_state", "2");
+				intent.putExtra("delivery_time", OrderManager
+						.getsCurrentOrder().getDeliveryTime());
+				startActivity(intent);
+				PayActivity.this.finish();
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
+				break;
+			}
+			case OrderLogic.ORDER_PAY_RESULT_CHECK_EXCEPTION: {
+				Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(mContext, OrderStateActivity.class);
+				intent.putExtra("order_state", "2");
+				intent.putExtra("delivery_time", OrderManager
+						.getsCurrentOrder().getDeliveryTime());
+				startActivity(intent);
+				PayActivity.this.finish();
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
+				break;
+			}
 			case OrderLogic.NET_ERROR: {
 				break;
 			}
@@ -129,17 +168,10 @@ public class PayActivity extends Activity implements OnClickListener {
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
 					// TODO
-					// payResultCheck
-					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(mContext,
-							OrderStateActivity.class);
-					intent.putExtra("order_state", "2");
-					intent.putExtra("delivery_time", OrderManager
-							.getsCurrentOrder().getDeliveryTime());
-					startActivity(intent);
-					PayActivity.this.finish();
-					overridePendingTransition(R.anim.push_left_in,
-							R.anim.push_left_out);
+					// payResultCheck支付成功比对支付结果
+					mCustomProgressDialog.show();
+					OrderLogic.payResultCheck(mContext, mHandler,
+							OrderManager.getsCurrentOrderId(), "true");
 				} else {
 
 					// 判断resultStatus 为非“9000”则代表可能支付失败
@@ -155,6 +187,7 @@ public class PayActivity extends Activity implements OnClickListener {
 
 					}
 				}
+
 				break;
 			}
 			case com.xgf.winecome.pay.alipay.Constants.SDK_CHECK_FLAG: {

@@ -76,7 +76,7 @@
             android:gravity="center"
             android:paddingBottom="8dip"
             android:paddingTop="8dip"
-            android:text="@string/order_view"
+            android:text="@string/order_state"
             android:textColor="@color/gray_text"
             android:textSize="@dimen/small_text_size" />
 

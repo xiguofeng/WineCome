@@ -211,6 +211,7 @@
     <string name="pay_fail">支付失败</string>
     <string name="pay_way_hint">请选择支付方式</string>
     <string name="pre_pay_hint">因您购买的酒超过12瓶，需预先支付30%的金额</string>
+    <string name="pre_pay_set_way_fail">预支付支付方式设置失败</string>
 
     <!-- order -->
     <string name="order_list">订单列表</string>

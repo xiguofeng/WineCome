@@ -29,6 +29,7 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.alipay.AlipayApi;
 import com.xgf.winecome.pay.alipay.PayResult;
 import com.xgf.winecome.ui.view.CustomProgressDialog;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 
@@ -50,11 +51,13 @@ public class PrePayActivity extends Activity implements OnClickListener {
 
 	private HashMap<String, Object> mMsgMap = new HashMap<String, Object>();
 
-	private CustomProgressDialog mProgressDialog;
+	private CustomProgressDialog2 mCustomProgressDialog;
 
 	private String mCurrentPayWay;
 
 	private String mCurrentSelectPayWay;
+
+	private String mPrice;
 
 	private boolean isPaySuc = false;
 
@@ -64,7 +67,7 @@ public class PrePayActivity extends Activity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case OrderLogic.ORDER_PAY_TYPE_SET_SUC: {
+			case OrderLogic.ORDER_PRE_PAY_TYPE_SET_SUC: {
 				if (null != msg.obj) {
 					mMsgMap.clear();
 					mMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
@@ -74,18 +77,31 @@ public class PrePayActivity extends Activity implements OnClickListener {
 
 					AlipayApi apAlipayApi = new AlipayApi();
 					apAlipayApi.pay(PrePayActivity.this, mAlipayHandler);
-					// Intent intent = new Intent(PayActivity.this,
-					// AliPayActivity.class);
-					// startActivityForResult(intent, 500);
 				}
 				break;
 			}
-			case OrderLogic.ORDER_PAY_TYPE_SET_FAIL: {
+			case OrderLogic.ORDER_PRE_PAY_TYPE_SET_FAIL: {
+				Toast.makeText(mContext, R.string.pre_pay_set_way_fail,
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+			case OrderLogic.ORDER_PRE_PAY_TYPE_SET_EXCEPTION: {
+				break;
+			}
+			case OrderLogic.ORDER_PAY_RESULT_CHECK_SUC: {
+				setResult(true);
+				if (null != msg.obj) {
+				}
+				break;
+			}
+			case OrderLogic.ORDER_PAY_RESULT_CHECK_FAIL: {
+				setResult(true);
 				// Toast.makeText(mContext, R.string.login_fail,
 				// Toast.LENGTH_SHORT).show();
 				break;
 			}
-			case OrderLogic.ORDER_PAY_TYPE_SET_EXCEPTION: {
+			case OrderLogic.ORDER_PAY_RESULT_CHECK_EXCEPTION: {
+				setResult(true);
 				break;
 			}
 			case OrderLogic.NET_ERROR: {
@@ -95,8 +111,9 @@ public class PrePayActivity extends Activity implements OnClickListener {
 			default:
 				break;
 			}
-			if (null != mProgressDialog && mProgressDialog.isShowing()) {
-				mProgressDialog.dismiss();
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
 			}
 		}
 
@@ -116,6 +133,11 @@ public class PrePayActivity extends Activity implements OnClickListener {
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
+
+					mCustomProgressDialog.show();
+					OrderLogic.payResultCheck(mContext, mHandler,
+							OrderManager.getsCurrentOrderId(), "true");
+
 				} else {
 
 					// 判断resultStatus 为非“9000”则代表可能支付失败
@@ -131,8 +153,6 @@ public class PrePayActivity extends Activity implements OnClickListener {
 
 					}
 				}
-
-				setResult(true);
 				break;
 			}
 			case com.xgf.winecome.pay.alipay.Constants.SDK_CHECK_FLAG: {
@@ -143,9 +163,6 @@ public class PrePayActivity extends Activity implements OnClickListener {
 			default:
 				break;
 
-			}
-			if (null != mProgressDialog && mProgressDialog.isShowing()) {
-				mProgressDialog.dismiss();
 			}
 		};
 	};
@@ -163,7 +180,7 @@ public class PrePayActivity extends Activity implements OnClickListener {
 							this);
 		}
 		// AppManager.getInstance().addActivity(PrePayActivity.this);
-		mProgressDialog = new CustomProgressDialog(mContext);
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -226,7 +243,7 @@ public class PrePayActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpData() {
-		String price = getIntent().getStringExtra("order_pre_price");
+		mPrice = getIntent().getStringExtra("order_pre_price");
 	}
 
 	private void setResult(boolean isSuc) {
@@ -241,9 +258,10 @@ public class PrePayActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 
 		case R.id.pre_pay_confirm_btn: {
-			mProgressDialog.show();
-			OrderLogic.setPayWay(mContext, mHandler,
-					OrderManager.getsCurrentOrderId(), mCurrentSelectPayWay);
+			mCustomProgressDialog.show();
+			OrderLogic.setPrePayWay(mContext, mHandler,
+					OrderManager.getsCurrentOrderId(), mPrice,
+					mCurrentSelectPayWay);
 			break;
 		}
 
