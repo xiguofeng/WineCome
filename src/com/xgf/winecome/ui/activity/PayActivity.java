@@ -30,18 +30,14 @@ import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.alipay.AlipayApi;
 import com.xgf.winecome.pay.alipay.PayResult;
-import com.xgf.winecome.ui.view.CustomProgressDialog;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 
 public class PayActivity extends Activity implements OnClickListener {
-	
+
 	/**************************************************
-	 *  支付状态 : 1-未支付
-	 *            2-已支付
-	 *            3-申请退款
-	 *            4-已经退款
-	 *            5-预支付
+	 * 支付状态 : 1-未支付 2-已支付 3-申请退款 4-已经退款 5-预支付
 	 *************************************************/
 	public static final String PAY_STATUS_UNPAID = "1";
 	public static final String PAY_STATUS_PAID = "2";
@@ -77,7 +73,7 @@ public class PayActivity extends Activity implements OnClickListener {
 
 	private String mCurrentSelectPayWay;
 
-	private CustomProgressDialog mProgressDialog;
+	private CustomProgressDialog2 mCustomProgressDialog;
 
 	Handler mHandler = new Handler() {
 
@@ -111,8 +107,9 @@ public class PayActivity extends Activity implements OnClickListener {
 			default:
 				break;
 			}
-			if (null != mProgressDialog && mProgressDialog.isShowing()) {
-				mProgressDialog.dismiss();
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
 			}
 		}
 
@@ -131,8 +128,8 @@ public class PayActivity extends Activity implements OnClickListener {
 
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
-					//TODO
-					//payResultCheck
+					// TODO
+					// payResultCheck
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(mContext,
 							OrderStateActivity.class);
@@ -169,8 +166,9 @@ public class PayActivity extends Activity implements OnClickListener {
 				break;
 
 			}
-			if (null != mProgressDialog && mProgressDialog.isShowing()) {
-				mProgressDialog.dismiss();
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
 			}
 		};
 	};
@@ -188,7 +186,7 @@ public class PayActivity extends Activity implements OnClickListener {
 					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
 							this);
 		}
-		mProgressDialog = new CustomProgressDialog(mContext);
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -404,6 +402,9 @@ public class PayActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.pay_confirm_btn: {
 			if (!TextUtils.isEmpty(mCurrentSelectPayWay)) {
+				if (null != mCustomProgressDialog) {
+					mCustomProgressDialog.show();
+				}
 				OrderLogic
 						.setPayWay(mContext, mHandler,
 								OrderManager.getsCurrentOrderId(),

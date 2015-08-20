@@ -23,6 +23,7 @@ import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
 import com.xgf.winecome.ui.utils.ListItemClickHelp;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.UserInfoManager;
 
@@ -40,6 +41,7 @@ public class OrderListActivity extends Activity implements OnClickListener,
 	private ImageView mBackIv;
 
 	private String mPhone;
+	protected CustomProgressDialog2 mCustomProgressDialog;
 
 	Handler mHandler = new Handler() {
 
@@ -81,7 +83,9 @@ public class OrderListActivity extends Activity implements OnClickListener,
 			default:
 				break;
 			}
-
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.dismiss();
+			}
 		}
 
 	};
@@ -91,6 +95,7 @@ public class OrderListActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_list);
 		mContext = OrderListActivity.this;
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
 		initData();
 	}
@@ -114,7 +119,9 @@ public class OrderListActivity extends Activity implements OnClickListener,
 	private void initData() {
 		mPhone = getIntent().getStringExtra("phone");
 		// mPhone = UserInfoManager.getPhone(mContext);
-		Log.e("xxx_123", mPhone);
+		if (null != mCustomProgressDialog) {
+			mCustomProgressDialog.show();
+		}
 		OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "20");
 	}
 
@@ -153,6 +160,9 @@ public class OrderListActivity extends Activity implements OnClickListener,
 		case R.id.list_order_group_del_or_cancel_btn: {
 			if (Integer.parseInt(((ArrayList<Order>) mMsgMap
 					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 4) {
+				if (null != mCustomProgressDialog) {
+					mCustomProgressDialog.show();
+				}
 				OrderLogic.cancelOrder(mContext, mHandler,
 						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
 								.get(position).getId());

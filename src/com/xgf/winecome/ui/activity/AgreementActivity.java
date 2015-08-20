@@ -22,14 +22,12 @@ public class AgreementActivity extends BaseActivity implements OnClickListener {
 		initView();
 	}
 
-	@Override
 	protected void findViewById() {
 		mBackIv = (ImageView) findViewById(R.id.agreement_back_iv);
 		// mContentTv = (CustomTextView)
 		// findViewById(R.id.agreement_content_tv);
 	}
 
-	@Override
 	protected void initView() {
 		mBackIv.setOnClickListener(this);
 		// mContentTv.setText(getString(R.string.agreement_content));

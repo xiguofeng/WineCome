@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,10 +14,13 @@ import android.widget.LinearLayout;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.network.logic.CommentLogic;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 
 public class CommentsActivity extends Activity implements OnClickListener {
+	
+	private Context mContext;
 
 	private LinearLayout mVeryGoodLl;
 
@@ -26,6 +30,8 @@ public class CommentsActivity extends Activity implements OnClickListener {
 
 	private ImageView mBackIv;
 
+	protected CustomProgressDialog2 mCustomProgressDialog;
+	
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -60,7 +66,9 @@ public class CommentsActivity extends Activity implements OnClickListener {
 			default:
 				break;
 			}
-
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.show();
+			}
 		}
 
 	};
@@ -69,6 +77,7 @@ public class CommentsActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.comments);
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -102,6 +111,9 @@ public class CommentsActivity extends Activity implements OnClickListener {
 		}
 		case R.id.comments_very_good_ll: {
 			if (!TextUtils.isEmpty(OrderManager.getsCurrentCommentOrderId())) {
+				if (null != mCustomProgressDialog) {
+					mCustomProgressDialog.show();
+				}
 				CommentLogic.addComment(CommentsActivity.this, mHandler,
 						OrderManager.getsCurrentCommentOrderId(),
 						getString(R.string.comments_very_good));

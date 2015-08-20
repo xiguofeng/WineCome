@@ -31,10 +31,10 @@ import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.network.logic.GoodsLogic;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
 import com.xgf.winecome.ui.adapter.GoodsAdapter;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.CartManager;
-import com.xgf.winecome.utils.Watcher;
 
-public class MainActivity extends Activity implements OnClickListener, Watcher {
+public class MainActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
 	private LinearLayout mMainLl;
@@ -54,6 +54,8 @@ public class MainActivity extends Activity implements OnClickListener, Watcher {
 	private HashMap<String, Object> mAllMsgMap = new HashMap<String, Object>();
 	private HashMap<String, Object> mSearchMsgMap = new HashMap<String, Object>();
 	private HashMap<String, Object> mShowMsgMap = new HashMap<String, Object>();
+
+	protected CustomProgressDialog2 mCustomProgressDialog;
 
 	Handler mHandler = new Handler() {
 
@@ -108,6 +110,9 @@ public class MainActivity extends Activity implements OnClickListener, Watcher {
 			default:
 				break;
 			}
+			if(null!=mCustomProgressDialog){
+				mCustomProgressDialog.dismiss();
+			}
 		}
 
 	};
@@ -116,12 +121,13 @@ public class MainActivity extends Activity implements OnClickListener, Watcher {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		mContext = MainActivity.this;
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
 		initData();
 	}
 
 	private void initView() {
-		mContext = MainActivity.this;
 		mLeftLv = (ListView) findViewById(R.id.main_left_lv);
 		mRightLv = (ListView) findViewById(R.id.main_right_lv);
 
@@ -266,6 +272,9 @@ public class MainActivity extends Activity implements OnClickListener, Watcher {
 		// GoodsLogic.getCategroyList(mContext, mHandler, "");
 		// GoodsLogic.getAllGoods(mContext, mHandler);
 
+		if(null!=mCustomProgressDialog){
+			mCustomProgressDialog.show();
+		}
 		GoodsLogic.getCategroyAndGoodsList(mContext, mHandler);
 
 	}
@@ -409,10 +418,4 @@ public class MainActivity extends Activity implements OnClickListener, Watcher {
 	public static void update() {
 		refreshGoods();
 	}
-
-	@Override
-	public void update(String str) {
-
-	}
-
 }

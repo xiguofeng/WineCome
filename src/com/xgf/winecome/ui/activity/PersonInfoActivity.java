@@ -27,6 +27,7 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.network.logic.UserLogic;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.LocationUtilsV5;
@@ -98,6 +99,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	private boolean mIsInvoice = false;
 	private boolean mIsNeedAuth = false;
 
+	protected CustomProgressDialog2 mCustomProgressDialog;
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -151,7 +154,9 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			default:
 				break;
 			}
-
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.show();
+			}
 		}
 
 	};
@@ -224,6 +229,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_info_form);
 		mContext = PersonInfoActivity.this;
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -397,7 +403,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 	private void submitCreateOrder() {
 		Order order = new Order();
-		
+
 		if ((mIsNeedAuth || TextUtils.isEmpty(mPhone))
 				&& TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
 			Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
@@ -417,7 +423,6 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-
 
 		order.setPhone(mPhone);
 
@@ -468,6 +473,9 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 
 		order.setPayWay("");
 
+		if (null != mCustomProgressDialog) {
+			mCustomProgressDialog.show();
+		}
 		// TODO
 		if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
 			OrderLogic.createOrder(mContext, mHandler, order,

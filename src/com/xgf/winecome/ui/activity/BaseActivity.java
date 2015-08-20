@@ -1,5 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ public abstract class BaseActivity extends Activity {
 	public static final String TAG = BaseActivity.class.getSimpleName();
 
 	protected Handler mHandler = null;
+
+	protected CustomProgressDialog2 mCustomProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +59,26 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	/**
-	 * 绑定控件id
+	 *显示等待框
 	 */
-	protected abstract void findViewById();
+	protected void showDialog() {
+		if (null != mCustomProgressDialog) {
+			mCustomProgressDialog.show();
+		} else {
+			mCustomProgressDialog = new CustomProgressDialog2(
+					getApplicationContext());
+			mCustomProgressDialog.show();
+		}
+	}
 
 	/**
-	 * 初始化控件
+	 * 取消等待框
 	 */
-	protected abstract void initView();
+	protected void dismissDialog() {
+		if (null != mCustomProgressDialog) {
+			mCustomProgressDialog.dismiss();
+		}
+	}
 
 	/**
 	 * 通过类名启动Activity

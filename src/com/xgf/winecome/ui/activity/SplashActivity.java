@@ -9,7 +9,7 @@ public class SplashActivity extends BaseActivity {
 
 	public static final String TAG = SplashActivity.class.getSimpleName();
 
-	private final int SPLISH_DISPLAY_LENGTH = 1000; // 延迟2秒启动登陆界面
+	private final int SPLISH_DISPLAY_LENGTH = 2000; // 延迟2秒启动登陆界面
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +19,9 @@ public class SplashActivity extends BaseActivity {
 
 	}
 
-	@Override
 	protected void findViewById() {
 	}
 
-	@Override
 	protected void initView() {
 		// 启动三秒后进度到登陆界面
 		new Handler().postDelayed(new Runnable() {
