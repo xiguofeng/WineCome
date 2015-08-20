@@ -19,7 +19,7 @@ import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 
 public class CommentsActivity extends Activity implements OnClickListener {
-	
+
 	private Context mContext;
 
 	private LinearLayout mVeryGoodLl;
@@ -31,7 +31,7 @@ public class CommentsActivity extends Activity implements OnClickListener {
 	private ImageView mBackIv;
 
 	protected CustomProgressDialog2 mCustomProgressDialog;
-	
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -77,6 +77,7 @@ public class CommentsActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.comments);
+		mContext = CommentsActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		setUpViews();
 		setUpListener();

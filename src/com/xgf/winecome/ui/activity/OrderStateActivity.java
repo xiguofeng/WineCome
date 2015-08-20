@@ -22,6 +22,7 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 import com.xgf.winecome.ui.view.CircleTimerView;
 import com.xgf.winecome.ui.view.CircleTimerView.CircleTimerListener;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.TimeUtils;
@@ -72,7 +73,9 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 	private String mDeliveryTime;
 
 	private int mTiming = 0;
-
+	
+	protected CustomProgressDialog2 mCustomProgressDialog;
+	
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -99,7 +102,9 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 			default:
 				break;
 			}
-
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.show();
+			}
 		}
 
 	};
@@ -130,7 +135,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_state);
 		mContext = OrderStateActivity.this;
-
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		if (!ActivitiyInfoManager.activitityMap
 				.containsKey(ActivitiyInfoManager
 						.getCurrentActivityName(mContext))) {
@@ -302,6 +307,9 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 
 		case R.id.order_state_cancel_btn: {
 			if (mStateCode < 4) {
+				if (null != mCustomProgressDialog) {
+					mCustomProgressDialog.show();
+				}
 				OrderLogic.cancelOrder(mContext, mHandler,
 						OrderManager.getsCurrentOrderId());
 			} else {
