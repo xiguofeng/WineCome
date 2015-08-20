@@ -1,8 +1,13 @@
 package com.xgf.winecome.utils;
 
+import java.util.HashSet;
+
+import org.w3c.dom.Text;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.xgf.winecome.entity.User;
 
@@ -342,4 +347,50 @@ public class UserInfoManager {
 
 	}
 
+	public static void saveAddress(Context context, String address) {
+		String tempString = "";
+		String string = getAddressHistory(context);
+		if (!TextUtils.isEmpty(string)) {
+			String[] strings = string.substring(0, string.length()).split(";");
+			for (String s : strings) {
+				if (!address.equals(s)) {
+					if (!TextUtils.isEmpty(tempString)) {
+						tempString = tempString + ";" + s;
+					} else {
+						tempString = s;
+					}
+				}
+			}
+		}
+		SharedPreferences.Editor userInfo = context.getSharedPreferences(
+				USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE).edit();
+		if (!TextUtils.isEmpty(tempString)) {
+			userInfo.putString(USER_ADDRESS_KEY, address + ";" + tempString);
+		} else {
+			userInfo.putString(USER_ADDRESS_KEY, address);
+		}
+		userInfo.commit();
+	}
+
+	public static String getAddressHistory(Context context) {
+		String result = "";
+		SharedPreferences userInfo = context.getSharedPreferences(
+				USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE);
+		result = userInfo.getString(USER_ADDRESS_KEY, "");
+
+		return result;
+	}
+
+	public static boolean isHasAddress(Context context, String address) {
+		boolean isHas = false;
+		String string = getAddressHistory(context);
+		String[] strings = string.substring(0, string.length() - 1).split(";");
+		for (String s : strings) {
+			if (address.equals(s)) {
+				isHas = true;
+				break;
+			}
+		}
+		return isHas;
+	}
 }

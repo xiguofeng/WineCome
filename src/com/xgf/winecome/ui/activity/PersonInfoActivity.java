@@ -1,5 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +14,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -27,6 +31,8 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.network.logic.UserLogic;
+import com.xgf.winecome.ui.adapter.SimpleAdapter;
+import com.xgf.winecome.ui.view.CustomListView;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.CartManager;
@@ -36,8 +42,7 @@ import com.xgf.winecome.utils.OrderManager;
 import com.xgf.winecome.utils.TimeUtils;
 import com.xgf.winecome.utils.UserInfoManager;
 
-public class PersonInfoActivity extends Activity implements OnClickListener,
-		TextWatcher {
+public class PersonInfoActivity extends Activity implements OnClickListener {
 	public static final String ORIGIN_FROM_DETAIL_ACTION = "gooddetail";
 
 	public static final String ORIGIN_FROM_MAIN_ACTION = "main";
@@ -47,6 +52,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 	public static final int TIME_UPDATE = 1;
 
 	private Context mContext;
+
+	private CustomListView mAddressLv;
+	private ArrayList<String> mAddressList = new ArrayList<String>();
+	private SimpleAdapter mAddressAdapter;
+	private LinearLayout mAddressLl;
 
 	private LinearLayout mAuthCodeLl;
 	private LinearLayout mSubmitLl;
@@ -245,6 +255,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mInvoiceInfoLl = (LinearLayout) findViewById(R.id.per_info_invoice_info_ll);
 		mDateInfoLl = (LinearLayout) findViewById(R.id.per_info_date_info_ll);
 		mReplaceLl = (LinearLayout) findViewById(R.id.per_info_replace_phone_ll);
+		mAddressLl = (LinearLayout) findViewById(R.id.per_info_address_lv_ll);
 
 		mAreaRl = (RelativeLayout) findViewById(R.id.per_info_area_rl);
 		mTimeRl = (RelativeLayout) findViewById(R.id.per_info_time_rl);
@@ -273,6 +284,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mInvoiceCb = (CheckBox) findViewById(R.id.per_info_invoice_cb);
 		mInTimeCb = (CheckBox) findViewById(R.id.per_info_intime_cb);
 		mBackIv = (ImageView) findViewById(R.id.per_info_back_iv);
+
+		mAddressLv = (CustomListView) findViewById(R.id.per_info_address_lv);
 	}
 
 	private void setUpListener() {
@@ -291,6 +304,62 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		mTimeTagTv.setOnClickListener(this);
 		mAgreementTv.setOnClickListener(this);
 		mReplaceLl.setOnClickListener(this);
+
+		mAddressEt
+				.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+					@Override
+					public void onFocusChange(View v, boolean hasFocus) {
+						if (hasFocus) {
+							if (!TextUtils.isEmpty(UserInfoManager
+									.getAddressHistory(mContext))) {
+								mAddressLl.setVisibility(View.VISIBLE);
+								mAddressLv.setVisibility(View.VISIBLE);
+								mAddressAdapter.notifyDataSetChanged();
+							} else {
+								mAddressLl.setVisibility(View.GONE);
+								mAddressLv.setVisibility(View.GONE);
+							}
+							// 此处为得到焦点时的处理内容
+
+						} else {
+							mAddressLl.setVisibility(View.GONE);
+							mAddressLv.setVisibility(View.GONE);
+							// 此处为失去焦点时的处理内容
+						}
+					}
+				});
+		mAddressEt.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (!TextUtils.isEmpty(s.toString())) {
+					mAddressLl.setVisibility(View.GONE);
+					mAddressLv.setVisibility(View.GONE);
+				} else {
+					if (!TextUtils.isEmpty(UserInfoManager
+							.getAddressHistory(mContext))) {
+						mAddressLl.setVisibility(View.VISIBLE);
+						mAddressLv.setVisibility(View.VISIBLE);
+						mAddressAdapter.notifyDataSetChanged();
+					} else {
+						mAddressLl.setVisibility(View.GONE);
+						mAddressLv.setVisibility(View.GONE);
+					}
+				}
+			}
+		});
 
 		// mPhoneEt.addTextChangedListener(this);
 		// mVerCodeEt.addTextChangedListener(this);
@@ -333,6 +402,33 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 		});
 
 		mBackIv.setOnClickListener(this);
+
+		mAddressAdapter = new com.xgf.winecome.ui.adapter.SimpleAdapter(
+				mContext, mAddressList);
+
+		String string = UserInfoManager.getAddressHistory(mContext);
+		if (!TextUtils.isEmpty(string)) {
+			String[] strings = string.substring(0, string.length() - 1).split(
+					";");
+			int size = 5;
+			if (strings.length < 5) {
+				size = strings.length;
+			}
+			for (int i = 0; i < size; i++) {
+				mAddressList.add(strings[i]);
+			}
+		}
+		mAddressLv.setAdapter(mAddressAdapter);
+		mAddressLv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mAddressEt.setText(mAddressList.get(position));
+				mAddressLl.setVisibility(View.GONE);
+				mAddressLv.setVisibility(View.GONE);
+			}
+		});
 	}
 
 	private void setUpData() {
@@ -433,8 +529,9 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			return;
 		}
 		order.setAddress(mAddressEt.getText().toString().trim());
-		UserInfoManager.setAddress(mContext, mAddressEt.getText().toString()
+		UserInfoManager.saveAddress(mContext, mAddressEt.getText().toString()
 				.trim());
+		Log.e("saveAddress_0", mAddressEt.getText().toString());
 		order.setLatitude(mLat);
 		order.setLongitude(mLon);
 
@@ -510,21 +607,6 @@ public class PersonInfoActivity extends Activity implements OnClickListener,
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
-	}
-
-	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
-	}
-
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-	}
-
-	@Override
-	public void afterTextChanged(Editable s) {
-		updateShow();
 	}
 
 	@Override

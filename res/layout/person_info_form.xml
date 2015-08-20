@@ -63,8 +63,8 @@
                         android:singleLine="true"
                         android:textColor="@color/black_character"
                         android:textSize="@dimen/medium_text_size" />
-                    
-                      <TextView
+
+                    <TextView
                         android:id="@+id/per_info_phone_tv"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -75,9 +75,9 @@
                         android:paddingRight="50dip"
                         android:paddingTop="6dip"
                         android:singleLine="true"
-                        android:visibility="gone"
                         android:textColor="@color/black_character"
-                        android:textSize="@dimen/medium_text_size" />
+                        android:textSize="@dimen/medium_text_size"
+                        android:visibility="gone" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -319,6 +319,40 @@
                     android:textColor="@color/black_character"
                     android:textSize="@dimen/medium_text_size" />
             </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/per_info_address_lv_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corners_bg_gray"
+                android:orientation="vertical"
+                android:paddingBottom="10dip"
+                android:visibility="visible" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="8dip"
+                    android:paddingLeft="10.0dip"
+                    android:paddingRight="10dip"
+                    android:text="@string/dev_address_history"
+                    android:textColor="@color/gray_text_title"
+                    android:textSize="@dimen/small_text_size" />
+
+                <com.xgf.winecome.ui.view.CustomListView
+                    android:id="@+id/per_info_address_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:divider="@color/gray_divide_line"
+                    android:dividerHeight="1dip"
+                    android:fastScrollEnabled="false"
+                    android:scrollbars="none" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/per_info_intime_rl"
