@@ -79,6 +79,10 @@ public class MsgService extends Service {
 			int what = msg.what;
 			switch (what) {
 			case MsgLogic.MSG_GET_SUC: {
+				// NotifyInfo notifyInfo = new NotifyInfo();
+				// notifyInfo.setTitle("title");
+				// notifyInfo.setContent("content");
+				// showIntentActivityNotify(notifyInfo);
 				if (null != msg.obj) {
 				}
 				break;
@@ -105,7 +109,7 @@ public class MsgService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		mContext = this;
-		// initNotify();
+		initNotify();
 		String version = getVersion();
 	}
 
@@ -151,8 +155,8 @@ public class MsgService extends Service {
 		mBuilder.setAutoCancel(true)
 				// 点击后让通知将消失
 				.setContentTitle(notifyInfo.getTitle())
-				.setContentText("：订单ID：" + notifyInfo.getContent())
-				.setTicker("点我").setSmallIcon(R.drawable.ic_launcher)
+				.setContentText("消息内容：" + notifyInfo.getContent())
+				.setTicker("酒来了").setSmallIcon(R.drawable.logo_app)
 				.setDefaults(Notification.DEFAULT_VIBRATE);
 		// 点击的意图ACTION是跳转到Intent
 		Intent resultIntent = new Intent(this, HomeActivity.class);
