@@ -103,11 +103,12 @@ public class CategoryAdapter extends BaseAdapter {
 		}
 		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 				R.color.gray_category_normal_bg));
-
+		holder.mName.setTextColor(mContext.getResources().getColor(R.color.white));
 		if (mCurrentSelect.equals(mDatas.get(position).getPpid())) {
 			// holder.mSelectIv.setVisibility(View.VISIBLE);
 			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 					R.color.gray_category_select_bg));
+			holder.mName.setTextColor(mContext.getResources().getColor(R.color.black_character));
 		}
 		holder.mName.setText(mDatas.get(position).getPpmc());
 		return convertView;
