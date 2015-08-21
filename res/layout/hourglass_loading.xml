@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center" >
+
+    <ImageView
+        android:id="@+id/iv_progress_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/time_top"
+        android:scaleType="centerInside"
+        android:src="@drawable/clip_hourglass_top_loading" />
+
+    <ImageView
+        android:id="@+id/iv_progress_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_progress_top"
+        android:layout_gravity="center"
+        android:background="@drawable/time_bottom"
+        android:scaleType="centerInside"
+        android:src="@drawable/clip_hourglass_bottom_loading" />
+
+    <ImageView
+        android:id="@+id/iv_progress_line_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_progress_top"
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
+        android:src="@drawable/bottom_line_red" />
+
+</RelativeLayout>

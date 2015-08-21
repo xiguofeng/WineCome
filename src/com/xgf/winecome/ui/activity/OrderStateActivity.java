@@ -169,8 +169,9 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 
 		mWaitViewRl = (RelativeLayout) findViewById(R.id.order_state_wait_rl);
 
-		mTimerView = (CircleTimerView) findViewById(R.id.custom_timer_dialog_loading);
-		mTimerView.setCircleTimerListener(this);
+		// mTimerView = (CircleTimerView)
+		// findViewById(R.id.custom_timer_dialog_loading);
+		// mTimerView.setCircleTimerListener(this);
 	}
 
 	private void setUpListener() {
