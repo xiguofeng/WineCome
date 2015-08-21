@@ -17,6 +17,8 @@
     <color name="gray_title_bg">#F6F6F6</color>
     <color name="gray_text">#909090</color>
     <color name="gray_bg">#f2f2f2</color>
+    <color name="gray_category_normal_bg">#4b5255</color>
+    <color name="gray_category_select_bg">#d9dcde</color>
     <color name="gray_brief_bg">#f1f1f1</color>
     <color name="gray_text_title">#898989</color>
     <color name="gray_common_bg">#f0f0f0</color>

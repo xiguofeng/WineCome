@@ -64,38 +64,50 @@ public class CategoryAdapter extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.category_item, null);
 
 			holder = new ViewHolder();
-			holder.mName = (TextView) convertView.findViewById(R.id.category_item_name_tv);
-			holder.mBg = (LinearLayout) convertView.findViewById(R.id.category_item_ll);
-			holder.mSelectIv = (ImageView) convertView.findViewById(R.id.category_item_select_iv);
-			holder.mIconIv = (ImageView) convertView.findViewById(R.id.category_item_icon_iv);
+			holder.mName = (TextView) convertView
+					.findViewById(R.id.category_item_name_tv);
+			holder.mBg = (LinearLayout) convertView
+					.findViewById(R.id.category_item_ll);
+			holder.mSelectIv = (ImageView) convertView
+					.findViewById(R.id.category_item_select_iv);
+			holder.mIconIv = (ImageView) convertView
+					.findViewById(R.id.category_item_icon_iv);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.mSelectIv.setVisibility(View.INVISIBLE);
-		holder.mIconIv.setVisibility(View.INVISIBLE);
+		holder.mIconIv.setVisibility(View.GONE);
 		if ("t_0".equals(mDatas.get(position).getPpid())) {
 
+			holder.mSelectIv.setVisibility(View.GONE);
 			holder.mIconIv.setVisibility(View.VISIBLE);
 
-			holder.mIconIv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.white_wine));
+			holder.mIconIv.setImageDrawable(mContext.getResources()
+					.getDrawable(R.drawable.white_wine));
 			// holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 			// R.drawable.white_wine));
 
 		}
 
 		if ("t_1".equals(mDatas.get(position).getPpid())) {
+			holder.mSelectIv.setVisibility(View.GONE);
 			// holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 			// R.color.white));
 			holder.mIconIv.setVisibility(View.VISIBLE);
-			holder.mIconIv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.red_wine));
+			holder.mIconIv.setImageDrawable(mContext.getResources()
+					.getDrawable(R.drawable.red_wine));
 			// holder.mIconIv.setBackground(mContext.getResources().getDrawable(
 			// R.drawable.red_wine));
 		}
+		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
+				R.color.gray_category_normal_bg));
 
 		if (mCurrentSelect.equals(mDatas.get(position).getPpid())) {
-			holder.mSelectIv.setVisibility(View.VISIBLE);
+			// holder.mSelectIv.setVisibility(View.VISIBLE);
+			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
+					R.color.gray_category_select_bg));
 		}
 		holder.mName.setText(mDatas.get(position).getPpmc());
 		return convertView;
