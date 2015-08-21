@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +31,7 @@ import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.alipay.AlipayApi;
 import com.xgf.winecome.pay.alipay.PayResult;
+import com.xgf.winecome.pay.unionpay.UnionpayApi;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
@@ -73,6 +76,8 @@ public class PayActivity extends Activity implements OnClickListener {
 	private String mCurrentSelectPayWay;
 
 	private CustomProgressDialog2 mCustomProgressDialog;
+
+	private UnionpayApi mUnionpayApi;
 
 	Handler mHandler = new Handler() {
 
@@ -190,6 +195,40 @@ public class PayActivity extends Activity implements OnClickListener {
 				break;
 			}
 			case com.xgf.winecome.pay.alipay.Constants.SDK_CHECK_FLAG: {
+				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
+						.show();
+				break;
+			}
+			default:
+				break;
+
+			}
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
+			}
+		};
+	};
+
+	private Handler mUnionpayHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case UnionpayApi.SERIAL_NUMBER_GET_SUC: {
+				if (null != msg.obj) {
+					if (null == mUnionpayApi) {
+						mUnionpayApi = new UnionpayApi(PayActivity.this,
+								mUnionpayHandler);
+					}
+					String tn = (String) msg.obj;
+					mUnionpayApi.pay(PayActivity.this, mUnionpayHandler, tn);
+				}
+			}
+			case UnionpayApi.SERIAL_NUMBER_GET_FAIL: {
+				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
+						.show();
+				break;
+			}
+			case UnionpayApi.SERIAL_NUMBER_GET_EXCEPTION: {
 				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
 						.show();
 				break;
@@ -326,31 +365,60 @@ public class PayActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
-			switch (requestCode) {
-			case 80: {
-				if (data.getBooleanExtra("pay_result", false)) {
-					Toast.makeText(mContext, getString(R.string.pay_suc),
-							Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(mContext,
-							OrderStateActivity.class);
-					intent.putExtra("order_state", "2");
-					intent.putExtra("delivery_time", OrderManager
-							.getsCurrentOrder().getDeliveryTime());
-					startActivity(intent);
-					PayActivity.this.finish();
-					overridePendingTransition(R.anim.push_left_in,
-							R.anim.push_left_out);
-				} else {
-					Toast.makeText(mContext, getString(R.string.pay_fail),
-							Toast.LENGTH_SHORT).show();
-				}
-				break;
-			}
-			default:
-				break;
-			}
+		if (data == null) {
+			return;
 		}
+
+		String msg = "";
+		/*
+		 * 支付控件返回字符串:success、fail、cancel 分别代表支付成功，支付失败，支付取消
+		 */
+		String str = data.getExtras().getString("pay_result");
+		if (str.equalsIgnoreCase("success")) {
+			msg = "支付成功！";
+		} else if (str.equalsIgnoreCase("fail")) {
+			msg = "支付失败！";
+		} else if (str.equalsIgnoreCase("cancel")) {
+			msg = "用户取消了支付";
+		}
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("支付结果通知");
+		builder.setMessage(msg);
+		builder.setInverseBackgroundForced(true);
+		// builder.setCustomTitle();
+		builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		builder.create().show();
+		// if (resultCode == RESULT_OK) {
+		// switch (requestCode) {
+		// case 80: {
+		// if (data.getBooleanExtra("pay_result", false)) {
+		// Toast.makeText(mContext, getString(R.string.pay_suc),
+		// Toast.LENGTH_SHORT).show();
+		// Intent intent = new Intent(mContext,
+		// OrderStateActivity.class);
+		// intent.putExtra("order_state", "2");
+		// intent.putExtra("delivery_time", OrderManager
+		// .getsCurrentOrder().getDeliveryTime());
+		// startActivity(intent);
+		// PayActivity.this.finish();
+		// overridePendingTransition(R.anim.push_left_in,
+		// R.anim.push_left_out);
+		// } else {
+		// Toast.makeText(mContext, getString(R.string.pay_fail),
+		// Toast.LENGTH_SHORT).show();
+		// }
+		// break;
+		// }
+		// default:
+		// break;
+		// }
+		// }
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
@@ -364,8 +432,11 @@ public class PayActivity extends Activity implements OnClickListener {
 			apAlipayApi.pay(PayActivity.this, mAlipayHandler);
 
 		} else if (Constants.PAY_WAY_UNIONPAY.equals(mCurrentPayWay)) {
-			AlipayApi apAlipayApi = new AlipayApi();
-			apAlipayApi.pay(PayActivity.this, mAlipayHandler);
+			if (null == mUnionpayApi) {
+				mUnionpayApi = new UnionpayApi(PayActivity.this,
+						mUnionpayHandler);
+			}
+			mUnionpayApi.getTn(PayActivity.this,mUnionpayHandler);
 
 		} else if (Constants.PAY_WAY_CASHPAY.equals(mCurrentPayWay)) {
 			Intent intent = new Intent(mContext, OrderStateActivity.class);

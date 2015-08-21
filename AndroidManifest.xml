@@ -256,7 +256,11 @@
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
-
+        
+        <!-- unionpay -->
+        <activity android:name="com.unionpay.uppay.PayActivity" >
+        </activity>
+        
         <activity
             android:name="com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity"
             android:clearTaskOnLaunch="true"
