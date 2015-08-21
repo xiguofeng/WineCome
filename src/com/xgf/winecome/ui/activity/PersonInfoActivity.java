@@ -484,7 +484,6 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		}
 
 		getLoc();
-		mAddressEt.setText(UserInfoManager.getAddress(mContext));
 		mNowAction = getIntent().getAction();
 		getGoodsNum();
 	}
