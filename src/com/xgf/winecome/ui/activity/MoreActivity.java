@@ -63,14 +63,6 @@ public class MoreActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.more_integral_search_rl: {
-
-			if (UserInfoManager.getIsMustAuth(getApplicationContext())) {
-				Intent intent = new Intent(MoreActivity.this, IntegralQueryActivity.class);
-				startActivity(intent);
-			} else {
-				Intent intent = new Intent(MoreActivity.this, IntegralQueryResultActivity.class);
-				startActivity(intent);
-			}
 			Intent intent = new Intent(MoreActivity.this, IntegralQueryActivity.class);
 			startActivity(intent);
 			break;

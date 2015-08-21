@@ -307,7 +307,7 @@
     <string name="exchange_address">兑换地址</string>
     <string name="phone">联系电话</string>
     <string name="integral_mall_go_to">逛逛积分商城</string>
-    <string name="integral_query_result">积分查询结构</string>
+    <string name="integral_query_result">积分查询结果</string>
     <string name="total_integral">总积分</string>
 
     <!-- QrCode -->
