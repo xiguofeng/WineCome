@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -25,7 +24,6 @@ import com.xgf.winecome.ui.adapter.OrderWineAdapter;
 import com.xgf.winecome.ui.utils.ListItemClickHelp;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.OrderManager;
-import com.xgf.winecome.utils.UserInfoManager;
 
 public class OrderListActivity extends Activity implements OnClickListener,
 		ListItemClickHelp {

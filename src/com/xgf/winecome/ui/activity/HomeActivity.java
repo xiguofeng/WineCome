@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.utils.CartManager;
+import com.xgf.winecome.utils.TimeUtils;
 
 public class HomeActivity extends TabActivity implements
 		android.view.View.OnClickListener {
@@ -27,6 +30,8 @@ public class HomeActivity extends TabActivity implements
 	public static final String TAB_MAIN = "MAIN";
 	public static final String TAB_CART = "CART";
 	public static final String TAB_MORE = "MORE";
+
+	public static final int TIME_UPDATE = 1;
 
 	private RadioGroup mTabButtonGroup;
 
@@ -50,6 +55,31 @@ public class HomeActivity extends TabActivity implements
 
 	private LinearLayout mBuyLl;
 
+	private TextView mTimingTv;
+
+	private String mDeliveryTime;
+
+	private Handler mTimeHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case TIME_UPDATE: {
+				long deliveryTime = TimeUtils.dateToLong(mDeliveryTime,
+						TimeUtils.FORMAT_PATTERN_DATE);
+				int waitTime = (int) (deliveryTime - (System
+						.currentTimeMillis() / 1000));
+				if (waitTime > 0) {
+					mTimingTv.setText(TimeUtils.secToTime(waitTime));
+					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		};
+
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,6 +102,8 @@ public class HomeActivity extends TabActivity implements
 		mCartBuyLl = (LinearLayout) findViewById(R.id.home_cart_buy_ll);
 		mCartBuyLl.setOnClickListener(this);
 		mCheckAllIb = (CheckBox) findViewById(R.id.home_cart_pay_ib);
+
+		mTimingTv = (TextView) findViewById(R.id.home_timer_tv);
 	}
 
 	private void initView() {

@@ -217,27 +217,28 @@
             android:id="@+id/home_timer_rl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dip"
             android:layout_alignParentRight="true"
-            android:visibility="gone"
+            android:layout_centerVertical="true"
             android:background="@drawable/corners_bg_t_white"
-            android:layout_centerVertical="true" >
+            android:padding="5dip"
+            android:visibility="gone" >
+
+            <com.xgf.winecome.ui.view.CustomHourglassClipLoading
+                android:id="@+id/custom_dialog_loading"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:layout_centerVertical="true" >
+            </com.xgf.winecome.ui.view.CustomHourglassClipLoading>
 
             <TextView
                 android:id="@+id/home_timer_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="倒计时【29:59】"
-                android:textSize="@dimen/micro_text_size"
-                android:textColor="@color/black_character" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
-                android:layout_below="@+id/home_timer_tv"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/time" />
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/custom_dialog_loading"
+                android:text="29:59"
+                android:textColor="@color/black_character"
+                android:textSize="@dimen/micro_text_size" />
         </RelativeLayout>
     </RelativeLayout>
 
