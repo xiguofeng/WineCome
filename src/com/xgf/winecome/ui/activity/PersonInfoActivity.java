@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.network.logic.UserLogic;
@@ -92,6 +93,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 
 	private CheckBox mInvoiceCb;
 	private CheckBox mInTimeCb;
+	private CheckBox mSetTimeCb;
 	private ImageView mBackIv;
 
 	private String mLat = "0";
@@ -108,6 +110,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 	private boolean mIsIntime = true;
 	private boolean mIsInvoice = false;
 	private boolean mIsNeedAuth = false;
+
+	private int mGoodsNum = 0;
 
 	protected CustomProgressDialog2 mCustomProgressDialog;
 
@@ -283,6 +287,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 
 		mInvoiceCb = (CheckBox) findViewById(R.id.per_info_invoice_cb);
 		mInTimeCb = (CheckBox) findViewById(R.id.per_info_intime_cb);
+		mSetTimeCb = (CheckBox) findViewById(R.id.per_info_set_cb);
 		mBackIv = (ImageView) findViewById(R.id.per_info_back_iv);
 
 		mAddressLv = (CustomListView) findViewById(R.id.per_info_address_lv);
@@ -391,11 +396,41 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				if (isChecked) {
-					mDateInfoLl.setVisibility(View.GONE);
-					mIsIntime = true;
+					if (mGoodsNum >= 12) {
+						Toast.makeText(mContext,
+								getString(R.string.no_in_time_hint),
+								Toast.LENGTH_SHORT).show();
+						mInTimeCb.setChecked(false);
+						mSetTimeCb.setChecked(true);
+						mDateInfoLl.setVisibility(View.VISIBLE);
+						mIsIntime = false;
+					} else {
+						mDateInfoLl.setVisibility(View.GONE);
+						mIsIntime = true;
+						mSetTimeCb.setChecked(false);
+					}
 				} else {
+					mSetTimeCb.setChecked(true);
 					mDateInfoLl.setVisibility(View.VISIBLE);
 					mIsIntime = false;
+				}
+
+			}
+		});
+
+		mSetTimeCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if (isChecked) {
+					mInTimeCb.setChecked(false);
+					mDateInfoLl.setVisibility(View.VISIBLE);
+					mIsIntime = false;
+				} else {
+					mInTimeCb.setChecked(true);
+					mDateInfoLl.setVisibility(View.GONE);
+					mIsIntime = true;
 				}
 
 			}
@@ -448,9 +483,38 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			mReplaceLl.setVisibility(View.GONE);
 		}
 
-		mAddressEt.setText(UserInfoManager.getAddress(mContext));
 		getLoc();
+		mAddressEt.setText(UserInfoManager.getAddress(mContext));
 		mNowAction = getIntent().getAction();
+		getGoodsNum();
+	}
+
+	/**
+	 * 获取酒的数量
+	 */
+	private void getGoodsNum() {
+
+		ArrayList<Goods> arrayList = new ArrayList<Goods>();
+
+		if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
+			arrayList.addAll(CartManager.getsDetailBuyList());
+		} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
+			arrayList.addAll(CartManager.getsSelectCartList());
+		} else {
+			arrayList.addAll(CartManager.getsCartList());
+		}
+
+		for (Goods good : arrayList) {
+			mGoodsNum = Integer.parseInt(good.getNum()) + mGoodsNum;
+		}
+		mInTimeCb.setChecked(true);
+		mIsIntime = true;
+		if (mGoodsNum >= 12) {
+			mInTimeCb.setChecked(false);
+			mSetTimeCb.setChecked(true);
+			mDateInfoLl.setVisibility(View.VISIBLE);
+			mIsIntime = false;
+		}
 	}
 
 	private void updateShow() {
