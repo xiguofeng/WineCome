@@ -1,13 +1,8 @@
 package com.xgf.winecome.utils;
 
-import java.util.HashSet;
-
-import org.w3c.dom.Text;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.xgf.winecome.entity.User;
 

@@ -28,7 +28,6 @@ import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.alipay.AlipayApi;
 import com.xgf.winecome.pay.alipay.PayResult;
-import com.xgf.winecome.ui.view.CustomProgressDialog;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
