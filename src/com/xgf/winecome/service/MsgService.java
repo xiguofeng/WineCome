@@ -1,6 +1,7 @@
 package com.xgf.winecome.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +25,7 @@ import android.util.Log;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.NotifyInfo;
+import com.xgf.winecome.entity.NotifyMsg;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.MsgLogic;
 import com.xgf.winecome.ui.activity.HomeActivity;
@@ -55,6 +57,8 @@ public class MsgService extends Service {
 
 	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
 
+	public ArrayList<NotifyMsg> mNotifyMsgList = new ArrayList<NotifyMsg>();
+
 	private Handler mMsgHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -79,11 +83,14 @@ public class MsgService extends Service {
 			int what = msg.what;
 			switch (what) {
 			case MsgLogic.MSG_GET_SUC: {
-				// NotifyInfo notifyInfo = new NotifyInfo();
-				// notifyInfo.setTitle("title");
-				// notifyInfo.setContent("content");
-				// showIntentActivityNotify(notifyInfo);
 				if (null != msg.obj) {
+					ArrayList<NotifyMsg> notifyMsgList = new ArrayList<NotifyMsg>();
+					notifyMsgList
+							.addAll((Collection<? extends NotifyMsg>) msg.obj);
+					for (NotifyMsg notifyMsg : notifyMsgList) {
+						showIntentActivityNotify(notifyMsg);
+					}
+
 				}
 				break;
 			}
@@ -147,19 +154,19 @@ public class MsgService extends Service {
 	}
 
 	/** 显示通知栏点击跳转到指定Activity */
-	private void showIntentActivityNotify(NotifyInfo notifyInfo) {
+	private void showIntentActivityNotify(NotifyMsg notifyMsg) {
 		// Notification.FLAG_ONGOING_EVENT --设置常驻
 		// Flag;Notification.FLAG_AUTO_CANCEL 通知栏上点击此通知后自动清除此通知
 		// notification.flags = Notification.FLAG_AUTO_CANCEL;
 		// //在通知栏上点击此通知后自动清除此通知
 		mBuilder.setAutoCancel(true)
 				// 点击后让通知将消失
-				.setContentTitle(notifyInfo.getTitle())
-				.setContentText("消息内容：" + notifyInfo.getContent())
+				.setContentTitle(notifyMsg.getMsgTime())
+				.setContentText("消息内容：" + notifyMsg.getContent())
 				.setTicker("酒来了").setSmallIcon(R.drawable.logo_app)
 				.setDefaults(Notification.DEFAULT_VIBRATE);
 		// 点击的意图ACTION是跳转到Intent
-		Intent resultIntent = new Intent(this, HomeActivity.class);
+		Intent resultIntent = new Intent();
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);

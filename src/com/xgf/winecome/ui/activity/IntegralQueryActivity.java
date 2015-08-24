@@ -1,16 +1,11 @@
 package com.xgf.winecome.ui.activity;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.network.logic.UserLogic;
-import com.xgf.winecome.utils.UserInfoManager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.network.logic.UserLogic;
+import com.xgf.winecome.utils.UserInfoManager;
 
 public class IntegralQueryActivity extends Activity implements OnClickListener {
 	public static final int TIME_UPDATE = 1;

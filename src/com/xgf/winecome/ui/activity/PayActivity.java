@@ -32,7 +32,6 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.alipay.AlipayApi;
 import com.xgf.winecome.pay.alipay.PayResult;
 import com.xgf.winecome.pay.unionpay.UnionpayApi;
-import com.xgf.winecome.pay.wxpay.WXPayActivity;
 import com.xgf.winecome.pay.wxpay.WechatpayApi;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
@@ -253,7 +252,7 @@ public class PayActivity extends Activity implements OnClickListener {
 			switch (msg.what) {
 			case WechatpayApi.PREPAY_ID_GET_SUC: {
 				if (null != msg.obj) {
-					// Toast.makeText(mContext, "生成预支付订单成功" + msg.obj,
+					// Toast.makeText(mContext, "生成预支付订单成功" + NotifyMsg.obj,
 					// Toast.LENGTH_SHORT).show();
 					Map<String, String> result = (Map<String, String>) msg.obj;
 					if (null == mWechatpayApi) {

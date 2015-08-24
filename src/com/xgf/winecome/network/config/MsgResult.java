@@ -21,7 +21,7 @@ public class MsgResult {
 	public static final String RESULT_FAIL = "-1";
 
 	/**
-	 * msg
+	 * NotifyMsg
 	 */
 	public static final String RESULT_MSG_TAG = "message";
 

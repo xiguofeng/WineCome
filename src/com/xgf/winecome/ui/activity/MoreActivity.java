@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.utils.UserInfoManager;
 
 public class MoreActivity extends Activity implements OnClickListener {
 
