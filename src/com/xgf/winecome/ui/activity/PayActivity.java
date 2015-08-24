@@ -32,6 +32,8 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.alipay.AlipayApi;
 import com.xgf.winecome.pay.alipay.PayResult;
 import com.xgf.winecome.pay.unionpay.UnionpayApi;
+import com.xgf.winecome.pay.wxpay.WXPayActivity;
+import com.xgf.winecome.pay.wxpay.WechatpayApi;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
@@ -78,6 +80,8 @@ public class PayActivity extends Activity implements OnClickListener {
 	private CustomProgressDialog2 mCustomProgressDialog;
 
 	private UnionpayApi mUnionpayApi;
+
+	private WechatpayApi mWechatpayApi;
 
 	Handler mHandler = new Handler() {
 
@@ -233,6 +237,43 @@ public class PayActivity extends Activity implements OnClickListener {
 						.show();
 				break;
 			}
+			default:
+				break;
+
+			}
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
+			}
+		};
+	};
+
+	private Handler mWechatpayHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case WechatpayApi.PREPAY_ID_GET_SUC: {
+				if (null != msg.obj) {
+					// Toast.makeText(mContext, "生成预支付订单成功" + msg.obj,
+					// Toast.LENGTH_SHORT).show();
+					Map<String, String> result = (Map<String, String>) msg.obj;
+					if (null == mWechatpayApi) {
+						mWechatpayApi = new WechatpayApi();
+					}
+					mWechatpayApi.genPayReq(PayActivity.this,
+							mWechatpayHandler, result);
+				}
+			}
+			case WechatpayApi.PREPAY_ID_GET_FAIL: {
+				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
+						.show();
+				break;
+			}
+			case WechatpayApi.PREPAY_ID_GET_EXCEPTION: {
+				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
+						.show();
+				break;
+			}
+
 			default:
 				break;
 
@@ -428,15 +469,23 @@ public class PayActivity extends Activity implements OnClickListener {
 			apAlipayApi.pay(PayActivity.this, mAlipayHandler);
 
 		} else if (Constants.PAY_WAY_WXPAY.equals(mCurrentPayWay)) {
-			AlipayApi apAlipayApi = new AlipayApi();
-			apAlipayApi.pay(PayActivity.this, mAlipayHandler);
+			// WechatpayApi wxpayApi = new WechatpayApi();
+			if (null == mWechatpayApi) {
+				mWechatpayApi = new WechatpayApi();
+			}
+			mWechatpayApi.getPrepayId(PayActivity.this, mWechatpayHandler);
+			// Intent intent = new Intent(mContext, WXPayActivity.class);
+			// startActivity(intent);
+			// PayActivity.this.finish();
+			// overridePendingTransition(R.anim.push_left_in,
+			// R.anim.push_left_out);
 
 		} else if (Constants.PAY_WAY_UNIONPAY.equals(mCurrentPayWay)) {
 			if (null == mUnionpayApi) {
 				mUnionpayApi = new UnionpayApi(PayActivity.this,
 						mUnionpayHandler);
 			}
-			mUnionpayApi.getTn(PayActivity.this,mUnionpayHandler);
+			mUnionpayApi.getTn(PayActivity.this, mUnionpayHandler);
 
 		} else if (Constants.PAY_WAY_CASHPAY.equals(mCurrentPayWay)) {
 			Intent intent = new Intent(mContext, OrderStateActivity.class);

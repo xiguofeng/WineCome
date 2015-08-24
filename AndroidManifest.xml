@@ -234,6 +234,8 @@
 
         <!-- alipay sdk end -->
 
+
+        <!-- wechatpay sdk begin -->
         <activity
             android:name="com.xgf.winecome.pay.wxpay.WXPayActivity"
             android:exported="true"
@@ -247,7 +249,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xgf.winecome.pay.wxpay.wxapi.WXPayEntryActivity"
+            android:name="com.xgf.winecome.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
 
@@ -256,11 +258,14 @@
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
-        
+        <!-- wechatpay sdk begin -->
+
+
         <!-- unionpay -->
         <activity android:name="com.unionpay.uppay.PayActivity" >
         </activity>
-        
+        <!-- unionpay sdk end -->
+
         <activity
             android:name="com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity"
             android:clearTaskOnLaunch="true"
