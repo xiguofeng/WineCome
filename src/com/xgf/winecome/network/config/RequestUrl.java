@@ -52,6 +52,11 @@ public class RequestUrl {
 		 * 查询商品（关键字）
 		 */
 		public String queryGoodsByKey = "/goods/queryGoodsByKeyword";
+		
+		/**
+		 * 查询促销酒
+		 */
+		public String queryPromProduct = "queryPromProduct";
 
 	}
 

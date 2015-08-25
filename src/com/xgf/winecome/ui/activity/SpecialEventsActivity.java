@@ -1,6 +1,13 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.network.logic.SpecialEventLogic;
+import com.xgf.winecome.ui.adapter.SpecialEventsGvAdapter;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,23 +18,15 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.network.logic.IntegralGoodsLogic;
-import com.xgf.winecome.network.logic.SpecialEventLogic;
-import com.xgf.winecome.ui.adapter.SpecialEventsGvAdapter;
-import com.xgf.winecome.ui.view.CustomProgressDialog;
-import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import android.widget.ImageView;
 
 public class SpecialEventsActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
 
-	private GridView mIntegralGoodsGv;
+	private GridView mGoodsGv;
 
 	private ImageView mBackIv;
 
@@ -45,7 +44,9 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 			switch (what) {
 			case SpecialEventLogic.GOODS_LIST_GET_SUC: {
 				if (null != msg.obj) {
-
+					mGoodsList.clear();
+					mGoodsList.addAll((Collection<? extends Goods>) msg.obj);
+					mGvAdapter.notifyDataSetChanged();
 				}
 				break;
 			}
@@ -79,21 +80,23 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 
 	private void setUpViews() {
 		mBackIv = (ImageView) findViewById(R.id.special_events_back_iv);
-		mIntegralGoodsGv = (GridView) findViewById(R.id.special_events_gv);
+		mGoodsGv = (GridView) findViewById(R.id.special_events_gv);
 
-		mGvAdapter = new SpecialEventsGvAdapter(SpecialEventsActivity.this,
-				mGoodsList);
-		mIntegralGoodsGv.setAdapter(mGvAdapter);
+		mGvAdapter = new SpecialEventsGvAdapter(SpecialEventsActivity.this, mGoodsList);
+		mGoodsGv.setAdapter(mGvAdapter);
 	}
 
 	private void setUpListener() {
 		mBackIv.setOnClickListener(this);
-		mIntegralGoodsGv.setOnItemClickListener(new OnItemClickListener() {
+		mGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(SpecialEventsActivity.this, GoodsDetailActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY, mGoodsList.get(position));
+				intent.putExtras(bundle);
+				startActivity(intent);
 			}
 		});
 	}
@@ -103,19 +106,17 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 		if (null != mCustomProgressDialog) {
 			mCustomProgressDialog.show();
 		}
-		// SpecialEventLogic.getGoodsBySalesPromotion(mContext, mHandler,
-		// "ppid",
-		// "name", "pageNum", "pageSize");
-		SpecialEventLogic.getGoods(mContext, mHandler);
+		SpecialEventLogic.getGoodsBySalesPromotion(mContext, mHandler, "0", "20");
+		// SpecialEventLogic.getGoods(mContext, mHandler);
 
-		mGoodsList.clear();
-		for (int i = 0; i < 10; i++) {
-			Goods goods = new Goods();
-			goods.setName("酒" + i);
-			goods.setSalesPrice("￥109");
-			mGoodsList.add(goods);
-		}
-		mGvAdapter.notifyDataSetChanged();
+		// mGoodsList.clear();
+		// for (int i = 0; i < 10; i++) {
+		// Goods goods = new Goods();
+		// goods.setName("酒" + i);
+		// goods.setSalesPrice("￥109");
+		// mGoodsList.add(goods);
+		// }
+		// mGvAdapter.notifyDataSetChanged();
 	}
 
 	@Override

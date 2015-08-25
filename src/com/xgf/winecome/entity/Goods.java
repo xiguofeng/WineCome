@@ -33,14 +33,12 @@ public class Goods implements Serializable {
 	private String model;
 
 	private String num;
-
-	public String getNum() {
-		return num;
-	}
-
-	public void setNum(String num) {
-		this.num = num;
-	}
+	
+	private String promotionPrice;
+	
+	private String metrial;
+	
+	private String importType;
 
 	public String getId() {
 		return id;
@@ -121,5 +119,39 @@ public class Goods implements Serializable {
 	public void setModel(String model) {
 		this.model = model;
 	}
+
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
+	public String getPromotionPrice() {
+		return promotionPrice;
+	}
+
+	public void setPromotionPrice(String promotionPrice) {
+		this.promotionPrice = promotionPrice;
+	}
+
+	public String getMetrial() {
+		return metrial;
+	}
+
+	public void setMetrial(String metrial) {
+		this.metrial = metrial;
+	}
+
+	public String getImportType() {
+		return importType;
+	}
+
+	public void setImportType(String importType) {
+		this.importType = importType;
+	}
+
+	
 
 }

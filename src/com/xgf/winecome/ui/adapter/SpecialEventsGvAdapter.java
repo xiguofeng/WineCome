@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 
@@ -22,8 +23,7 @@ public class SpecialEventsGvAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 
-	public SpecialEventsGvAdapter(Context context,
-			ArrayList<Goods> datas) {
+	public SpecialEventsGvAdapter(Context context, ArrayList<Goods> datas) {
 		this.mContext = context;
 		this.mDatas = datas;
 		mInflater = LayoutInflater.from(mContext);
@@ -51,24 +51,23 @@ public class SpecialEventsGvAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.special_events_gv_item,
-					null);
+			convertView = mInflater.inflate(R.layout.special_events_gv_item, null);
 
 			holder = new ViewHolder();
-			holder.mGoodsIconIv = (ImageView) convertView
-					.findViewById(R.id.special_events_gv_item_icon_iv);
-			holder.mGoodsNameTv = (TextView) convertView
-					.findViewById(R.id.special_events_gv_item_name_tv);
-			holder.mGoodsScoreTv = (TextView) convertView
-					.findViewById(R.id.special_events_gv_item_score_tv);
+			holder.mGoodsIconIv = (ImageView) convertView.findViewById(R.id.special_events_gv_item_icon_iv);
+			holder.mGoodsNameTv = (TextView) convertView.findViewById(R.id.special_events_gv_item_name_tv);
+			holder.mGoodsMarketPriceTv = (TextView) convertView.findViewById(R.id.special_events_gv_goods_original_prices_tv);
+			holder.mGoodsSalePriceTv = (TextView) convertView.findViewById(R.id.special_events_gv_goods_price_tv);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
+		ImageLoader.getInstance().displayImage(mDatas.get(position).getIconUrl(), holder.mGoodsIconIv);
 		holder.mGoodsNameTv.setText(mDatas.get(position).getName());
-		holder.mGoodsScoreTv.setText(mDatas.get(position).getSalesPrice());
+		holder.mGoodsMarketPriceTv.setText("原价：￥"+mDatas.get(position).getMarketPrice());
+		holder.mGoodsSalePriceTv.setText("促销价：￥"+mDatas.get(position).getSalesPrice());
 		return convertView;
 	}
 
@@ -78,7 +77,9 @@ public class SpecialEventsGvAdapter extends BaseAdapter {
 
 		public TextView mGoodsNameTv;
 
-		public TextView mGoodsScoreTv;
+		public TextView mGoodsMarketPriceTv;
+
+		public TextView mGoodsSalePriceTv;
 
 		private LinearLayout mExchangeLl;
 

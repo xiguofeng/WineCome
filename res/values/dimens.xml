@@ -1,6 +1,7 @@
 <resources>
     
      <!-- 字体大小 -->
+    <dimen name="micro_small_text_size">10sp</dimen>
     <dimen name="micro_text_size">12sp</dimen>
     <dimen name="small_text_size">14sp</dimen>
     <dimen name="middle_text_size">16sp</dimen>
