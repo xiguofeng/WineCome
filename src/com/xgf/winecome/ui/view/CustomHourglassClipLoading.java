@@ -73,7 +73,7 @@ public class CustomHourglassClipLoading extends FrameLayout {
 				if (mProgress > MAX_PROGRESS) {
 					mProgress = 0;
 				}
-				mProgress += 10;
+				mProgress += 1;
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
