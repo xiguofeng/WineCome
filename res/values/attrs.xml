@@ -98,5 +98,55 @@
     <declare-styleable name="FoldingMenu">
         <attr name="foldNumber" format="integer" />
     </declare-styleable>
+    
+     <attr name="card" format="reference" />
+    <attr name="backColor" format="reference" />
+
+    <declare-styleable name="ViewFlow">
+        <attr name="sidebuffer" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="CircleFlowIndicator">
+        <attr name="activeColor" format="color" />
+        <attr name="inactiveColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="centered" format="boolean" />
+        <attr name="fadeOut" format="integer" />
+        <attr name="inactiveType">
+            <flag name="stroke" value="0" />
+            <flag name="fill" value="1" />
+        </attr>
+        <attr name="activeType">
+            <flag name="stroke" value="0" />
+            <flag name="fill" value="1" />
+        </attr>
+        <attr name="circleSeparation" format="dimension" />
+        <attr name="activeRadius" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="SpanVariableGridView">
+        <attr name="numColumns" format="integer" />
+        <attr name="itemMargin" format="dimension" />
+    </declare-styleable>
+    
+    
+    <attr name="fromDegrees" format="float|reference" />
+    <attr name="toDegrees" format="float|reference" />
+    <attr name="childSize" format="dimension|reference" />
+
+	<declare-styleable name="ArcLayout">
+        <attr name="fromDegrees"/>
+        <attr name="toDegrees"/>
+        <attr name="childSize"/>
+	</declare-styleable>
+
+    <declare-styleable name="ArcMenu">
+        <attr name="fromDegrees"/>
+        <attr name="toDegrees"/>
+        <attr name="childSize"/>
+    </declare-styleable>
+	
+	<declare-styleable name="RayLayout">
+		<attr name="leftHolderWidth" format="dimension" />
+	</declare-styleable>
+    
 
 </resources>

@@ -57,7 +57,8 @@ public class WechatpayApi {
 	 * @param activity
 	 * @param handler
 	 */
-	public void getPrepayId(final Activity activity, final Handler handler) {
+	public void getPrepayId(final Activity activity, final Handler handler,
+			final String body, final String total_fee) {
 
 		new Thread(new Runnable() {
 
@@ -66,7 +67,7 @@ public class WechatpayApi {
 
 				String url = String
 						.format("https://api.mch.weixin.qq.com/pay/unifiedorder");
-				String entity = genProductArgs();
+				String entity = genProductArgs(body, total_fee);
 
 				Log.e("orion", entity);
 
@@ -151,7 +152,7 @@ public class WechatpayApi {
 		return sb.toString();
 	}
 
-	private String genProductArgs() {
+	private String genProductArgs(String body, String total_fee) {
 		StringBuffer xml = new StringBuffer();
 
 		try {
@@ -161,7 +162,7 @@ public class WechatpayApi {
 			List<NameValuePair> packageParams = new LinkedList<NameValuePair>();
 			packageParams
 					.add(new BasicNameValuePair("appid", Constants.APP_ID));
-			packageParams.add(new BasicNameValuePair("body", "weixin"));
+			packageParams.add(new BasicNameValuePair("body", "jiu"));
 			packageParams
 					.add(new BasicNameValuePair("mch_id", Constants.MCH_ID));
 			packageParams.add(new BasicNameValuePair("nonce_str", nonceStr));
@@ -171,7 +172,7 @@ public class WechatpayApi {
 					genOutTradNo()));
 			packageParams.add(new BasicNameValuePair("spbill_create_ip",
 					"127.0.0.1"));
-			packageParams.add(new BasicNameValuePair("total_fee", "1"));
+			packageParams.add(new BasicNameValuePair("total_fee", total_fee));
 			packageParams.add(new BasicNameValuePair("trade_type", "APP"));
 
 			String sign = genPackageSign(packageParams);

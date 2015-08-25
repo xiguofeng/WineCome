@@ -245,13 +245,14 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:scheme="wxf2f565574a968187" />
+                <data android:scheme="wx0a1bb37673d832fe" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.xgf.winecome.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:theme="@style/dialogTheme" />
 
         <receiver android:name="com.xgf.winecome.pay.wxpay.simcpux.AppRegister" >
             <intent-filter>

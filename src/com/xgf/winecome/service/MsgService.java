@@ -24,11 +24,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.entity.NotifyInfo;
 import com.xgf.winecome.entity.NotifyMsg;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.MsgLogic;
-import com.xgf.winecome.ui.activity.HomeActivity;
 import com.xgf.winecome.utils.UserInfoManager;
 
 public class MsgService extends Service {

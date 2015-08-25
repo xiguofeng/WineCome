@@ -472,7 +472,7 @@ public class PayActivity extends Activity implements OnClickListener {
 			if (null == mWechatpayApi) {
 				mWechatpayApi = new WechatpayApi();
 			}
-			mWechatpayApi.getPrepayId(PayActivity.this, mWechatpayHandler);
+			mWechatpayApi.getPrepayId(PayActivity.this, mWechatpayHandler,"南京壹前零后科技有限公司提供的酒",OrderManager.getsCurrentOrder().getAmount());
 			// Intent intent = new Intent(mContext, WXPayActivity.class);
 			// startActivity(intent);
 			// PayActivity.this.finish();

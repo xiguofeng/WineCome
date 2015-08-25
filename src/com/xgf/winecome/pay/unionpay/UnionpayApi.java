@@ -84,7 +84,17 @@ public class UnionpayApi {
 	/*************************************************
 	 * 步骤2：通过银联工具类启动支付插件
 	 ************************************************/
+
 	public void pay(Activity activity, Handler handler, String tn) {
+		/**
+		 * 参数说明：
+		 *  activity —— 用于启动支付控件的活动对象 
+		 * payCls——支付插件代表的类，填入“PayActivyt.class”即可 
+		 * spId —— 保留使用，这里输入null
+		 * sysProvider —— 保留使用，这里输入null 
+		 * orderInfo —— 订单信息为交易流水号，即TN，为商户后台从银联后台获取。 
+		 * mode ——银联后台环境标识，“00”将在银联正式环境发起交易,“01”将在银联测试环境发起交易
+		 */
 		UPPayAssistEx.startPayByJAR(activity, PayActivity.class, null, null,
 				tn, mMode);
 	}
