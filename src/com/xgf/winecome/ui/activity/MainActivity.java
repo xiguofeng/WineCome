@@ -207,7 +207,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		mViewFlow = (ViewFlow) findViewById(R.id.main_viewflow);
 		mIndic = (CircleFlowIndicator) findViewById(R.id.main_viewflowindic);
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 1; i++) {
 			Goods ggNews = new Goods();
 			ggNews.setId("1");
 			ggNews.setArea("111");
@@ -219,10 +219,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void showcircleimage() {
 
 		mViewFlow.setAdapter(new BannerAdapter(MainActivity.this, mBannerActivityList));
-		// mViewFlow.setmSideBuffer(3); // 实际图片张数
-		mViewFlow.setFlowIndicator(mIndic);
-		mViewFlow.setTimeSpan(2000);
-		mViewFlow.setSelection(3 * 1000); // 设置初始位置
+		mViewFlow.setmSideBuffer(1); // 实际图片张数
+		//mViewFlow.setFlowIndicator(mIndic);
+		//mViewFlow.setTimeSpan(2000);
+		//mViewFlow.setSelection(3 * 1000); // 设置初始位置
 		// mViewFlow.startAutoFlowTimer(); // 启动自动播放
 		mViewFlow.requestFocus();
 	}
