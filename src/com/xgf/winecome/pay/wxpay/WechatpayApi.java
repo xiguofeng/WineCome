@@ -11,19 +11,19 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.util.Xml;
-
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.xgf.winecome.pay.wxpay.simcpux.Constants;
 import com.xgf.winecome.pay.wxpay.simcpux.MD5;
 import com.xgf.winecome.pay.wxpay.simcpux.Util;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.util.Xml;
 
 public class WechatpayApi {
 

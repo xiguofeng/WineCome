@@ -16,6 +16,8 @@
 
 package com.xgf.winecome.qrcode.google.zxing.client.share;
 
+import com.xgf.winecome.R;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -24,8 +26,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
 
 /**
  * A custom adapter designed to fetch bookmarks from a cursor. Before Honeycomb we used

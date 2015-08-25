@@ -1,10 +1,10 @@
 package com.xgf.winecome.pay.unionpay;
 
-import android.app.Activity;
-import android.widget.TextView;
-
 import com.unionpay.UPPayAssistEx;
 import com.unionpay.uppay.PayActivity;
+
+import android.app.Activity;
+import android.widget.TextView;
 
 public class JARActivity extends BaseActivity {
 

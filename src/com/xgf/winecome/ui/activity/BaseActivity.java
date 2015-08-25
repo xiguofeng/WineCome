@@ -1,12 +1,12 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-
-import com.xgf.winecome.ui.view.CustomProgressDialog2;
 
 public abstract class BaseActivity extends Activity {
 

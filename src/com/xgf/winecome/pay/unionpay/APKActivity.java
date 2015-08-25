@@ -1,12 +1,12 @@
 package com.xgf.winecome.pay.unionpay;
 
+import com.unionpay.UPPayAssistEx;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.TextView;
-
-import com.unionpay.UPPayAssistEx;
 
 public class APKActivity extends BaseActivity {
 

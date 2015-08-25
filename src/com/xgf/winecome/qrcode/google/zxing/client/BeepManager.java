@@ -18,6 +18,8 @@ package com.xgf.winecome.qrcode.google.zxing.client;
 
 import java.io.IOException;
 
+import com.xgf.winecome.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,8 +29,6 @@ import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.xgf.winecome.R;
 
 /**
  * Manages beeps and vibrations for {@link CaptureActivity}.

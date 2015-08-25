@@ -6,6 +6,12 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.NotifyMsg;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.logic.MsgLogic;
+import com.xgf.winecome.utils.UserInfoManager;
+
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Notification;
@@ -22,12 +28,6 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.NotifyMsg;
-import com.xgf.winecome.entity.Order;
-import com.xgf.winecome.network.logic.MsgLogic;
-import com.xgf.winecome.utils.UserInfoManager;
 
 public class MsgService extends Service {
 

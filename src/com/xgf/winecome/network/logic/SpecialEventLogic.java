@@ -15,16 +15,16 @@ import org.ksoap2.transport.AndroidHttpTransport;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.network.config.MsgResult;
+import com.xgf.winecome.network.config.RequestUrl;
+import com.xgf.winecome.utils.JsonUtils;
+
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.network.config.MsgResult;
-import com.xgf.winecome.network.config.RequestUrl;
-import com.xgf.winecome.utils.JsonUtils;
 
 public class SpecialEventLogic {
 

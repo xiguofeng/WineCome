@@ -320,6 +320,7 @@
     <string name="total_integral">总积分</string>
 
     <!-- QrCode -->
+    <string name="qr_code_scan">扫一扫</string>
     <string name="qr_code_ver">扫码鉴定</string>
     <string name="qr_code">条码扫描器</string>
     <string name="app_picker_name">应用</string>

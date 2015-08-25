@@ -19,14 +19,14 @@ package com.xgf.winecome.qrcode.google.zxing.client.share;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.provider.Browser;
 import android.view.View;
 import android.widget.ListView;
-
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
 
 public final class AppPickerActivity extends ListActivity {
 

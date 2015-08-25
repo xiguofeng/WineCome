@@ -5,12 +5,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import com.unionpay.UPPayAssistEx;
+import com.unionpay.uppay.PayActivity;
+
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
-
-import com.unionpay.UPPayAssistEx;
-import com.unionpay.uppay.PayActivity;
 
 public class UnionpayApi {
 

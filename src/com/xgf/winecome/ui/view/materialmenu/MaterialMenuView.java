@@ -4,6 +4,11 @@ import static com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.DEFAULT
 import static com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.DEFAULT_PRESSED_DURATION;
 import static com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.DEFAULT_SCALE;
 import static com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.DEFAULT_TRANSFORM_DURATION;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.IconState;
+import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.Stroke;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -14,10 +19,6 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.IconState;
-import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.Stroke;
 
 /**
  * A basic View wrapper of {@link MaterialMenuDrawable}. Used for custom view

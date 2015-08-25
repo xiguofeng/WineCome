@@ -1,5 +1,15 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
+import com.xgf.winecome.ui.view.CircleTimerView;
+import com.xgf.winecome.ui.view.CircleTimerView.CircleTimerListener;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
+import com.xgf.winecome.utils.OrderManager;
+import com.xgf.winecome.utils.TimeUtils;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -16,16 +26,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.network.logic.OrderLogic;
-import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
-import com.xgf.winecome.ui.view.CircleTimerView;
-import com.xgf.winecome.ui.view.CircleTimerView.CircleTimerListener;
-import com.xgf.winecome.ui.view.CustomProgressDialog2;
-import com.xgf.winecome.utils.ActivitiyInfoManager;
-import com.xgf.winecome.utils.OrderManager;
-import com.xgf.winecome.utils.TimeUtils;
 
 public class OrderStateActivity extends Activity implements OnClickListener,
 		CircleTimerListener {

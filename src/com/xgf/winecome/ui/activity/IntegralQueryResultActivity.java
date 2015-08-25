@@ -1,5 +1,8 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.network.logic.IntegralGoodsLogic;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,9 +12,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.network.logic.IntegralGoodsLogic;
 
 public class IntegralQueryResultActivity extends Activity implements OnClickListener {
 

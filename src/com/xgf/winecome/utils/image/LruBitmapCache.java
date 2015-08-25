@@ -1,11 +1,11 @@
 package com.xgf.winecome.utils.image;
 
+import com.xgf.winecome.network.volley.toolbox.ImageLoader.ImageCache;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 import android.util.DisplayMetrics;
-
-import com.xgf.winecome.network.volley.toolbox.ImageLoader.ImageCache;
 
 public class LruBitmapCache extends LruCache<String, Bitmap> implements
 		ImageCache {

@@ -1,12 +1,12 @@
 package com.xgf.winecome;
 
-import android.app.Application;
-import android.content.Intent;
-import android.content.res.Configuration;
-
 import com.xgf.winecome.config.Constants;
 import com.xgf.winecome.service.MsgService;
 import com.xgf.winecome.utils.image.ImageLoaderConfig;
+
+import android.app.Application;
+import android.content.Intent;
+import android.content.res.Configuration;
 
 public class BaseApplication extends Application {
 

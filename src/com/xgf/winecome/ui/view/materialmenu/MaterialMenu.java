@@ -2,9 +2,9 @@
 
 package com.xgf.winecome.ui.view.materialmenu;
 
-import android.view.animation.Interpolator;
-
 import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.IconState;
+
+import android.view.animation.Interpolator;
 
 /**
  * API for interaction with {@link MaterialMenuDrawable}

@@ -1,14 +1,14 @@
 package com.xgf.winecome.ui.view;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
 
 public class OrderWineView extends LinearLayout {
 

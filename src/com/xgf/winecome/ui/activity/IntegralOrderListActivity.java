@@ -2,16 +2,16 @@ package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.IntegralGoods;
+import com.xgf.winecome.ui.adapter.IntegralOrderAdapter;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.IntegralGoods;
-import com.xgf.winecome.ui.adapter.IntegralOrderAdapter;
 
 public class IntegralOrderListActivity extends Activity implements
 		OnClickListener {

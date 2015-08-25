@@ -5,6 +5,19 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Category;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.network.logic.GoodsLogic;
+import com.xgf.winecome.ui.adapter.BannerAdapter;
+import com.xgf.winecome.ui.adapter.CategoryAdapter;
+import com.xgf.winecome.ui.adapter.GoodsAdapter;
+import com.xgf.winecome.ui.view.CustomListView;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.ui.view.viewflow.CircleFlowIndicator;
+import com.xgf.winecome.ui.view.viewflow.ViewFlow;
+import com.xgf.winecome.utils.CartManager;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -25,19 +38,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Category;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.network.logic.GoodsLogic;
-import com.xgf.winecome.ui.adapter.BannerAdapter;
-import com.xgf.winecome.ui.adapter.CategoryAdapter;
-import com.xgf.winecome.ui.adapter.GoodsAdapter;
-import com.xgf.winecome.ui.view.CustomListView;
-import com.xgf.winecome.ui.view.CustomProgressDialog2;
-import com.xgf.winecome.ui.view.viewflow.CircleFlowIndicator;
-import com.xgf.winecome.ui.view.viewflow.ViewFlow;
-import com.xgf.winecome.utils.CartManager;
 
 public class NewMainActivity extends Activity implements OnClickListener {
 

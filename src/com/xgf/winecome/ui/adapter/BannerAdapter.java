@@ -2,6 +2,10 @@ package com.xgf.winecome.ui.adapter;
 
 import java.util.ArrayList;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.activity.SpecialEventsActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +15,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.activity.SpecialEventsActivity;
 
 public class BannerAdapter extends BaseAdapter {
 

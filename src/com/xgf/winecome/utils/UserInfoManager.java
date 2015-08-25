@@ -1,10 +1,10 @@
 package com.xgf.winecome.utils;
 
+import com.xgf.winecome.entity.User;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-
-import com.xgf.winecome.entity.User;
 
 /**
  * 用户信息管理类

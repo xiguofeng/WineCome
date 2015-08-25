@@ -1,6 +1,8 @@
 
 package com.xgf.winecome.ui.view;
 
+import com.xgf.winecome.R;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
@@ -9,8 +11,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.xgf.winecome.R;
 
 public class CustomProgressDialog2 extends Dialog {
 

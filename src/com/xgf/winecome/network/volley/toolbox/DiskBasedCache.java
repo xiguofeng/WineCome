@@ -31,10 +31,10 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import android.os.SystemClock;
-
 import com.xgf.winecome.network.volley.Cache;
 import com.xgf.winecome.network.volley.VolleyLog;
+
+import android.os.SystemClock;
 
 /**
  * Cache implementation that caches files directly onto the hard disk in the specified

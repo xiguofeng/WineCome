@@ -3,6 +3,8 @@ package com.xgf.winecome.ui.view.viewflow;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.xgf.winecome.R;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -20,8 +22,6 @@ import android.widget.AbsListView;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Scroller;
-
-import com.xgf.winecome.R;
 
 public class ViewFlow extends AdapterView<Adapter> {
 

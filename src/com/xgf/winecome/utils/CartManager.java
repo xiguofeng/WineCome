@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.util.Log;
-
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.HomeActivity;
 import com.xgf.winecome.ui.activity.MainActivity;
+
+import android.util.Log;
 
 public class CartManager implements Watched {
 

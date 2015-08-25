@@ -26,6 +26,21 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Result;
+import com.google.zxing.ResultMetadataType;
+import com.google.zxing.ResultPoint;
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.camera.CameraManager;
+import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryItem;
+import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
+import com.xgf.winecome.qrcode.google.zxing.client.result.ResultButtonListener;
+import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
+import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
+import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
+import com.xgf.winecome.ui.activity.QrResultActivity;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -55,21 +70,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
-import com.google.zxing.ResultMetadataType;
-import com.google.zxing.ResultPoint;
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.camera.CameraManager;
-import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryItem;
-import com.xgf.winecome.qrcode.google.zxing.client.history.HistoryManager;
-import com.xgf.winecome.qrcode.google.zxing.client.result.ResultButtonListener;
-import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandler;
-import com.xgf.winecome.qrcode.google.zxing.client.result.ResultHandlerFactory;
-import com.xgf.winecome.qrcode.google.zxing.client.result.supplement.SupplementalInfoRetriever;
-import com.xgf.winecome.ui.activity.QrResultActivity;
-import com.xgf.winecome.utils.ActivitiyInfoManager;
 
 /**
  * This activity opens the camera and does the actual scanning on a background
@@ -561,7 +561,7 @@ public final class CaptureActivity extends Activity implements
 		ImageView barcodeImageView = (ImageView) findViewById(R.id.barcode_image_view);
 		if (barcode == null) {
 			barcodeImageView.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.launcher_icon));
+					getResources(), R.drawable.qr_scan));
 		} else {
 			barcodeImageView.setImageBitmap(barcode);
 		}

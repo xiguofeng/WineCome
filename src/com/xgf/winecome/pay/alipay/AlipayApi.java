@@ -7,12 +7,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+import com.alipay.sdk.app.PayTask;
+import com.xgf.winecome.utils.OrderManager;
+
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
-
-import com.alipay.sdk.app.PayTask;
-import com.xgf.winecome.utils.OrderManager;
 
 public class AlipayApi {
 

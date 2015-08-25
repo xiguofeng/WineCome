@@ -3,6 +3,14 @@ package com.xgf.winecome.ui.adapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.entity.OrderState;
+import com.xgf.winecome.network.config.MsgResult;
+import com.xgf.winecome.ui.utils.ListItemClickHelp;
+import com.xgf.winecome.ui.view.OrderWineView;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +20,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.entity.Order;
-import com.xgf.winecome.entity.OrderState;
-import com.xgf.winecome.network.config.MsgResult;
-import com.xgf.winecome.ui.utils.ListItemClickHelp;
-import com.xgf.winecome.ui.view.OrderWineView;
 
 public class OrderWineAdapter extends BaseAdapter {
 

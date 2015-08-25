@@ -18,6 +18,9 @@ package com.xgf.winecome.qrcode.google.zxing.client.history;
 
 import java.util.ArrayList;
 
+import com.google.zxing.Result;
+import com.xgf.winecome.R;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -26,9 +29,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.zxing.Result;
-import com.xgf.winecome.R;
 
 final class HistoryItemAdapter extends ArrayAdapter<HistoryItem> {
 

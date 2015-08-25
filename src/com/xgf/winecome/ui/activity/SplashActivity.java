@@ -1,9 +1,9 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.R;
+
 import android.os.Bundle;
 import android.os.Handler;
-
-import com.xgf.winecome.R;
 
 public class SplashActivity extends BaseActivity {
 

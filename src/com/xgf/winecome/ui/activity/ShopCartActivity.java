@@ -2,6 +2,15 @@ package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.adapter.CartGoodsAdapter;
+import com.xgf.winecome.ui.view.listview.SwipeMenu;
+import com.xgf.winecome.ui.view.listview.SwipeMenuCreator;
+import com.xgf.winecome.ui.view.listview.SwipeMenuItem;
+import com.xgf.winecome.ui.view.listview.SwipeMenuListView;
+import com.xgf.winecome.utils.CartManager;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,15 +23,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.adapter.CartGoodsAdapter;
-import com.xgf.winecome.ui.view.listview.SwipeMenu;
-import com.xgf.winecome.ui.view.listview.SwipeMenuCreator;
-import com.xgf.winecome.ui.view.listview.SwipeMenuItem;
-import com.xgf.winecome.ui.view.listview.SwipeMenuListView;
-import com.xgf.winecome.utils.CartManager;
 
 public class ShopCartActivity extends Activity implements OnClickListener {
 

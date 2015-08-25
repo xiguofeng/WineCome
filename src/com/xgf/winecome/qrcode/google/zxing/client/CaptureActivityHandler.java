@@ -18,6 +18,11 @@ package com.xgf.winecome.qrcode.google.zxing.client;
 
 import java.util.Collection;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Result;
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.camera.CameraManager;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -30,11 +35,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Browser;
 import android.util.Log;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.camera.CameraManager;
 
 /**
  * This class handles all the messaging which comprises the state machine for capture.

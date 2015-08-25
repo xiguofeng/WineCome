@@ -25,6 +25,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.HttpHelper;
+import com.xgf.winecome.qrcode.google.zxing.client.Intents;
+import com.xgf.winecome.qrcode.google.zxing.client.LocaleManager;
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
+import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -39,13 +46,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.HttpHelper;
-import com.xgf.winecome.qrcode.google.zxing.client.Intents;
-import com.xgf.winecome.qrcode.google.zxing.client.LocaleManager;
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecInterface;
-import com.xgf.winecome.qrcode.google.zxing.client.common.executor.AsyncTaskExecManager;
 
 /**
  * Uses Google Book Search to find a word or phrase in the requested book.

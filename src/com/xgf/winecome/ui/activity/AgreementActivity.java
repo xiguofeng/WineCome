@@ -1,12 +1,12 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.R;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-
-import com.xgf.winecome.R;
 
 public class AgreementActivity extends BaseActivity implements OnClickListener {
 

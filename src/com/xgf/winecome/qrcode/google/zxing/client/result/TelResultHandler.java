@@ -16,12 +16,12 @@
 
 package com.xgf.winecome.qrcode.google.zxing.client.result;
 
-import android.app.Activity;
-import android.telephony.PhoneNumberUtils;
-
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.TelParsedResult;
 import com.xgf.winecome.R;
+
+import android.app.Activity;
+import android.telephony.PhoneNumberUtils;
 
 /**
  * Offers relevant actions for telephone numbers.

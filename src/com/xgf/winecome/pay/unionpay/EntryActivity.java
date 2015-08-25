@@ -1,11 +1,11 @@
 package com.xgf.winecome.pay.unionpay;
 
+import com.xgf.winecome.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import com.xgf.winecome.R;
 
 public class EntryActivity extends Activity implements View.OnClickListener {
     @Override

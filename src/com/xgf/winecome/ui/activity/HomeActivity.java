@@ -1,5 +1,9 @@
 package com.xgf.winecome.ui.activity;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.utils.CartManager;
+import com.xgf.winecome.utils.TimeUtils;
+
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.DialogInterface;
@@ -17,10 +21,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.utils.CartManager;
-import com.xgf.winecome.utils.TimeUtils;
 
 public class HomeActivity extends TabActivity implements
 		android.view.View.OnClickListener {

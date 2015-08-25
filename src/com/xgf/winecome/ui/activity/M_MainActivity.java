@@ -1,6 +1,11 @@
 package com.xgf.winecome.ui.activity;
 
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable;
+import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.Stroke;
+import com.xgf.winecome.ui.view.materialmenu.MaterialMenuIcon;
+
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,11 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-
-import com.xgf.winecome.R;
-import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable;
-import com.xgf.winecome.ui.view.materialmenu.MaterialMenuDrawable.Stroke;
-import com.xgf.winecome.ui.view.materialmenu.MaterialMenuIcon;
 
 public class M_MainActivity extends FragmentActivity {
 
