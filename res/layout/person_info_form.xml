@@ -56,10 +56,10 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:maxLength="50"
-                        android:paddingBottom="6.0dip"
+                        android:paddingBottom="9dip"
                         android:paddingLeft="100dip"
                         android:paddingRight="50dip"
-                        android:paddingTop="6.0dip"
+                        android:paddingTop="9dip"
                         android:singleLine="true"
                         android:textColor="@color/black_character"
                         android:textSize="@dimen/middle_text_size" />

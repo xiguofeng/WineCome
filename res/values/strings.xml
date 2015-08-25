@@ -244,6 +244,7 @@
     <string name="identification_goods">商品鉴别</string>
     <string name="thanks_for_qr">感谢使用酒来了提供酒水</string>
     <string name="qr_result_suc">产品鉴定匹配成功</string>
+    <string name="qr_result_fail">产品鉴定匹配失败，没有找到商品</string>
     <string name="qr_go_on">继续扫码</string>
     <string name="order_comment">订单评价</string>
     <string name="identification_qr">扫码鉴定</string>

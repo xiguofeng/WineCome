@@ -57,7 +57,13 @@ public class RequestUrl {
 		 * 查询促销酒
 		 */
 		public String queryPromProduct = "queryPromProduct";
-
+		
+		
+		/**
+		 * 查询促销酒
+		 */
+		public String authProduct = "authProduct";
+		
 	}
 
 	public interface integral {

@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ public class MoreActivity extends Activity implements OnClickListener {
 	private RelativeLayout mIntegralMallRl;
 	private RelativeLayout mIntegralSearchRl;
 	private RelativeLayout mIntegralExchangeRl;
+	private RelativeLayout mQrCodeRl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,13 @@ public class MoreActivity extends Activity implements OnClickListener {
 		mIntegralMallRl = (RelativeLayout) findViewById(R.id.more_integral_shop_rl);
 		mIntegralSearchRl = (RelativeLayout) findViewById(R.id.more_integral_search_rl);
 		mIntegralExchangeRl = (RelativeLayout) findViewById(R.id.more_integral_exchange_rl);
+		mQrCodeRl = (RelativeLayout) findViewById(R.id.more_qrcode_rl);
 
 		mOrderRl.setOnClickListener(this);
 		mIntegralMallRl.setOnClickListener(this);
 		mIntegralSearchRl.setOnClickListener(this);
 		mIntegralExchangeRl.setOnClickListener(this);
+		mQrCodeRl.setOnClickListener(this);
 	}
 
 	private void initData() {
@@ -71,6 +75,13 @@ public class MoreActivity extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		}
+		case R.id.more_qrcode_rl: {
+			Intent intent = new Intent(MoreActivity.this, CaptureActivity.class);
+			intent.setAction(CaptureActivity.ORIGIN_FROM_MORE_ACTION);
+			startActivity(intent);
+			break;
+		}
+
 		default:
 			break;
 		}
