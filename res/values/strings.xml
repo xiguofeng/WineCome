@@ -215,6 +215,7 @@
     <string name="pre_pay_set_way_fail">预支付支付方式设置失败</string>
     <string name="prompt">提示</string>
     <string name="cancal">取消</string>
+    <string name="buy">购买</string>
     
     <!-- unionpay -->
     <string name="entryTitle">接入方式选择</string>

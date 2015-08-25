@@ -43,16 +43,16 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_SUC: {
+			case SpecialEventLogic.GOODS_LIST_GET_SUC: {
 				if (null != msg.obj) {
 
 				}
 				break;
 			}
-			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_FAIL: {
+			case SpecialEventLogic.GOODS_LIST_GET_FAIL: {
 				break;
 			}
-			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_EXCEPTION: {
+			case SpecialEventLogic.GOODS_LIST_GET_EXCEPTION: {
 				break;
 			}
 
@@ -106,12 +106,13 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 		// SpecialEventLogic.getGoodsBySalesPromotion(mContext, mHandler,
 		// "ppid",
 		// "name", "pageNum", "pageSize");
+		SpecialEventLogic.getGoods(mContext, mHandler);
 
 		mGoodsList.clear();
 		for (int i = 0; i < 10; i++) {
 			Goods goods = new Goods();
 			goods.setName("酒" + i);
-			goods.setSalesPrice("￥+109");
+			goods.setSalesPrice("￥109");
 			mGoodsList.add(goods);
 		}
 		mGvAdapter.notifyDataSetChanged();

@@ -130,5 +130,57 @@ public class SpecialEventLogic {
 			handler.sendEmptyMessage(GOODS_LIST_GET_EXCEPTION);
 		}
 	}
+	
+	public static void getGoods(final Context context,
+			final Handler handler) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject("http://120.55.116.206:8080",
+							"login");
+
+					rpc.addProperty("username", URLEncoder.encode("app", "UTF-8"));
+					rpc.addProperty("apiKey", URLEncoder.encode("wpgapp", "UTF-8"));
+					// rpc.addProperty("md5", URLEncoder.encode("1111",
+					// "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							"http://120.55.116.206:8080/api/soap/?wsdl");
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call("http://120.55.116.206:8080" + "/"
+							+ "login", envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+					Log.e("xxx_login_resultStr", resultStr);
+
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseGoodsListData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
 
 }
