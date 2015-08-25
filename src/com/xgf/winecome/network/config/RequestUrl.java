@@ -118,6 +118,11 @@ public class RequestUrl {
 		 * 支付结果确认
 		 */
 		public String payResultCheck = "payResultCheck";
+		
+		/**
+		 * 银联流水号获取
+		 */
+		public String getUnionPayTn = "payResultCheck";
 
 	}
 
