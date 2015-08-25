@@ -428,9 +428,16 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 					mDateInfoLl.setVisibility(View.VISIBLE);
 					mIsIntime = false;
 				} else {
-					mInTimeCb.setChecked(true);
-					mDateInfoLl.setVisibility(View.GONE);
-					mIsIntime = true;
+					if (mGoodsNum >= 12) {
+						mInTimeCb.setChecked(false);
+						mSetTimeCb.setChecked(true);
+						mDateInfoLl.setVisibility(View.VISIBLE);
+						mIsIntime = false;
+					} else {
+						mInTimeCb.setChecked(true);
+						mDateInfoLl.setVisibility(View.GONE);
+						mIsIntime = true;
+					}
 				}
 
 			}
