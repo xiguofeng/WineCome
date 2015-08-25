@@ -127,8 +127,8 @@ public class SpecialEventLogic {
 				try {
 
 					String NAMESPACE = "urn:Magento";
-					String URL = "http://120.55.116.206:8080/api/soap?";
-					SoapSerializationEnvelope env = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+					String URL = "http://120.55.116.206:8080/api/soap/";
+					SoapSerializationEnvelope env = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 
 					env.dotNet = false;
 					env.xsd = SoapSerializationEnvelope.XSD;
@@ -137,7 +137,7 @@ public class SpecialEventLogic {
 					SoapObject request = new SoapObject(NAMESPACE, "login");
 
 					request.addProperty("username", "app");
-					request.addProperty("apiKey", "wpgapp");
+					request.addProperty("app key", "wpgapp");
 
 					env.setOutputSoapObject(request);
 

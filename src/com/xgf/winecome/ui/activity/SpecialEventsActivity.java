@@ -107,7 +107,7 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 			mCustomProgressDialog.show();
 		}
 		SpecialEventLogic.getGoodsBySalesPromotion(mContext, mHandler, "0", "20");
-		// SpecialEventLogic.getGoods(mContext, mHandler);
+		//SpecialEventLogic.getGoods(mContext, mHandler);
 
 		// mGoodsList.clear();
 		// for (int i = 0; i < 10; i++) {

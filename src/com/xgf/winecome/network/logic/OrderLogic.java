@@ -588,7 +588,7 @@ public class OrderLogic {
 			handler.sendEmptyMessage(ORDER_PAY_RESULT_CHECK_EXCEPTION);
 		}
 	}
-	
+
 	public static void getPayUnionTn(final Context context, final Handler handler, final String totalPrice) {
 
 		new Thread(new Runnable() {
@@ -598,8 +598,8 @@ public class OrderLogic {
 				try {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.getUnionPayTn);
 
-					rpc.addProperty("orderId", URLEncoder.encode(totalPrice, "UTF-8"));
-					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
+					rpc.addProperty("money", URLEncoder.encode(totalPrice, "UTF-8"));
+					rpc.addProperty("MD5", URLEncoder.encode("1111", "UTF-8"));
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
 
@@ -617,8 +617,9 @@ public class OrderLogic {
 
 					Log.e("xxx_PayUnionTn_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
-						JSONObject obj = new JSONObject(resultStr);
-						parsePayUnionTnData(obj, handler);
+						parsePayUnionTnData(resultStr, handler);
+					} else {
+						handler.sendEmptyMessage(ORDER_PAY_UNION_TN_GET_FAIL);
 					}
 
 				} catch (UnsupportedEncodingException e) {
@@ -627,8 +628,6 @@ public class OrderLogic {
 					e.printStackTrace();
 				} catch (XmlPullParserException e) {
 					e.printStackTrace();
-				} catch (JSONException e) {
-					e.printStackTrace();
 				}
 			}
 		}).start();
@@ -636,18 +635,26 @@ public class OrderLogic {
 	}
 
 	// {"datas":"{}","message":"操作失败","result":"-1"}
-	private static void parsePayUnionTnData(JSONObject response, Handler handler) {
+	private static void parsePayUnionTnData(String str, Handler handler) {
+		Message message = new Message();
+		message.what = ORDER_PAY_UNION_TN_GET_SUC;
+		message.obj = str;
+		handler.sendMessage(message);
 
-		try {
-			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
-				handler.sendEmptyMessage(ORDER_PAY_RESULT_CHECK_SUC);
-			} else {
-				handler.sendEmptyMessage(ORDER_PAY_RESULT_CHECK_FAIL);
-			}
-		} catch (JSONException e) {
-			handler.sendEmptyMessage(ORDER_PAY_RESULT_CHECK_EXCEPTION);
-		}
+		// try {
+		// String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+		// if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+		// Message message = new Message();
+		// message.what = ORDER_PRE_PAY_TYPE_SET_SUC;
+		// message.obj = msgMap;
+		// handler.sendMessage(message);
+		// handler.sendEmptyMessage(ORDER_PAY_RESULT_CHECK_SUC);
+		// } else {
+		// handler.sendEmptyMessage(ORDER_PAY_RESULT_CHECK_FAIL);
+		// }
+		// } catch (JSONException e) {
+		// handler.sendEmptyMessage(ORDER_PAY_RESULT_CHECK_EXCEPTION);
+		// }
 	}
 
 }

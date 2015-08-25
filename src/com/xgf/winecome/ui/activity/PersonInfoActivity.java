@@ -123,22 +123,18 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			switch (what) {
 			case OrderLogic.ORDER_CREATE_SUC: {
 				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
-					OrderManager.getsCurrentOrderGoodsList().addAll(
-							CartManager.getsDetailBuyList());
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsDetailBuyList());
 
 					CartManager.getsDetailBuyList().clear();
 
-					ActivitiyInfoManager
-							.finishActivity("com.xgf.winecome.ui.activity.GoodsDetailActivity");
+					ActivitiyInfoManager.finishActivity("com.xgf.winecome.ui.activity.GoodsDetailActivity");
 				} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
-					OrderManager.getsCurrentOrderGoodsList().addAll(
-							CartManager.getsSelectCartList());
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsSelectCartList());
 
 					CartManager.removeCartSelect();
 					HomeActivity.modifyCartPayView("0", "0");
 				} else {
-					OrderManager.getsCurrentOrderGoodsList().addAll(
-							CartManager.getsCartList());
+					OrderManager.getsCurrentOrderGoodsList().addAll(CartManager.getsCartList());
 
 					CartManager.getsCartList().clear();
 					CartManager.getsSelectCartList().clear();
@@ -147,12 +143,10 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 					HomeActivity.modifyMainPayView("0", false);
 				}
 
-				Intent intent = new Intent(PersonInfoActivity.this,
-						PayActivity.class);
+				Intent intent = new Intent(PersonInfoActivity.this, PayActivity.class);
 				startActivity(intent);
 				PersonInfoActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 				break;
 			}
 			case OrderLogic.ORDER_CREATE_FAIL: {
@@ -168,8 +162,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			default:
 				break;
 			}
-			if (null != mCustomProgressDialog) {
-				mCustomProgressDialog.show();
+			if (null != mCustomProgressDialog && mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
 			}
 		}
 
@@ -191,8 +185,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
-				Toast.makeText(mContext, R.string.auth_get_fail,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, R.string.auth_get_fail, Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
@@ -218,14 +211,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 					mTiming--;
 					mTimingTv.setText(String.valueOf(mTiming) + "秒");
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(
-							R.color.gray_divide_line));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.gray_divide_line));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(
-							R.color.orange_bg));
-					mTimingTv
-							.setText(getString(R.string.get_verification_code));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.orange_bg));
+					mTimingTv.setText(getString(R.string.get_verification_code));
 					mAuthCodeLl.setClickable(true);
 					mTiming = 60;
 				}
@@ -310,40 +300,36 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mAgreementTv.setOnClickListener(this);
 		mReplaceLl.setOnClickListener(this);
 
-		mAddressEt
-				.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
-					@Override
-					public void onFocusChange(View v, boolean hasFocus) {
-						if (hasFocus) {
-							if (!TextUtils.isEmpty(UserInfoManager
-									.getAddressHistory(mContext))) {
-								mAddressLl.setVisibility(View.VISIBLE);
-								mAddressLv.setVisibility(View.VISIBLE);
-								mAddressAdapter.notifyDataSetChanged();
-							} else {
-								mAddressLl.setVisibility(View.GONE);
-								mAddressLv.setVisibility(View.GONE);
-							}
-							// 此处为得到焦点时的处理内容
-
-						} else {
-							mAddressLl.setVisibility(View.GONE);
-							mAddressLv.setVisibility(View.GONE);
-							// 此处为失去焦点时的处理内容
-						}
+		mAddressEt.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					if (!TextUtils.isEmpty(UserInfoManager.getAddressHistory(mContext))) {
+						mAddressLl.setVisibility(View.VISIBLE);
+						mAddressLv.setVisibility(View.VISIBLE);
+						mAddressAdapter.notifyDataSetChanged();
+					} else {
+						mAddressLl.setVisibility(View.GONE);
+						mAddressLv.setVisibility(View.GONE);
 					}
-				});
+					// 此处为得到焦点时的处理内容
+
+				} else {
+					mAddressLl.setVisibility(View.GONE);
+					mAddressLv.setVisibility(View.GONE);
+					// 此处为失去焦点时的处理内容
+				}
+			}
+		});
 		mAddressEt.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
 			}
 
@@ -353,8 +339,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 					mAddressLl.setVisibility(View.GONE);
 					mAddressLv.setVisibility(View.GONE);
 				} else {
-					if (!TextUtils.isEmpty(UserInfoManager
-							.getAddressHistory(mContext))) {
+					if (!TextUtils.isEmpty(UserInfoManager.getAddressHistory(mContext))) {
 						mAddressLl.setVisibility(View.VISIBLE);
 						mAddressLv.setVisibility(View.VISIBLE);
 						mAddressAdapter.notifyDataSetChanged();
@@ -375,8 +360,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mInvoiceCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (!isChecked) {
 					mInvoiceInfoLl.setVisibility(View.GONE);
 					mBottomDivLl.setVisibility(View.VISIBLE);
@@ -393,13 +377,10 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mInTimeCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					if (mGoodsNum >= 12) {
-						Toast.makeText(mContext,
-								getString(R.string.no_in_time_hint),
-								Toast.LENGTH_SHORT).show();
+						Toast.makeText(mContext, getString(R.string.no_in_time_hint), Toast.LENGTH_SHORT).show();
 						mInTimeCb.setChecked(false);
 						mSetTimeCb.setChecked(true);
 						mDateInfoLl.setVisibility(View.VISIBLE);
@@ -421,8 +402,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mSetTimeCb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked) {
 					mInTimeCb.setChecked(false);
 					mDateInfoLl.setVisibility(View.VISIBLE);
@@ -445,13 +425,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 
 		mBackIv.setOnClickListener(this);
 
-		mAddressAdapter = new com.xgf.winecome.ui.adapter.SimpleAdapter(
-				mContext, mAddressList);
+		mAddressAdapter = new com.xgf.winecome.ui.adapter.SimpleAdapter(mContext, mAddressList);
 
 		String string = UserInfoManager.getAddressHistory(mContext);
 		if (!TextUtils.isEmpty(string)) {
-			String[] strings = string.substring(0, string.length() - 1).split(
-					";");
+			String[] strings = string.substring(0, string.length() - 1).split(";");
 			int size = 5;
 			if (strings.length < 5) {
 				size = strings.length;
@@ -464,8 +442,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mAddressLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				mAddressEt.setText(mAddressList.get(position));
 				mAddressLl.setVisibility(View.GONE);
 				mAddressLv.setVisibility(View.GONE);
@@ -474,8 +451,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpData() {
-		if (!UserInfoManager.getIsMustAuth(mContext)
-				&& !TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
+		if (!UserInfoManager.getIsMustAuth(mContext) && !TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
 			mPhone = UserInfoManager.getPhone(mContext);
 			mAuthRl.setVisibility(View.GONE);
 			mPhoneTv.setVisibility(View.VISIBLE);
@@ -537,43 +513,39 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			mInvoiceTitleEt.setError(getString(R.string.invoice_title_hint));
 		}
 		if (TextUtils.isEmpty(mInvoiceContentEt.getText().toString().trim())) {
-			mInvoiceContentEt
-					.setError(getString(R.string.invoice_content_hint));
+			mInvoiceContentEt.setError(getString(R.string.invoice_content_hint));
 		}
 	}
 
 	private void getLoc() {
-		LocationUtilsV5.getLocation(getApplicationContext(),
-				new LocationCallback() {
-					@Override
-					public void onGetLocation(BDLocation location) {
-						Log.e("xxx_latitude", "" + location.getLatitude());
-						Log.e("xxx_longitude", "" + location.getLongitude());
+		LocationUtilsV5.getLocation(getApplicationContext(), new LocationCallback() {
+			@Override
+			public void onGetLocation(BDLocation location) {
+				Log.e("xxx_latitude", "" + location.getLatitude());
+				Log.e("xxx_longitude", "" + location.getLongitude());
 
-						mLat = String.valueOf(location.getLatitude());
-						mLon = String.valueOf(location.getLongitude());
-						String addr = location.getAddrStr();
-						if (!TextUtils.isEmpty(addr)) {
-							if (addr.contains("省")) {
-								int index = addr.indexOf("省");
-								addr = addr.substring(index + 1);
-								Log.e("xxx_addr", "" + addr);
-								mAddressEt.setText(addr);
-							} else {
-								mAddressEt.setText(addr);
-							}
-						}
+				mLat = String.valueOf(location.getLatitude());
+				mLon = String.valueOf(location.getLongitude());
+				String addr = location.getAddrStr();
+				if (!TextUtils.isEmpty(addr)) {
+					if (addr.contains("省")) {
+						int index = addr.indexOf("省");
+						addr = addr.substring(index + 1);
+						Log.e("xxx_addr", "" + addr);
+						mAddressEt.setText(addr);
+					} else {
+						mAddressEt.setText(addr);
 					}
-				});
+				}
+			}
+		});
 	}
 
 	private void submitCreateOrder() {
 		Order order = new Order();
 
-		if ((mIsNeedAuth || TextUtils.isEmpty(mPhone))
-				&& TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
-			Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
-					Toast.LENGTH_SHORT).show();
+		if ((mIsNeedAuth || TextUtils.isEmpty(mPhone)) && TextUtils.isEmpty(mPhoneEt.getText().toString().trim())) {
+			Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
 			return;
 		} else {
 			if (TextUtils.isEmpty(mPhone)) {
@@ -581,12 +553,9 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			}
 		}
 
-		if (mIsNeedAuth
-				&& (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim()) || !mVerCodeEt
-						.getText().toString().trim().equals(mAuthCode))) {
-			Toast.makeText(mContext,
-					getString(R.string.verification_code_hint),
-					Toast.LENGTH_SHORT).show();
+		if (mIsNeedAuth && (TextUtils.isEmpty(mVerCodeEt.getText().toString().trim())
+				|| !mVerCodeEt.getText().toString().trim().equals(mAuthCode))) {
+			Toast.makeText(mContext, getString(R.string.verification_code_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -594,45 +563,35 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 
 		// address
 		if (TextUtils.isEmpty(mAddressEt.getText().toString().trim())) {
-			Toast.makeText(mContext, getString(R.string.detail_info_hint),
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, getString(R.string.detail_info_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
 		order.setAddress(mAddressEt.getText().toString().trim());
-		UserInfoManager.saveAddress(mContext, mAddressEt.getText().toString()
-				.trim());
+		UserInfoManager.saveAddress(mContext, mAddressEt.getText().toString().trim());
 		Log.e("saveAddress_0", mAddressEt.getText().toString());
 		order.setLatitude(mLat);
 		order.setLongitude(mLon);
 
 		// inTime
-		if (!mIsIntime
-				&& (TextUtils.isEmpty(mDateTv.getText()) || TextUtils
-						.isEmpty(mDateTv.getText() + " " + mTimeTv.getText()))) {
-			Toast.makeText(mContext,
-					getString(R.string.distribution_time_hint),
-					Toast.LENGTH_SHORT).show();
+		if (!mIsIntime && (TextUtils.isEmpty(mDateTv.getText())
+				|| TextUtils.isEmpty(mDateTv.getText() + " " + mTimeTv.getText()))) {
+			Toast.makeText(mContext, getString(R.string.distribution_time_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (!mIsIntime) {
 			order.setDeliveryTime(mDateTv.getText() + " " + mTimeTv.getText());
 		} else {
-			String date = TimeUtils
-					.TimeStamp2Date(
-							String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
-							TimeUtils.FORMAT_PATTERN_DATE);
+			String date = TimeUtils.TimeStamp2Date(String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
+					TimeUtils.FORMAT_PATTERN_DATE);
 			order.setDeliveryTime(date);
 		}
 
 		// invoice
 		order.setInvoice(String.valueOf(mIsInvoice));
 
-		if (mIsInvoice
-				&& (TextUtils.isEmpty(mInvoiceTitleEt.getText().toString()
-						.trim()) || TextUtils.isEmpty(mInvoiceContentEt
-						.getText().toString().trim()))) {
-			Toast.makeText(mContext, getString(R.string.invoice_hint),
-					Toast.LENGTH_SHORT).show();
+		if (mIsInvoice && (TextUtils.isEmpty(mInvoiceTitleEt.getText().toString().trim())
+				|| TextUtils.isEmpty(mInvoiceContentEt.getText().toString().trim()))) {
+			Toast.makeText(mContext, getString(R.string.invoice_hint), Toast.LENGTH_SHORT).show();
 			return;
 		}
 		order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
@@ -645,14 +604,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		}
 		// TODO
 		if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
-			OrderLogic.createOrder(mContext, mHandler, order,
-					CartManager.getsDetailBuyList());
+			OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsDetailBuyList());
 		} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
-			OrderLogic.createOrder(mContext, mHandler, order,
-					CartManager.getsSelectCartList());
+			OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsSelectCartList());
 		} else {
-			OrderLogic.createOrder(mContext, mHandler, order,
-					CartManager.getsCartList());
+			OrderLogic.createOrder(mContext, mHandler, order, CartManager.getsCartList());
 		}
 	}
 
@@ -685,16 +641,14 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		case R.id.per_info_area_rl:
 		case R.id.per_info_area_tv:
 		case R.id.per_info_area_tag_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					AreaSelectActivity.class);
+			Intent intent = new Intent(PersonInfoActivity.this, AreaSelectActivity.class);
 			startActivityForResult(intent, 500);
 			break;
 		}
 		case R.id.per_info_date_rl:
 		case R.id.per_info_date_tv:
 		case R.id.per_info_date_tag_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					DateSelectActivity.class);
+			Intent intent = new Intent(PersonInfoActivity.this, DateSelectActivity.class);
 			startActivityForResult(intent, 501);
 			break;
 		}
@@ -702,13 +656,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		case R.id.per_info_time_tv:
 		case R.id.per_info_time_tag_tv: {
 			if (!TextUtils.isEmpty(mDateTv.getText().toString().trim())) {
-				Intent intent = new Intent(PersonInfoActivity.this,
-						TimeSelectActivity.class);
+				Intent intent = new Intent(PersonInfoActivity.this, TimeSelectActivity.class);
 				startActivityForResult(intent, 502);
 				break;
 			} else {
-				Toast.makeText(mContext, getString(R.string.date_select),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.date_select), Toast.LENGTH_SHORT).show();
 			}
 		}
 		case R.id.per_info_submit_ll: {
@@ -725,15 +677,13 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 				UserLogic.sendAuthCode(mContext, mAuthCodeHandler, mPhone);
 
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
 
 		case R.id.per_info_agreement_tv: {
-			Intent intent = new Intent(PersonInfoActivity.this,
-					AgreementActivity.class);
+			Intent intent = new Intent(PersonInfoActivity.this, AgreementActivity.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;

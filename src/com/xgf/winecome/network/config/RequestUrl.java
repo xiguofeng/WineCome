@@ -122,7 +122,7 @@ public class RequestUrl {
 		/**
 		 * 银联流水号获取
 		 */
-		public String getUnionPayTn = "payResultCheck";
+		public String getUnionPayTn = "getTn";
 
 	}
 
