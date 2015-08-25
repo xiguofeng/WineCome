@@ -61,8 +61,8 @@ public class BannerAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ImageLoader.getInstance().displayImage(
-				mDatas.get(position % 3).getIconUrl(), holder.mBannerIcon);
+		// ImageLoader.getInstance().displayImage(
+		// mDatas.get(position % 3).getIconUrl(), holder.mBannerIcon);
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

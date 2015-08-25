@@ -29,9 +29,12 @@ import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.network.logic.GoodsLogic;
+import com.xgf.winecome.ui.adapter.BannerAdapter;
 import com.xgf.winecome.ui.adapter.CategoryAdapter;
 import com.xgf.winecome.ui.adapter.GoodsAdapter;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.ui.view.viewflow.CircleFlowIndicator;
+import com.xgf.winecome.ui.view.viewflow.ViewFlow;
 import com.xgf.winecome.utils.CartManager;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -55,6 +58,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private HashMap<String, Object> mSearchMsgMap = new HashMap<String, Object>();
 	private HashMap<String, Object> mShowMsgMap = new HashMap<String, Object>();
 
+	private ViewFlow mViewFlow;
+	private CircleFlowIndicator mIndic;
+	private ArrayList<Goods> mBannerActivityList = new ArrayList<Goods>();
 	protected CustomProgressDialog2 mCustomProgressDialog;
 
 	Handler mHandler = new Handler() {
@@ -66,8 +72,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			case GoodsLogic.CATEGROY_GOODS_LIST_GET_SUC: {
 				if (null != msg.obj) {
 					mAllMsgMap.clear();
-					mAllMsgMap
-							.putAll((Map<? extends String, ? extends Object>) msg.obj);
+					mAllMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
 
 					firstShowData(mAllMsgMap);
 				}
@@ -110,7 +115,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			default:
 				break;
 			}
-			if(null!=mCustomProgressDialog){
+			if (null != mCustomProgressDialog) {
 				mCustomProgressDialog.dismiss();
 			}
 		}
@@ -128,6 +133,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void initView() {
+		initCircleimage();
+
 		mLeftLv = (ListView) findViewById(R.id.main_left_lv);
 		mRightLv = (ListView) findViewById(R.id.main_right_lv);
 
@@ -138,22 +145,21 @@ public class MainActivity extends Activity implements OnClickListener {
 		mSearchIv.setOnClickListener(this);
 
 		mSearchEt = (EditText) findViewById(R.id.main_search_et);
-		mSearchEt
-				.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
-					@Override
-					public void onFocusChange(View v, boolean hasFocus) {
-						if (hasFocus) {
-							// 此处为得到焦点时的处理内容
-							mSearchLl.setVisibility(View.GONE);
-							mSearchIv.setVisibility(View.VISIBLE);
-						} else {
-							// 此处为失去焦点时的处理内容
-							mSearchEt.setText("");
-							mSearchLl.setVisibility(View.VISIBLE);
-							mSearchIv.setVisibility(View.GONE);
-						}
-					}
-				});
+		mSearchEt.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					// 此处为得到焦点时的处理内容
+					mSearchLl.setVisibility(View.GONE);
+					mSearchIv.setVisibility(View.VISIBLE);
+				} else {
+					// 此处为失去焦点时的处理内容
+					mSearchEt.setText("");
+					mSearchLl.setVisibility(View.VISIBLE);
+					mSearchIv.setVisibility(View.GONE);
+				}
+			}
+		});
 
 		mMainLl.setOnTouchListener(new OnTouchListener() {
 
@@ -197,6 +203,30 @@ public class MainActivity extends Activity implements OnClickListener {
 		});
 	}
 
+	private void initCircleimage() {
+		mViewFlow = (ViewFlow) findViewById(R.id.main_viewflow);
+		mIndic = (CircleFlowIndicator) findViewById(R.id.main_viewflowindic);
+
+		for (int i = 0; i < 3; i++) {
+			Goods ggNews = new Goods();
+			ggNews.setId("1");
+			ggNews.setArea("111");
+			mBannerActivityList.add(ggNews);
+		}
+		showcircleimage();
+	}
+
+	private void showcircleimage() {
+
+		mViewFlow.setAdapter(new BannerAdapter(MainActivity.this, mBannerActivityList));
+		// mViewFlow.setmSideBuffer(3); // 实际图片张数
+		mViewFlow.setFlowIndicator(mIndic);
+		mViewFlow.setTimeSpan(2000);
+		mViewFlow.setSelection(3 * 1000); // 设置初始位置
+		// mViewFlow.startAutoFlowTimer(); // 启动自动播放
+		mViewFlow.requestFocus();
+	}
+
 	private void initData() {
 		mGoodsAdapter = new GoodsAdapter(mContext, mGoodsList);
 		mRightLv.setAdapter(mGoodsAdapter);
@@ -204,14 +234,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		mRightLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-				Intent intent = new Intent(MainActivity.this,
-						GoodsDetailActivity.class);
+				Intent intent = new Intent(MainActivity.this, GoodsDetailActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,
-						mGoodsList.get(position));
+				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY, mGoodsList.get(position));
 				intent.putExtras(bundle);
 				startActivity(intent);
 				// getActivity().overridePendingTransition(R.anim.push_left_in,
@@ -226,19 +253,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		mLeftLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				mCategoryAdapter.setmCurrentSelect(mCategoryList.get(position)
-						.getPpid());
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				mCategoryAdapter.setmCurrentSelect(mCategoryList.get(position).getPpid());
 				mCategoryAdapter.notifyDataSetChanged();
 				if (mCategoryList.get(position).getPpid().equals("t_0")) {
 					refreshAllData(mAllMsgMap);
 					mTempCategoryGoodsList.clear();
 					for (int i = 0; i < mCategoryList.size(); i++) {
 						if (mCategoryList.get(i).getPplx().equals("01"))
-							mTempCategoryGoodsList
-									.addAll((Collection<? extends Goods>) mShowMsgMap
-											.get(mCategoryList.get(i).getPpid()));
+							mTempCategoryGoodsList.addAll(
+									(Collection<? extends Goods>) mShowMsgMap.get(mCategoryList.get(i).getPpid()));
 
 					}
 					mGoodsList.clear();
@@ -249,9 +273,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					mTempCategoryGoodsList.clear();
 					for (int i = 0; i < mCategoryList.size(); i++) {
 						if (mCategoryList.get(i).getPplx().equals("02"))
-							mTempCategoryGoodsList
-									.addAll((Collection<? extends Goods>) mShowMsgMap
-											.get(mCategoryList.get(i).getPpid()));
+							mTempCategoryGoodsList.addAll(
+									(Collection<? extends Goods>) mShowMsgMap.get(mCategoryList.get(i).getPpid()));
 
 					}
 
@@ -260,8 +283,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				} else {
 					mGoodsList.clear();
-					mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
-							.get(mCategoryList.get(position).getPpid()));
+					mGoodsList.addAll(
+							(Collection<? extends Goods>) mShowMsgMap.get(mCategoryList.get(position).getPpid()));
 
 					// mGoodsAdapter.notifyDataSetChanged();
 				}
@@ -272,7 +295,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		// GoodsLogic.getCategroyList(mContext, mHandler, "");
 		// GoodsLogic.getAllGoods(mContext, mHandler);
 
-		if(null!=mCustomProgressDialog){
+		if (null != mCustomProgressDialog) {
 			mCustomProgressDialog.show();
 		}
 		GoodsLogic.getCategroyAndGoodsList(mContext, mHandler);
@@ -289,10 +312,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (int i = 0; i < mGoodsList.size(); i++) {
 			boolean isHas = false;
 			for (int j = 0; j < CartManager.getsCartList().size(); j++) {
-				if (mGoodsList.get(i).getId()
-						.equals(CartManager.getsCartList().get(j).getId())) {
-					mGoodsList.get(i).setNum(
-							CartManager.getsCartList().get(j).getNum());
+				if (mGoodsList.get(i).getId().equals(CartManager.getsCartList().get(j).getId())) {
+					mGoodsList.get(i).setNum(CartManager.getsCartList().get(j).getNum());
 					isHas = true;
 				}
 			}
@@ -308,15 +329,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		mSearchMsgMap.clear();
 		ArrayList<Category> categoryList = new ArrayList<Category>();
-		categoryList.addAll((Collection<? extends Category>) mAllMsgMap
-				.get("Category"));
+		categoryList.addAll((Collection<? extends Category>) mAllMsgMap.get("Category"));
 		ArrayList<Category> tempCategoryList = new ArrayList<Category>();
 		for (int i = 0; i < categoryList.size(); i++) {
 			ArrayList<Goods> arrayList = new ArrayList<Goods>();
-			if (!categoryList.get(i).getPpid().equals("t_0")
-					&& !categoryList.get(i).getPpid().equals("t_1")) {
-				arrayList.addAll((((Collection<? extends Goods>) mAllMsgMap
-						.get(categoryList.get(i).getPpid()))));
+			if (!categoryList.get(i).getPpid().equals("t_0") && !categoryList.get(i).getPpid().equals("t_1")) {
+				arrayList.addAll((((Collection<? extends Goods>) mAllMsgMap.get(categoryList.get(i).getPpid()))));
 				ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
 				for (int j = 0; j < arrayList.size(); j++) {
 					Goods goods = arrayList.get(j);
@@ -326,8 +344,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				}
 				if (tempGoodsList.size() > 0) {
 					tempCategoryList.add(categoryList.get(i));
-					mSearchMsgMap.put(categoryList.get(i).getPpid(),
-							tempGoodsList);
+					mSearchMsgMap.put(categoryList.get(i).getPpid(), tempGoodsList);
 				}
 			} else if (categoryList.get(i).getPpid().equals("t_0")) {
 				categoryT_0 = categoryList.get(i);
@@ -374,8 +391,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (int i = 0; i < mCategoryList.size(); i++) {
 			if (mCategoryList.get(i).getPplx().equals("01"))
 				mTempCategoryGoodsList
-						.addAll((Collection<? extends Goods>) mShowMsgMap
-								.get(mCategoryList.get(i).getPpid()));
+						.addAll((Collection<? extends Goods>) mShowMsgMap.get(mCategoryList.get(i).getPpid()));
 
 		}
 		mGoodsList.clear();
@@ -388,13 +404,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		mShowMsgMap.putAll(msgMap);
 
 		mCategoryList.clear();
-		mCategoryList.addAll((Collection<? extends Category>) mShowMsgMap
-				.get("Category"));
+		mCategoryList.addAll((Collection<? extends Category>) mShowMsgMap.get("Category"));
 		mCategoryAdapter.notifyDataSetChanged();
 
 		mGoodsList.clear();
-		mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
-				.get(mCategoryList.get(1).getPpid()));
+		mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap.get(mCategoryList.get(1).getPpid()));
 		mGoodsAdapter.notifyDataSetChanged();
 	}
 
@@ -405,8 +419,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (!TextUtils.isEmpty(mSearchEt.getText().toString().trim())) {
 				search(mSearchEt.getText().toString().trim());
 			} else {
-				Toast.makeText(mContext, getString(R.string.search_hint),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.search_hint), Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
