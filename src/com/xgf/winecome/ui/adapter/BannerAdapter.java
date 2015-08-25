@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.activity.GoodsDetailActivity;
+import com.xgf.winecome.ui.activity.SpecialEventsActivity;
 
 public class BannerAdapter extends BaseAdapter {
 
@@ -72,7 +72,7 @@ public class BannerAdapter extends BaseAdapter {
 
 					// 在这里可以设置跳转界面
 					Intent intent = new Intent(mContext,
-							GoodsDetailActivity.class);
+							SpecialEventsActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("id", mDatas.get(index).getId());
 					intent.putExtras(bundle);

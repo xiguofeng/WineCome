@@ -183,6 +183,7 @@
     <string name="integral_exchange">积分兑换</string>
     <string name="integral_search">积分查询</string>
     <string name="integral_shop">积分商城</string>
+    <string name="special_events">专题活动</string>
 
     <!-- notify -->
     <string name="notify">消息</string>

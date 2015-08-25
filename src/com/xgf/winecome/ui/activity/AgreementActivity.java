@@ -46,6 +46,9 @@ public class AgreementActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.agreement_back_iv: {
+			finish();
+		}
 		default:
 			break;
 		}
