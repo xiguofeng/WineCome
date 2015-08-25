@@ -142,18 +142,31 @@ public class CartManager implements Watched {
 	 * @param goods
 	 */
 	public static void cartModifyByMain(Goods goods) {
+		boolean isZero = false;
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
 				sHasGoodsFlag = true;
-				sCartList.set(i, goods);
+				if (0 == Integer.parseInt(goods.getNum())) {
+					sCartList.remove(i);
+					isZero = true;
+				} else {
+					sCartList.set(i, goods);
+				}
 				break;
 
 			}
 		}
-
-		if (!sHasGoodsFlag) {
+		if (!sHasGoodsFlag && !isZero) {
 			sCartList.add(goods);
 		}
+
+		ArrayList<Goods> tempCartList = new ArrayList<Goods>();
+		for (Goods tempGoods : sCartList) {
+			tempCartList.add(tempGoods);
+		}
+		sCartList.clear();
+		sCartList.addAll(tempCartList);
+
 		sHasGoodsFlag = false;
 
 		setTotalMoney(true);
