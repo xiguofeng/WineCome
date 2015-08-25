@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,6 +12,7 @@ import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
+import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
@@ -21,7 +21,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
@@ -130,53 +129,58 @@ public class SpecialEventLogic {
 			handler.sendEmptyMessage(GOODS_LIST_GET_EXCEPTION);
 		}
 	}
-	
-	public static void getGoods(final Context context,
-			final Handler handler) {
+
+	public static void getGoods(final Context context, final Handler handler) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject("http://120.55.116.206:8080",
-							"login");
 
-					rpc.addProperty("username", URLEncoder.encode("app", "UTF-8"));
-					rpc.addProperty("apiKey", URLEncoder.encode("wpgapp", "UTF-8"));
-					// rpc.addProperty("md5", URLEncoder.encode("1111",
-					// "UTF-8"));
+					String NAMESPACE = "urn:Magento";
+					String URL = "http://120.55.116.206:8080/api/soap?";
+					SoapSerializationEnvelope env = new SoapSerializationEnvelope(
+							SoapEnvelope.VER10);
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(
-							"http://120.55.116.206:8080/api/soap/?wsdl");
+					env.dotNet = false;
+					env.xsd = SoapSerializationEnvelope.XSD;
+					env.enc = SoapSerializationEnvelope.ENC;
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-							SoapEnvelope.VER11);
+					SoapObject request = new SoapObject(NAMESPACE, "login");
 
-					envelope.bodyOut = rpc;
-					envelope.dotNet = true;
-					envelope.setOutputSoapObject(rpc);
+					request.addProperty("username", "app");
+					request.addProperty("apiKey", "wpgapp");
 
-					ht.call("http://120.55.116.206:8080" + "/"
-							+ "login", envelope);
+					env.setOutputSoapObject(request);
 
-					SoapObject so = (SoapObject) envelope.bodyIn;
+					HttpTransportSE androidHttpTransport = new HttpTransportSE(
+							URL);
 
-					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_login_resultStr", resultStr);
+					androidHttpTransport.call("", env);
+					Object result = env.getResponse();
 
-					if (!TextUtils.isEmpty(resultStr)) {
-						JSONObject obj = new JSONObject(resultStr);
-						parseGoodsListData(obj, handler);
-					}
+					Log.e("Magento", result.toString());
+
+					// making call to get list of customers
+
+					String sessionId = result.toString();
+
+					request = new SoapObject(NAMESPACE, "customerCustomerList");
+					request.addProperty("sessionId", sessionId);
+
+					env.setOutputSoapObject(request);
+					androidHttpTransport.call("", env);
+
+					result = env.getResponse();
+
+					Log.e("Magento List", result.toString());
 
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (XmlPullParserException e) {
-					e.printStackTrace();
-				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 			}
