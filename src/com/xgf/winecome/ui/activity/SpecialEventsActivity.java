@@ -18,6 +18,7 @@ import android.widget.GridView;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.network.logic.IntegralGoodsLogic;
+import com.xgf.winecome.network.logic.SpecialEventLogic;
 import com.xgf.winecome.ui.adapter.SpecialEventsGvAdapter;
 import com.xgf.winecome.ui.view.CustomProgressDialog;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
@@ -102,7 +103,9 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 		if (null != mCustomProgressDialog) {
 			mCustomProgressDialog.show();
 		}
-		// IntegralGoodsLogic.getAllIntegralGoods(mContext, mHandler);
+		// SpecialEventLogic.getGoodsBySalesPromotion(mContext, mHandler,
+		// "ppid",
+		// "name", "pageNum", "pageSize");
 
 		mGoodsList.clear();
 		for (int i = 0; i < 10; i++) {
