@@ -78,7 +78,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dip"
             android:padding="5dip"
-            android:src="@drawable/order_list" />
+            android:src="@drawable/ic_qrcode_scan" />
 
         <TextView
             android:layout_width="wrap_content"
