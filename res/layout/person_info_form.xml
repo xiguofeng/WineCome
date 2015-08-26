@@ -327,7 +327,7 @@
                 android:background="@drawable/corners_bg_gray"
                 android:orientation="vertical"
                 android:paddingBottom="10dip"
-                android:visibility="visible" >
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -379,14 +379,14 @@
                     android:id="@+id/per_info_intime_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="3dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dip"
                     android:background="@null"
                     android:button="@drawable/check_selector"
                     android:focusable="false"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:padding="3dip" />
             </RelativeLayout>
 
             <View
@@ -418,12 +418,12 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:padding="3dip"
                     android:layout_marginRight="10dip"
                     android:background="@null"
                     android:button="@drawable/check_selector"
                     android:focusable="false"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:padding="3dip" />
             </RelativeLayout>
 
             <LinearLayout
@@ -633,28 +633,15 @@
                         android:background="#ffcfd4da" />
 
                     <RelativeLayout
-                        android:id="@+id/relativeLayout9"
+                        android:id="@+id/per_info_invoice_content_rl"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/white"
                         android:paddingBottom="3dip"
                         android:paddingTop="3dip" >
 
-                        <EditText
-                            android:id="@+id/per_info_invoice_content_et"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:imeOptions="actionNext"
-                            android:maxLines="1"
-                            android:paddingBottom="6.0dip"
-                            android:paddingLeft="100dip"
-                            android:paddingRight="20dip"
-                            android:paddingTop="6.0dip"
-                            android:textColor="@color/black_character"
-                            android:textSize="@dimen/middle_text_size" />
-
                         <TextView
-                            android:id="@+id/per_info_invoice_content_tv"
+                            android:id="@+id/per_info_invoice_content_tag_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -663,6 +650,32 @@
                             android:text="@string/invoice_content"
                             android:textColor="@color/black_character"
                             android:textSize="@dimen/middle_text_size" />
+
+                        <TextView
+                            android:id="@+id/per_info_invoice_content_tv"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:maxLength="16"
+                            android:maxLines="1"
+                            android:paddingBottom="6.0dip"
+                            android:paddingLeft="100dip"
+                            android:paddingRight="50dip"
+                            android:paddingTop="6.0dip"
+                            android:textColor="@color/black_character"
+                            android:textSize="@dimen/middle_text_size" >
+                        </TextView>
+
+                        <ImageView
+                            android:id="@+id/per_info_invoice_content_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dip"
+                            android:padding="5dip"
+                            android:src="@drawable/enter_selector" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

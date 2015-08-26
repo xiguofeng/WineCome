@@ -159,6 +159,12 @@
             android:theme="@style/dialogTheme" >
         </activity>
         <activity
+            android:name="com.xgf.winecome.ui.activity.InvoiceSelectActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:theme="@style/dialogTheme" >
+        </activity>
+        <activity
             android:name="com.xgf.winecome.ui.activity.PayActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop" >
