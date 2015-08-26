@@ -35,11 +35,19 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 
 	private TextView mGoodsProductAreaTv;
 
+	private TextView mGoodsFactoryTv;
+
+	private TextView mGoodsBrandTv;
+
+	private TextView mGoodsJHLTv;
+
 	private TextView mGoodsDegreeTv;
 
-	private TextView mGoodsNumTypeTv;
-
 	private TextView mGoodsScentTv;
+
+	private TextView mGoodsMaterialTv;
+
+	private TextView mGoodsBriefTv;
 
 	private ImageView mGoodsIconIv;
 
@@ -85,9 +93,13 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		mGoodsOrgPriceTv = (TextView) findViewById(R.id.goods_detail_original_prices_tv);
 
 		mGoodsProductAreaTv = (TextView) findViewById(R.id.goods_detail_area_tv);
+		mGoodsFactoryTv = (TextView) findViewById(R.id.goods_detail_factory_tv);
+		mGoodsBrandTv = (TextView) findViewById(R.id.goods_detail_brand_type_tv);
+		mGoodsJHLTv = (TextView) findViewById(R.id.goods_detail_jhl_tv);
 		mGoodsDegreeTv = (TextView) findViewById(R.id.goods_detail_degree_tv);
-		mGoodsNumTypeTv = (TextView) findViewById(R.id.goods_detail_num_type_tv);
 		mGoodsScentTv = (TextView) findViewById(R.id.goods_detail_scent_tv);
+		mGoodsMaterialTv = (TextView) findViewById(R.id.goods_detail_material_tv);
+		mGoodsBriefTv = (TextView) findViewById(R.id.goods_detail_brief_tv);
 
 		mBackIv = (ImageView) findViewById(R.id.goods_detail_back_iv);
 		mBackIv.setOnClickListener(this);
@@ -123,12 +135,19 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		mGoodsProductAreaTv
 				.setText(!TextUtils.isEmpty(mGoods.getArea()) ? "商品产地："
 						+ mGoods.getArea() : "商品产地：");
-		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? "度数："
-				+ mGoods.getDegree() : "度数：");
-		mGoodsNumTypeTv.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? "规格："
-				+ mGoods.getLevel() : "规格：");
+		mGoodsFactoryTv.setText(!TextUtils.isEmpty(mGoods.getFactory()) ? "酒厂："
+				+ mGoods.getFactory() : "酒厂：");
+		mGoodsBrandTv.setText(!TextUtils.isEmpty(mGoods.getLevel()) ? "产品品牌："
+				+ mGoods.getLevel() : "产品品牌：");
+		mGoodsJHLTv.setText(!TextUtils.isEmpty(mGoods.getContent()) ? "净含量："
+				+ mGoods.getContent() : "净含量：");
+		mGoodsDegreeTv.setText(!TextUtils.isEmpty(mGoods.getDegree()) ? "酒精度："
+				+ mGoods.getDegree() : "酒精度：");
 		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? "香型："
 				+ mGoods.getModel() : "香型：");
+		mGoodsMaterialTv.setText(!TextUtils.isEmpty(mGoods.getMetrial()) ? "原料："
+				+ mGoods.getMetrial() : "原料：");
+		mGoodsBriefTv.setText(mGoods.getFactory());
 
 	}
 

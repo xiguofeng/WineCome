@@ -39,6 +39,10 @@ public class Goods implements Serializable {
 	private String metrial;
 	
 	private String importType;
+	
+	private String factory;
+	
+	private String content;
 
 	public String getId() {
 		return id;
@@ -152,6 +156,22 @@ public class Goods implements Serializable {
 		this.importType = importType;
 	}
 
-	
+	public String getFactory() {
+		return factory;
+	}
+
+	public void setFactory(String factory) {
+		this.factory = factory;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
 
 }
