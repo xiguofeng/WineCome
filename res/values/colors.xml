@@ -36,6 +36,8 @@
     <color name="red_transparent">#60D0021B</color>
     <color name="zero_all">#00000000</color>
     <color name="transparent_background">#50000000</color>
+    <color name="trans_gray_category_normal_bg">#504b5255</color>
+
     
     <color name="trans">#00000000</color>
     <color name="black">#000000</color>
