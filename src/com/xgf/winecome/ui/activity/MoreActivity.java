@@ -98,13 +98,23 @@ public class MoreActivity extends Activity implements OnClickListener {
 					.setTitle("拨打酒来了客服热线")
 					.setCancelable(false)
 					.setCanceledOnTouchOutside(false)
-					.addSheetItem("15050550404", SheetItemColor.Blue,
+					.addSheetItem("025-86883575", SheetItemColor.Blue,
 							new OnSheetItemClickListener() {
 								@Override
 								public void onClick(int which) {
 									Intent intent = new Intent(
 											Intent.ACTION_CALL, Uri
-													.parse("tel:15050550404"));
+													.parse("tel:025-86883575"));
+									startActivity(intent);
+								}
+							})
+					.addSheetItem("025-86883475", SheetItemColor.Blue,
+							new OnSheetItemClickListener() {
+								@Override
+								public void onClick(int which) {
+									Intent intent = new Intent(
+											Intent.ACTION_CALL, Uri
+													.parse("tel:025-86883475"));
 									startActivity(intent);
 								}
 							}).show();
