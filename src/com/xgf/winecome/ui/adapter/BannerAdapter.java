@@ -2,10 +2,7 @@ package com.xgf.winecome.ui.adapter;
 
 import java.util.ArrayList;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.activity.SpecialEventsActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +12,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.activity.SpecialEventsActivity;
 
 public class BannerAdapter extends BaseAdapter {
 
@@ -47,6 +48,7 @@ public class BannerAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
@@ -59,6 +61,16 @@ public class BannerAdapter extends BaseAdapter {
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
+		}
+		if (0 == position % 3) {
+			holder.mBannerIcon.setImageDrawable(mContext.getResources()
+					.getDrawable(R.drawable.banner1));
+		} else if (1 == position % 3) {
+			holder.mBannerIcon.setImageDrawable(mContext.getResources()
+					.getDrawable(R.drawable.banner2));
+		} else {
+			holder.mBannerIcon.setImageDrawable(mContext.getResources()
+					.getDrawable(R.drawable.banner3));
 		}
 		// ImageLoader.getInstance().displayImage(
 		// mDatas.get(position % 3).getIconUrl(), holder.mBannerIcon);
