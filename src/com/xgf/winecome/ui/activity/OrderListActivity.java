@@ -172,13 +172,12 @@ public class OrderListActivity extends Activity implements OnClickListener,
 							.get(position).getOrderStatus())
 							.equals(OrderState.ORDER_STATUS_CONFIRMED)) {
 				Intent intent = new Intent(mContext, CommentsActivity.class);
-				OrderManager
-						.setsCurrentCommentOrderId(((ArrayList<Order>) mMsgMap
-								.get(MsgResult.ORDER_TAG)).get(position)
-								.getId());
+				OrderManager.setsCurrentCommentOrderId(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
+						.get(position).getId());
 				startActivity(intent);
-			} else {
-				// do Nothing
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			}else{
+				//do Nothing
 			}
 
 			break;
