@@ -68,7 +68,7 @@ public class OrderWineAdapter extends BaseAdapter {
 			holder.mTime = (TextView) convertView.findViewById(R.id.list_order_group_time_tv);
 			holder.mState = (TextView) convertView.findViewById(R.id.list_order_group_state_tv);
 
-			holder.mCancelOrDelBtn = (Button) convertView.findViewById(R.id.list_order_group_del_or_cancel_btn);
+			holder.mCancelOrCommentBtn = (Button) convertView.findViewById(R.id.list_order_group_comment_or_cancel_btn);
 			holder.mViewBtn = (Button) convertView.findViewById(R.id.list_order_group_see_btn);
 			holder.mWineLl = (LinearLayout) convertView.findViewById(R.id.list_order_group_wine_ll);
 
@@ -90,22 +90,22 @@ public class OrderWineAdapter extends BaseAdapter {
 
 			final int tempPosition = position;
 			final View view = convertView;
-			final int whichCancel = holder.mCancelOrDelBtn.getId();
+			final int whichCancel = holder.mCancelOrCommentBtn.getId();
 			final int whichDelOrView = holder.mViewBtn.getId();
 
-			holder.mCancelOrDelBtn.setText(mContext.getString(R.string.order_del));
-			holder.mCancelOrDelBtn.setVisibility(View.GONE);
+			holder.mCancelOrCommentBtn.setText(mContext.getString(R.string.add_comment));
+			holder.mCancelOrCommentBtn.setVisibility(View.GONE);
 			if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
 					.equals(OrderState.ORDER_STATUS_ORDERED)
 					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
 							.equals(OrderState.ORDER_STATUS_GRABBED)
 					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
 							.equals(OrderState.ORDER_STATUS_DELIVERY)) {
-				holder.mCancelOrDelBtn.setVisibility(View.VISIBLE);
-				holder.mCancelOrDelBtn.setText(mContext.getString(R.string.order_cancel));
+				holder.mCancelOrCommentBtn.setVisibility(View.VISIBLE);
+				holder.mCancelOrCommentBtn.setText(mContext.getString(R.string.order_cancel));
 			}
 
-			holder.mCancelOrDelBtn.setOnClickListener(new OnClickListener() {
+			holder.mCancelOrCommentBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 
@@ -143,7 +143,7 @@ public class OrderWineAdapter extends BaseAdapter {
 
 		public TextView mId;
 
-		public Button mCancelOrDelBtn;
+		public Button mCancelOrCommentBtn;
 
 		public Button mViewBtn;
 

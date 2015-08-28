@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.entity.OrderState;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
@@ -155,7 +156,7 @@ public class OrderListActivity extends Activity implements OnClickListener,
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
-		case R.id.list_order_group_del_or_cancel_btn: {
+		case R.id.list_order_group_comment_or_cancel_btn: {
 			if (Integer.parseInt(((ArrayList<Order>) mMsgMap
 					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 4) {
 				if (null != mCustomProgressDialog) {
@@ -164,9 +165,18 @@ public class OrderListActivity extends Activity implements OnClickListener,
 				OrderLogic.cancelOrder(mContext, mHandler,
 						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
 								.get(position).getId());
-			} else {
-				Toast.makeText(mContext, getString(R.string.order_cancel_no),
-						Toast.LENGTH_SHORT).show();
+			} else if ((((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
+					.get(position).getOrderStatus())
+					.equals(OrderState.ORDER_STATUS_CHECKED)
+					|| (((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
+							.get(position).getOrderStatus())
+							.equals(OrderState.ORDER_STATUS_CONFIRMED)) {
+				Intent intent = new Intent(mContext, CommentsActivity.class);
+				OrderManager.setsCurrentCommentOrderId(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
+						.get(position).getId());
+				startActivity(intent);
+			}else{
+				//do Nothing
 			}
 
 			break;

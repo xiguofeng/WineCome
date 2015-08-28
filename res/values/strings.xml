@@ -238,6 +238,7 @@
     <string name="order_cancel">取消订单</string>
     <string name="order_view">查看订单</string>
     <string name="order_del">删除订单</string>
+    <string name="add_comment">追加评论</string>
     <string name="query">查询</string>
     <string name="place_order_suc">下单成功</string>
     <string name="began_delivery">开始配送</string>
