@@ -1,14 +1,18 @@
 package com.xgf.winecome.ui.activity;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
+import com.xgf.winecome.ui.view.widget.ActionSheetDialog;
+import com.xgf.winecome.ui.view.widget.ActionSheetDialog.OnSheetItemClickListener;
+import com.xgf.winecome.ui.view.widget.ActionSheetDialog.SheetItemColor;
 
 public class MoreActivity extends Activity implements OnClickListener {
 
@@ -17,6 +21,7 @@ public class MoreActivity extends Activity implements OnClickListener {
 	private RelativeLayout mIntegralSearchRl;
 	private RelativeLayout mIntegralExchangeRl;
 	private RelativeLayout mQrCodeRl;
+	private RelativeLayout mCustomerServiceRl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +37,14 @@ public class MoreActivity extends Activity implements OnClickListener {
 		mIntegralSearchRl = (RelativeLayout) findViewById(R.id.more_integral_search_rl);
 		mIntegralExchangeRl = (RelativeLayout) findViewById(R.id.more_integral_exchange_rl);
 		mQrCodeRl = (RelativeLayout) findViewById(R.id.more_qrcode_rl);
+		mCustomerServiceRl = (RelativeLayout) findViewById(R.id.more_customer_service_rl);
 
 		mOrderRl.setOnClickListener(this);
 		mIntegralMallRl.setOnClickListener(this);
 		mIntegralSearchRl.setOnClickListener(this);
 		mIntegralExchangeRl.setOnClickListener(this);
 		mQrCodeRl.setOnClickListener(this);
+		mCustomerServiceRl.setOnClickListener(this);
 	}
 
 	private void initData() {
@@ -48,7 +55,8 @@ public class MoreActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.more_order_rl: {
-			Intent intent = new Intent(MoreActivity.this, OrderQueryActivity.class);
+			Intent intent = new Intent(MoreActivity.this,
+					OrderQueryActivity.class);
 			startActivity(intent);
 			// if (UserInfoManager.getIsMustAuth(getApplicationContext())) {
 			//
@@ -60,18 +68,21 @@ public class MoreActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.more_integral_shop_rl: {
-			Intent intent = new Intent(MoreActivity.this, IntegralMallActivity.class);
+			Intent intent = new Intent(MoreActivity.this,
+					IntegralMallActivity.class);
 			startActivity(intent);
 
 			break;
 		}
 		case R.id.more_integral_search_rl: {
-			Intent intent = new Intent(MoreActivity.this, IntegralQueryActivity.class);
+			Intent intent = new Intent(MoreActivity.this,
+					IntegralQueryActivity.class);
 			startActivity(intent);
 			break;
 		}
 		case R.id.more_integral_exchange_rl: {
-			Intent intent = new Intent(MoreActivity.this, IntegralOrderListActivity.class);
+			Intent intent = new Intent(MoreActivity.this,
+					IntegralOrderListActivity.class);
 			startActivity(intent);
 			break;
 		}
@@ -79,6 +90,24 @@ public class MoreActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(MoreActivity.this, CaptureActivity.class);
 			intent.setAction(CaptureActivity.ORIGIN_FROM_MORE_ACTION);
 			startActivity(intent);
+			break;
+		}
+		case R.id.more_customer_service_rl: {
+			new ActionSheetDialog(MoreActivity.this)
+					.builder()
+					.setTitle("拨打酒来了客服热线")
+					.setCancelable(false)
+					.setCanceledOnTouchOutside(false)
+					.addSheetItem("15050550404", SheetItemColor.Blue,
+							new OnSheetItemClickListener() {
+								@Override
+								public void onClick(int which) {
+									Intent intent = new Intent(
+											Intent.ACTION_CALL, Uri
+													.parse("tel:15050550404"));
+									startActivity(intent);
+								}
+							}).show();
 			break;
 		}
 

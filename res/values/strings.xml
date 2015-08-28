@@ -184,6 +184,7 @@
     <string name="integral_search">积分查询</string>
     <string name="integral_shop">积分商城</string>
     <string name="special_events">活动专区</string>
+    <string name="kf_phone">客服电话</string>
 
     <!-- notify -->
     <string name="notify">消息</string>
