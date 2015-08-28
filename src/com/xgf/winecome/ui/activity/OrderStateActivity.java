@@ -73,9 +73,9 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 	private String mDeliveryTime;
 
 	private int mTiming = 0;
-	
+
 	protected CustomProgressDialog2 mCustomProgressDialog;
-	
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -307,7 +307,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		}
 
 		case R.id.order_state_cancel_btn: {
-			if (mStateCode < 4) {
+			if (mStateCode < 3) {
 				if (null != mCustomProgressDialog) {
 					mCustomProgressDialog.show();
 				}

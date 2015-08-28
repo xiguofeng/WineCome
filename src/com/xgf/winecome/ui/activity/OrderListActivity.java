@@ -158,7 +158,7 @@ public class OrderListActivity extends Activity implements OnClickListener,
 		}
 		case R.id.list_order_group_comment_or_cancel_btn: {
 			if (Integer.parseInt(((ArrayList<Order>) mMsgMap
-					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 4) {
+					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 3) {
 				if (null != mCustomProgressDialog) {
 					mCustomProgressDialog.show();
 				}
@@ -172,11 +172,13 @@ public class OrderListActivity extends Activity implements OnClickListener,
 							.get(position).getOrderStatus())
 							.equals(OrderState.ORDER_STATUS_CONFIRMED)) {
 				Intent intent = new Intent(mContext, CommentsActivity.class);
-				OrderManager.setsCurrentCommentOrderId(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
-						.get(position).getId());
+				OrderManager
+						.setsCurrentCommentOrderId(((ArrayList<Order>) mMsgMap
+								.get(MsgResult.ORDER_TAG)).get(position)
+								.getId());
 				startActivity(intent);
-			}else{
-				//do Nothing
+			} else {
+				// do Nothing
 			}
 
 			break;
