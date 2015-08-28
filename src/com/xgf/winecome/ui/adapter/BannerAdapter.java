@@ -34,7 +34,7 @@ public class BannerAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// 返回很大的值使得getView中的position不断增大来实现循环
-		return 1;
+		return Integer.MAX_VALUE;
 	}
 
 	@Override
