@@ -253,6 +253,7 @@
     <string name="identification_qr">扫码鉴定</string>
     <string name="order_cancel_suc">订单取消成功</string>
     <string name="order_cancel_fail">订单取消失败</string>
+    <string name="order_cancel_confirm">确定取消订单？</string>
     <string name="order_cancel_no">订单已经配送，不能取消！</string>
 
     <!-- comments -->

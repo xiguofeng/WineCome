@@ -162,8 +162,8 @@ public class OrderListActivity extends Activity implements OnClickListener,
 					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 3) {
 				final int tempPosition=position;
 				
-				new AlertDialog(OrderListActivity.this).builder().setTitle("提示")
-				.setMsg("确定取消订单？")
+				new AlertDialog(OrderListActivity.this).builder().setTitle(getString(R.string.prompt))
+				.setMsg(getString(R.string.order_cancel_confirm))
 				.setPositiveButton(getString(R.string.confirm), new OnClickListener() {
 					@Override
 					public void onClick(View v) {
