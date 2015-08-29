@@ -9,6 +9,7 @@
         <item>消息中心</item>
     </string-array>
 
+    <string name="exit">再按一次退出程序</string>
     <string name="app_name">酒来了</string>
     <string name="action_settings">Settings</string>
     <string name="action_personal">个人中心</string>

@@ -12,6 +12,7 @@ import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.ui.adapter.OrderWineAdapter;
 import com.xgf.winecome.ui.utils.ListItemClickHelp;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.ui.view.widget.AlertDialog;
 import com.xgf.winecome.utils.OrderManager;
 
 import android.app.Activity;
@@ -159,12 +160,28 @@ public class OrderListActivity extends Activity implements OnClickListener,
 		case R.id.list_order_group_comment_or_cancel_btn: {
 			if (Integer.parseInt(((ArrayList<Order>) mMsgMap
 					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 3) {
-				if (null != mCustomProgressDialog) {
-					mCustomProgressDialog.show();
-				}
-				OrderLogic.cancelOrder(mContext, mHandler,
-						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
-								.get(position).getId());
+				final int tempPosition=position;
+				
+				new AlertDialog(OrderListActivity.this).builder().setTitle("提示")
+				.setMsg("确定取消订单？")
+				.setPositiveButton(getString(R.string.confirm), new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						
+						if (null != mCustomProgressDialog) {
+							mCustomProgressDialog.show();
+						}
+						OrderLogic.cancelOrder(mContext, mHandler,
+								((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
+										.get(tempPosition).getId());
+					}
+				}).setNegativeButton(getString(R.string.cancal), new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+
+					}
+				}).show();
+			
 			} else if ((((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
 					.get(position).getOrderStatus())
 					.equals(OrderState.ORDER_STATUS_CHECKED)

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -21,9 +22,9 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class HomeActivity extends TabActivity implements
-		android.view.View.OnClickListener {
+public class HomeActivity extends TabActivity implements android.view.View.OnClickListener {
 
 	public static final String TAG = HomeActivity.class.getSimpleName();
 
@@ -59,14 +60,14 @@ public class HomeActivity extends TabActivity implements
 
 	private String mDeliveryTime;
 
+	private long exitTime = 0;
+
 	private Handler mTimeHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case TIME_UPDATE: {
-				long deliveryTime = TimeUtils.dateToLong(mDeliveryTime,
-						TimeUtils.FORMAT_PATTERN_DATE);
-				int waitTime = (int) (deliveryTime - (System
-						.currentTimeMillis() / 1000));
+				long deliveryTime = TimeUtils.dateToLong(mDeliveryTime, TimeUtils.FORMAT_PATTERN_DATE);
+				int waitTime = (int) (deliveryTime - (System.currentTimeMillis() / 1000));
 				if (waitTime > 0) {
 					mTimingTv.setText(TimeUtils.secToTime(waitTime));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
@@ -113,65 +114,58 @@ public class HomeActivity extends TabActivity implements
 		Intent i_cart = new Intent(this, ShopCartActivity.class);
 		Intent i_more = new Intent(this, MoreActivity.class);
 
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_MAIN).setIndicator(TAB_MAIN)
-				.setContent(i_home));
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_CART).setIndicator(TAB_CART)
-				.setContent(i_cart));
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_MORE).setIndicator(TAB_MORE)
-				.setContent(i_more));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_MAIN).setIndicator(TAB_MAIN).setContent(i_home));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_CART).setIndicator(TAB_CART).setContent(i_cart));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_MORE).setIndicator(TAB_MORE).setContent(i_more));
 
 		mTabHost.setCurrentTabByTag(TAB_MAIN);
 
-		mTabButtonGroup
-				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						switch (checkedId) {
-						case R.id.home_tab_home_rb:
-							mTabHost.setCurrentTabByTag(TAB_MAIN);
-							showOrHideCartPayBar(false);
-							mCheckAllIb.setChecked(false);
-							if (CartManager.getsCartList().size() > 0) {
-								showOrhHideMainPayBar(true);
-							} else {
-								showOrhHideMainPayBar(false);
-							}
-							break;
-
-						case R.id.home_tab_cart_rb:
-							mTabHost.setCurrentTabByTag(TAB_CART);
-							showOrhHideMainPayBar(false);
-							showOrHideCartPayBar(true);
-							break;
-
-						case R.id.home_tab_more_rb:
-							mTabHost.setCurrentTabByTag(TAB_MORE);
-							showOrhHideMainPayBar(false);
-							showOrHideCartPayBar(false);
-							break;
-
-						default:
-							break;
-						}
+		mTabButtonGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch (checkedId) {
+				case R.id.home_tab_home_rb:
+					mTabHost.setCurrentTabByTag(TAB_MAIN);
+					showOrHideCartPayBar(false);
+					mCheckAllIb.setChecked(false);
+					if (CartManager.getsCartList().size() > 0) {
+						showOrhHideMainPayBar(true);
+					} else {
+						showOrhHideMainPayBar(false);
 					}
-				});
+					break;
 
-		mCheckAllIb
-				.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
+				case R.id.home_tab_cart_rb:
+					mTabHost.setCurrentTabByTag(TAB_CART);
+					showOrhHideMainPayBar(false);
+					showOrHideCartPayBar(true);
+					break;
 
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						ShopCartActivity.refreshView(isChecked);
+				case R.id.home_tab_more_rb:
+					mTabHost.setCurrentTabByTag(TAB_MORE);
+					showOrhHideMainPayBar(false);
+					showOrHideCartPayBar(false);
+					break;
 
-						CartManager.getsSelectCartList().clear();
-						if (isChecked) {
-							CartManager.getsSelectCartList().addAll(
-									CartManager.getsCartList());
-						}
-						CartManager.setCartTotalMoney();
-					}
+				default:
+					break;
+				}
+			}
+		});
 
-				});
+		mCheckAllIb.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				ShopCartActivity.refreshView(isChecked);
+
+				CartManager.getsSelectCartList().clear();
+				if (isChecked) {
+					CartManager.getsSelectCartList().addAll(CartManager.getsCartList());
+				}
+				CartManager.setCartTotalMoney();
+			}
+
+		});
 
 	}
 
@@ -223,25 +217,21 @@ public class HomeActivity extends TabActivity implements
 		switch (v.getId()) {
 		case R.id.home_main_buy_ll: {
 			if (CartManager.getsCartList().size() > 0) {
-				Intent intent = new Intent(HomeActivity.this,
-						PersonInfoActivity.class);
+				Intent intent = new Intent(HomeActivity.this, PersonInfoActivity.class);
 				intent.setAction(PersonInfoActivity.ORIGIN_FROM_MAIN_ACTION);
 				// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
 				startActivity(intent);
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			}
 			break;
 		}
 		case R.id.home_cart_buy_ll: {
 			if (CartManager.getsSelectCartList().size() > 0) {
-				Intent intent = new Intent(HomeActivity.this,
-						PersonInfoActivity.class);
+				Intent intent = new Intent(HomeActivity.this, PersonInfoActivity.class);
 				intent.setAction(PersonInfoActivity.ORIGIN_FROM_CART_ACTION);
 				// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
 				startActivity(intent);
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			} else {
 
 			}
@@ -252,6 +242,20 @@ public class HomeActivity extends TabActivity implements
 			break;
 		}
 
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), R.string.exit, Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	protected void exitApp() {
@@ -271,15 +275,12 @@ public class HomeActivity extends TabActivity implements
 	}
 
 	/** 含有标题、内容、两个按钮的对话框 **/
-	protected void showAlertDialog(String title, String message,
-			String positiveText,
-			DialogInterface.OnClickListener onPositiveClickListener,
-			String negativeText,
+	protected void showAlertDialog(String title, String message, String positiveText,
+			DialogInterface.OnClickListener onPositiveClickListener, String negativeText,
 			DialogInterface.OnClickListener onNegativeClickListener) {
 		new AlertDialog.Builder(this).setTitle(title).setMessage(message)
 				.setPositiveButton(positiveText, onPositiveClickListener)
-				.setNegativeButton(negativeText, onNegativeClickListener)
-				.show();
+				.setNegativeButton(negativeText, onNegativeClickListener).show();
 	}
 
 }
