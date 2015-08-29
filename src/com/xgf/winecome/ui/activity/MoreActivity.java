@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
@@ -124,6 +126,15 @@ public class MoreActivity extends Activity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			HomeActivity.showMainByOnkey();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

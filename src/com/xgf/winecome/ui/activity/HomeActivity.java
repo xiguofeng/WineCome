@@ -12,17 +12,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class HomeActivity extends TabActivity implements android.view.View.OnClickListener {
 
@@ -59,8 +58,12 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 	private TextView mTimingTv;
 
 	private String mDeliveryTime;
-
-	private long exitTime = 0;
+	
+	private static RadioButton mMainRb; 
+	
+	private RadioButton mCartRb; 
+	
+	private RadioButton mMoreRb; 
 
 	private Handler mTimeHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -105,6 +108,10 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 		mCheckAllIb = (CheckBox) findViewById(R.id.home_cart_pay_ib);
 
 		mTimingTv = (TextView) findViewById(R.id.home_timer_tv);
+		
+		mMainRb = (RadioButton) findViewById(R.id.home_tab_home_rb);
+		mCartRb = (RadioButton) findViewById(R.id.home_tab_cart_rb);
+		mMoreRb = (RadioButton) findViewById(R.id.home_tab_more_rb);
 	}
 
 	private void initView() {
@@ -211,6 +218,12 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 			mCartPayMenuLl.setVisibility(View.GONE);
 		}
 	}
+	
+	
+	public static void showMainByOnkey(){
+		//mTabHost.setCurrentTabByTag(TAB_MAIN);
+		mMainRb.setChecked(true);
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -242,20 +255,6 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 			break;
 		}
 
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-			if ((System.currentTimeMillis() - exitTime) > 2000) {
-				Toast.makeText(getApplicationContext(), R.string.exit, Toast.LENGTH_SHORT).show();
-				exitTime = System.currentTimeMillis();
-			} else {
-				finish();
-			}
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
 	}
 
 	protected void exitApp() {

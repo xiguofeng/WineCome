@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,6 +63,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private CircleFlowIndicator mIndic;
 	private ArrayList<Goods> mBannerActivityList = new ArrayList<Goods>();
 	protected CustomProgressDialog2 mCustomProgressDialog;
+	
+	private long exitTime = 0;
 
 	Handler mHandler = new Handler() {
 
@@ -446,6 +449,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), R.string.exit, Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	public static void update() {
