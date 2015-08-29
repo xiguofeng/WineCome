@@ -26,7 +26,7 @@ public class UnionpayApi {
 	/*****************************************************************
 	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
 	 *****************************************************************/
-	private final String mMode = "01";
+	private final String mMode = "00";
 	private static final String TN_URL_01 = "http://101.231.204.84:8091/sim/getacptn";
 
 	private Activity mActivity;

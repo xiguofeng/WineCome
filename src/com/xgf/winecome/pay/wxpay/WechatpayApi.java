@@ -152,6 +152,7 @@ public class WechatpayApi {
 		return sb.toString();
 	}
 
+	@SuppressWarnings("deprecation")
 	private String genProductArgs(String body, String total_fee) {
 		StringBuffer xml = new StringBuffer();
 
