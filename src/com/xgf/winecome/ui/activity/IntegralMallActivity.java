@@ -7,6 +7,7 @@ import com.xgf.winecome.entity.IntegralGoods;
 import com.xgf.winecome.network.logic.IntegralGoodsLogic;
 import com.xgf.winecome.ui.adapter.IntegralGoodsGvAdapter;
 import com.xgf.winecome.ui.view.CustomProgressDialog;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,7 +34,7 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 
 	private ArrayList<IntegralGoods> mIntegralGoodsList = new ArrayList<IntegralGoods>();
 
-	private CustomProgressDialog mProgressDialog;
+	protected CustomProgressDialog2 mCustomProgressDialog;
 
 	Handler mHandler = new Handler() {
 
@@ -57,7 +58,9 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 			default:
 				break;
 			}
-			mProgressDialog.dismiss();
+			if (null != mCustomProgressDialog && mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
+			}
 		}
 
 	};
@@ -67,8 +70,7 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.integral_mall);
 		mContext = IntegralMallActivity.this;
-		mProgressDialog = new CustomProgressDialog(mContext);
-		mProgressDialog.show();
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -78,8 +80,7 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 		mFilterRl = (RelativeLayout) findViewById(R.id.integral_mall_filter_rl);
 		mIntegralGoodsGv = (GridView) findViewById(R.id.integral_mall_gv);
 
-		mGvAdapter = new IntegralGoodsGvAdapter(IntegralMallActivity.this,
-				mIntegralGoodsList);
+		mGvAdapter = new IntegralGoodsGvAdapter(IntegralMallActivity.this, mIntegralGoodsList);
 		mIntegralGoodsGv.setAdapter(mGvAdapter);
 	}
 
@@ -88,15 +89,16 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 		mIntegralGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 			}
 		});
 	}
 
 	private void setUpData() {
-
+		if (null != mCustomProgressDialog) {
+			mCustomProgressDialog.show();
+		}
 		IntegralGoodsLogic.getAllIntegralGoods(mContext, mHandler);
 
 		mIntegralGoodsList.clear();
@@ -121,8 +123,7 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.integral_mall_filter_rl: {
-			Intent intent = new Intent(IntegralMallActivity.this,
-					IntegralSelectActivity.class);
+			Intent intent = new Intent(IntegralMallActivity.this, IntegralSelectActivity.class);
 			startActivityForResult(intent, 1);
 		}
 

@@ -15,10 +15,13 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.xgf.winecome.config.Constants;
+import com.xgf.winecome.entity.AlipayMerchant;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
+import com.xgf.winecome.pay.PayConstants;
 import com.xgf.winecome.utils.JsonUtils;
 import com.xgf.winecome.utils.OrderManager;
 
@@ -403,12 +406,36 @@ public class OrderLogic {
 
 				HashMap<String, Object> msgMap = new HashMap<String, Object>();
 
+				JSONObject orderJsonObject = jsonObject.getJSONObject("order");
 				ArrayList<Order> tempOrderList = new ArrayList<Order>();
-				Order order = (Order) JsonUtils.fromJsonToJava(jsonObject, Order.class);
+				Order order = (Order) JsonUtils.fromJsonToJava(orderJsonObject, Order.class);
 				tempOrderList.add(order);
 
+				if (PayConstants.PAY_WAY_ALIPAY.equals(order.getPayWay())) {
+					JSONObject merchantJsonObject = jsonObject.getJSONObject("merchant");
+					AlipayMerchant alipayMerchant = (AlipayMerchant) JsonUtils.fromJsonToJava(merchantJsonObject,
+							AlipayMerchant.class);
+					msgMap.put(PayConstants.PAY_WAY_ALIPAY, alipayMerchant);
+				} else if (PayConstants.PAY_WAY_WXPAY.equals(order.getPayWay())) {
+					// JSONObject merchantJsonObject =
+					// jsonObject.getJSONObject("merchant");
+					// AlipayMerchant alipayMerchant = (AlipayMerchant)
+					// JsonUtils.fromJsonToJava(merchantJsonObject,
+					// AlipayMerchant.class);
+					// msgMap.put(PayConstants.ALIPAY, alipayMerchant);
+
+				} else if (PayConstants.PAY_WAY_UNIONPAY.equals(order.getPayWay())) {
+					// JSONObject merchantJsonObject =
+					// jsonObject.getJSONObject("merchant");
+					// AlipayMerchant alipayMerchant = (AlipayMerchant)
+					// JsonUtils.fromJsonToJava(merchantJsonObject,
+					// AlipayMerchant.class);
+					// msgMap.put(PayConstants.ALIPAY, alipayMerchant);
+
+				}
+
 				ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
-				JSONArray goodsArray = jsonObject.getJSONArray("items");
+				JSONArray goodsArray = orderJsonObject.getJSONArray("items");
 				for (int j = 0; j < goodsArray.length(); j++) {
 					JSONObject goodsJsonObject = goodsArray.getJSONObject(j);
 					Goods goods = new Goods();

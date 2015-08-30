@@ -4,15 +4,6 @@ import android.os.Environment;
 
 public class Constants {
 
-	/************************************************
-	 * 支付方式: cashpay-现金支付 pospay-POS机支付 alipay-支付宝支付 unionpay-银联支付 wxpay-微信支付
-	 ************************************************/
-	public static final String PAY_WAY_CASHPAY = "cashpay";
-	public static final String PAY_WAY_POSPAY = "pospay";
-	public static final String PAY_WAY_ALIPAY = "alipay";
-	public static final String PAY_WAY_UNIONPAY = "unionpay";
-	public static final String PAY_WAY_WXPAY = "wxpay";
-
 	/**
 	 ******************************************* 参数设置信息开始 ******************************************
 	 */

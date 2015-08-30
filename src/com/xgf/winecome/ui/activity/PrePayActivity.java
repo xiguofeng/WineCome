@@ -9,6 +9,7 @@ import com.xgf.winecome.config.Constants;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
+import com.xgf.winecome.pay.PayConstants;
 import com.xgf.winecome.pay.alipay.AlipayApi;
 import com.xgf.winecome.pay.alipay.PayResult;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
@@ -75,7 +76,7 @@ public class PrePayActivity extends Activity implements OnClickListener {
 					mCurrentSelectPayWay = mCurrentPayWay;
 
 					AlipayApi apAlipayApi = new AlipayApi();
-					apAlipayApi.pay(PrePayActivity.this, mAlipayHandler);
+					//apAlipayApi.pay(PrePayActivity.this, mAlipayHandler);
 				}
 				break;
 			}
@@ -210,7 +211,7 @@ public class PrePayActivity extends Activity implements OnClickListener {
 				if (isChecked) {
 					mWeChatCb.setChecked(false);
 					mUnionpayCb.setChecked(false);
-					mCurrentSelectPayWay = Constants.PAY_WAY_ALIPAY;
+					mCurrentSelectPayWay = PayConstants.PAY_WAY_ALIPAY;
 				}
 			}
 		});
@@ -222,7 +223,7 @@ public class PrePayActivity extends Activity implements OnClickListener {
 				if (isChecked) {
 					mAlipayCb.setChecked(false);
 					mUnionpayCb.setChecked(false);
-					mCurrentSelectPayWay = Constants.PAY_WAY_WXPAY;
+					mCurrentSelectPayWay = PayConstants.PAY_WAY_WXPAY;
 				}
 			}
 		});
@@ -234,7 +235,7 @@ public class PrePayActivity extends Activity implements OnClickListener {
 				if (isChecked) {
 					mWeChatCb.setChecked(false);
 					mAlipayCb.setChecked(false);
-					mCurrentSelectPayWay = Constants.PAY_WAY_UNIONPAY;
+					mCurrentSelectPayWay = PayConstants.PAY_WAY_UNIONPAY;
 				}
 			}
 		});

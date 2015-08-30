@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import com.alipay.sdk.app.PayTask;
+import com.xgf.winecome.entity.AlipayMerchant;
 import com.xgf.winecome.utils.OrderManager;
 
 import android.app.Activity;
@@ -32,16 +33,15 @@ public class AlipayApi {
 	 * call alipay sdk pay. 调用SDK支付
 	 * 
 	 */
-	public void pay(final Activity activity, final Handler handler) {
+	public void pay(final Activity activity, final Handler handler, final AlipayMerchant alipayMerchant) {
 		// 订单
-		String orderInfo = getOrderInfo(
+		String orderInfo = getOrderInfo(alipayMerchant.getPartnerId(), alipayMerchant.getSellerAccount(),
 				OrderManager.getsCurrentOrder().getId(), "南京壹前零后科技有限公司提供的酒",
-				OrderManager.getsCurrentOrder().getAmount(), OrderManager
-						.getsCurrentOrder().getNotifyUrl(), OrderManager
-						.getsCurrentOrder().getOpid());
+				OrderManager.getsCurrentOrder().getAmount(), OrderManager.getsCurrentOrder().getNotifyUrl(),
+				OrderManager.getsCurrentOrder().getOpid());
 
 		// 对订单做RSA 签名
-		String sign = sign(orderInfo);
+		String sign = sign(orderInfo, alipayMerchant.getPrivateKey());
 		try {
 			// 仅需对sign 做URL编码
 			sign = URLEncoder.encode(sign, "UTF-8");
@@ -50,8 +50,7 @@ public class AlipayApi {
 		}
 
 		// 完整的符合支付宝参数规范的订单信息
-		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
-				+ getSignType();
+		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
 
 		Runnable payRunnable = new Runnable() {
 
@@ -114,10 +113,10 @@ public class AlipayApi {
 	 * create the order info. 创建订单信息
 	 * 
 	 */
-	public String getOrderInfo(String orderId, String body, String price,
+	public String getOrderInfo(String partner, String sellerId, String orderId, String body, String price,
 			String notifyUrl, String tradeNo) {
 		// 签约合作者身份ID
-		String orderInfo = "partner=" + "\"" + Constants.PARTNER + "\"";
+		String orderInfo = "partner=" + "\"" + partner + "\"";
 
 		// 签约卖家支付宝账号
 		orderInfo += "&seller_id=" + "\"" + Constants.SELLER + "\"";
@@ -170,8 +169,7 @@ public class AlipayApi {
 	 * 
 	 */
 	public String getOutTradeNo() {
-		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
-				Locale.getDefault());
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss", Locale.getDefault());
 		Date date = new Date();
 		String key = format.format(date);
 
@@ -187,8 +185,9 @@ public class AlipayApi {
 	 * @param content
 	 *            待签名订单信息
 	 */
-	public String sign(String content) {
-		return SignUtils.sign(content, Constants.RSA_PRIVATE);
+	public String sign(String content, String rsa) {
+		// Constants.RSA_PRIVATE
+		return SignUtils.sign(content, rsa);
 	}
 
 	/**
