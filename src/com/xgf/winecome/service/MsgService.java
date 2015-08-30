@@ -65,7 +65,7 @@ public class MsgService extends Service {
 					if (!TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
 						sendHeartbeatPackage();
 					}
-					mMsgHandler.sendEmptyMessageDelayed(NOTIFY_UPDATE, 5000);
+					mMsgHandler.sendEmptyMessageDelayed(NOTIFY_UPDATE, 30000);
 				}
 				break;
 			}
@@ -83,8 +83,7 @@ public class MsgService extends Service {
 			case MsgLogic.MSG_GET_SUC: {
 				if (null != msg.obj) {
 					ArrayList<NotifyMsg> notifyMsgList = new ArrayList<NotifyMsg>();
-					notifyMsgList
-							.addAll((Collection<? extends NotifyMsg>) msg.obj);
+					notifyMsgList.addAll((Collection<? extends NotifyMsg>) msg.obj);
 					for (NotifyMsg notifyMsg : notifyMsgList) {
 						showIntentActivityNotify(notifyMsg);
 					}
@@ -141,8 +140,7 @@ public class MsgService extends Service {
 	}
 
 	private void sendHeartbeatPackage() {
-		MsgLogic.getPushMsg(mContext, mHeartBeatHandler,
-				UserInfoManager.getPhone(mContext));
+		MsgLogic.getPushMsg(mContext, mHeartBeatHandler, UserInfoManager.getPhone(mContext));
 	}
 
 	/** 初始化通知栏 */
@@ -159,15 +157,13 @@ public class MsgService extends Service {
 		// //在通知栏上点击此通知后自动清除此通知
 		mBuilder.setAutoCancel(true)
 				// 点击后让通知将消失
-				.setContentTitle(notifyMsg.getMsgTime())
-				.setContentText("消息内容：" + notifyMsg.getContent())
-				.setTicker("酒来了").setSmallIcon(R.drawable.logo_app)
-				.setDefaults(Notification.DEFAULT_VIBRATE);
+				.setContentTitle(notifyMsg.getMsgTime()).setContentText("消息内容：" + notifyMsg.getContent())
+				.setTicker("酒来了").setSmallIcon(R.drawable.logo_app).setDefaults(Notification.DEFAULT_VIBRATE);
 		// 点击的意图ACTION是跳转到Intent
 		Intent resultIntent = new Intent();
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(pendingIntent);
 		Log.e("xxx_mNotificationManager", "mNotificationManager");
 		mNotificationManager.notify(100, mBuilder.build());
@@ -199,11 +195,9 @@ public class MsgService extends Service {
 				@Override
 				public void run() {
 					Log.e(TAG, "MsgService Run: " + System.currentTimeMillis());
-					boolean b = isServiceWorked(MsgService.this,
-							"com.xgf.wineserver.service.GuardService");
+					boolean b = isServiceWorked(MsgService.this, "com.xgf.wineserver.service.GuardService");
 					if (!b) {
-						Intent service = new Intent(MsgService.this,
-								GuardService.class);
+						Intent service = new Intent(MsgService.this, GuardService.class);
 						startService(service);
 						Log.e(TAG, "Start GuardService");
 					}
@@ -214,13 +208,11 @@ public class MsgService extends Service {
 	});
 
 	public boolean isServiceWorked(Context context, String serviceName) {
-		ActivityManager myManager = (ActivityManager) context
-				.getSystemService(Context.ACTIVITY_SERVICE);
+		ActivityManager myManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 		ArrayList<RunningServiceInfo> runningService = (ArrayList<RunningServiceInfo>) myManager
 				.getRunningServices(Integer.MAX_VALUE);
 		for (int i = 0; i < runningService.size(); i++) {
-			if (runningService.get(i).service.getClassName().toString()
-					.equals(serviceName)) {
+			if (runningService.get(i).service.getClassName().toString().equals(serviceName)) {
 				return true;
 			}
 		}

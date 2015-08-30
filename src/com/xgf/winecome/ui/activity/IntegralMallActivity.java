@@ -22,12 +22,15 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class IntegralMallActivity extends Activity implements OnClickListener, ListItemClickHelp {
 
 	private Context mContext;
+
+	private ImageView mBackIv;
 
 	private GridView mIntegralGoodsGv;
 
@@ -60,18 +63,6 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 				break;
 			}
 
-			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_SUC: {
-				if (null != msg.obj) {
-
-				}
-				break;
-			}
-			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_FAIL: {
-				break;
-			}
-			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_EXCEPTION: {
-				break;
-			}
 
 			default:
 				break;
@@ -97,12 +88,14 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 	private void setUpViews() {
 		mFilterRl = (RelativeLayout) findViewById(R.id.integral_mall_filter_rl);
 		mIntegralGoodsGv = (GridView) findViewById(R.id.integral_mall_gv);
+		mBackIv = (ImageView) findViewById(R.id.integral_mall_back_iv);
 
 		mGvAdapter = new IntegralGoodsGvAdapter(IntegralMallActivity.this, mIntegralGoodsList, this);
 		mIntegralGoodsGv.setAdapter(mGvAdapter);
 	}
 
 	private void setUpListener() {
+		mBackIv.setOnClickListener(this);
 		mFilterRl.setOnClickListener(this);
 		mIntegralGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -167,6 +160,7 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 			// mIntegralGoodsList.get(position).getId());
 
 			Intent intent = new Intent(IntegralMallActivity.this, IntegralInfoInput.class);
+			intent.putExtra("id", mIntegralGoodsList.get(position).getId());
 			startActivity(intent);
 
 			break;

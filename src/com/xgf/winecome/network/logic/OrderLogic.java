@@ -19,6 +19,7 @@ import com.xgf.winecome.config.Constants;
 import com.xgf.winecome.entity.AlipayMerchant;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.entity.UnionpayMerchant;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
 import com.xgf.winecome.pay.PayConstants;
@@ -425,12 +426,10 @@ public class OrderLogic {
 					// msgMap.put(PayConstants.ALIPAY, alipayMerchant);
 
 				} else if (PayConstants.PAY_WAY_UNIONPAY.equals(order.getPayWay())) {
-					// JSONObject merchantJsonObject =
-					// jsonObject.getJSONObject("merchant");
-					// AlipayMerchant alipayMerchant = (AlipayMerchant)
-					// JsonUtils.fromJsonToJava(merchantJsonObject,
-					// AlipayMerchant.class);
-					// msgMap.put(PayConstants.ALIPAY, alipayMerchant);
+					JSONObject merchantJsonObject = jsonObject.getJSONObject("merchant");
+					UnionpayMerchant unionpayMerchant = (UnionpayMerchant) JsonUtils.fromJsonToJava(merchantJsonObject,
+							UnionpayMerchant.class);
+					msgMap.put(PayConstants.PAY_WAY_UNIONPAY, unionpayMerchant);
 
 				}
 

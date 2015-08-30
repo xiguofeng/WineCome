@@ -87,6 +87,11 @@ public class RequestUrl {
 		 * 积分兑换历史
 		 */
 		public String queryIntegralConsume = "queryIntegralConsume";
+		
+		/**
+		 * 获取总积分
+		 */
+		public String queryTotal = "queryIntegralConsume";
 
 	}
 

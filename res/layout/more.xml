@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
         android:background="@color/red_title_bg"
+        android:gravity="center"
         android:orientation="horizontal" >
 
         <TextView
@@ -61,7 +61,7 @@
             android:layout_marginRight="10dip"
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
-    
+
     <RelativeLayout
         android:id="@+id/more_qrcode_rl"
         android:layout_width="match_parent"
@@ -185,7 +185,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dip"
         android:background="@drawable/h_line"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="gone" >
     </LinearLayout>
 
     <RelativeLayout
@@ -193,7 +194,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/common_selector"
-        android:padding="5dip" >
+        android:padding="5dip"
+        android:visibility="gone" >
 
         <ImageView
             android:id="@+id/more_integral_exchange_iv"
@@ -224,7 +226,6 @@
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
-    
     <RelativeLayout
         android:id="@+id/more_customer_service_rl"
         android:layout_width="match_parent"
@@ -261,4 +262,5 @@
             android:layout_marginRight="10dip"
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
+
 </LinearLayout>

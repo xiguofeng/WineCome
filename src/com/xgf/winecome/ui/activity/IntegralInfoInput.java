@@ -1,12 +1,13 @@
 package com.xgf.winecome.ui.activity;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.network.logic.IntegralGoodsLogic;
 import com.xgf.winecome.network.logic.UserLogic;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.UserInfoManager;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -43,9 +44,49 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 	private String mAuthCode;
 	private String mAddress;
 
+	private String mId;
+
+	protected CustomProgressDialog2 mCustomProgressDialog;
 	private int mTiming = 60;
 
 	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_SUC: {
+				Toast.makeText(mContext, "兑换成功", Toast.LENGTH_SHORT).show();
+				finish();
+				break;
+			}
+			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_FAIL: {
+				Toast.makeText(mContext, "兑换失败", Toast.LENGTH_SHORT).show();
+				finish();
+				break;
+			}
+			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_EXCEPTION: {
+				Toast.makeText(mContext, "兑换失败", Toast.LENGTH_SHORT).show();
+				finish();
+				break;
+			}
+			case UserLogic.NET_ERROR: {
+				break;
+			}
+
+			default:
+				break;
+			}
+
+			if (null != mCustomProgressDialog && mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
+			}
+
+		}
+
+	};
+
+	Handler mAuthHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -74,6 +115,10 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 
 			default:
 				break;
+			}
+
+			if (null != mCustomProgressDialog && mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
 			}
 
 		}
@@ -110,6 +155,7 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.integral_info_input);
 		mContext = IntegralInfoInput.this;
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -141,6 +187,8 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 	}
 
 	private void setUpData() {
+		mId = getIntent().getStringExtra("id");
+
 		if (!UserInfoManager.getIsMustAuth(mContext) && !TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
 			mPhone = UserInfoManager.getPhone(mContext);
 			mPhoneTv.setVisibility(View.VISIBLE);
@@ -175,11 +223,11 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 
 			if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode) && !TextUtils.isEmpty(mAddress)
 					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())) {
-				Intent intent = new Intent(IntegralInfoInput.this, OrderListActivity.class);
-				intent.putExtra("phone", mPhone);
-				startActivity(intent);
-				IntegralInfoInput.this.finish();
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				if (null != mCustomProgressDialog) {
+					mCustomProgressDialog.show();
+				}
+				IntegralGoodsLogic.exchange(mContext, mHandler, mPhone, mId,mAddress);
+
 			} else {
 				Toast.makeText(mContext, getString(R.string.mobile_phone_and_code_hint), Toast.LENGTH_SHORT).show();
 			}
@@ -193,7 +241,7 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 				mPhone = mPhoneEt.getText().toString().trim();
 			}
 			if (!TextUtils.isEmpty(mPhone)) {
-				UserLogic.sendAuthCode(mContext, mHandler, mPhone);
+				UserLogic.sendAuthCode(mContext, mAuthHandler, mPhone);
 			} else {
 				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
 			}

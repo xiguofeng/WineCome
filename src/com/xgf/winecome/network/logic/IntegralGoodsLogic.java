@@ -207,7 +207,7 @@ public class IntegralGoodsLogic {
 	}
 
 	public static void exchange(final Context context, final Handler handler, final String phone,
-			final String productId) {
+			final String productId, final String address) {
 
 		new Thread(new Runnable() {
 
@@ -219,6 +219,8 @@ public class IntegralGoodsLogic {
 					JSONObject requestJson = new JSONObject();
 					requestJson.put("phone", URLEncoder.encode(phone, "UTF-8"));
 					requestJson.put("productId", URLEncoder.encode(productId, "UTF-8"));
+					requestJson.put("address", URLEncoder.encode(address, "UTF-8"));
+
 					Log.e("xxx_order_json", requestJson.toString());
 					rpc.addProperty("data", requestJson.toString());
 					rpc.addProperty("md5", URLEncoder.encode("123", "UTF-8"));
@@ -321,6 +323,84 @@ public class IntegralGoodsLogic {
 	}
 
 	private static void parseExchangeHistroyData(JSONObject response, Handler handler) {
+		try {
+
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
+				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
+				JSONArray goodsListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				Log.e("xxx_parseGoodsListData_0", "goodsListArray-------->" + goodsListArray.toString());
+				int size = goodsListArray.length();
+				for (int j = 0; j < size; j++) {
+					JSONObject categoryJsonObject = goodsListArray.getJSONObject(j);
+
+					Goods goods = (Goods) JsonUtils.fromJsonToJava(categoryJsonObject, Goods.class);
+					goods.setNum("0");
+					mTempGoodsList.add(goods);
+				}
+				Message message = new Message();
+				message.what = INTEGRAL_GOODS_LIST_GET_SUC;
+				message.obj = mTempGoodsList;
+				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(INTEGRAL_GOODS_LIST_GET_FAIL);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(INTEGRAL_GOODS_LIST_GET_EXCEPTION);
+		}
+	}
+	
+	public static void getTotal(final Context context, final Handler handler, final String phone,
+			final String productId) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.integral.queryTotal);
+
+					JSONObject requestJson = new JSONObject();
+					rpc.addProperty("phone", requestJson.toString());
+					rpc.addProperty("md5", URLEncoder.encode("123", "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.integral.queryTotal, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+					Log.e("xxx_getTotal_resultStr", resultStr);
+
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseTotalData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	private static void parseTotalData(JSONObject response, Handler handler) {
 		try {
 
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();

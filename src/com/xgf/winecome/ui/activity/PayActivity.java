@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.config.Constants;
 import com.xgf.winecome.entity.AlipayMerchant;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.entity.UnionpayMerchant;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.PayConstants;
@@ -447,8 +447,12 @@ public class PayActivity extends Activity implements OnClickListener {
 			if (null == mUnionpayApi) {
 				mUnionpayApi = new UnionpayApi(PayActivity.this, mUnionpayHandler);
 			}
+			UnionpayMerchant unionpayMerchant = (UnionpayMerchant) mMsgMap.get(PayConstants.PAY_WAY_UNIONPAY);
 			mUnionpayApi.getTn(PayActivity.this, mUnionpayHandler);
-			OrderLogic.getPayUnionTn(mContext, mUnionpayHandler, OrderManager.getsCurrentOrder().getAmount());
+			mUnionpayApi.pay(PayActivity.this, mUnionpayHandler, unionpayMerchant.getTn());
+
+			// OrderLogic.getPayUnionTn(mContext, mUnionpayHandler,
+			// OrderManager.getsCurrentOrder().getAmount());
 
 		} else if (PayConstants.PAY_WAY_CASHPAY.equals(mCurrentPayWay)) {
 			Intent intent = new Intent(mContext, OrderStateActivity.class);
