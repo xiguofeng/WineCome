@@ -326,6 +326,7 @@
     <string name="integral_mall_go_to">逛逛积分商城</string>
     <string name="integral_query_result">积分查询结果</string>
     <string name="total_integral">总积分</string>
+    <string name="integral_info_input">积分兑换信息录入</string>
 
     <!-- QrCode -->
     <string name="qr_code_scan">扫一扫</string>

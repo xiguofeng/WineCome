@@ -1,13 +1,15 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.IntegralGoods;
 import com.xgf.winecome.network.logic.IntegralGoodsLogic;
 import com.xgf.winecome.ui.adapter.IntegralGoodsGvAdapter;
-import com.xgf.winecome.ui.view.CustomProgressDialog;
+import com.xgf.winecome.ui.utils.ListItemClickHelp;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.utils.UserInfoManager;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,8 +23,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-public class IntegralMallActivity extends Activity implements OnClickListener {
+public class IntegralMallActivity extends Activity implements OnClickListener, ListItemClickHelp {
 
 	private Context mContext;
 
@@ -44,7 +47,9 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 			switch (what) {
 			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_SUC: {
 				if (null != msg.obj) {
-
+					mIntegralGoodsList.clear();
+					mIntegralGoodsList.addAll((Collection<? extends IntegralGoods>) msg.obj);
+					mGvAdapter.notifyDataSetChanged();
 				}
 				break;
 			}
@@ -52,6 +57,19 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 				break;
 			}
 			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_EXCEPTION: {
+				break;
+			}
+
+			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_SUC: {
+				if (null != msg.obj) {
+
+				}
+				break;
+			}
+			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_FAIL: {
+				break;
+			}
+			case IntegralGoodsLogic.INTEGRAL_GOODS_EXCHANGE_EXCEPTION: {
 				break;
 			}
 
@@ -80,7 +98,7 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 		mFilterRl = (RelativeLayout) findViewById(R.id.integral_mall_filter_rl);
 		mIntegralGoodsGv = (GridView) findViewById(R.id.integral_mall_gv);
 
-		mGvAdapter = new IntegralGoodsGvAdapter(IntegralMallActivity.this, mIntegralGoodsList);
+		mGvAdapter = new IntegralGoodsGvAdapter(IntegralMallActivity.this, mIntegralGoodsList, this);
 		mIntegralGoodsGv.setAdapter(mGvAdapter);
 	}
 
@@ -125,10 +143,37 @@ public class IntegralMallActivity extends Activity implements OnClickListener {
 		case R.id.integral_mall_filter_rl: {
 			Intent intent = new Intent(IntegralMallActivity.this, IntegralSelectActivity.class);
 			startActivityForResult(intent, 1);
+			break;
+		}
+		case R.id.integral_mall_back_iv: {
+			finish();
+			break;
 		}
 
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onClick(View item, View widget, int position, int which) {
+		switch (which) {
+		case R.id.integral_gv_item_submit_btn: {
+			// if (null != mCustomProgressDialog) {
+			// mCustomProgressDialog.show();
+			// }
+			// IntegralGoodsLogic.exchange(mContext, mHandler,
+			// UserInfoManager.getPhone(mContext),
+			// mIntegralGoodsList.get(position).getId());
+
+			Intent intent = new Intent(IntegralMallActivity.this, IntegralInfoInput.class);
+			startActivity(intent);
+
+			break;
+		}
+		default:
+			break;
+		}
+
 	}
 }
