@@ -119,7 +119,7 @@ public class AlipayApi {
 		String orderInfo = "partner=" + "\"" + partner + "\"";
 
 		// 签约卖家支付宝账号
-		orderInfo += "&seller_id=" + "\"" + Constants.SELLER + "\"";
+		orderInfo += "&seller_id=" + "\"" + sellerId + "\"";
 
 		// 商户网站唯一订单号
 		orderInfo += "&out_trade_no=" + "\"" + tradeNo + "\"";
