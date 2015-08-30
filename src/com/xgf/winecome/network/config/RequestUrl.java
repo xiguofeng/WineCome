@@ -91,7 +91,7 @@ public class RequestUrl {
 		/**
 		 * 获取总积分
 		 */
-		public String queryTotal = "queryIntegralConsume";
+		public String queryTotal = "getIntegral";
 
 	}
 

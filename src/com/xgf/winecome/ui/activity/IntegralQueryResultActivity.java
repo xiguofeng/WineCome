@@ -69,6 +69,8 @@ public class IntegralQueryResultActivity extends Activity implements OnClickList
 	}
 
 	private void setUpData() {
+		String integral=getIntent().getStringExtra("integral");
+		mTotalTv.setText(integral+"积分");
 
 	}
 

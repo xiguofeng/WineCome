@@ -353,8 +353,7 @@ public class IntegralGoodsLogic {
 		}
 	}
 	
-	public static void getTotal(final Context context, final Handler handler, final String phone,
-			final String productId) {
+	public static void getTotal(final Context context, final Handler handler, final String phone) {
 
 		new Thread(new Runnable() {
 
@@ -365,7 +364,7 @@ public class IntegralGoodsLogic {
 
 					JSONObject requestJson = new JSONObject();
 					rpc.addProperty("phone", requestJson.toString());
-					rpc.addProperty("md5", URLEncoder.encode("123", "UTF-8"));
+					//rpc.addProperty("md5", URLEncoder.encode("123", "UTF-8"));
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
 

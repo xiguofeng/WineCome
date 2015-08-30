@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.network.logic.IntegralGoodsLogic;
 import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.UserInfoManager;
 
@@ -44,8 +45,44 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 	private boolean mIsNeedAuth = false;
 
 	private int mTiming = 60;
-
+	
 	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case IntegralGoodsLogic.INTEGRAL_TOTAL_GET_SUC: {
+				if (null != msg.obj) {
+					String integral = (String) msg.obj;
+					Intent intent = new Intent(IntegralQueryActivity.this, IntegralQueryResultActivity.class);
+					intent.putExtra("integral", integral);
+					startActivity(intent);
+					IntegralQueryActivity.this.finish();
+					overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				}
+				break;
+			}
+			case IntegralGoodsLogic.INTEGRAL_TOTAL_GET_FAIL: {
+				Toast.makeText(mContext, "积分获取失败", Toast.LENGTH_SHORT).show();
+				break;
+			}
+			case IntegralGoodsLogic.INTEGRAL_TOTAL_GET_EXCEPTION: {
+				break;
+			}
+			case IntegralGoodsLogic.NET_ERROR: {
+				break;
+			}
+
+			default:
+				break;
+			}
+
+		}
+
+	};
+
+	Handler mAuthHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -161,11 +198,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 		case R.id.integral_query_submit_ll: {
 			if (!mIsNeedAuth) {
 				if (!TextUtils.isEmpty(mPhone)) {
-					Intent intent = new Intent(IntegralQueryActivity.this, IntegralQueryResultActivity.class);
-					intent.putExtra("phone", mPhone);
-					startActivity(intent);
-					IntegralQueryActivity.this.finish();
-					overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+					IntegralGoodsLogic.getTotal(mContext, mHandler, mPhone);
 				} else {
 					mIsNeedAuth = true;
 					mAuthRl.setVisibility(View.VISIBLE);
@@ -176,11 +209,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 			} else if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode)
 					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())
 					&& mVerCodeEt.getText().toString().trim().endsWith(mAuthCode)) {
-				Intent intent = new Intent(IntegralQueryActivity.this, OrderListActivity.class);
-				intent.putExtra("phone", mPhone);
-				startActivity(intent);
-				IntegralQueryActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				
 			} else {
 				Toast.makeText(mContext, getString(R.string.mobile_phone_and_code_hint), Toast.LENGTH_SHORT).show();
 			}
@@ -192,7 +221,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 		case R.id.integral_query_ver_code_ll: {
 			mPhone = mPhoneEt.getText().toString().trim();
 			if (!TextUtils.isEmpty(mPhone)) {
-				UserLogic.sendAuthCode(mContext, mHandler, mPhone);
+				UserLogic.sendAuthCode(mContext, mAuthHandler, mPhone);
 
 			} else {
 				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
