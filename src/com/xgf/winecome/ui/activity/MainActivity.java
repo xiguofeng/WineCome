@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -136,6 +137,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			switch (what) {
 			case AppLogic.GET_VERSION_SUC: {
 				if (null != msg.obj) {
+					String sDownUrl = (String) msg.obj;
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_VIEW);
+					intent.setData(Uri.parse(sDownUrl));
+					startActivity(intent);
 				}
 				break;
 			}
