@@ -424,6 +424,7 @@ public class OrderLogic {
 					// JsonUtils.fromJsonToJava(merchantJsonObject,
 					// AlipayMerchant.class);
 					// msgMap.put(PayConstants.ALIPAY, alipayMerchant);
+					//msgMap.put(PayConstants.PAY_WAY_WXPAY, alipayMerchant);
 
 				} else if (PayConstants.PAY_WAY_UNIONPAY.equals(order.getPayWay())) {
 					JSONObject merchantJsonObject = jsonObject.getJSONObject("merchant");
