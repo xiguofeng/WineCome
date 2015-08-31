@@ -66,7 +66,7 @@ public class CartManager implements Watched {
 		// 更新sSelectCartList
 		boolean isHasSelect = false;
 		for (int i = 0; i < sSelectCartList.size(); i++) {
-			if (sSelectCartList.get(i).getId().equals(sCartList.get(position))) {
+			if (sSelectCartList.get(i).getId().equals(sCartList.get(position).getId())) {
 				sSelectCartList.remove(i);
 				isHasSelect = true;
 				break;
@@ -93,10 +93,8 @@ public class CartManager implements Watched {
 		// 更新首页菜单价格 并不显示
 		notifyWatchers();
 		setTotalMoney(false);
-
-		if (isHasSelect) {
-			setCartTotalMoney();
-		}
+		
+	    setCartTotalMoney();
 	}
 
 	/**
