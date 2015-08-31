@@ -145,8 +145,9 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 				+ mGoods.getDegree() : "酒精度：");
 		mGoodsScentTv.setText(!TextUtils.isEmpty(mGoods.getModel()) ? "香型："
 				+ mGoods.getModel() : "香型：");
-		mGoodsMaterialTv.setText(!TextUtils.isEmpty(mGoods.getMetrial()) ? "原料："
-				+ mGoods.getMetrial() : "原料：");
+		mGoodsMaterialTv
+				.setText(!TextUtils.isEmpty(mGoods.getMetrial()) ? "原料："
+						+ mGoods.getMetrial() : "原料：");
 		mGoodsBriefTv.setText(mGoods.getFactory());
 
 	}
@@ -154,7 +155,11 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.goods_detail_cart_iv:
+		case R.id.goods_detail_cart_iv: {
+			finish();
+			HomeActivity.setTab(HomeActivity.TAB_CART);
+			break;
+		}
 		case R.id.goods_detail_add_cart_ll: {
 			boolean isSuc = CartManager.cartModifyByDetail(mGoods);
 			Toast.makeText(getApplicationContext(),

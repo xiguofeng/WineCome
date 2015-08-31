@@ -23,7 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-public class HomeActivity extends TabActivity implements android.view.View.OnClickListener {
+public class HomeActivity extends TabActivity implements
+		android.view.View.OnClickListener {
 
 	public static final String TAG = HomeActivity.class.getSimpleName();
 
@@ -58,19 +59,21 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 	private TextView mTimingTv;
 
 	private String mDeliveryTime;
-	
-	private static RadioButton mMainRb; 
-	
-	private RadioButton mCartRb; 
-	
-	private RadioButton mMoreRb; 
+
+	private static RadioButton mMainRb;
+
+	private static RadioButton mCartRb;
+
+	private static RadioButton mMoreRb;
 
 	private Handler mTimeHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case TIME_UPDATE: {
-				long deliveryTime = TimeUtils.dateToLong(mDeliveryTime, TimeUtils.FORMAT_PATTERN_DATE);
-				int waitTime = (int) (deliveryTime - (System.currentTimeMillis() / 1000));
+				long deliveryTime = TimeUtils.dateToLong(mDeliveryTime,
+						TimeUtils.FORMAT_PATTERN_DATE);
+				int waitTime = (int) (deliveryTime - (System
+						.currentTimeMillis() / 1000));
 				if (waitTime > 0) {
 					mTimingTv.setText(TimeUtils.secToTime(waitTime));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
@@ -108,7 +111,7 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 		mCheckAllIb = (CheckBox) findViewById(R.id.home_cart_pay_ib);
 
 		mTimingTv = (TextView) findViewById(R.id.home_timer_tv);
-		
+
 		mMainRb = (RadioButton) findViewById(R.id.home_tab_home_rb);
 		mCartRb = (RadioButton) findViewById(R.id.home_tab_cart_rb);
 		mMoreRb = (RadioButton) findViewById(R.id.home_tab_more_rb);
@@ -121,63 +124,81 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 		Intent i_cart = new Intent(this, ShopCartActivity.class);
 		Intent i_more = new Intent(this, MoreActivity.class);
 
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_MAIN).setIndicator(TAB_MAIN).setContent(i_home));
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_CART).setIndicator(TAB_CART).setContent(i_cart));
-		mTabHost.addTab(mTabHost.newTabSpec(TAB_MORE).setIndicator(TAB_MORE).setContent(i_more));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_MAIN).setIndicator(TAB_MAIN)
+				.setContent(i_home));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_CART).setIndicator(TAB_CART)
+				.setContent(i_cart));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_MORE).setIndicator(TAB_MORE)
+				.setContent(i_more));
 
 		mTabHost.setCurrentTabByTag(TAB_MAIN);
 
-		mTabButtonGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				switch (checkedId) {
-				case R.id.home_tab_home_rb:
-					mTabHost.setCurrentTabByTag(TAB_MAIN);
-					showOrHideCartPayBar(false);
-					mCheckAllIb.setChecked(false);
-					if (CartManager.getsCartList().size() > 0) {
-						showOrhHideMainPayBar(true);
-					} else {
-						showOrhHideMainPayBar(false);
+		mTabButtonGroup
+				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						switch (checkedId) {
+						case R.id.home_tab_home_rb:
+							mTabHost.setCurrentTabByTag(TAB_MAIN);
+							showOrHideCartPayBar(false);
+							mCheckAllIb.setChecked(false);
+							if (CartManager.getsCartList().size() > 0) {
+								showOrhHideMainPayBar(true);
+							} else {
+								showOrhHideMainPayBar(false);
+							}
+							break;
+
+						case R.id.home_tab_cart_rb:
+							mTabHost.setCurrentTabByTag(TAB_CART);
+							showOrhHideMainPayBar(false);
+							showOrHideCartPayBar(true);
+							break;
+
+						case R.id.home_tab_more_rb:
+							mTabHost.setCurrentTabByTag(TAB_MORE);
+							showOrhHideMainPayBar(false);
+							showOrHideCartPayBar(false);
+							break;
+
+						default:
+							break;
+						}
 					}
-					break;
+				});
 
-				case R.id.home_tab_cart_rb:
-					mTabHost.setCurrentTabByTag(TAB_CART);
-					showOrhHideMainPayBar(false);
-					showOrHideCartPayBar(true);
-					break;
+		mCheckAllIb
+				.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
 
-				case R.id.home_tab_more_rb:
-					mTabHost.setCurrentTabByTag(TAB_MORE);
-					showOrhHideMainPayBar(false);
-					showOrHideCartPayBar(false);
-					break;
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						ShopCartActivity.refreshView(isChecked);
 
-				default:
-					break;
-				}
-			}
-		});
+						CartManager.getsSelectCartList().clear();
+						if (isChecked) {
+							CartManager.getsSelectCartList().addAll(
+									CartManager.getsCartList());
+						}
+						CartManager.setCartTotalMoney();
+					}
 
-		mCheckAllIb.setOnCheckedChangeListener(new android.widget.CompoundButton.OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				ShopCartActivity.refreshView(isChecked);
-
-				CartManager.getsSelectCartList().clear();
-				if (isChecked) {
-					CartManager.getsSelectCartList().addAll(CartManager.getsCartList());
-				}
-				CartManager.setCartTotalMoney();
-			}
-
-		});
+				});
 
 	}
 
 	private void initData() {
 		// mTabHost.setCurrentTabByTag(TAB_MAIN);
+	}
+
+	public static void setTab(String tab) {
+		mTabHost.setCurrentTabByTag(tab);
+		if (TAB_MAIN.equals(tab)) {
+			mMainRb.setChecked(true);
+		} else if (TAB_CART.equals(tab)) {
+			mCartRb.setChecked(true);
+		} else if (TAB_MORE.equals(tab)) {
+			mMoreRb.setChecked(true);
+		}
 	}
 
 	@Override
@@ -218,10 +239,9 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 			mCartPayMenuLl.setVisibility(View.GONE);
 		}
 	}
-	
-	
-	public static void showMainByOnkey(){
-		//mTabHost.setCurrentTabByTag(TAB_MAIN);
+
+	public static void showMainByOnkey() {
+		// mTabHost.setCurrentTabByTag(TAB_MAIN);
 		mMainRb.setChecked(true);
 	}
 
@@ -230,21 +250,25 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 		switch (v.getId()) {
 		case R.id.home_main_buy_ll: {
 			if (CartManager.getsCartList().size() > 0) {
-				Intent intent = new Intent(HomeActivity.this, PersonInfoActivity.class);
+				Intent intent = new Intent(HomeActivity.this,
+						PersonInfoActivity.class);
 				intent.setAction(PersonInfoActivity.ORIGIN_FROM_MAIN_ACTION);
 				// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
 				startActivity(intent);
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
 			}
 			break;
 		}
 		case R.id.home_cart_buy_ll: {
 			if (CartManager.getsSelectCartList().size() > 0) {
-				Intent intent = new Intent(HomeActivity.this, PersonInfoActivity.class);
+				Intent intent = new Intent(HomeActivity.this,
+						PersonInfoActivity.class);
 				intent.setAction(PersonInfoActivity.ORIGIN_FROM_CART_ACTION);
 				// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
 				startActivity(intent);
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				overridePendingTransition(R.anim.push_left_in,
+						R.anim.push_left_out);
 			} else {
 
 			}
@@ -274,12 +298,15 @@ public class HomeActivity extends TabActivity implements android.view.View.OnCli
 	}
 
 	/** 含有标题、内容、两个按钮的对话框 **/
-	protected void showAlertDialog(String title, String message, String positiveText,
-			DialogInterface.OnClickListener onPositiveClickListener, String negativeText,
+	protected void showAlertDialog(String title, String message,
+			String positiveText,
+			DialogInterface.OnClickListener onPositiveClickListener,
+			String negativeText,
 			DialogInterface.OnClickListener onNegativeClickListener) {
 		new AlertDialog.Builder(this).setTitle(title).setMessage(message)
 				.setPositiveButton(positiveText, onPositiveClickListener)
-				.setNegativeButton(negativeText, onNegativeClickListener).show();
+				.setNegativeButton(negativeText, onNegativeClickListener)
+				.show();
 	}
 
 }
