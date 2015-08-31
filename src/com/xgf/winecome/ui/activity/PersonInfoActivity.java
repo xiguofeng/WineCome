@@ -75,6 +75,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 	private RelativeLayout mDateRl;
 	private RelativeLayout mAuthRl;
 	private RelativeLayout mInvoiceContentRl;
+	private RelativeLayout mSetTimeRl;
+	private RelativeLayout mInTimeRl;
 
 	private TextView mAreaTv;
 	private TextView mTimeTv;
@@ -269,6 +271,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mInvoiceRl = (RelativeLayout) findViewById(R.id.per_info_invoice_rl);
 		mAuthRl = (RelativeLayout) findViewById(R.id.per_info_ver_code_rl);
 		mInvoiceContentRl = (RelativeLayout) findViewById(R.id.per_info_invoice_content_rl);
+		mSetTimeRl = (RelativeLayout) findViewById(R.id.per_info_set_time_rl);
+		mInTimeRl = (RelativeLayout) findViewById(R.id.per_info_intime_rl);
 
 		mAreaTagTv = (TextView) findViewById(R.id.per_info_area_tag_tv);
 		mDateTagTv = (TextView) findViewById(R.id.per_info_date_tag_tv);
@@ -313,6 +317,9 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mAgreementTv.setOnClickListener(this);
 		mReplaceLl.setOnClickListener(this);
 		mInvoiceContentRl.setOnClickListener(this);
+
+		mInTimeRl.setOnClickListener(this);
+		mSetTimeRl.setOnClickListener(this);
 
 		mAddressEt
 				.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
@@ -763,6 +770,18 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(PersonInfoActivity.this,
 					InvoiceSelectActivity.class);
 			startActivityForResult(intent, 503);
+			break;
+		}
+		case R.id.per_info_set_time_rl: {
+			if (!mSetTimeCb.isChecked()) {
+				mSetTimeCb.setChecked(true);
+			}
+			break;
+		}
+		case R.id.per_info_intime_rl: {
+			if (!mInTimeCb.isChecked()) {
+				mInTimeCb.setChecked(true);
+			}
 			break;
 		}
 
