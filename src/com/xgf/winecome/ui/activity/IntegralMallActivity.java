@@ -9,11 +9,15 @@ import com.xgf.winecome.network.logic.IntegralGoodsLogic;
 import com.xgf.winecome.ui.adapter.IntegralGoodsGvAdapter;
 import com.xgf.winecome.ui.utils.ListItemClickHelp;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.ui.view.widget.ActionSheetDialog;
+import com.xgf.winecome.ui.view.widget.ActionSheetDialog.OnSheetItemClickListener;
+import com.xgf.winecome.ui.view.widget.ActionSheetDialog.SheetItemColor;
 import com.xgf.winecome.utils.UserInfoManager;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,7 +30,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class IntegralMallActivity extends Activity implements OnClickListener, ListItemClickHelp {
+public class IntegralMallActivity extends Activity implements OnClickListener,
+		ListItemClickHelp {
 
 	private Context mContext;
 
@@ -42,6 +47,9 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 
 	protected CustomProgressDialog2 mCustomProgressDialog;
 
+	private String[] mIntegral = new String[] { "全部", "0-5000", "5000-10000",
+			"10000以上" };
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -51,7 +59,8 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_SUC: {
 				if (null != msg.obj) {
 					mIntegralGoodsList.clear();
-					mIntegralGoodsList.addAll((Collection<? extends IntegralGoods>) msg.obj);
+					mIntegralGoodsList
+							.addAll((Collection<? extends IntegralGoods>) msg.obj);
 					mGvAdapter.notifyDataSetChanged();
 				}
 				break;
@@ -63,11 +72,11 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 				break;
 			}
 
-
 			default:
 				break;
 			}
-			if (null != mCustomProgressDialog && mCustomProgressDialog.isShowing()) {
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
 				mCustomProgressDialog.dismiss();
 			}
 		}
@@ -90,7 +99,8 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 		mIntegralGoodsGv = (GridView) findViewById(R.id.integral_mall_gv);
 		mBackIv = (ImageView) findViewById(R.id.integral_mall_back_iv);
 
-		mGvAdapter = new IntegralGoodsGvAdapter(IntegralMallActivity.this, mIntegralGoodsList, this);
+		mGvAdapter = new IntegralGoodsGvAdapter(IntegralMallActivity.this,
+				mIntegralGoodsList, this);
 		mIntegralGoodsGv.setAdapter(mGvAdapter);
 	}
 
@@ -100,7 +110,8 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 		mIntegralGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 
 			}
 		});
@@ -134,9 +145,67 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.integral_mall_filter_rl: {
-			Intent intent = new Intent(IntegralMallActivity.this, IntegralSelectActivity.class);
-			startActivityForResult(intent, 1);
+			// Intent intent = new Intent(IntegralMallActivity.this,
+			// IntegralSelectActivity.class);
+			// startActivityForResult(intent, 1);
+			// break;
+
+			new ActionSheetDialog(IntegralMallActivity.this)
+					.builder()
+					.setTitle(getString(R.string.integral_filter))
+					.setCancelable(false)
+					.setCanceledOnTouchOutside(false)
+					.addSheetItem(mIntegral[0], SheetItemColor.Blue,
+							new OnSheetItemClickListener() {
+								@Override
+								public void onClick(int which) {
+
+									if (null != mCustomProgressDialog) {
+										mCustomProgressDialog.show();
+									}
+									IntegralGoodsLogic.getIntegralGoodsByRange(
+											mContext, mHandler, mIntegral[0],
+											"", "0", "30");
+								}
+							})
+					.addSheetItem(mIntegral[1], SheetItemColor.Blue,
+							new OnSheetItemClickListener() {
+								@Override
+								public void onClick(int which) {
+									if (null != mCustomProgressDialog) {
+										mCustomProgressDialog.show();
+									}
+									IntegralGoodsLogic.getIntegralGoodsByRange(
+											mContext, mHandler, mIntegral[1],
+											"", "0", "30");
+								}
+							})
+					.addSheetItem(mIntegral[2], SheetItemColor.Blue,
+							new OnSheetItemClickListener() {
+								@Override
+								public void onClick(int which) {
+									if (null != mCustomProgressDialog) {
+										mCustomProgressDialog.show();
+									}
+									IntegralGoodsLogic.getIntegralGoodsByRange(
+											mContext, mHandler, mIntegral[2],
+											"", "0", "30");
+								}
+							})
+					.addSheetItem(mIntegral[3], SheetItemColor.Blue,
+							new OnSheetItemClickListener() {
+								@Override
+								public void onClick(int which) {
+									if (null != mCustomProgressDialog) {
+										mCustomProgressDialog.show();
+									}
+									IntegralGoodsLogic.getIntegralGoodsByRange(
+											mContext, mHandler, mIntegral[3],
+											"", "0", "30");
+								}
+							}).show();
 			break;
+
 		}
 		case R.id.integral_mall_back_iv: {
 			finish();
@@ -159,7 +228,8 @@ public class IntegralMallActivity extends Activity implements OnClickListener, L
 			// UserInfoManager.getPhone(mContext),
 			// mIntegralGoodsList.get(position).getId());
 
-			Intent intent = new Intent(IntegralMallActivity.this, IntegralInfoInput.class);
+			Intent intent = new Intent(IntegralMallActivity.this,
+					IntegralInfoInput.class);
 			intent.putExtra("id", mIntegralGoodsList.get(position).getId());
 			startActivity(intent);
 
