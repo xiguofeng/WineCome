@@ -45,7 +45,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 	private boolean mIsNeedAuth = false;
 
 	private int mTiming = 60;
-	
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -55,11 +55,13 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 			case IntegralGoodsLogic.INTEGRAL_TOTAL_GET_SUC: {
 				if (null != msg.obj) {
 					String integral = (String) msg.obj;
-					Intent intent = new Intent(IntegralQueryActivity.this, IntegralQueryResultActivity.class);
+					Intent intent = new Intent(IntegralQueryActivity.this,
+							IntegralQueryResultActivity.class);
 					intent.putExtra("integral", integral);
 					startActivity(intent);
 					IntegralQueryActivity.this.finish();
-					overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+					overridePendingTransition(R.anim.push_left_in,
+							R.anim.push_left_out);
 				}
 				break;
 			}
@@ -98,7 +100,8 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
-				Toast.makeText(mContext, R.string.auth_get_fail, Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, R.string.auth_get_fail,
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
@@ -124,12 +127,15 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 					mTiming--;
 					mTimingTv.setText(String.valueOf(mTiming) + "秒");
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.gray_divide_line));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.gray_divide_line));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
 					mAuthCodeLl.setClickable(true);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(R.color.orange_bg));
-					mTimingTv.setText(getString(R.string.get_verification_code));
+					mAuthCodeLl.setBackgroundColor(getResources().getColor(
+							R.color.orange_bg));
+					mTimingTv
+							.setText(getString(R.string.get_verification_code));
 					mTiming = 60;
 				}
 				break;
@@ -175,7 +181,8 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpData() {
-		if (!UserInfoManager.getIsMustAuth(mContext) && !TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
+		if (!UserInfoManager.getIsMustAuth(mContext)
+				&& !TextUtils.isEmpty(UserInfoManager.getPhone(mContext))) {
 			mPhone = UserInfoManager.getPhone(mContext);
 			mAuthRl.setVisibility(View.GONE);
 			mPhoneTv.setVisibility(View.VISIBLE);
@@ -198,7 +205,12 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 		case R.id.integral_query_submit_ll: {
 			if (!mIsNeedAuth) {
 				if (!TextUtils.isEmpty(mPhone)) {
-					IntegralGoodsLogic.getTotal(mContext, mHandler, mPhone);
+					Intent intent = new Intent(IntegralQueryActivity.this,
+							IntegralQueryResultActivity.class);
+					intent.putExtra("integral", "100");
+					startActivity(intent);
+					IntegralQueryActivity.this.finish();
+					// IntegralGoodsLogic.getTotal(mContext, mHandler, mPhone);
 				} else {
 					mIsNeedAuth = true;
 					mAuthRl.setVisibility(View.VISIBLE);
@@ -206,12 +218,20 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 					mPhoneEt.setVisibility(View.VISIBLE);
 					mReplaceLl.setVisibility(View.GONE);
 				}
-			} else if (!TextUtils.isEmpty(mPhone) && !TextUtils.isEmpty(mAuthCode)
+			} else if (!TextUtils.isEmpty(mPhone)
+					&& !TextUtils.isEmpty(mAuthCode)
 					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())
-					&& mVerCodeEt.getText().toString().trim().endsWith(mAuthCode)) {
-				
+					&& mVerCodeEt.getText().toString().trim()
+							.endsWith(mAuthCode)) {
+				Intent intent = new Intent(IntegralQueryActivity.this,
+						IntegralQueryResultActivity.class);
+				intent.putExtra("integral", "100");
+				startActivity(intent);
+				IntegralQueryActivity.this.finish();
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_and_code_hint), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext,
+						getString(R.string.mobile_phone_and_code_hint),
+						Toast.LENGTH_SHORT).show();
 			}
 			// User user = new User();
 			// UserLogic.login(mContext, mLoginHandler, user);
@@ -224,7 +244,8 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 				UserLogic.sendAuthCode(mContext, mAuthHandler, mPhone);
 
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
+						Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
