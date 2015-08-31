@@ -656,13 +656,13 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		}
 		// TODO
 		if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
-			OrderLogic.createOrder(mContext, mHandler, order,
+			OrderLogic.createOrder(mContext, mHandler, order, "",
 					CartManager.getsDetailBuyList());
 		} else if (ORIGIN_FROM_CART_ACTION.equals(mNowAction)) {
-			OrderLogic.createOrder(mContext, mHandler, order,
+			OrderLogic.createOrder(mContext, mHandler, order, "",
 					CartManager.getsSelectCartList());
 		} else {
-			OrderLogic.createOrder(mContext, mHandler, order,
+			OrderLogic.createOrder(mContext, mHandler, order, "",
 					CartManager.getsCartList());
 		}
 	}
