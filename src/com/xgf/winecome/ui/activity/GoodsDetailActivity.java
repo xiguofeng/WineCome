@@ -25,6 +25,12 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 
 	public static final String GOODS_KEY = "GoodsKey";
 
+	public static final String ORIGIN_FROM_ADS_ACTION = "ADS";
+
+	public static final String ORIGIN_FROM_MAIN_ACTION = "MAINS";
+
+	public static final String ORIGIN_FROM_CART_ACTION = "CARTS";
+
 	private Context mContext;
 
 	private TextView mGoodsNameTv;
@@ -62,6 +68,8 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	private Goods mGoods;
 
 	private String mGoodsId;
+
+	private String mNowAction = ORIGIN_FROM_MAIN_ACTION;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +123,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	private void initData() {
 		mGoods = (Goods) getIntent().getSerializableExtra(
 				GoodsDetailActivity.GOODS_KEY);
+		mNowAction = getIntent().getAction();
 		if (null != mGoods) {
 			fillUpGoodsData();
 		}
@@ -156,6 +165,11 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.goods_detail_cart_iv: {
+			if (!TextUtils.isEmpty(mNowAction)
+					&& ORIGIN_FROM_ADS_ACTION.equals(mNowAction)) {
+				ActivitiyInfoManager
+				.finishActivity("com.xgf.winecome.ui.activity.SpecialEventsActivity");
+			}
 			finish();
 			HomeActivity.setTab(HomeActivity.TAB_CART);
 			break;
