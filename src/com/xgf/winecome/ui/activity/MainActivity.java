@@ -5,18 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Category;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.network.logic.GoodsLogic;
-import com.xgf.winecome.ui.adapter.BannerAdapter;
-import com.xgf.winecome.ui.adapter.CategoryAdapter;
-import com.xgf.winecome.ui.adapter.GoodsAdapter;
-import com.xgf.winecome.ui.view.CustomProgressDialog2;
-import com.xgf.winecome.ui.view.viewflow.CircleFlowIndicator;
-import com.xgf.winecome.ui.view.viewflow.ViewFlow;
-import com.xgf.winecome.utils.CartManager;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -37,6 +25,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Category;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.network.logic.AppLogic;
+import com.xgf.winecome.network.logic.GoodsLogic;
+import com.xgf.winecome.ui.adapter.BannerAdapter;
+import com.xgf.winecome.ui.adapter.CategoryAdapter;
+import com.xgf.winecome.ui.adapter.GoodsAdapter;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.ui.view.viewflow.CircleFlowIndicator;
+import com.xgf.winecome.ui.view.viewflow.ViewFlow;
+import com.xgf.winecome.utils.CartManager;
+import com.xgf.winecome.utils.SystemUtils;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -63,7 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private CircleFlowIndicator mIndic;
 	private ArrayList<Goods> mBannerActivityList = new ArrayList<Goods>();
 	protected CustomProgressDialog2 mCustomProgressDialog;
-	
+
 	private long exitTime = 0;
 
 	Handler mHandler = new Handler() {
@@ -121,6 +123,34 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			if (null != mCustomProgressDialog) {
 				mCustomProgressDialog.dismiss();
+			}
+		}
+
+	};
+
+	Handler mVersionHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			int what = msg.what;
+			switch (what) {
+			case AppLogic.GET_VERSION_SUC: {
+				if (null != msg.obj) {
+				}
+				break;
+			}
+			case AppLogic.GET_VERSION_FAIL: {
+				break;
+			}
+			case AppLogic.GET_VERSION_EXCEPTION: {
+				break;
+			}
+			case AppLogic.NET_ERROR: {
+				break;
+			}
+
+			default:
+				break;
 			}
 		}
 
@@ -434,6 +464,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		mGoodsAdapter.notifyDataSetChanged();
 	}
 
+	private void checkUpdateVersion() {
+		AppLogic.getVersion(mContext, mVersionHandler,
+				SystemUtils.getVersion(getApplicationContext()));
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -450,12 +485,14 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
 			if ((System.currentTimeMillis() - exitTime) > 2000) {
-				Toast.makeText(getApplicationContext(), R.string.exit, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.exit,
+						Toast.LENGTH_SHORT).show();
 				exitTime = System.currentTimeMillis();
 			} else {
 				finish();

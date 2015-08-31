@@ -11,6 +11,13 @@ public class RequestUrl {
 
 	// public static final String HOST_URL =
 	// "http://192.168.1.101:8080/com.igou.server";
+	public interface app {
+		/**
+		 * 连接 获取最新的版本号
+		 */
+		public String getVersion = "pushMsg";
+
+	}
 
 	public interface msg {
 		/**

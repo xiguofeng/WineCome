@@ -1,12 +1,31 @@
 package com.xgf.winecome.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.WindowManager;
 
 public class SystemUtils {
+
+	/**
+	 * 获取版本号
+	 * 
+	 * @return 当前应用的版本号
+	 */
+	public static String getVersion(Context context) {
+		try {
+			PackageManager manager = context.getPackageManager();
+			PackageInfo info = manager.getPackageInfo(context.getPackageName(),
+					0);
+			String version = info.versionName;
+			return version;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	/**
 	 * 获取屏幕的比例
@@ -119,7 +138,6 @@ public class SystemUtils {
 				Integer.MAX_VALUE >> 2, View.MeasureSpec.AT_MOST);
 		view.measure(width, expandSpec);
 	}
-	
 
 	/**
 	 * 获取屏幕宽度(像素)
@@ -132,6 +150,7 @@ public class SystemUtils {
 				.getSystemService(Context.WINDOW_SERVICE);
 		return windowManager.getDefaultDisplay().getWidth();
 	}
+
 	/**
 	 * 获取屏幕高度(像素)
 	 * 
