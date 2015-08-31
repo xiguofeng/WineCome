@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:background="@color/white"
+        android:background="@drawable/common_selector"
         android:padding="8dip" >
 
         <TextView
@@ -93,7 +93,7 @@
         android:id="@+id/pay_pos_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/common_selector"
         android:padding="8dip" >
 
         <TextView
@@ -274,7 +274,7 @@
             android:focusable="false"
             android:gravity="center" />
     </RelativeLayout>
-    
+
     <Button
         android:id="@+id/pay_confirm_btn"
         android:layout_width="fill_parent"

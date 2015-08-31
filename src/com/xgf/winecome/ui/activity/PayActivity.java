@@ -581,6 +581,42 @@ public class PayActivity extends Activity implements OnClickListener {
 			PayActivity.this.finish();
 			break;
 		}
+
+		case R.id.pay_cash_rl: {
+			if (!mCashCb.isChecked()) {
+				mCashCb.setChecked(true);
+			}
+			break;
+		}
+
+		case R.id.pay_pos_rl: {
+			if (!mPosCb.isChecked()) {
+				mPosCb.setChecked(true);
+			}
+			break;
+		}
+
+		case R.id.pay_alipay_rl: {
+			if (!mAlipayCb.isChecked()) {
+				mAlipayCb.setChecked(true);
+			}
+			break;
+		}
+
+		case R.id.pay_wechat_rl: {
+			if (!mWeChatCb.isChecked()) {
+				mWeChatCb.setChecked(true);
+			}
+			break;
+		}
+
+		case R.id.pay_unionpay_rl: {
+			if (!mUnionpayCb.isChecked()) {
+				mUnionpayCb.setChecked(true);
+			}
+			break;
+		}
+
 		default:
 			break;
 		}
