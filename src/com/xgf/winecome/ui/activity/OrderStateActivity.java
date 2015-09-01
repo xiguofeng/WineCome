@@ -1,10 +1,15 @@
 package com.xgf.winecome.ui.activity;
 
+import java.util.ArrayList;
+
 import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
 import com.xgf.winecome.ui.view.CircleTimerView;
 import com.xgf.winecome.ui.view.CircleTimerView.CircleTimerListener;
+import com.xgf.winecome.ui.view.widget.AlertDialog;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
@@ -308,11 +313,31 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 
 		case R.id.order_state_cancel_btn: {
 			if (mStateCode < 3) {
-				if (null != mCustomProgressDialog) {
-					mCustomProgressDialog.show();
-				}
-				OrderLogic.cancelOrder(mContext, mHandler,
-						OrderManager.getsCurrentOrderId());
+				new AlertDialog(OrderStateActivity.this)
+						.builder()
+						.setTitle(getString(R.string.prompt))
+						.setMsg(getString(R.string.order_cancel_confirm))
+						.setPositiveButton(getString(R.string.confirm),
+								new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+
+										if (null != mCustomProgressDialog) {
+											mCustomProgressDialog.show();
+										}
+										OrderLogic.cancelOrder(mContext,
+												mHandler, OrderManager
+														.getsCurrentOrderId());
+									}
+								})
+						.setNegativeButton(getString(R.string.cancal),
+								new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+
+									}
+								}).show();
+
 			} else {
 				Toast.makeText(mContext, getString(R.string.order_cancel_no),
 						Toast.LENGTH_SHORT).show();

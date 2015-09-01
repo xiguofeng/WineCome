@@ -43,6 +43,17 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/shop_cart_null_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dip"
+        android:text="@string/cart_no_hint"
+        android:textColor="@color/gray_text"
+        android:textSize="@dimen/large_text_size"
+        android:visibility="gone" />
+
     <com.xgf.winecome.ui.view.listview.SwipeMenuListView
         android:id="@+id/shop_cart_order_lv"
         android:layout_width="match_parent"

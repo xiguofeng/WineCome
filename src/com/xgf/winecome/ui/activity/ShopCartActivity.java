@@ -31,6 +31,8 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 
 	private TextView mTotalNumTv;
 
+	public static TextView mCartNullTv;
+
 	private SwipeMenuListView mGoodsLv;
 
 	public static ArrayList<Goods> sGoodsList = new ArrayList<Goods>();
@@ -56,6 +58,8 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 	private void initView() {
 		mContext = ShopCartActivity.this;
 		mTotalNumTv = (TextView) findViewById(R.id.shop_cart_total_num_tv);
+		mCartNullTv = (TextView) findViewById(R.id.shop_cart_null_tv);
+
 		mGoodsLv = (SwipeMenuListView) findViewById(R.id.shop_cart_order_lv);
 		mGoodsAdapter = new CartGoodsAdapter(mContext, mGoodsList);
 		mGoodsLv.setAdapter(mGoodsAdapter);
@@ -139,6 +143,10 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 		mGoodsAdapter.initCheck();
 		mGoodsAdapter.notifyDataSetChanged();
 		mTotalNumTv.setText("(" + String.valueOf(mGoodsList.size()) + ")");
+		mCartNullTv.setVisibility(View.VISIBLE);
+		if (CartManager.getsCartList().size() > 0) {
+			mCartNullTv.setVisibility(View.GONE);
+		}
 
 	}
 
@@ -155,10 +163,11 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
 				getResources().getDisplayMetrics());
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
 			HomeActivity.showMainByOnkey();
 			return true;
 		}

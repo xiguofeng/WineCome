@@ -265,7 +265,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		mViewFlow.setFlowIndicator(mIndic);
 		mViewFlow.setTimeSpan(2000);
 		mViewFlow.setSelection(3 * 1000); // 设置初始位置
-		// mViewFlow.startAutoFlowTimer(); // 启动自动播放
+		mViewFlow.startAutoFlowTimer(); // 启动自动播放
 		mViewFlow.requestFocus();
 	}
 

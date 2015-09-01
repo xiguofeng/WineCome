@@ -190,7 +190,7 @@
     <!-- notify -->
     <string name="notify">消息</string>
     <string name="order_suc">订单成功</string>
-    <string name="no_data">没有找到符合条件的房源</string>
+    <string name="no_data">没有找到符合条件的物品</string>
 
     <!-- pay -->
 
@@ -255,6 +255,7 @@
     <string name="order_cancel_fail">订单取消失败</string>
     <string name="order_cancel_confirm">确定取消订单？</string>
     <string name="order_cancel_no">订单已经配送，不能取消！</string>
+    <string name="cart_no_hint">一片空地</string>
 
     <!-- comments -->
     <string name="comments">服务评价</string>

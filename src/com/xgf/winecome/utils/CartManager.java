@@ -7,8 +7,10 @@ import java.util.List;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.HomeActivity;
 import com.xgf.winecome.ui.activity.MainActivity;
+import com.xgf.winecome.ui.activity.ShopCartActivity;
 
 import android.util.Log;
+import android.view.View;
 
 public class CartManager implements Watched {
 
@@ -35,6 +37,10 @@ public class CartManager implements Watched {
 			totalPay = totalPay
 					+ (Integer.parseInt(goods.getNum()) * Double
 							.parseDouble(goods.getSalesPrice()));
+		}
+		ShopCartActivity.mCartNullTv.setVisibility(View.VISIBLE);
+		if (sCartList.size() > 0) {
+			ShopCartActivity.mCartNullTv.setVisibility(View.GONE);
 		}
 		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
 				String.valueOf(sSelectCartList.size()));
@@ -66,7 +72,8 @@ public class CartManager implements Watched {
 		// 更新sSelectCartList
 		boolean isHasSelect = false;
 		for (int i = 0; i < sSelectCartList.size(); i++) {
-			if (sSelectCartList.get(i).getId().equals(sCartList.get(position).getId())) {
+			if (sSelectCartList.get(i).getId()
+					.equals(sCartList.get(position).getId())) {
 				sSelectCartList.remove(i);
 				isHasSelect = true;
 				break;
@@ -93,8 +100,8 @@ public class CartManager implements Watched {
 		// 更新首页菜单价格 并不显示
 		notifyWatchers();
 		setTotalMoney(false);
-		
-	    setCartTotalMoney();
+
+		setCartTotalMoney();
 	}
 
 	/**
