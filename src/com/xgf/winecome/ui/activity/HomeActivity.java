@@ -52,7 +52,7 @@ public class HomeActivity extends TabActivity implements
 
 	private static TextView mCartTotalNumTv;
 
-	private CheckBox mCheckAllIb;
+	public static CheckBox mCheckAllIb;
 
 	private LinearLayout mBuyLl;
 
@@ -151,6 +151,7 @@ public class HomeActivity extends TabActivity implements
 						case R.id.home_tab_cart_rb:
 							mTabHost.setCurrentTabByTag(TAB_CART);
 							showOrhHideMainPayBar(false);
+							mCheckAllIb.setChecked(true);
 							showOrHideCartPayBar(true);
 							break;
 

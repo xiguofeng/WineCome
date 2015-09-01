@@ -142,6 +142,7 @@
                         android:background="@null"
                         android:button="@drawable/check_selector"
                         android:focusable="false"
+                        android:checked="true"
                         android:gravity="center" />
 
                     <TextView

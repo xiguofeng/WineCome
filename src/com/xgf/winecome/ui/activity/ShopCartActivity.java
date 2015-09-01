@@ -152,6 +152,15 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 		if (CartManager.getsCartList().size() > 0) {
 			mCartNullTv.setVisibility(View.GONE);
 		}
+		
+		HomeActivity.mCheckAllIb.setChecked(true);
+		ShopCartActivity.refreshView(true);
+		CartManager.getsSelectCartList().clear();
+		if (true) {
+			CartManager.getsSelectCartList().addAll(
+					CartManager.getsCartList());
+		}
+		CartManager.setCartTotalMoney();
 
 	}
 

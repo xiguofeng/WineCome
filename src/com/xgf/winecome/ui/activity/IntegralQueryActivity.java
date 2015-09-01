@@ -205,12 +205,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 		case R.id.integral_query_submit_ll: {
 			if (!mIsNeedAuth) {
 				if (!TextUtils.isEmpty(mPhone)) {
-					Intent intent = new Intent(IntegralQueryActivity.this,
-							IntegralQueryResultActivity.class);
-					intent.putExtra("integral", "100");
-					startActivity(intent);
-					IntegralQueryActivity.this.finish();
-					// IntegralGoodsLogic.getTotal(mContext, mHandler, mPhone);
+					IntegralGoodsLogic.getTotal(mContext, mHandler, mPhone);
 				} else {
 					mIsNeedAuth = true;
 					mAuthRl.setVisibility(View.VISIBLE);
@@ -223,11 +218,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())
 					&& mVerCodeEt.getText().toString().trim()
 							.endsWith(mAuthCode)) {
-				Intent intent = new Intent(IntegralQueryActivity.this,
-						IntegralQueryResultActivity.class);
-				intent.putExtra("integral", "100");
-				startActivity(intent);
-				IntegralQueryActivity.this.finish();
+				IntegralGoodsLogic.getTotal(mContext, mHandler, mPhone);
 			} else {
 				Toast.makeText(mContext,
 						getString(R.string.mobile_phone_and_code_hint),
