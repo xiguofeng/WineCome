@@ -151,7 +151,7 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 	 */
 	private String getToday() {
 		String str = TimeUtils.TimeStamp2Date(
-				String.valueOf(System.currentTimeMillis()+20*60*1000),
+				String.valueOf(System.currentTimeMillis()),
 				TimeUtils.FORMAT_PATTERN_DATE);
 		return str;
 	}
