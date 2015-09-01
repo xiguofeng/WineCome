@@ -222,16 +222,28 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {
-			ArrayList<Goods> goodsList = new ArrayList<Goods>();
-			mGoods.setNum(mNum.getText().toString().trim());
-			goodsList.add(mGoods);
-			CartManager.setsDetailBuyList(goodsList);
-
-			Intent intent = new Intent(GoodsDetailActivity.this,
-					PersonInfoActivity.class);
-			intent.setAction(PersonInfoActivity.ORIGIN_FROM_DETAIL_ACTION);
-			startActivity(intent);
-			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			int addNum = Integer.parseInt(mNum.getText().toString().trim());
+			boolean isSuc = CartManager.cartModifyByDetail(mGoods, addNum);
+			
+			if (!TextUtils.isEmpty(mNowAction)
+					&& ORIGIN_FROM_ADS_ACTION.equals(mNowAction)) {
+				ActivitiyInfoManager
+						.finishActivity("com.xgf.winecome.ui.activity.SpecialEventsActivity");
+			}
+			finish();
+			HomeActivity.setTab(HomeActivity.TAB_CART);
+			
+			// ArrayList<Goods> goodsList = new ArrayList<Goods>();
+			// mGoods.setNum(mNum.getText().toString().trim());
+			// goodsList.add(mGoods);
+			// CartManager.setsDetailBuyList(goodsList);
+			//
+			// Intent intent = new Intent(GoodsDetailActivity.this,
+			// PersonInfoActivity.class);
+			// intent.setAction(PersonInfoActivity.ORIGIN_FROM_DETAIL_ACTION);
+			// startActivity(intent);
+			// overridePendingTransition(R.anim.push_left_in,
+			// R.anim.push_left_out);
 			break;
 		}
 		case R.id.goods_detail_back_iv: {
