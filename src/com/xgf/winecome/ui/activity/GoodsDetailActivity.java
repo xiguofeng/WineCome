@@ -192,7 +192,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		mGoodsMaterialTv
 				.setText(!TextUtils.isEmpty(mGoods.getMetrial()) ? "原料："
 						+ mGoods.getMetrial() : "原料：");
-		mGoodsBriefTv.setText(mGoods.getFactory());
+		mGoodsBriefTv.setText(mGoods.getDesc());
 
 	}
 
