@@ -212,17 +212,20 @@ public class CartManager implements Watched {
 	 * 
 	 * @param goods
 	 */
-	public static boolean cartModifyByDetail(Goods goods) {
+	public static boolean cartModifyByDetail(Goods goods, int addNum) {
 		for (int i = 0; i < sCartList.size(); i++) {
 			if (sCartList.get(i).getId().endsWith(goods.getId())) {
 				sHasGoodsByDetailFlag = true;
 				int beforeNum = Integer.parseInt(sCartList.get(i).getNum());
-				goods.setNum(String.valueOf(beforeNum + 1));
+				String num = String.valueOf(beforeNum + addNum);
+				Log.e("xxx_num", num);
+				goods.setNum(num);
 				sCartList.set(i, goods);
 				break;
 			}
 		}
 		if (!sHasGoodsByDetailFlag) {
+			goods.setNum(String.valueOf(addNum));
 			sCartList.add(goods);
 		}
 		sHasGoodsByDetailFlag = false;

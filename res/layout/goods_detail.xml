@@ -184,9 +184,9 @@
             <LinearLayout
                 android:id="@+id/content"
                 android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dip"
                 android:layout_marginTop="15dip"
-                android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <TextView
@@ -230,39 +230,93 @@
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:id="@+id/goods_detail_add_cart_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/yello_bottom_bg"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dip" >
+            android:id="@+id/goods_detail_num_rl"
+            android:layout_width="112dip"
+            android:layout_height="match_parent"
+            android:background="@drawable/corners_detail_bg"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_cart"
-                android:textColor="@color/white"
-                android:textSize="@dimen/middle_text_size" />
+            <ImageButton
+                android:id="@+id/goods_detail_reduce_ib"
+                android:layout_width="40dip"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:focusable="false"
+                android:src="@drawable/reduce" />
+
+            <LinearLayout
+                android:layout_width="0.5dip"
+                android:layout_height="match_parent"
+                android:background="@color/gray_divide_line" >
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/goods_detail_count_et"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:enabled="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/small_text_size" />
+
+            <LinearLayout
+                android:layout_width="0.5dip"
+                android:layout_height="match_parent"
+                android:background="@color/gray_divide_line" >
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/goods_detail_add_ib"
+                android:layout_width="41dip"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:focusable="false"
+                android:src="@drawable/add" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/goods_detail_now_buy_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/red_title_bg"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dip" >
+            android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/goods_detail_add_cart_ll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/now_buy"
-                android:textColor="@color/white"
-                android:textSize="@dimen/middle_text_size" />
+                android:layout_weight="1"
+                android:background="@color/yello_bottom_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_cart"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/middle_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/goods_detail_now_buy_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/red_title_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/now_buy"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/middle_text_size" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

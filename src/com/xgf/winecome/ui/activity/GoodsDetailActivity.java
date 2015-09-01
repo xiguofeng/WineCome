@@ -2,12 +2,6 @@ package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.utils.ActivitiyInfoManager;
-import com.xgf.winecome.utils.CartManager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +10,18 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
+import com.xgf.winecome.utils.CartManager;
 
 public class GoodsDetailActivity extends Activity implements OnClickListener {
 
@@ -64,6 +66,12 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	private LinearLayout mAddCartLl;
 
 	private LinearLayout mNowBuyLl;
+
+	public ImageButton mAddIb;
+
+	public ImageButton mReduceIb;
+
+	public EditText mNum;
 
 	private Goods mGoods;
 
@@ -118,6 +126,32 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		mAddCartLl.setOnClickListener(this);
 		mNowBuyLl = (LinearLayout) findViewById(R.id.goods_detail_now_buy_ll);
 		mNowBuyLl.setOnClickListener(this);
+
+		mNum = (EditText) findViewById(R.id.goods_detail_count_et);
+		mAddIb = (ImageButton) findViewById(R.id.goods_detail_add_ib);
+		mReduceIb = (ImageButton) findViewById(R.id.goods_detail_reduce_ib);
+
+		mAddIb.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// mGoods.setNum(String.valueOf(Integer.parseInt(mGoods.getNum())
+				// + 1));
+				mNum.setText(String.valueOf(Integer.parseInt(mNum.getText()
+						.toString().trim()) + 1));
+			}
+		});
+		mReduceIb.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (Integer.parseInt(mNum.getText().toString().trim()) > 1) {
+					// mGoods.setNum(String.valueOf(Integer.parseInt(mGoods
+					// .getNum()) - 1));
+					mNum.setText(String.valueOf(Integer.parseInt(mNum.getText()
+							.toString().trim()) - 1));
+				}
+
+			}
+		});
 	}
 
 	private void initData() {
@@ -134,6 +168,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 				mGoodsIconIv);
 
 		mGoods.setNum("1");
+		mNum.setText(mGoods.getNum());
 		mGoodsNameTv.setText(!TextUtils.isEmpty(mGoods.getName()) ? mGoods
 				.getName() : "");
 		mGoodsPriceTv.setText(!TextUtils.isEmpty(mGoods.getSalesPrice()) ? "¥"
@@ -168,21 +203,27 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			if (!TextUtils.isEmpty(mNowAction)
 					&& ORIGIN_FROM_ADS_ACTION.equals(mNowAction)) {
 				ActivitiyInfoManager
-				.finishActivity("com.xgf.winecome.ui.activity.SpecialEventsActivity");
+						.finishActivity("com.xgf.winecome.ui.activity.SpecialEventsActivity");
 			}
 			finish();
 			HomeActivity.setTab(HomeActivity.TAB_CART);
 			break;
 		}
 		case R.id.goods_detail_add_cart_ll: {
-			boolean isSuc = CartManager.cartModifyByDetail(mGoods);
-			Toast.makeText(getApplicationContext(),
-					getString(R.string.add_cart_suc), Toast.LENGTH_SHORT)
-					.show();
+			mAddCartLl.setClickable(false);
+			int addNum = Integer.parseInt(mNum.getText().toString().trim());
+			boolean isSuc = CartManager.cartModifyByDetail(mGoods, addNum);
+			if (isSuc) {
+				mAddCartLl.setClickable(true);
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.add_cart_suc), Toast.LENGTH_SHORT)
+						.show();
+			}
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {
 			ArrayList<Goods> goodsList = new ArrayList<Goods>();
+			mGoods.setNum(mNum.getText().toString().trim());
 			goodsList.add(mGoods);
 			CartManager.setsDetailBuyList(goodsList);
 
