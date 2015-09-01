@@ -38,10 +38,10 @@ public class CartManager implements Watched {
 					+ (Integer.parseInt(goods.getNum()) * Double
 							.parseDouble(goods.getSalesPrice()));
 		}
-		ShopCartActivity.mCartNullTv.setVisibility(View.VISIBLE);
-		if (sCartList.size() > 0) {
-			ShopCartActivity.mCartNullTv.setVisibility(View.GONE);
-		}
+		// ShopCartActivity.mCartNullTv.setVisibility(View.VISIBLE);
+		// if (sCartList.size() > 0) {
+		// ShopCartActivity.mCartNullTv.setVisibility(View.GONE);
+		// }
 		HomeActivity.modifyCartPayView(String.valueOf(totalPay),
 				String.valueOf(sSelectCartList.size()));
 	}

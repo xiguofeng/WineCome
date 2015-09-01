@@ -112,6 +112,11 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 					mGoodsAdapter.getmIsSelected()
 							.remove(mGoodsList.size() + 1);
 					mGoodsAdapter.notifyDataSetChanged();
+					
+					mCartNullTv.setVisibility(View.VISIBLE);
+					if (CartManager.getsCartList().size() > 0) {
+						mCartNullTv.setVisibility(View.GONE);
+					}
 
 					break;
 
