@@ -211,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dip"
-                        android:text="00:29:29"
+                        android:text="00:00:00"
                         android:textColor="@color/black_character"
                         android:textSize="@dimen/big_text_size" />
                 </LinearLayout>

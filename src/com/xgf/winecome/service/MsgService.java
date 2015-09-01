@@ -122,7 +122,7 @@ public class MsgService extends Service {
 		Log.e(TAG, "onStartCommand");
 
 		// monitorThread.start();
-		mMsgHandler.sendEmptyMessage(NOTIFY_UPDATE);
+		//mMsgHandler.sendEmptyMessage(NOTIFY_UPDATE);
 		flags = START_STICKY;
 		return super.onStartCommand(intent, flags, startId);
 	}

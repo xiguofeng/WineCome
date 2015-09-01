@@ -20,8 +20,9 @@ public class BaseApplication extends Application {
 		super.onCreate();
 		ImageLoaderConfig.initImageLoader(this, Constants.BASE_IMAGE_CACHE);
 
-		Intent intent = new Intent(getApplicationContext(), MsgService.class);
-		getApplicationContext().startService(intent);
+		// Intent intent = new Intent(getApplicationContext(),
+		// MsgService.class);
+		// getApplicationContext().startService(intent);
 	}
 
 	@Override

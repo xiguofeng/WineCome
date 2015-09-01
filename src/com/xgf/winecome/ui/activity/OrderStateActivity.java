@@ -211,7 +211,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 			mStepTwoIv.setImageDrawable(getResources().getDrawable(
 					R.drawable.dot_green));
 			mWaitViewRl.setVisibility(View.VISIBLE);
-			mTimingTv.setText("00:29:29");
+			mTimingTv.setText("00:00:00");
 		}
 
 		// 收货
