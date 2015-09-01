@@ -137,9 +137,10 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 	@Override
 	public void onClick(View item, View widget, int position, int which) {
 		switch (which) {
-		case R.id.list_order_group_pay_btn: {
+		case R.id.list_order_group_continue_pay_btn: {
 			Intent intent = new Intent(mContext, PayActivity.class);
-			OrderManager.setsCurrentOrder(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position));
+			OrderManager
+					.setsCurrentOrderId(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getId());
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;

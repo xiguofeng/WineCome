@@ -13,6 +13,7 @@ import com.xgf.winecome.ui.utils.ListItemClickHelp;
 import com.xgf.winecome.ui.view.OrderWineView;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,7 +72,7 @@ public class OrderWineAdapter extends BaseAdapter {
 
 			holder.mCancelOrCommentBtn = (Button) convertView.findViewById(R.id.list_order_group_comment_or_cancel_btn);
 			holder.mViewBtn = (Button) convertView.findViewById(R.id.list_order_group_see_btn);
-			holder.mPayBtn = (Button) convertView.findViewById(R.id.list_order_group_pay_btn);
+			holder.mPayBtn = (Button) convertView.findViewById(R.id.list_order_group_continue_pay_btn);
 			holder.mWineLl = (LinearLayout) convertView.findViewById(R.id.list_order_group_wine_ll);
 
 			convertView.setTag(holder);
@@ -93,6 +94,7 @@ public class OrderWineAdapter extends BaseAdapter {
 			final int tempPosition = position;
 			final View view = convertView;
 			final int whichCancel = holder.mCancelOrCommentBtn.getId();
+			final int whichPay = holder.mPayBtn.getId();
 			final int whichDelOrView = holder.mViewBtn.getId();
 
 			holder.mCancelOrCommentBtn.setText(mContext.getString(R.string.add_comment));
@@ -112,18 +114,17 @@ public class OrderWineAdapter extends BaseAdapter {
 			}
 
 			holder.mPayBtn.setVisibility(View.GONE);
-			if (OrderState.ORDER_STATUS_ORDERED.equals(orderStateCode)
+			if (OrderState.ORDER_STATUS_ORDERED.equals(String.valueOf(orderStateCode))
 					&& ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getPayStatus()
 							.equals(PayConstants.PAY_STATUS_UNPAID)) {
 				holder.mPayBtn.setVisibility(View.VISIBLE);
-
 			}
 
 			holder.mPayBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 
-					mCallback.onClick(view, v, tempPosition, whichCancel);
+					mCallback.onClick(view, v, tempPosition, whichPay);
 
 				}
 			});
@@ -136,6 +137,7 @@ public class OrderWineAdapter extends BaseAdapter {
 
 				}
 			});
+			
 			holder.mViewBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
