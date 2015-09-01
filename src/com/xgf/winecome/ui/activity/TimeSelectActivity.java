@@ -31,7 +31,7 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 	private ArrayWheelAdapter<String> minutesAdapter;
 
 	private String[] mHours = new String[24];
-	private String[] mInutes = new String[60];
+	private String[] mInutes = new String[6];
 
 	int currentMonth = 1;
 
@@ -84,7 +84,7 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 			mHours[i] = i + " 时";
 		}
 		for (int i = 0; i < mInutes.length; i++) {
-			mInutes[i] = i + " 分";
+			mInutes[i] = i * 10 + " 分";
 		}
 
 		hoursAdapter = new ArrayWheelAdapter<String>(TimeSelectActivity.this,
@@ -151,7 +151,7 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 	 */
 	private String getToday() {
 		String str = TimeUtils.TimeStamp2Date(
-				String.valueOf(System.currentTimeMillis()),
+				String.valueOf(System.currentTimeMillis()+20*60*1000),
 				TimeUtils.FORMAT_PATTERN_DATE);
 		return str;
 	}
