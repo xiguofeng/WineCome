@@ -27,8 +27,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class OrderListActivity extends Activity implements OnClickListener,
-		ListItemClickHelp {
+public class OrderListActivity extends Activity implements OnClickListener, ListItemClickHelp {
 
 	private Context mContext;
 
@@ -64,14 +63,12 @@ public class OrderListActivity extends Activity implements OnClickListener,
 			}
 
 			case OrderLogic.ORDER_CANCEL_SUC: {
-				Toast.makeText(mContext, getString(R.string.order_cancel_suc),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_suc), Toast.LENGTH_SHORT).show();
 				OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "30");
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_FAIL: {
-				Toast.makeText(mContext, getString(R.string.order_cancel_fail),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_fail), Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_EXCEPTION: {
@@ -140,61 +137,62 @@ public class OrderListActivity extends Activity implements OnClickListener,
 	@Override
 	public void onClick(View item, View widget, int position, int which) {
 		switch (which) {
+		case R.id.list_order_group_pay_btn: {
+			Intent intent = new Intent(mContext, PayActivity.class);
+			OrderManager.setsCurrentOrder(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position));
+			startActivity(intent);
+			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+			break;
+		}
 		case R.id.list_order_group_see_btn: {
-			OrderManager.setsCurrentCommentOrderId(((ArrayList<Order>) mMsgMap
-					.get(MsgResult.ORDER_TAG)).get(position).getId());
+			OrderManager.setsCurrentCommentOrderId(
+					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getId());
 			Intent intent = new Intent(mContext, OrderStateActivity.class);
-			intent.putExtra(
-					"order_state",
-					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(
-							position).getOrderStatus());
-			intent.putExtra(
-					"delivery_time",
-					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(
-							position).getDeliveryTime());
+			intent.putExtra("order_state",
+					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus());
+			intent.putExtra("delivery_time",
+					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getDeliveryTime());
 
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			break;
 		}
 		case R.id.list_order_group_comment_or_cancel_btn: {
-			if (Integer.parseInt(((ArrayList<Order>) mMsgMap
-					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 3) {
-				final int tempPosition=position;
-				
-				new AlertDialog(OrderListActivity.this).builder().setTitle(getString(R.string.prompt))
-				.setMsg(getString(R.string.order_cancel_confirm))
-				.setPositiveButton(getString(R.string.confirm), new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						
-						if (null != mCustomProgressDialog) {
-							mCustomProgressDialog.show();
-						}
-						OrderLogic.cancelOrder(mContext, mHandler,
-								((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
-										.get(tempPosition).getId());
-					}
-				}).setNegativeButton(getString(R.string.cancal), new OnClickListener() {
-					@Override
-					public void onClick(View v) {
+			if (Integer.parseInt(
+					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) < 3) {
+				final int tempPosition = position;
 
-					}
-				}).show();
-			
-			} else if ((((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
-					.get(position).getOrderStatus())
+				new AlertDialog(OrderListActivity.this).builder().setTitle(getString(R.string.prompt))
+						.setMsg(getString(R.string.order_cancel_confirm))
+						.setPositiveButton(getString(R.string.confirm), new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+
+								if (null != mCustomProgressDialog) {
+									mCustomProgressDialog.show();
+								}
+								OrderLogic.cancelOrder(mContext, mHandler,
+										((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(tempPosition)
+												.getId());
+							}
+						}).setNegativeButton(getString(R.string.cancal), new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+
+							}
+						}).show();
+
+			} else if ((((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus())
 					.equals(OrderState.ORDER_STATUS_CHECKED)
-					|| (((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
-							.get(position).getOrderStatus())
+					|| (((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus())
 							.equals(OrderState.ORDER_STATUS_CONFIRMED)) {
 				Intent intent = new Intent(mContext, CommentsActivity.class);
-				OrderManager.setsCurrentCommentOrderId(((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG))
-						.get(position).getId());
+				OrderManager.setsCurrentCommentOrderId(
+						((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getId());
 				startActivity(intent);
 				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-			}else{
-				//do Nothing
+			} else {
+				// do Nothing
 			}
 
 			break;
