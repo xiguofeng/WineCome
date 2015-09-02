@@ -101,12 +101,6 @@ public class OrderWineAdapter extends BaseAdapter {
 				holder.mState.setText(OrderState.state[orderStateCode - 1]);
 			}
 
-			final int tempPosition = position;
-			final View view = convertView;
-			final int whichCancel = holder.mCancelOrCommentBtn.getId();
-			final int whichPay = holder.mPayBtn.getId();
-			final int whichDelOrView = holder.mViewBtn.getId();
-
 			String orderStateCodeStr = String.valueOf(orderStateCode);
 
 			holder.mPayBtn.setVisibility(View.GONE);
@@ -117,6 +111,7 @@ public class OrderWineAdapter extends BaseAdapter {
 				holder.mCancelOrCommentBtn.setVisibility(View.GONE);
 				holder.mViewBtn.setVisibility(View.GONE);
 			} else {
+				holder.mViewBtn.setVisibility(View.VISIBLE);
 				if (orderStateCodeStr.equals(OrderState.ORDER_STATUS_ORDERED)
 						|| orderStateCodeStr
 								.equals(OrderState.ORDER_STATUS_GRABBED)) {
@@ -129,9 +124,9 @@ public class OrderWineAdapter extends BaseAdapter {
 					holder.mCancelOrCommentBtn.setText(mContext
 							.getString(R.string.add_comment));
 				}
+
 				holder.mViewBtn.setVisibility(View.VISIBLE);
-				if (OrderState.ORDER_STATUS_ORDERED.equals(String
-						.valueOf(orderStateCode))
+				if (OrderState.ORDER_STATUS_ORDERED.equals(orderStateCodeStr)
 						&& orderStateCodeStr
 								.equals(PayConstants.PAY_STATUS_UNPAID)) {
 					holder.mPayBtn.setVisibility(View.VISIBLE);
@@ -143,6 +138,12 @@ public class OrderWineAdapter extends BaseAdapter {
 					holder.mViewBtn.setVisibility(View.GONE);
 				}
 			}
+
+			final int tempPosition = position;
+			final View view = convertView;
+			final int whichCancel = holder.mCancelOrCommentBtn.getId();
+			final int whichPay = holder.mPayBtn.getId();
+			final int whichView = holder.mViewBtn.getId();
 
 			holder.mPayBtn.setOnClickListener(new OnClickListener() {
 				@Override
@@ -167,7 +168,7 @@ public class OrderWineAdapter extends BaseAdapter {
 			holder.mViewBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					mCallback.onClick(view, v, tempPosition, whichDelOrView);
+					mCallback.onClick(view, v, tempPosition, whichView);
 				}
 			});
 
