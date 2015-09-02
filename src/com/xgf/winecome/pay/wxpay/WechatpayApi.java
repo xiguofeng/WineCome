@@ -11,19 +11,20 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
 
-import com.tencent.mm.sdk.modelpay.PayReq;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.xgf.winecome.pay.wxpay.simcpux.Constants;
-import com.xgf.winecome.pay.wxpay.simcpux.MD5;
-import com.xgf.winecome.pay.wxpay.simcpux.Util;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.util.Xml;
+
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.xgf.winecome.entity.WechatpayMerchant;
+import com.xgf.winecome.pay.wxpay.simcpux.Constants;
+import com.xgf.winecome.pay.wxpay.simcpux.MD5;
+import com.xgf.winecome.pay.wxpay.simcpux.Util;
 
 public class WechatpayApi {
 
@@ -58,7 +59,7 @@ public class WechatpayApi {
 	 * @param handler
 	 */
 	public void getPrepayId(final Activity activity, final Handler handler,
-			final String body, final String total_fee) {
+			final WechatpayMerchant wechatpayMerchant, final String total_fee) {
 
 		new Thread(new Runnable() {
 
@@ -67,7 +68,7 @@ public class WechatpayApi {
 
 				String url = String
 						.format("https://api.mch.weixin.qq.com/pay/unifiedorder");
-				String entity = genProductArgs(body, total_fee);
+				String entity = genProductArgs(wechatpayMerchant, total_fee);
 
 				Log.e("orion", entity);
 
@@ -153,7 +154,8 @@ public class WechatpayApi {
 	}
 
 	@SuppressWarnings("deprecation")
-	private String genProductArgs(String body, String total_fee) {
+	private String genProductArgs(WechatpayMerchant wechatpayMerchant,
+			String total_fee) {
 		StringBuffer xml = new StringBuffer();
 
 		try {
@@ -161,22 +163,23 @@ public class WechatpayApi {
 
 			xml.append("</xml>");
 			List<NameValuePair> packageParams = new LinkedList<NameValuePair>();
-			packageParams
-					.add(new BasicNameValuePair("appid", Constants.APP_ID));
+			packageParams.add(new BasicNameValuePair("appid", wechatpayMerchant
+					.getAppId()));
 			packageParams.add(new BasicNameValuePair("body", "jiu"));
-			packageParams
-					.add(new BasicNameValuePair("mch_id", Constants.MCH_ID));
-			packageParams.add(new BasicNameValuePair("nonce_str", nonceStr));
+			packageParams.add(new BasicNameValuePair("mch_id",
+					wechatpayMerchant.getPartnerId()));
+			packageParams.add(new BasicNameValuePair("nonce_str",
+					wechatpayMerchant.getOut_trade_no()));
 			packageParams.add(new BasicNameValuePair("notify_url",
-					"http://121.40.35.3/test"));
+					wechatpayMerchant.getNotifyUrl()));
 			packageParams.add(new BasicNameValuePair("out_trade_no",
-					genOutTradNo()));
+					wechatpayMerchant.getOut_trade_no()));
 			packageParams.add(new BasicNameValuePair("spbill_create_ip",
 					"127.0.0.1"));
 			packageParams.add(new BasicNameValuePair("total_fee", total_fee));
 			packageParams.add(new BasicNameValuePair("trade_type", "APP"));
 
-			String sign = genPackageSign(packageParams);
+			String sign = genPackageSign(packageParams, wechatpayMerchant);
 			packageParams.add(new BasicNameValuePair("sign", sign));
 
 			String xmlstring = toXml(packageParams);
@@ -194,7 +197,8 @@ public class WechatpayApi {
 	 * 生成签名
 	 */
 
-	private String genPackageSign(List<NameValuePair> params) {
+	private String genPackageSign(List<NameValuePair> params,
+			WechatpayMerchant wechatpayMerchant) {
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < params.size(); i++) {
@@ -204,7 +208,7 @@ public class WechatpayApi {
 			sb.append('&');
 		}
 		sb.append("key=");
-		sb.append(Constants.API_KEY);
+		sb.append(wechatpayMerchant.getApiKey());
 
 		String packageSign = MD5.getMessageDigest(sb.toString().getBytes())
 				.toUpperCase();
@@ -216,10 +220,11 @@ public class WechatpayApi {
 	 * 步骤2：生成支付参数
 	 ************************************************/
 	public void genPayReq(Activity activity, Handler handler,
-			Map<String, String> resultunifiedorder) {
+			Map<String, String> resultunifiedorder,
+			WechatpayMerchant wechatpayMerchant) {
 		PayReq req = new PayReq();
-		req.appId = Constants.APP_ID;
-		req.partnerId = Constants.MCH_ID;
+		req.appId = wechatpayMerchant.getAppId();
+		req.partnerId = wechatpayMerchant.getPartnerId();
 		req.prepayId = resultunifiedorder.get("prepay_id");
 		req.packageValue = "Sign=WXPay";
 		req.nonceStr = genNonceStr();
@@ -233,13 +238,14 @@ public class WechatpayApi {
 		signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
 		signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
 
-		req.sign = genAppSign(signParams);
+		req.sign = genAppSign(signParams, wechatpayMerchant);
 
 		// mSb.append("sign\n" + req.sign + "\n\n");
-		sendPayReq(activity, req);
+		sendPayReq(activity, req, wechatpayMerchant);
 	}
 
-	private String genAppSign(List<NameValuePair> params) {
+	private String genAppSign(List<NameValuePair> params,
+			WechatpayMerchant wechatpayMerchant) {
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < params.size(); i++) {
@@ -249,7 +255,7 @@ public class WechatpayApi {
 			sb.append('&');
 		}
 		sb.append("key=");
-		sb.append(Constants.API_KEY);
+		sb.append(wechatpayMerchant.getApiKey());
 
 		// this.mSb.append("sign str\n" + sb.toString() + "\n\n");
 		String appSign = MD5.getMessageDigest(sb.toString().getBytes())
@@ -261,11 +267,12 @@ public class WechatpayApi {
 	/*************************************************
 	 * 步骤3：调起微信支付
 	 ************************************************/
-	private void sendPayReq(Context context, PayReq req) {
+	private void sendPayReq(Context context, PayReq req,
+			WechatpayMerchant wechatpayMerchant) {
 		Log.e("xxx_sendPayReq", "start");
 		final IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
 
-		msgApi.registerApp(Constants.APP_ID);
+		msgApi.registerApp(wechatpayMerchant.getAppId());
 		msgApi.sendReq(req);
 		Log.e("xxx_sendPayReq", "end");
 	}

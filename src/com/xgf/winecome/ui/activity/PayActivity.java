@@ -9,6 +9,7 @@ import com.xgf.winecome.entity.AlipayMerchant;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.entity.UnionpayMerchant;
+import com.xgf.winecome.entity.WechatpayMerchant;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.pay.PayConstants;
@@ -251,8 +252,16 @@ public class PayActivity extends Activity implements OnClickListener {
 					if (null == mWechatpayApi) {
 						mWechatpayApi = new WechatpayApi();
 					}
-					mWechatpayApi.genPayReq(PayActivity.this,
-							mWechatpayHandler, result);
+
+					WechatpayMerchant wxpayMerchant = (WechatpayMerchant) mMsgMap
+							.get(PayConstants.PAY_WAY_WXPAY);
+					if (null != wxpayMerchant) {
+						mWechatpayApi.genPayReq(PayActivity.this,
+								mWechatpayHandler, result, wxpayMerchant);
+					} else {
+						Toast.makeText(mContext, "支付失败,请重试！",
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 			case WechatpayApi.PREPAY_ID_GET_FAIL: {
@@ -466,10 +475,11 @@ public class PayActivity extends Activity implements OnClickListener {
 			if (null == mWechatpayApi) {
 				mWechatpayApi = new WechatpayApi();
 			}
+			WechatpayMerchant wxpayMerchant = (WechatpayMerchant) mMsgMap
+					.get(PayConstants.PAY_WAY_WXPAY);
 			mWechatpayApi.getPrepayId(PayActivity.this, mWechatpayHandler,
-					"南京壹前零后科技有限公司提供的酒", String.valueOf(Integer
-							.parseInt(OrderManager.getsCurrentOrder()
-									.getAmount()) * 100));
+					wxpayMerchant, String.valueOf(Integer.parseInt(OrderManager
+							.getsCurrentOrder().getAmount()) * 100));
 
 		} else if (PayConstants.PAY_WAY_UNIONPAY.equals(mCurrentPayWay)) {
 			if (null == mUnionpayApi) {
