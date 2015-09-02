@@ -501,7 +501,7 @@ public class PayActivity extends Activity implements OnClickListener {
 					.get(PayConstants.PAY_WAY_WXPAY);
 			mWechatpayApi.getPrepayId(PayActivity.this, mWechatpayHandler,
 					wxpayMerchant, String.valueOf(Integer.parseInt(OrderManager
-							.getsCurrentOrder().getAmount())));
+							.getsCurrentOrder().getAmount()) * 100));
 
 		} else if (PayConstants.PAY_WAY_UNIONPAY.equals(mCurrentPayWay)) {
 			if (null == mUnionpayApi) {

@@ -76,7 +76,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 	@Override
 	public void onResp(BaseResp resp) {
-		Log.e(TAG, "onPayFinish, errCode = " + resp.errCode);
+		// Log.e(TAG, "onPayFinish, errCode = " + resp.errCode);
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 			PayActivity.sWxRespCode = String.valueOf(resp.errCode);
