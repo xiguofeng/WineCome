@@ -157,7 +157,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 		setUpViews();
 		setUpListener();
 		setUpData();
-		initQuerySmsInbox();
+		//initQuerySmsInbox();
 	}
 
 	private void setUpViews() {

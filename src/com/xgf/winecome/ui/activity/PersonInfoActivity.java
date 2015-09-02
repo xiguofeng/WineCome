@@ -253,7 +253,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		setUpViews();
 		setUpListener();
 		setUpData();
-		initQuerySmsInbox();
+		//initQuerySmsInbox();
 	}
 
 	private void setUpViews() {

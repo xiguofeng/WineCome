@@ -126,6 +126,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 		setUpViews();
 		setUpListener();
 		setUpData();
+		//initQuerySmsInbox();
 	}
 
 	@Override
@@ -178,7 +179,6 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 			mReplaceLl.setVisibility(View.GONE);
 		}
 		// initSmsBroadcast();
-		initQuerySmsInbox();
 	}
 
 	private void initSmsBroadcast() {
