@@ -165,7 +165,7 @@ public class WechatpayApi {
 			List<NameValuePair> packageParams = new LinkedList<NameValuePair>();
 			packageParams.add(new BasicNameValuePair("appid", wechatpayMerchant
 					.getAppId()));
-			packageParams.add(new BasicNameValuePair("body", "jiu"));
+			packageParams.add(new BasicNameValuePair("body", "酒"));
 			packageParams.add(new BasicNameValuePair("mch_id",
 					wechatpayMerchant.getPartnerId()));
 			packageParams.add(new BasicNameValuePair("nonce_str",
@@ -183,11 +183,12 @@ public class WechatpayApi {
 			packageParams.add(new BasicNameValuePair("sign", sign));
 
 			String xmlstring = toXml(packageParams);
+			xmlstring = new String(xmlstring.getBytes("UTF-8"), "ISO-8859-1");
 
 			return xmlstring;
 
 		} catch (Exception e) {
-			Log.e(TAG, "genProductArgs fail, ex = " + e.getMessage());
+			//Log.e(TAG, "genProductArgs fail, ex = " + e.getMessage());
 			return null;
 		}
 
