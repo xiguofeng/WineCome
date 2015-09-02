@@ -1,12 +1,9 @@
 package com.xgf.winecome.ui.activity;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.network.logic.UserLogic;
-import com.xgf.winecome.utils.UserInfoManager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.xgf.winecome.R;
+import com.xgf.winecome.broadcast.SMSBroadcastReceiver;
+import com.xgf.winecome.network.logic.UserLogic;
+import com.xgf.winecome.utils.UserInfoManager;
 
 public class OrderQueryActivity extends Activity implements OnClickListener,
 		TextWatcher {
@@ -47,6 +49,9 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 	private boolean mIsNeedAuth = false;
 
 	private int mTiming = 60;
+
+	private SMSBroadcastReceiver mSMSBroadcastReceiver;
+	private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
 	Handler mHandler = new Handler() {
 
@@ -121,6 +126,13 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 		setUpData();
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		// 注销短信监听广播
+		this.unregisterReceiver(mSMSBroadcastReceiver);
+	}
+
 	private void setUpViews() {
 		mQueryLl = (LinearLayout) findViewById(R.id.order_query_submit_ll);
 		mAuthCodeLl = (LinearLayout) findViewById(R.id.order_query_ver_code_ll);
@@ -163,6 +175,27 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 			mPhoneEt.setVisibility(View.VISIBLE);
 			mReplaceLl.setVisibility(View.GONE);
 		}
+		initSmsBroadcast();
+	}
+
+	private void initSmsBroadcast() {
+		// 生成广播处理
+		mSMSBroadcastReceiver = new SMSBroadcastReceiver();
+		// 实例化过滤器并设置要过滤的广播
+		IntentFilter intentFilter = new IntentFilter(ACTION);
+		intentFilter.setPriority(Integer.MAX_VALUE);
+		// 注册广播
+		this.registerReceiver(mSMSBroadcastReceiver, intentFilter);
+
+		mSMSBroadcastReceiver
+				.setOnReceivedMessageListener(new SMSBroadcastReceiver.MessageListener() {
+					@Override
+					public void onReceived(String message) {
+
+						mPhoneEt.setText(message);
+
+					}
+				});
 	}
 
 	@Override
