@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.db.SmsContent;
 import com.xgf.winecome.network.logic.IntegralGoodsLogic;
 import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.UserInfoManager;
@@ -8,6 +9,7 @@ import com.xgf.winecome.utils.UserInfoManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -155,6 +157,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 		setUpViews();
 		setUpListener();
 		setUpData();
+		initQuerySmsInbox();
 	}
 
 	private void setUpViews() {
@@ -196,6 +199,14 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 			mPhoneEt.setVisibility(View.VISIBLE);
 			mReplaceLl.setVisibility(View.GONE);
 		}
+	}
+
+	private void initQuerySmsInbox() {
+		SmsContent content = new SmsContent(IntegralQueryActivity.this,
+				new Handler(), mVerCodeEt);
+		// 注册短信变化监听
+		this.getContentResolver().registerContentObserver(
+				Uri.parse("content://sms/"), true, content);
 	}
 
 	@Override

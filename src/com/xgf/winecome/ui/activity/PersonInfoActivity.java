@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.baidu.location.BDLocation;
 import com.xgf.winecome.R;
+import com.xgf.winecome.db.SmsContent;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.Order;
 import com.xgf.winecome.network.logic.OrderLogic;
@@ -22,6 +23,7 @@ import com.xgf.winecome.utils.UserInfoManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -251,6 +253,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		setUpViews();
 		setUpListener();
 		setUpData();
+		initQuerySmsInbox();
 	}
 
 	private void setUpViews() {
@@ -576,6 +579,14 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 						}
 					}
 				});
+	}
+
+	private void initQuerySmsInbox() {
+		SmsContent content = new SmsContent(PersonInfoActivity.this,
+				new Handler(), mVerCodeEt);
+		// 注册短信变化监听
+		this.getContentResolver().registerContentObserver(
+				Uri.parse("content://sms/"), true, content);
 	}
 
 	private void submitCreateOrder() {

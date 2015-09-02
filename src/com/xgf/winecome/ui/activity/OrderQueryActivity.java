@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.broadcast.SMSBroadcastReceiver;
+import com.xgf.winecome.db.SmsContent;
 import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.utils.UserInfoManager;
 
@@ -130,7 +132,7 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 	protected void onDestroy() {
 		super.onDestroy();
 		// 注销短信监听广播
-		this.unregisterReceiver(mSMSBroadcastReceiver);
+		// this.unregisterReceiver(mSMSBroadcastReceiver);
 	}
 
 	private void setUpViews() {
@@ -175,7 +177,8 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 			mPhoneEt.setVisibility(View.VISIBLE);
 			mReplaceLl.setVisibility(View.GONE);
 		}
-		initSmsBroadcast();
+		// initSmsBroadcast();
+		initQuerySmsInbox();
 	}
 
 	private void initSmsBroadcast() {
@@ -196,6 +199,14 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 
 					}
 				});
+	}
+
+	private void initQuerySmsInbox() {
+		SmsContent content = new SmsContent(OrderQueryActivity.this,
+				new Handler(), mVerCodeEt);
+		// 注册短信变化监听
+		this.getContentResolver().registerContentObserver(
+				Uri.parse("content://sms/"), true, content);
 	}
 
 	@Override
