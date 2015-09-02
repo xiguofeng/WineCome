@@ -33,12 +33,14 @@ public class AlipayApi {
 	 * call alipay sdk pay. 调用SDK支付
 	 * 
 	 */
-	public void pay(final Activity activity, final Handler handler, final AlipayMerchant alipayMerchant) {
+	public void pay(final Activity activity, final Handler handler,
+			final AlipayMerchant alipayMerchant) {
 		// 订单
-		String orderInfo = getOrderInfo(alipayMerchant.getPartnerId(), alipayMerchant.getSellerAccount(),
-				OrderManager.getsCurrentOrder().getId(), "南京壹前零后科技有限公司提供的酒",
-				OrderManager.getsCurrentOrder().getAmount(), OrderManager.getsCurrentOrder().getNotifyUrl(),
-				OrderManager.getsCurrentOrder().getOpid());
+		String orderInfo = getOrderInfo(alipayMerchant.getPartnerId(),
+				alipayMerchant.getSellerAccount(), OrderManager
+						.getsCurrentOrder().getId(), "南京壹前零后科技有限公司提供的酒",
+				OrderManager.getsCurrentOrder().getAmount(),
+				alipayMerchant.getNotifyUrl(), alipayMerchant.getTradeNo());
 
 		// 对订单做RSA 签名
 		String sign = sign(orderInfo, alipayMerchant.getPrivateKey());
@@ -50,7 +52,8 @@ public class AlipayApi {
 		}
 
 		// 完整的符合支付宝参数规范的订单信息
-		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
+		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
+				+ getSignType();
 
 		Runnable payRunnable = new Runnable() {
 
@@ -113,8 +116,8 @@ public class AlipayApi {
 	 * create the order info. 创建订单信息
 	 * 
 	 */
-	public String getOrderInfo(String partner, String sellerId, String orderId, String body, String price,
-			String notifyUrl, String tradeNo) {
+	public String getOrderInfo(String partner, String sellerId, String orderId,
+			String body, String price, String notifyUrl, String tradeNo) {
 		// 签约合作者身份ID
 		String orderInfo = "partner=" + "\"" + partner + "\"";
 
@@ -169,7 +172,8 @@ public class AlipayApi {
 	 * 
 	 */
 	public String getOutTradeNo() {
-		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss", Locale.getDefault());
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
+				Locale.getDefault());
 		Date date = new Date();
 		String key = format.format(date);
 
