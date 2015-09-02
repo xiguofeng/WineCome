@@ -59,10 +59,11 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dip"
         android:layout_marginTop="5dip"
+        android:layout_gravity="right"
         android:background="@color/white"
         android:orientation="horizontal" >
 

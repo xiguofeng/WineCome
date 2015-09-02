@@ -33,7 +33,8 @@ public class OrderWineAdapter extends BaseAdapter {
 
 	private ListItemClickHelp mCallback;
 
-	public OrderWineAdapter(Context context, HashMap<String, Object> datas, ListItemClickHelp callback) {
+	public OrderWineAdapter(Context context, HashMap<String, Object> datas,
+			ListItemClickHelp callback) {
 		this.mContext = context;
 		this.mMap = datas;
 		this.mCallback = callback;
@@ -66,14 +67,21 @@ public class OrderWineAdapter extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.list_order_item, null);
 
 			holder = new ViewHolder();
-			holder.mId = (TextView) convertView.findViewById(R.id.list_order_group_id_tv);
-			holder.mTime = (TextView) convertView.findViewById(R.id.list_order_group_time_tv);
-			holder.mState = (TextView) convertView.findViewById(R.id.list_order_group_state_tv);
+			holder.mId = (TextView) convertView
+					.findViewById(R.id.list_order_group_id_tv);
+			holder.mTime = (TextView) convertView
+					.findViewById(R.id.list_order_group_time_tv);
+			holder.mState = (TextView) convertView
+					.findViewById(R.id.list_order_group_state_tv);
 
-			holder.mCancelOrCommentBtn = (Button) convertView.findViewById(R.id.list_order_group_comment_or_cancel_btn);
-			holder.mViewBtn = (Button) convertView.findViewById(R.id.list_order_group_see_btn);
-			holder.mPayBtn = (Button) convertView.findViewById(R.id.list_order_group_continue_pay_btn);
-			holder.mWineLl = (LinearLayout) convertView.findViewById(R.id.list_order_group_wine_ll);
+			holder.mCancelOrCommentBtn = (Button) convertView
+					.findViewById(R.id.list_order_group_comment_or_cancel_btn);
+			holder.mViewBtn = (Button) convertView
+					.findViewById(R.id.list_order_group_see_btn);
+			holder.mPayBtn = (Button) convertView
+					.findViewById(R.id.list_order_group_continue_pay_btn);
+			holder.mWineLl = (LinearLayout) convertView
+					.findViewById(R.id.list_order_group_wine_ll);
 
 			convertView.setTag(holder);
 		} else {
@@ -82,11 +90,13 @@ public class OrderWineAdapter extends BaseAdapter {
 
 		if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).size() > position) {
 
-			holder.mId.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId());
-			holder.mTime.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderTime());
+			holder.mId.setText(((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getId());
+			holder.mTime.setText(((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getOrderTime());
 
-			int orderStateCode = Integer
-					.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus());
+			int orderStateCode = Integer.parseInt(((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus());
 			if (orderStateCode <= OrderState.state.length) {
 				holder.mState.setText(OrderState.state[orderStateCode - 1]);
 			}
@@ -97,27 +107,41 @@ public class OrderWineAdapter extends BaseAdapter {
 			final int whichPay = holder.mPayBtn.getId();
 			final int whichDelOrView = holder.mViewBtn.getId();
 
-			holder.mCancelOrCommentBtn.setText(mContext.getString(R.string.add_comment));
-			holder.mCancelOrCommentBtn.setVisibility(View.GONE);
-			if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
-					.equals(OrderState.ORDER_STATUS_ORDERED)
-					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
-							.equals(OrderState.ORDER_STATUS_GRABBED)) {
-				holder.mCancelOrCommentBtn.setVisibility(View.VISIBLE);
-				holder.mCancelOrCommentBtn.setText(mContext.getString(R.string.order_cancel));
-			} else if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
-					.equals(OrderState.ORDER_STATUS_CHECKED)
-					|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()
-							.equals(OrderState.ORDER_STATUS_CONFIRMED)) {
-				holder.mCancelOrCommentBtn.setVisibility(View.VISIBLE);
-				holder.mCancelOrCommentBtn.setText(mContext.getString(R.string.add_comment));
-			}
+			String orderStateCodeStr = String.valueOf(orderStateCode);
 
 			holder.mPayBtn.setVisibility(View.GONE);
-			if (OrderState.ORDER_STATUS_ORDERED.equals(String.valueOf(orderStateCode))
-					&& ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getPayStatus()
-							.equals(PayConstants.PAY_STATUS_UNPAID)) {
-				holder.mPayBtn.setVisibility(View.VISIBLE);
+			holder.mCancelOrCommentBtn.setVisibility(View.GONE);
+			holder.mViewBtn.setVisibility(View.GONE);
+			if (orderStateCode > 6) {
+				holder.mPayBtn.setVisibility(View.GONE);
+				holder.mCancelOrCommentBtn.setVisibility(View.GONE);
+				holder.mViewBtn.setVisibility(View.GONE);
+			} else {
+				if (orderStateCodeStr.equals(OrderState.ORDER_STATUS_ORDERED)
+						|| orderStateCodeStr
+								.equals(OrderState.ORDER_STATUS_GRABBED)) {
+					holder.mCancelOrCommentBtn.setVisibility(View.VISIBLE);
+					holder.mCancelOrCommentBtn.setText(mContext
+							.getString(R.string.order_cancel));
+				} else if (orderStateCodeStr
+						.equals(OrderState.ORDER_STATUS_CONFIRMED)) {
+					holder.mCancelOrCommentBtn.setVisibility(View.VISIBLE);
+					holder.mCancelOrCommentBtn.setText(mContext
+							.getString(R.string.add_comment));
+				}
+				holder.mViewBtn.setVisibility(View.VISIBLE);
+				if (OrderState.ORDER_STATUS_ORDERED.equals(String
+						.valueOf(orderStateCode))
+						&& orderStateCodeStr
+								.equals(PayConstants.PAY_STATUS_UNPAID)) {
+					holder.mPayBtn.setVisibility(View.VISIBLE);
+
+					holder.mCancelOrCommentBtn.setVisibility(View.VISIBLE);
+					holder.mCancelOrCommentBtn.setText(mContext
+							.getString(R.string.order_cancel));
+
+					holder.mViewBtn.setVisibility(View.GONE);
+				}
 			}
 
 			holder.mPayBtn.setOnClickListener(new OnClickListener() {
@@ -129,15 +153,17 @@ public class OrderWineAdapter extends BaseAdapter {
 				}
 			});
 
-			holder.mCancelOrCommentBtn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
+			holder.mCancelOrCommentBtn
+					.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
 
-					mCallback.onClick(view, v, tempPosition, whichCancel);
+							mCallback.onClick(view, v, tempPosition,
+									whichCancel);
 
-				}
-			});
-			
+						}
+					});
+
 			holder.mViewBtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -149,7 +175,8 @@ public class OrderWineAdapter extends BaseAdapter {
 
 			ArrayList<Goods> goodsList = new ArrayList<Goods>();
 			goodsList.addAll(((ArrayList<Goods>) mMap
-					.get(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId())));
+					.get(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+							.get(position).getId())));
 			for (int i = 0; i < goodsList.size(); i++) {
 				// TODO
 				Goods goods = goodsList.get(i);
