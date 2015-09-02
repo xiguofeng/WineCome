@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver {
 	private static MessageListener mMessageListener;
@@ -31,6 +32,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
 						"yyyy-MM-dd HH:mm:ss");
 				String time = simpleDateFormat.format(tiemDate);
 
+	
 				// 过滤不需要读取的短信的发送号码
 				if ("106905971140180".equals(sender)) {
 					mMessageListener.onReceived(content);
