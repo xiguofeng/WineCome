@@ -94,13 +94,14 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 		mContext = OrderListActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
-		initData();
+		mPhone = getIntent().getStringExtra("phone");
+		//initData();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// initData();
+		initData();
 	}
 
 	private void initView() {
@@ -114,7 +115,7 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 	}
 
 	private void initData() {
-		mPhone = getIntent().getStringExtra("phone");
+	
 		// mPhone = UserInfoManager.getPhone(mContext);
 		if (null != mCustomProgressDialog) {
 			mCustomProgressDialog.show();
