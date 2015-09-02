@@ -8,6 +8,8 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.xgf.winecome.R;
 import com.xgf.winecome.pay.wxpay.simcpux.Constants;
+import com.xgf.winecome.ui.activity.PayActivity;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -31,6 +33,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 	private LinearLayout mConfirmLl;
 
+	private CustomProgressDialog2 mCustomProgressDialog;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +45,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 			@Override
 			public void onClick(View v) {
+
 				WXPayEntryActivity.this.finish();
 			}
 		});
@@ -74,13 +79,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 		Log.e(TAG, "onPayFinish, errCode = " + resp.errCode);
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+			PayActivity.sWxRespCode = String.valueOf(resp.errCode);
 			mInfoTv.setText(getString(R.string.pay_result_callback_msg,
 					resp.errStr + ";code=" + String.valueOf(resp.errCode)));
-			// AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			// builder.setTitle(R.string.app_tip);
-			// builder.setMessage(getString(R.string.pay_result_callback_msg,
-			// resp.errStr +";code=" + String.valueOf(resp.errCode)));
-			// builder.show();
 		}
 	}
 }

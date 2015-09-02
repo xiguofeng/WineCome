@@ -4,6 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.AlipayMerchant;
 import com.xgf.winecome.entity.Goods;
@@ -20,25 +37,6 @@ import com.xgf.winecome.pay.wxpay.WechatpayApi;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.OrderManager;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 public class PayActivity extends Activity implements OnClickListener {
 
@@ -76,6 +74,8 @@ public class PayActivity extends Activity implements OnClickListener {
 
 	private WechatpayApi mWechatpayApi;
 
+	public static String sWxRespCode = "";
+
 	Handler mHandler = new Handler() {
 
 		@Override
@@ -106,7 +106,7 @@ public class PayActivity extends Activity implements OnClickListener {
 					Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(mContext,
 							OrderStateActivity.class);
-					intent.putExtra("order_state", "2");
+					intent.putExtra("order_state", "1");
 					intent.putExtra("delivery_time", OrderManager
 							.getsCurrentOrder().getDeliveryTime());
 					startActivity(intent);
@@ -119,7 +119,7 @@ public class PayActivity extends Activity implements OnClickListener {
 			case OrderLogic.ORDER_PAY_RESULT_CHECK_FAIL: {
 				Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(mContext, OrderStateActivity.class);
-				intent.putExtra("order_state", "2");
+				intent.putExtra("order_state", "1");
 				intent.putExtra("delivery_time", OrderManager
 						.getsCurrentOrder().getDeliveryTime());
 				startActivity(intent);
@@ -131,7 +131,7 @@ public class PayActivity extends Activity implements OnClickListener {
 			case OrderLogic.ORDER_PAY_RESULT_CHECK_EXCEPTION: {
 				Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(mContext, OrderStateActivity.class);
-				intent.putExtra("order_state", "2");
+				intent.putExtra("order_state", "1");
 				intent.putExtra("delivery_time", OrderManager
 						.getsCurrentOrder().getDeliveryTime());
 				startActivity(intent);
@@ -305,6 +305,20 @@ public class PayActivity extends Activity implements OnClickListener {
 		setUpData();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (!TextUtils.isEmpty(mCurrentPayWay)
+				&& PayConstants.PAY_WAY_WXPAY.equals(mCurrentPayWay)
+				&& !TextUtils.isEmpty(sWxRespCode)) {
+			if ("0".equals(sWxRespCode)) {
+				mCustomProgressDialog.show();
+				OrderLogic.payResultCheck(mContext, mHandler,
+						OrderManager.getsCurrentOrderId(), "true");
+			}
+		}
+	}
+
 	private void setUpViews() {
 		mCashRl = (RelativeLayout) findViewById(R.id.pay_cash_rl);
 		mPosRl = (RelativeLayout) findViewById(R.id.pay_pos_rl);
@@ -418,24 +432,32 @@ public class PayActivity extends Activity implements OnClickListener {
 		String str = data.getExtras().getString("pay_result");
 		if (str.equalsIgnoreCase("success")) {
 			msg = "支付成功！";
+			mCustomProgressDialog.show();
+			OrderLogic.payResultCheck(mContext, mHandler,
+					OrderManager.getsCurrentOrderId(), "true");
 		} else if (str.equalsIgnoreCase("fail")) {
 			msg = "支付失败！";
+			Toast.makeText(mContext, "支付结果为：" + msg, Toast.LENGTH_SHORT).show();
 		} else if (str.equalsIgnoreCase("cancel")) {
-			msg = "用户取消了支付";
+			msg = "支付取消！";
+			Toast.makeText(mContext, "支付结果为：" + msg, Toast.LENGTH_SHORT).show();
 		}
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("支付结果通知");
-		builder.setMessage(msg);
-		builder.setInverseBackgroundForced(true);
-		// builder.setCustomTitle();
-		builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		});
-		builder.create().show();
+		// AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		// builder.setTitle("支付结果通知");
+		// builder.setMessage(msg);
+		// builder.setInverseBackgroundForced(true);
+		// // builder.setCustomTitle();
+		// builder.setNegativeButton("确定", new DialogInterface.OnClickListener()
+		// {
+		// @Override
+		// public void onClick(DialogInterface dialog, int which) {
+		// dialog.dismiss();
+		//
+		//
+		// }
+		// });
+		// builder.create().show();
 		// if (resultCode == RESULT_OK) {
 		// switch (requestCode) {
 		// case 80: {
@@ -479,7 +501,7 @@ public class PayActivity extends Activity implements OnClickListener {
 					.get(PayConstants.PAY_WAY_WXPAY);
 			mWechatpayApi.getPrepayId(PayActivity.this, mWechatpayHandler,
 					wxpayMerchant, String.valueOf(Integer.parseInt(OrderManager
-							.getsCurrentOrder().getAmount()) * 100));
+							.getsCurrentOrder().getAmount())));
 
 		} else if (PayConstants.PAY_WAY_UNIONPAY.equals(mCurrentPayWay)) {
 			if (null == mUnionpayApi) {
@@ -497,7 +519,7 @@ public class PayActivity extends Activity implements OnClickListener {
 
 		} else if (PayConstants.PAY_WAY_CASHPAY.equals(mCurrentPayWay)) {
 			Intent intent = new Intent(mContext, OrderStateActivity.class);
-			intent.putExtra("order_state", "2");
+			intent.putExtra("order_state", "1");
 			intent.putExtra("delivery_time", OrderManager.getsCurrentOrder()
 					.getDeliveryTime());
 			startActivity(intent);
@@ -535,7 +557,7 @@ public class PayActivity extends Activity implements OnClickListener {
 		} else if (PayConstants.PAY_WAY_POSPAY.equals(mCurrentPayWay)) {
 
 			Intent intent = new Intent(mContext, OrderStateActivity.class);
-			intent.putExtra("order_state", "2");
+			intent.putExtra("order_state", "1");
 			intent.putExtra("delivery_time", OrderManager.getsCurrentOrder()
 					.getDeliveryTime());
 			startActivity(intent);
