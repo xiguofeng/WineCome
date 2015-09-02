@@ -112,7 +112,7 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 					mGoodsAdapter.getmIsSelected()
 							.remove(mGoodsList.size() + 1);
 					mGoodsAdapter.notifyDataSetChanged();
-					
+
 					mCartNullTv.setVisibility(View.VISIBLE);
 					if (CartManager.getsCartList().size() > 0) {
 						mCartNullTv.setVisibility(View.GONE);
@@ -152,25 +152,29 @@ public class ShopCartActivity extends Activity implements OnClickListener {
 		if (CartManager.getsCartList().size() > 0) {
 			mCartNullTv.setVisibility(View.GONE);
 		}
-		
-		HomeActivity.mCheckAllIb.setChecked(true);
+
 		ShopCartActivity.refreshView(true);
 		CartManager.getsSelectCartList().clear();
-		if (true) {
-			CartManager.getsSelectCartList().addAll(
-					CartManager.getsCartList());
+		CartManager.getsSelectCartList().addAll(CartManager.getsCartList());
+
+		if (CartManager.getsSelectCartList().size() > 0) {
+			HomeActivity.mCheckAllIb.setChecked(true);
+		} else {
+			HomeActivity.mCheckAllIb.setChecked(false);
 		}
 		CartManager.setCartTotalMoney();
 
 	}
 
 	public static void refreshView(boolean isChecked) {
-		if (isChecked) {
-			mGoodsAdapter.initChecked();
-		} else {
-			mGoodsAdapter.initCheck();
+		if (null != mGoodsAdapter) {
+			if (isChecked) {
+				mGoodsAdapter.initChecked();
+			} else {
+				mGoodsAdapter.initCheck();
+			}
+			mGoodsAdapter.notifyDataSetChanged();
 		}
-		mGoodsAdapter.notifyDataSetChanged();
 	}
 
 	private int dp2px(int dp) {

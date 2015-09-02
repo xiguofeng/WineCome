@@ -139,6 +139,12 @@ public class CartManager implements Watched {
 			}
 		}
 
+		// if (getsSelectCartList().size() < getsCartList().size()) {
+		// HomeActivity.mCheckAllIb.setChecked(false);
+		// } else {
+		// HomeActivity.mCheckAllIb.setChecked(true);
+		// }
+
 	}
 
 	/**
