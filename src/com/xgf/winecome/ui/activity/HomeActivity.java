@@ -251,13 +251,14 @@ public class HomeActivity extends TabActivity implements
 		switch (v.getId()) {
 		case R.id.home_main_buy_ll: {
 			if (CartManager.getsCartList().size() > 0) {
-				Intent intent = new Intent(HomeActivity.this,
-						PersonInfoActivity.class);
-				intent.setAction(PersonInfoActivity.ORIGIN_FROM_MAIN_ACTION);
-				// intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
-				startActivity(intent);
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
+				// Intent intent = new Intent(HomeActivity.this,
+				// PersonInfoActivity.class);
+				// intent.setAction(PersonInfoActivity.ORIGIN_FROM_MAIN_ACTION);
+				// // intent.setAction(LoginActivity.ORIGIN_FROM_ORDER_KEY);
+				// startActivity(intent);
+				// overridePendingTransition(R.anim.push_left_in,
+				// R.anim.push_left_out);
+				setTab(HomeActivity.TAB_CART);
 			}
 			break;
 		}
@@ -280,34 +281,6 @@ public class HomeActivity extends TabActivity implements
 			break;
 		}
 
-	}
-
-	protected void exitApp() {
-		showAlertDialog("退出程序", "确定退出？", "确定", new OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-
-			}
-		}, "取消", new OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		});
-	}
-
-	/** 含有标题、内容、两个按钮的对话框 **/
-	protected void showAlertDialog(String title, String message,
-			String positiveText,
-			DialogInterface.OnClickListener onPositiveClickListener,
-			String negativeText,
-			DialogInterface.OnClickListener onNegativeClickListener) {
-		new AlertDialog.Builder(this).setTitle(title).setMessage(message)
-				.setPositiveButton(positiveText, onPositiveClickListener)
-				.setNegativeButton(negativeText, onNegativeClickListener)
-				.show();
 	}
 
 }
