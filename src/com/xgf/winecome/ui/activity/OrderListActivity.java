@@ -147,7 +147,7 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 			break;
 		}
 		case R.id.list_order_group_see_btn: {
-			OrderManager.setsCurrentCommentOrderId(
+			OrderManager.setsCurrentOrderId(
 					((ArrayList<Order>) mMsgMap.get(MsgResult.ORDER_TAG)).get(position).getId());
 			Intent intent = new Intent(mContext, OrderStateActivity.class);
 			intent.putExtra("order_state",
