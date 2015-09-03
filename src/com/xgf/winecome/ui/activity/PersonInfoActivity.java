@@ -60,6 +60,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 	private ArrayList<String> mAddressList = new ArrayList<String>();
 	private SimpleAdapter mAddressAdapter;
 	private LinearLayout mAddressLl;
+	
+	private CustomListView mInvoiceLv;
+	private ArrayList<String> mInvoiceList = new ArrayList<String>();
+	private SimpleAdapter mInvoiceAdapter;
+	private LinearLayout mInvoiceHistoryLl;
 
 	private LinearLayout mAuthCodeLl;
 	private LinearLayout mSubmitLl;
@@ -267,6 +272,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mDateInfoLl = (LinearLayout) findViewById(R.id.per_info_date_info_ll);
 		mReplaceLl = (LinearLayout) findViewById(R.id.per_info_replace_phone_ll);
 		mAddressLl = (LinearLayout) findViewById(R.id.per_info_address_lv_ll);
+		mInvoiceHistoryLl = (LinearLayout) findViewById(R.id.per_info_invocie_history_lv_ll);
 
 		mAreaRl = (RelativeLayout) findViewById(R.id.per_info_area_rl);
 		mTimeRl = (RelativeLayout) findViewById(R.id.per_info_time_rl);
@@ -301,6 +307,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mBackIv = (ImageView) findViewById(R.id.per_info_back_iv);
 
 		mAddressLv = (CustomListView) findViewById(R.id.per_info_address_lv);
+		mInvoiceLv = (CustomListView) findViewById(R.id.per_info_invocie_lv);
 	}
 
 	private void setUpListener() {
@@ -375,6 +382,63 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 					} else {
 						mAddressLl.setVisibility(View.GONE);
 						mAddressLv.setVisibility(View.GONE);
+					}
+				}
+			}
+		});
+		
+		mInvoiceTitleEt
+		.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					if (!TextUtils.isEmpty(UserInfoManager
+							.getInvoiceHistory(mContext))) {
+						mInvoiceHistoryLl.setVisibility(View.VISIBLE);
+						mInvoiceLv.setVisibility(View.VISIBLE);
+						mInvoiceAdapter.notifyDataSetChanged();
+					} else {
+						mInvoiceHistoryLl.setVisibility(View.GONE);
+						mInvoiceLv.setVisibility(View.GONE);
+					}
+					// 此处为得到焦点时的处理内容
+
+				} else {
+					mInvoiceHistoryLl.setVisibility(View.GONE);
+					mInvoiceLv.setVisibility(View.GONE);
+					// 此处为失去焦点时的处理内容
+				}
+			}
+		});
+		
+		mInvoiceTitleEt.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (!TextUtils.isEmpty(s.toString())) {
+					mInvoiceHistoryLl.setVisibility(View.GONE);
+					mInvoiceLv.setVisibility(View.GONE);
+				} else {
+					if (!TextUtils.isEmpty(UserInfoManager
+							.getInvoiceHistory(mContext))) {
+						mInvoiceHistoryLl.setVisibility(View.VISIBLE);
+						mInvoiceLv.setVisibility(View.VISIBLE);
+						mInvoiceAdapter.notifyDataSetChanged();
+					} else {
+						mInvoiceHistoryLl.setVisibility(View.GONE);
+						mInvoiceLv.setVisibility(View.GONE);
 					}
 				}
 			}
@@ -464,7 +528,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 
 		String string = UserInfoManager.getAddressHistory(mContext);
 		if (!TextUtils.isEmpty(string)) {
-			String[] strings = string.substring(0, string.length() - 1).split(
+			String[] strings = string.substring(0, string.length()).split(
 					";");
 			int size = 5;
 			if (strings.length < 5) {
@@ -485,6 +549,35 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 				mAddressLv.setVisibility(View.GONE);
 			}
 		});
+		
+		mInvoiceAdapter = new com.xgf.winecome.ui.adapter.SimpleAdapter(
+				mContext, mInvoiceList);
+
+		String invoiceStr = UserInfoManager.getInvoiceHistory(mContext);
+		if (!TextUtils.isEmpty(invoiceStr)) {
+			String[] invoiceStrings = invoiceStr.substring(0, invoiceStr.length()).split(
+					";");
+			int size = 5;
+			if (invoiceStrings.length < 5) {
+				size = invoiceStrings.length;
+			}
+			for (int i = 0; i < size; i++) {
+				mInvoiceList.add(invoiceStrings[i]);
+			}
+		}
+		mInvoiceLv.setAdapter(mInvoiceAdapter);
+		mInvoiceLv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mInvoiceTitleEt.setText(mInvoiceList.get(position));
+				mInvoiceHistoryLl.setVisibility(View.GONE);
+				mInvoiceLv.setVisibility(View.GONE);
+			}
+		});
+		
+		
 	}
 
 	private void setUpData() {
@@ -659,6 +752,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		}
 		order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
 		order.setInvoiceContent(mInvoiceContentTv.getText().toString().trim());
+		UserInfoManager.saveInvoice(mContext, mInvoiceTitleEt.getText().toString()
+				.trim());
 
 		order.setPayWay("");
 

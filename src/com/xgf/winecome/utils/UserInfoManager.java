@@ -26,6 +26,8 @@ public class UserInfoManager {
 	public static final String USER_PHONE_KEY = "user_phone";
 
 	public static final String USER_ADDRESS_KEY = "address";
+	
+	public static final String USER_INVOICE_KEY = "invoice";
 
 	public static final String USER_SIGNATURE_KEY = "signature";
 
@@ -391,5 +393,43 @@ public class UserInfoManager {
 			}
 		}
 		return isHas;
+	}
+	
+	public static void saveInvoice(Context context, String invoice) {
+		String tempString = "";
+		String string = getInvoiceHistory(context);
+		if (!TextUtils.isEmpty(string)) {
+			String[] strings = string.substring(0, string.length()).split(";");
+			int size = 5;
+			if (strings.length < 5) {
+				size = strings.length;
+			}
+			for (int i = 0; i < size; i++) {
+				if (!invoice.equals(strings[i])) {
+					if (!TextUtils.isEmpty(tempString)) {
+						tempString = tempString + ";" + strings[i];
+					} else {
+						tempString = strings[i];
+					}
+				}
+			}
+		}
+		SharedPreferences.Editor userInfo = context.getSharedPreferences(
+				USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE).edit();
+		if (!TextUtils.isEmpty(tempString)) {
+			userInfo.putString(USER_INVOICE_KEY, invoice + ";" + tempString);
+		} else {
+			userInfo.putString(USER_INVOICE_KEY, invoice);
+		}
+		userInfo.commit();
+	}
+
+	public static String getInvoiceHistory(Context context) {
+		String result = "";
+		SharedPreferences userInfo = context.getSharedPreferences(
+				USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE);
+		result = userInfo.getString(USER_INVOICE_KEY, "");
+
+		return result;
 	}
 }

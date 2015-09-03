@@ -632,6 +632,40 @@
                         android:layout_height="1.0px"
                         android:background="#ffcfd4da" />
 
+                    <LinearLayout
+                        android:id="@+id/per_info_invocie_history_lv_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/corners_bg_gray"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dip"
+                        android:visibility="gone" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="8dip"
+                            android:paddingLeft="10dip"
+                            android:paddingRight="10dip"
+                            android:text="@string/invoice_history"
+                            android:textColor="@color/gray_text_title"
+                            android:textSize="@dimen/small_text_size" />
+
+                        <com.xgf.winecome.ui.view.CustomListView
+                            android:id="@+id/per_info_invocie_lv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="8dip"
+                            android:divider="@color/gray_divide_line"
+                            android:dividerHeight="1dip"
+                            android:fastScrollEnabled="false"
+                            android:paddingLeft="10dip"
+                            android:paddingRight="10dip"
+                            android:scrollbars="none" />
+                    </LinearLayout>
+
                     <RelativeLayout
                         android:id="@+id/per_info_invoice_content_rl"
                         android:layout_width="fill_parent"
