@@ -501,6 +501,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						Toast.LENGTH_SHORT).show();
 				exitTime = System.currentTimeMillis();
 			} else {
+				CartManager.getsCartList().clear();
+				CartManager.getsSelectCartList().clear();
 				finish();
 			}
 			return true;
