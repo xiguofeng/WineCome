@@ -153,7 +153,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			switch (what) {
 			case GoodsLogic.AUTH_QR_CODE_SUC: {
 				if (ORIGIN_FROM_MORE_ACTION.equals(mNowAction)) {
-					Toast.makeText(getApplicationContext(), getString(R.string.qr_result_suc), Toast.LENGTH_SHORT)
+					Toast.makeText(getApplicationContext(), getString(R.string.qr_result_suc), Toast.LENGTH_LONG)
 							.show();
 					CaptureActivity.this.finish();
 				} else {
