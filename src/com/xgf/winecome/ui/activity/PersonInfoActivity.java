@@ -474,7 +474,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				if (isChecked) {
-					if (mGoodsNum >= 12) {
+					if (mGoodsNum >= 13) {
 						Toast.makeText(mContext,
 								getString(R.string.no_in_time_hint),
 								Toast.LENGTH_SHORT).show();
@@ -506,7 +506,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 					mDateInfoLl.setVisibility(View.VISIBLE);
 					mIsIntime = false;
 				} else {
-					if (mGoodsNum >= 12) {
+					if (mGoodsNum >= 13) {
 						mInTimeCb.setChecked(false);
 						mSetTimeCb.setChecked(true);
 						mDateInfoLl.setVisibility(View.VISIBLE);
@@ -734,7 +734,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		} else {
 			String date = TimeUtils
 					.TimeStamp2Date(
-							String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
+							String.valueOf(System.currentTimeMillis() + 29 * 60 * 1000),
 							TimeUtils.FORMAT_PATTERN_DATE);
 			order.setDeliveryTime(date);
 		}
