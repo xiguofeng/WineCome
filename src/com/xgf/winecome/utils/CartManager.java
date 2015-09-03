@@ -7,10 +7,8 @@ import java.util.List;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.HomeActivity;
 import com.xgf.winecome.ui.activity.MainActivity;
-import com.xgf.winecome.ui.activity.ShopCartActivity;
 
 import android.util.Log;
-import android.view.View;
 
 public class CartManager implements Watched {
 
@@ -27,6 +25,17 @@ public class CartManager implements Watched {
 	private static boolean sHasGoodsByDetailFlag = false;
 
 	private List<Watcher> mWatcherlist = new ArrayList<Watcher>();
+	
+	/**
+	 * 购物车菜单栏价格更新
+	 */
+	public static int getAllCartNum() {
+		int number = 0;
+		for (Goods goods : sCartList) {
+			number = number+ (Integer.parseInt(goods.getNum()));
+		}
+		return number;
+	}
 
 	/**
 	 * 购物车菜单栏价格更新
