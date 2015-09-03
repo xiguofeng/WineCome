@@ -310,7 +310,7 @@
     <string name="auth_get_fail">登验证码获取失败，请重试</string>
     <string name="mobile_phone_and_code_hint">请填写正确的手机号码与验证码</string>
     <string name="date_after">请选择当前及以后的日期</string>
-    <string name="time_after">请选择20分钟以后的时间</string>
+    <string name="time_after">请选择29分钟以后的时间</string>
     <string name="in_time">即时送</string>
     <string name="set_time">预约送</string>
     <string name="add_cart_suc">成功添加购物车</string>

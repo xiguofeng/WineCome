@@ -41,16 +41,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="399"
+                    android:layout_gravity="center_vertical"
                     android:textColor="@color/orange_text"
                     android:textSize="@dimen/middle_text_size" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dip" >
 
                     <ImageView
-                        android:layout_width="120dip"
+                        android:layout_width="100dip"
                         android:layout_height="1dip"
                         android:layout_centerInParent="true"
                         android:src="@color/gray_divide_line" />
@@ -65,6 +67,55 @@
                         android:textColor="@color/gray_text"
                         android:textSize="@dimen/middle_text_size" />
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/goods_detail_num_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_height="28dip"
+                    android:background="@drawable/corners_detail_bg"
+                    android:orientation="horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/goods_detail_reduce_ib"
+                        android:layout_width="40dip"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:src="@drawable/reduce" />
+
+                    <LinearLayout
+                        android:layout_width="0.5dip"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray_divide_line" >
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/goods_detail_count_et"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:textColor="@color/gray_text"
+                        android:textSize="@dimen/small_text_size" />
+
+                    <LinearLayout
+                        android:layout_width="0.5dip"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray_divide_line" >
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/goods_detail_add_ib"
+                        android:layout_width="41dip"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:src="@drawable/add" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -228,54 +279,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
-
-        <LinearLayout
-            android:id="@+id/goods_detail_num_rl"
-            android:layout_width="112dip"
-            android:layout_height="match_parent"
-            android:background="@drawable/corners_detail_bg"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/goods_detail_reduce_ib"
-                android:layout_width="40dip"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:focusable="false"
-                android:src="@drawable/reduce" />
-
-            <LinearLayout
-                android:layout_width="0.5dip"
-                android:layout_height="match_parent"
-                android:background="@color/gray_divide_line" >
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/goods_detail_count_et"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:enabled="false"
-                android:focusable="false"
-                android:gravity="center"
-                android:maxLines="1"
-                android:textColor="@color/gray_text"
-                android:textSize="@dimen/small_text_size" />
-
-            <LinearLayout
-                android:layout_width="0.5dip"
-                android:layout_height="match_parent"
-                android:background="@color/gray_divide_line" >
-            </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/goods_detail_add_ib"
-                android:layout_width="41dip"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:focusable="false"
-                android:src="@drawable/add" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
