@@ -261,7 +261,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dip"
+            android:layout_marginLeft="13dip"
             android:layout_marginTop="15dip"
             android:src="@drawable/detail_back" />
 
@@ -269,7 +269,7 @@
             android:id="@+id/goods_detail_cart_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="15dip"
+            android:paddingRight="13dip"
             android:paddingTop="15dip"
             android:layout_alignParentRight="true"
             android:src="@drawable/cart" />
