@@ -529,7 +529,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		}
 		mInTimeCb.setChecked(true);
 		mIsIntime = true;
-		if (mGoodsNum >= 12) {
+		if (mGoodsNum >= 13) {
 			mInTimeCb.setChecked(false);
 			mSetTimeCb.setChecked(true);
 			mDateInfoLl.setVisibility(View.VISIBLE);
