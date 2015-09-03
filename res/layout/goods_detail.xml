@@ -261,17 +261,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dip"
-            android:layout_marginTop="10dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginTop="15dip"
             android:src="@drawable/detail_back" />
 
         <ImageView
             android:id="@+id/goods_detail_cart_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="15dip"
+            android:paddingTop="15dip"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dip"
-            android:layout_marginTop="10dip"
             android:src="@drawable/cart" />
     </RelativeLayout>
 

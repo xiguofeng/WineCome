@@ -135,10 +135,11 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		mCartIv = (ImageView) findViewById(R.id.goods_detail_cart_iv);
 		mCartIv.setOnClickListener(this);
 		
-		mBuyNumView = new BadgeView(mContext, mCartIv);
-		mBuyNumView.setTextColor(Color.WHITE);
-		mBuyNumView.setBackgroundColor(Color.RED);
-		mBuyNumView.setTextSize(12);
+		//mBuyNumView = new BadgeView(mContext, mCartIv);
+		mBuyNumView = new BadgeView(this, mCartIv);
+		mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));
+		mBuyNumView.show();
+
 
 		mAddCartLl = (LinearLayout) findViewById(R.id.goods_detail_add_cart_ll);
 		mAddCartLl.setOnClickListener(this);
@@ -180,9 +181,9 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			fillUpGoodsData();
 		}
 		
-		mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));//
-		mBuyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-		mBuyNumView.show();
+//		mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));//
+//		mBuyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+//		mBuyNumView.show();
 	}
 
 	private void fillUpGoodsData() {
@@ -297,9 +298,9 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			@Override
 			public void onAnimationEnd(Animation animation) {
 				v.setVisibility(View.GONE);
-				mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));//
-				mBuyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-				mBuyNumView.show();
+//				mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));//
+//				mBuyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+//				mBuyNumView.show();
 			}
 		});
 
@@ -320,20 +321,23 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.goods_detail_add_cart_ll: {
-			int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
-			v.getLocationInWindow(startLocation);// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
-			mBall = new ImageView(mContext);// buyImg是动画的图片，我的是一个小球（R.drawable.sign）
-			mBall.setImageResource(R.drawable.sign);// 设置buyImg的图片
-			setAnim(mBall, startLocation);// 开始执行动画
-			
+//			int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
+//			v.getLocationInWindow(startLocation);// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
+//			mBall = new ImageView(mContext);// buyImg是动画的图片，我的是一个小球（R.drawable.sign）
+//			mBall.setImageResource(R.drawable.sign);// 设置buyImg的图片
+//			setAnim(mBall, startLocation);// 开始执行动画
+//			
 			mAddCartLl.setClickable(false);
-			int addNum = Integer.parseInt(mNum.getText().toString().trim());
+			//int addNum = Integer.parseInt(mNum.getText().toString().trim());
+			int addNum = 1;
 			boolean isSuc = CartManager.cartModifyByDetail(mGoods, addNum);
 			if (isSuc) {
 				mAddCartLl.setClickable(true);
-				Toast.makeText(getApplicationContext(),
-						getString(R.string.add_cart_suc), Toast.LENGTH_SHORT)
-						.show();
+				mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));
+				mBuyNumView.show();
+//				Toast.makeText(getApplicationContext(),
+//						getString(R.string.add_cart_suc), Toast.LENGTH_SHORT)
+//						.show();
 			}
 			break;
 		}
