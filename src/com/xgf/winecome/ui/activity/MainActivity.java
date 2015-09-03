@@ -373,6 +373,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 		mGoodsAdapter.notifyDataSetChanged();
+		if(mGoodsList.size()>0){
+			CartManager.setTotalMoney(true);
+		}
 	}
 
 	private void search(String key) {
