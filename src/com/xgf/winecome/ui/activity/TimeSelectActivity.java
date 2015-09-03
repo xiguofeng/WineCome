@@ -231,7 +231,7 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 						.dateToLong(dateYMD + " " + getSelectedTimeValue(),
 								TimeUtils.FORMAT_PATTERN_DATE);
 
-				if (selectDate - nowDate >= 20 * 60) {
+				if (selectDate - nowDate >= 29 * 60) {
 					Intent intent = new Intent();
 					intent.putExtra("time", getSelectedTime());
 					intent.putExtra("time_value", getSelectedTimeValue());
