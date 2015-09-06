@@ -41,6 +41,9 @@ public class Order implements Serializable {
 	private String notifyUrl;
 	
 	private String opid;
+	
+	private String orderType;
+
 	public String getId() {
 		return id;
 	}
@@ -183,6 +186,14 @@ public class Order implements Serializable {
 
 	public void setOpid(String opid) {
 		this.opid = opid;
+	}
+	
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
 	}
 
 }

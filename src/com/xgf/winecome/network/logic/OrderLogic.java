@@ -112,8 +112,12 @@ public class OrderLogic {
 							order.getInvoiceContent(), "UTF-8"));
 					requestJson.put("payWay",
 							URLEncoder.encode(order.getPayWay(), "UTF-8"));
+					requestJson.put("orderType",
+							URLEncoder.encode(order.getOrderType(), "UTF-8"));
 					requestJson.put("authCode",
 							URLEncoder.encode(authCode, "UTF-8"));
+					
+
 
 					JSONArray jsonArray = new JSONArray();
 					for (int i = 0; i < goodsList.size(); i++) {

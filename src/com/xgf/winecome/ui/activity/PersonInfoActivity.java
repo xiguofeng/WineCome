@@ -738,6 +738,12 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 							TimeUtils.FORMAT_PATTERN_DATE);
 			order.setDeliveryTime(date);
 		}
+		
+		if(mIsIntime){
+			order.setOrderType("1");
+		}else{
+			order.setOrderType("2");
+		}
 
 		// invoice
 		order.setInvoice(String.valueOf(mIsInvoice));
