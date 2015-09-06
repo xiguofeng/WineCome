@@ -43,11 +43,13 @@ public class IntegralMallActivity extends Activity implements OnClickListener,
 
 	private IntegralGoodsGvAdapter mGvAdapter;
 
+	private ArrayList<IntegralGoods> mAllIntegralGoodsList = new ArrayList<IntegralGoods>();
+
 	private ArrayList<IntegralGoods> mIntegralGoodsList = new ArrayList<IntegralGoods>();
 
 	protected CustomProgressDialog2 mCustomProgressDialog;
 
-	private String[] mIntegral = new String[] { "全部", "0-5000", "5000-10000",
+	private String[] mIntegral = new String[] { "全部", "0-4999", "5000-10000",
 			"10000以上" };
 
 	Handler mHandler = new Handler() {
@@ -58,9 +60,11 @@ public class IntegralMallActivity extends Activity implements OnClickListener,
 			switch (what) {
 			case IntegralGoodsLogic.INTEGRAL_GOODS_LIST_GET_SUC: {
 				if (null != msg.obj) {
-					mIntegralGoodsList.clear();
-					mIntegralGoodsList
+					mAllIntegralGoodsList.clear();
+					mAllIntegralGoodsList
 							.addAll((Collection<? extends IntegralGoods>) msg.obj);
+					mIntegralGoodsList.clear();
+					mIntegralGoodsList.addAll(mAllIntegralGoodsList);
 					mGvAdapter.notifyDataSetChanged();
 				}
 				break;
@@ -121,9 +125,9 @@ public class IntegralMallActivity extends Activity implements OnClickListener,
 		if (null != mCustomProgressDialog) {
 			mCustomProgressDialog.show();
 		}
+		mIntegralGoodsList.clear();
 		IntegralGoodsLogic.getAllIntegralGoods(mContext, mHandler);
 
-		mIntegralGoodsList.clear();
 		// for (int i = 0; i < 10; i++) {
 		// IntegralGoods integralGoods = new IntegralGoods();
 		// integralGoods.setName("兑换商品" + i);
@@ -131,6 +135,51 @@ public class IntegralMallActivity extends Activity implements OnClickListener,
 		// mIntegralGoodsList.add(integralGoods);
 		// }
 		mGvAdapter.notifyDataSetChanged();
+	}
+
+	private void filterGoods(int index) {
+		switch (index) {
+		case 0: {
+			mIntegralGoodsList.clear();
+			mIntegralGoodsList.addAll(mAllIntegralGoodsList);
+			mGvAdapter.notifyDataSetChanged();
+			break;
+		}
+		case 1: {
+			mIntegralGoodsList.clear();
+			for (IntegralGoods integralGoods : mAllIntegralGoodsList) {
+				if (Integer.parseInt(integralGoods.getIntegral()) <= 4999) {
+					mIntegralGoodsList.add(integralGoods);
+				}
+			}
+			mGvAdapter.notifyDataSetChanged();
+			break;
+		}
+		case 2: {
+			mIntegralGoodsList.clear();
+			for (IntegralGoods integralGoods : mAllIntegralGoodsList) {
+				if (Integer.parseInt(integralGoods.getIntegral()) >= 5000
+						&& Integer.parseInt(integralGoods.getIntegral()) <= 10000) {
+					mIntegralGoodsList.add(integralGoods);
+				}
+			}
+			mGvAdapter.notifyDataSetChanged();
+
+			break;
+		}
+		case 3: {
+			mIntegralGoodsList.clear();
+			for (IntegralGoods integralGoods : mAllIntegralGoodsList) {
+				if (Integer.parseInt(integralGoods.getIntegral()) > 10000) {
+					mIntegralGoodsList.add(integralGoods);
+				}
+			}
+			mGvAdapter.notifyDataSetChanged();
+			break;
+		}
+		default:
+			break;
+		}
 	}
 
 	@Override
@@ -159,49 +208,28 @@ public class IntegralMallActivity extends Activity implements OnClickListener,
 							new OnSheetItemClickListener() {
 								@Override
 								public void onClick(int which) {
-
-									if (null != mCustomProgressDialog) {
-										mCustomProgressDialog.show();
-									}
-									IntegralGoodsLogic.getIntegralGoodsByRange(
-											mContext, mHandler, mIntegral[0],
-											"", "0", "30");
+									filterGoods(0);
 								}
 							})
 					.addSheetItem(mIntegral[1], SheetItemColor.Blue,
 							new OnSheetItemClickListener() {
 								@Override
 								public void onClick(int which) {
-									if (null != mCustomProgressDialog) {
-										mCustomProgressDialog.show();
-									}
-									IntegralGoodsLogic.getIntegralGoodsByRange(
-											mContext, mHandler, mIntegral[1],
-											"", "0", "30");
+									filterGoods(1);
 								}
 							})
 					.addSheetItem(mIntegral[2], SheetItemColor.Blue,
 							new OnSheetItemClickListener() {
 								@Override
 								public void onClick(int which) {
-									if (null != mCustomProgressDialog) {
-										mCustomProgressDialog.show();
-									}
-									IntegralGoodsLogic.getIntegralGoodsByRange(
-											mContext, mHandler, mIntegral[2],
-											"", "0", "30");
+									filterGoods(2);
 								}
 							})
 					.addSheetItem(mIntegral[3], SheetItemColor.Blue,
 							new OnSheetItemClickListener() {
 								@Override
 								public void onClick(int which) {
-									if (null != mCustomProgressDialog) {
-										mCustomProgressDialog.show();
-									}
-									IntegralGoodsLogic.getIntegralGoodsByRange(
-											mContext, mHandler, mIntegral[3],
-											"", "0", "30");
+									filterGoods(3);
 								}
 							}).show();
 			break;
@@ -230,7 +258,7 @@ public class IntegralMallActivity extends Activity implements OnClickListener,
 
 			Intent intent = new Intent(IntegralMallActivity.this,
 					IntegralInfoInput.class);
-			intent.putExtra("id", mIntegralGoodsList.get(position).getId());
+			intent.putExtra("id", mAllIntegralGoodsList.get(position).getId());
 			startActivity(intent);
 
 			break;
