@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.entity.OrderState;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.logic.OrderLogic;
 import com.xgf.winecome.qrcode.google.zxing.client.CaptureActivity;
@@ -32,8 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class OrderStateActivity extends Activity implements OnClickListener,
-		CircleTimerListener {
+public class OrderStateActivity extends Activity implements OnClickListener, CircleTimerListener {
 
 	public static final String ORIGIN_FROM_PAY_ACTION = "pay";
 
@@ -88,14 +88,12 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 			int what = msg.what;
 			switch (what) {
 			case OrderLogic.ORDER_CANCEL_SUC: {
-				Toast.makeText(mContext, getString(R.string.order_cancel_suc),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_suc), Toast.LENGTH_SHORT).show();
 				finish();
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_FAIL: {
-				Toast.makeText(mContext, getString(R.string.order_cancel_fail),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_fail), Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_EXCEPTION: {
@@ -118,10 +116,8 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case TIME_UPDATE: {
-				long deliveryTime = TimeUtils.dateToLong(mDeliveryTime,
-						TimeUtils.FORMAT_PATTERN_DATE);
-				int waitTime = (int) (deliveryTime - (System
-						.currentTimeMillis() / 1000));
+				long deliveryTime = TimeUtils.dateToLong(mDeliveryTime, TimeUtils.FORMAT_PATTERN_DATE);
+				int waitTime = (int) (deliveryTime - (System.currentTimeMillis() / 1000));
 				if (waitTime > 0) {
 					mTimingTv.setText(TimeUtils.secToTime(waitTime));
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
@@ -141,12 +137,8 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		setContentView(R.layout.order_state);
 		mContext = OrderStateActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
-		if (!ActivitiyInfoManager.activitityMap
-				.containsKey(ActivitiyInfoManager
-						.getCurrentActivityName(mContext))) {
-			ActivitiyInfoManager.activitityMap
-					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
-							this);
+		if (!ActivitiyInfoManager.activitityMap.containsKey(ActivitiyInfoManager.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap.put(ActivitiyInfoManager.getCurrentActivityName(mContext), this);
 		}
 		// AppManager.getInstance().addActivity(OrderStateActivity.this);
 		setUpViews();
@@ -190,10 +182,8 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		String state = getIntent().getStringExtra("order_state");
 		mDeliveryTime = getIntent().getStringExtra("delivery_time");
 		if (TextUtils.isEmpty(mDeliveryTime)) {
-			mDeliveryTime = TimeUtils
-					.TimeStamp2Date(
-							String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
-							TimeUtils.FORMAT_PATTERN_DATE);
+			mDeliveryTime = TimeUtils.TimeStamp2Date(String.valueOf(System.currentTimeMillis() + 20 * 60 * 1000),
+					TimeUtils.FORMAT_PATTERN_DATE);
 		}
 		mStateCode = Integer.parseInt(state);
 
@@ -204,93 +194,88 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 
 			break;
 		}
-		// 配送
+			// 配送
 		case 3: {
 			mStepTwoTv.setTextColor(Color.BLACK);
 			mStepTwoTv.setText(getString(R.string.began_delivery));
-			mStepTwoIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepTwoIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
 			mWaitViewRl.setVisibility(View.VISIBLE);
 			mTimingTv.setText("00:00:00");
+			break;
 		}
 
-		// 收货
+			// 收货
 		case 4: {
 			mStepTwoTv.setTextColor(Color.BLACK);
 			mStepTwoTv.setText(getString(R.string.began_delivery));
-			mStepTwoIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepTwoIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
 
 			mStepThreeTv.setTextColor(Color.BLACK);
-			mStepThreeIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepThreeIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
+			break;
 
 		}
 
-		// 验货
+			// 验货
 		case 5: {
 
 			mStepTwoTv.setTextColor(Color.BLACK);
 			mStepTwoTv.setText(getString(R.string.began_delivery));
-			mStepTwoIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepTwoIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
 
 			mStepThreeTv.setTextColor(Color.BLACK);
 			mStepThreeTv.setText(getString(R.string.confirm_goods));
-			mStepThreeIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepThreeIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
 
 			mStepFourTv.setTextColor(Color.BLACK);
 			mStepFourTv.setText(getString(R.string.identification_goods));
-			mStepFourIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepFourIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
+			break;
 		}
 
-		// 已取消
+			// 已取消
 		case 6: {
 
 			mStepTwoTv.setTextColor(Color.BLACK);
 			mStepTwoTv.setText(getString(R.string.began_delivery));
-			mStepTwoIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepTwoIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
 
 			mStepThreeTv.setTextColor(Color.BLACK);
 			mStepThreeTv.setText(getString(R.string.confirm_goods));
-			mStepThreeIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepThreeIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
 
 			mStepFourTv.setTextColor(Color.BLACK);
 			mStepFourTv.setText(getString(R.string.identification_goods));
-			mStepFourIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepFourIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
+			break;
 		}
 
-		// 已删除
+			// 已删除
 		case 7: {
 
 			mStepTwoTv.setTextColor(Color.BLACK);
 			mStepTwoTv.setText(getString(R.string.began_delivery));
-			mStepTwoIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepTwoIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
 
 			mStepThreeTv.setTextColor(Color.BLACK);
 			mStepThreeTv.setText(getString(R.string.confirm_goods));
-			mStepThreeIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepThreeIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
 
 			mStepFourTv.setTextColor(Color.BLACK);
 			mStepFourTv.setText(getString(R.string.identification_goods));
-			mStepFourIv.setImageDrawable(getResources().getDrawable(
-					R.drawable.dot_green));
+			mStepFourIv.setImageDrawable(getResources().getDrawable(R.drawable.dot_green));
+			break;
 		}
 
 		default:
 			break;
 		}
 
-		mCancelBtn.setVisibility(View.VISIBLE);
-		if (mStateCode < 3) {
-			mCancelBtn.setVisibility(View.GONE);
+		mCancelBtn.setVisibility(View.GONE);
+		String orderStateCodeStr = String.valueOf(mStateCode);
+		if (orderStateCodeStr.equals(OrderState.ORDER_STATUS_ORDERED)
+				|| orderStateCodeStr.equals(OrderState.ORDER_STATUS_GRABBED)) {
+			mCancelBtn.setVisibility(View.VISIBLE);
 		}
 
 	}
@@ -300,8 +285,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 
 		case R.id.order_state_qr_iv: {
-			Intent intent = new Intent(OrderStateActivity.this,
-					CaptureActivity.class);
+			Intent intent = new Intent(OrderStateActivity.this, CaptureActivity.class);
 			intent.setAction(CaptureActivity.ORIGIN_FROM_ORDER_STATE_ACTION);
 			startActivity(intent);
 			break;
@@ -312,35 +296,29 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		}
 
 		case R.id.order_state_cancel_btn: {
-			if (mStateCode < 3) {
-				new AlertDialog(OrderStateActivity.this)
-						.builder()
-						.setTitle(getString(R.string.prompt))
+			String orderStateCodeStr = String.valueOf(mStateCode);
+			if (orderStateCodeStr.equals(OrderState.ORDER_STATUS_ORDERED)
+					|| orderStateCodeStr.equals(OrderState.ORDER_STATUS_GRABBED)) {
+				new AlertDialog(OrderStateActivity.this).builder().setTitle(getString(R.string.prompt))
 						.setMsg(getString(R.string.order_cancel_confirm))
-						.setPositiveButton(getString(R.string.confirm),
-								new OnClickListener() {
-									@Override
-									public void onClick(View v) {
+						.setPositiveButton(getString(R.string.confirm), new OnClickListener() {
+							@Override
+							public void onClick(View v) {
 
-										if (null != mCustomProgressDialog) {
-											mCustomProgressDialog.show();
-										}
-										OrderLogic.cancelOrder(mContext,
-												mHandler, OrderManager
-														.getsCurrentOrderId());
-									}
-								})
-						.setNegativeButton(getString(R.string.cancal),
-								new OnClickListener() {
-									@Override
-									public void onClick(View v) {
+								if (null != mCustomProgressDialog) {
+									mCustomProgressDialog.show();
+								}
+								OrderLogic.cancelOrder(mContext, mHandler, OrderManager.getsCurrentOrderId());
+							}
+						}).setNegativeButton(getString(R.string.cancal), new OnClickListener() {
+							@Override
+							public void onClick(View v) {
 
-									}
-								}).show();
+							}
+						}).show();
 
 			} else {
-				Toast.makeText(mContext, getString(R.string.order_cancel_no),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.order_cancel_no), Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
