@@ -64,7 +64,7 @@ public class OrderListActivity extends Activity implements OnClickListener, List
 
 			case OrderLogic.ORDER_CANCEL_SUC: {
 				Toast.makeText(mContext, getString(R.string.order_cancel_suc), Toast.LENGTH_SHORT).show();
-				OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "30");
+				OrderLogic.getOrders(mContext, mHandler, mPhone, "0", "20");
 				break;
 			}
 			case OrderLogic.ORDER_CANCEL_FAIL: {
