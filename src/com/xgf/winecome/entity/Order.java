@@ -11,6 +11,8 @@ public class Order implements Serializable {
 	private String phone;
 
 	private String orderTime;
+	
+	private String payTime;
 
 	private String orderStatus;
 
@@ -39,15 +41,6 @@ public class Order implements Serializable {
 	private String notifyUrl;
 	
 	private String opid;
-
-	public String getOpid() {
-		return opid;
-	}
-
-	public void setOpid(String opid) {
-		this.opid = opid;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -70,6 +63,14 @@ public class Order implements Serializable {
 
 	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
+	}
+
+	public String getPayTime() {
+		return payTime;
+	}
+
+	public void setPayTime(String payTime) {
+		this.payTime = payTime;
 	}
 
 	public String getOrderStatus() {
@@ -176,5 +177,12 @@ public class Order implements Serializable {
 		this.notifyUrl = notifyUrl;
 	}
 
+	public String getOpid() {
+		return opid;
+	}
+
+	public void setOpid(String opid) {
+		this.opid = opid;
+	}
 
 }
