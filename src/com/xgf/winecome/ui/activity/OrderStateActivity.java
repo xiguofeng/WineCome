@@ -289,7 +289,7 @@ public class OrderStateActivity extends Activity implements OnClickListener,
 		}
 
 		mCancelBtn.setVisibility(View.VISIBLE);
-		if (mStateCode >= 5) {
+		if (mStateCode < 3) {
 			mCancelBtn.setVisibility(View.GONE);
 		}
 
