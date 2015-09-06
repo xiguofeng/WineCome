@@ -20,6 +20,7 @@ import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
 import com.xgf.winecome.utils.JsonUtils;
+import com.xgf.winecome.utils.OrderManager;
 
 import android.content.Context;
 import android.os.Handler;
@@ -525,6 +526,7 @@ public class GoodsLogic {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.authProduct);
 
 					rpc.addProperty("qrcode", URLEncoder.encode(qrcode, "UTF-8"));
+					rpc.addProperty("orderId", OrderManager.getsCurrentOrder().getId());
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
 
