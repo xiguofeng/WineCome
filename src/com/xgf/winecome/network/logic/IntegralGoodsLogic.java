@@ -217,8 +217,9 @@ public class IntegralGoodsLogic {
 					requestJson.put("phone", URLEncoder.encode(phone, "UTF-8"));
 					requestJson.put("productId", URLEncoder.encode(productId, "UTF-8"));
 					requestJson.put("address", URLEncoder.encode(address, "UTF-8"));
+					requestJson.put("count", "1");
 
-					Log.e("xxx_order_json", requestJson.toString());
+					Log.e("xxx_integral_exchange_json", requestJson.toString());
 					rpc.addProperty("data", requestJson.toString());
 					rpc.addProperty("md5", URLEncoder.encode("123", "UTF-8"));
 
