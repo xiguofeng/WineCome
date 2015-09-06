@@ -152,6 +152,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			int what = msg.what;
 			switch (what) {
 			case GoodsLogic.AUTH_QR_CODE_SUC: {
+				// TODO
+				if (ORIGIN_FROM_ORDER_STATE_ACTION.equals(mNowAction)) {
+					ActivitiyInfoManager.finishActivity("com.xgf.winecome.ui.activity.OrderStateActivity");
+					// AppManager.getInstance().killActivity(OrderStateActivity.class);
+				} else if (ORIGIN_FROM_QR_RESULT_ACTION.equals(mNowAction)) {
+					ActivitiyInfoManager.finishActivity("com.xgf.winecome.ui.activity.QrResultActivity");
+					// AppManager.getInstance().killActivity(QrResultActivity.class);
+				}
 				if (ORIGIN_FROM_MORE_ACTION.equals(mNowAction)) {
 					Toast.makeText(getApplicationContext(), getString(R.string.qr_result_suc), Toast.LENGTH_LONG)
 							.show();
@@ -177,6 +185,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			default:
 				break;
 			}
+
 			if (null != mCustomProgressDialog) {
 				mCustomProgressDialog.dismiss();
 			}
@@ -515,15 +524,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 				handleDecodeInternally(rawResult, resultHandler, barcode);
 			}
 			break;
-		}
-
-		// TODO
-		if (ORIGIN_FROM_ORDER_STATE_ACTION.equals(mNowAction)) {
-			ActivitiyInfoManager.finishActivity("com.xgf.winecome.ui.activity.OrderStateActivity");
-			// AppManager.getInstance().killActivity(OrderStateActivity.class);
-		} else if (ORIGIN_FROM_QR_RESULT_ACTION.equals(mNowAction)) {
-			ActivitiyInfoManager.finishActivity("com.xgf.winecome.ui.activity.QrResultActivity");
-			// AppManager.getInstance().killActivity(QrResultActivity.class);
 		}
 
 		if (null != mCustomProgressDialog) {
