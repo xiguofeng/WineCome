@@ -71,6 +71,8 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	private LinearLayout mAddCartLl;
 
 	private LinearLayout mNowBuyLl;
+	
+	private LinearLayout mBriefLl;
 
 	public ImageButton mAddIb;
 
@@ -141,6 +143,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		mBuyNumView.show();
 
 
+		mBriefLl = (LinearLayout) findViewById(R.id.goods_detail_content);
 		mAddCartLl = (LinearLayout) findViewById(R.id.goods_detail_add_cart_ll);
 		mAddCartLl.setOnClickListener(this);
 		mNowBuyLl = (LinearLayout) findViewById(R.id.goods_detail_now_buy_ll);
