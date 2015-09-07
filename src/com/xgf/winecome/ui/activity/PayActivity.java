@@ -88,6 +88,8 @@ public class PayActivity extends Activity implements OnClickListener {
 					mMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
 					OrderManager.setsCurrentOrder(((ArrayList<Order>) mMsgMap
 							.get(MsgResult.ORDER_TAG)).get(0));
+					OrderManager.setsCurrentOrderId(((ArrayList<Order>) mMsgMap
+							.get(MsgResult.ORDER_TAG)).get(0).getId());
 					mCurrentPayWay = mCurrentSelectPayWay;
 					hanlder();
 				}

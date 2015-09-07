@@ -62,27 +62,33 @@ public class GoodsLogic {
 
 	public static final int AUTH_QR_CODE_EXCEPTION = AUTH_QR_CODE_FAIL + 1;
 
-	public static void getCategroyList(final Context context, final Handler handler, final String categoryID) {
+	public static void getCategroyList(final Context context,
+			final Handler handler, final String categoryID) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.queryGoodsCategory);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.goods.queryGoodsCategory);
 
-					rpc.addProperty("topCategory", URLEncoder.encode(categoryID, "UTF-8"));
+					rpc.addProperty("topCategory",
+							URLEncoder.encode(categoryID, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.queryGoodsCategory, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.goods.queryGoodsCategory, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -109,18 +115,22 @@ public class GoodsLogic {
 	}
 
 	// {"datas":{"total":"7","list":[[{"ppid":"1","ppmc":"洋河系列","pplx":"01"},{"ppid":"2","ppmc":"五粮液系列","pplx":"01"},{"ppid":"4","ppmc":"国窖系列","pplx":"01"},{"ppid":"7","ppmc":"茅台系列","pplx":"01"},{"ppid":"9","ppmc":"泸州老窖","pplx":"01"}],[{"ppid":"3","ppmc":"长城系列","pplx":"02"},{"ppid":"5","ppmc":"张裕系列","pplx":"02"}]]},"message":"操作成功","result":"0"}
-	private static void parseCategroyListData(JSONObject response, Handler handler) {
+	private static void parseCategroyListData(JSONObject response,
+			Handler handler) {
 		try {
 
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
-				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 				ArrayList<Category> mTempCategoryList = new ArrayList<Category>();
-				JSONArray categorysListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				JSONArray categorysListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
 				int size = categorysListArray.length();
 				for (int i = 0; i < size; i++) {
-					JSONArray categoryListArray = categorysListArray.getJSONArray(i);
+					JSONArray categoryListArray = categorysListArray
+							.getJSONArray(i);
 					int categorySize = categoryListArray.length();
 					if (0 == i) {
 						Category category = new Category();
@@ -136,9 +146,12 @@ public class GoodsLogic {
 						mTempCategoryList.add(category);
 					}
 					for (int j = 0; j < categorySize; j++) {
-						JSONObject categoryJsonObject = categoryListArray.getJSONObject(j);
+						JSONObject categoryJsonObject = categoryListArray
+								.getJSONObject(j);
 
-						Category category = (Category) JsonUtils.fromJsonToJava(categoryJsonObject, Category.class);
+						Category category = (Category) JsonUtils
+								.fromJsonToJava(categoryJsonObject,
+										Category.class);
 						mTempCategoryList.add(category);
 					}
 				}
@@ -156,28 +169,33 @@ public class GoodsLogic {
 		}
 	}
 
-	public static void getGoodsByKey(final Context context, final Handler handler, final String keyword,
-			final int limit) {
+	public static void getGoodsByKey(final Context context,
+			final Handler handler, final String keyword, final int limit) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.queryGoodsCategory);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.goods.queryGoodsCategory);
 
-					rpc.addProperty("topCategory", URLEncoder.encode("白酒", "UTF-8"));
+					rpc.addProperty("topCategory",
+							URLEncoder.encode("白酒", "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.queryGoodsCategory, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.goods.queryGoodsCategory, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -203,7 +221,8 @@ public class GoodsLogic {
 
 	}
 
-	private static void parseGoodsListByKeyData(JSONObject response, Handler handler) {
+	private static void parseGoodsListByKeyData(JSONObject response,
+			Handler handler) {
 		try {
 			ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
 			JSONArray goodsListArray = response.getJSONArray("goodsList");
@@ -215,8 +234,10 @@ public class GoodsLogic {
 
 				Goods goods = new Goods();
 				String goodsID = goodsJsonObject.getString("goodsID").trim();
-				String goodsName = goodsJsonObject.getString("goodsName").trim();
-				String goodsBrief = goodsJsonObject.getString("goodsBrief").trim();
+				String goodsName = goodsJsonObject.getString("goodsName")
+						.trim();
+				String goodsBrief = goodsJsonObject.getString("goodsBrief")
+						.trim();
 				Double goodsPrice = goodsJsonObject.getDouble("price");
 
 				goods.setId(goodsID);
@@ -234,32 +255,39 @@ public class GoodsLogic {
 		}
 	}
 
-	public static void getGoodsByCategroy(final Context context, final Handler handler, final String ppid,
-			final String name, final String pageNum, final String pageSize) {
+	public static void getGoodsByCategroy(final Context context,
+			final Handler handler, final String ppid, final String name,
+			final String pageNum, final String pageSize) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.queryGoods);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.goods.queryGoods);
 
 					rpc.addProperty("ppid", URLEncoder.encode(ppid, "UTF-8"));
 					rpc.addProperty("name", URLEncoder.encode(name, "UTF-8"));
-					rpc.addProperty("pageNum", URLEncoder.encode(pageNum, "UTF-8"));
-					rpc.addProperty("pageSize", URLEncoder.encode(pageSize, "UTF-8"));
+					rpc.addProperty("pageNum",
+							URLEncoder.encode(pageNum, "UTF-8"));
+					rpc.addProperty("pageSize",
+							URLEncoder.encode(pageSize, "UTF-8"));
 					// rpc.addProperty("md5", URLEncoder.encode("1111",
 					// "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.queryGoods, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.goods.queryGoods, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -296,15 +324,20 @@ public class GoodsLogic {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
-				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 				ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
-				JSONArray goodsListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
-				Log.e("xxx_parseGoodsListData_0", "goodsListArray-------->" + goodsListArray.toString());
+				JSONArray goodsListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				Log.e("xxx_parseGoodsListData_0", "goodsListArray-------->"
+						+ goodsListArray.toString());
 				int size = goodsListArray.length();
 				for (int j = 0; j < size; j++) {
-					JSONObject categoryJsonObject = goodsListArray.getJSONObject(j);
+					JSONObject categoryJsonObject = goodsListArray
+							.getJSONObject(j);
 
-					Goods goods = (Goods) JsonUtils.fromJsonToJava(categoryJsonObject, Goods.class);
+					Goods goods = (Goods) JsonUtils.fromJsonToJava(
+							categoryJsonObject, Goods.class);
 					goods.setNum("0");
 					mTempGoodsList.add(goods);
 				}
@@ -328,20 +361,24 @@ public class GoodsLogic {
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.queryAllGoods);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.goods.queryAllGoods);
 
 					// rpc.addProperty("md5", URLEncoder.encode("1111",
 					// "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.queryAllGoods, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.goods.queryAllGoods, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -366,7 +403,8 @@ public class GoodsLogic {
 		}).start();
 	}
 
-	private static void parseAllGoodsListData(JSONObject response, Handler handler) {
+	private static void parseAllGoodsListData(JSONObject response,
+			Handler handler) {
 		try {
 			ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
 			JSONArray goodsListArray = response.getJSONArray("goodsList");
@@ -378,8 +416,10 @@ public class GoodsLogic {
 
 				Goods goods = new Goods();
 				String goodsID = goodsJsonObject.getString("goodsID").trim();
-				String goodsName = goodsJsonObject.getString("goodsName").trim();
-				String goodsBrief = goodsJsonObject.getString("goodsBrief").trim();
+				String goodsName = goodsJsonObject.getString("goodsName")
+						.trim();
+				String goodsBrief = goodsJsonObject.getString("goodsBrief")
+						.trim();
 				Double goodsPrice = goodsJsonObject.getDouble("price");
 
 				goods.setId(goodsID);
@@ -397,24 +437,29 @@ public class GoodsLogic {
 		}
 	}
 
-	public static void getCategroyAndGoodsList(final Context context, final Handler handler) {
+	public static void getCategroyAndGoodsList(final Context context,
+			final Handler handler) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.queryAllGoods);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.goods.queryAllGoods);
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.queryAllGoods, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.goods.queryAllGoods, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -449,19 +494,23 @@ public class GoodsLogic {
 	// 12:52:37.0","marketPrice":"800","level":"特级","degree":"50","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/201584150111.jpg","name":"五粮液","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821144151.jpg"}]}],"pplx":"01"},{"ppmc":"国窖系列","ppid":"4","pplx":"01"},{"ppmc":"茅台系列","ppid":"7","plist":[{"id":"10010","salesPrice":"1200","model":"浓香","addedTime":"2015-08-02
 	// 09:28:53.0","marketPrice":"2000","level":"特级","degree":"52","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/20158415181.jpg","name":"茅台","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821145121.jpg"}]}],"pplx":"01"},{"ppmc":"泸州老窖","ppid":"9","plist":[{"id":"10020","salesPrice":"300","model":"浓香","addedTime":"2015-08-02
 	// 09:33:39.0","marketPrice":"500","level":"优质","degree":"52","area":"","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/201584151231.jpg","name":"泸州老窖","images":[{"url":"http://www.diyifw.com:8080/jll/upload/2015821145271.jpg"}]}],"pplx":"01"}],[{"ppmc":"长城系列","ppid":"3","plist":[],"pplx":"02"},{"ppmc":"张裕系列","ppid":"5","plist":[],"pplx":"02"}]]},"result":"0"}
-	private static void parseCategroyAndGoodsListData(JSONObject response, Handler handler) {
+	private static void parseCategroyAndGoodsListData(JSONObject response,
+			Handler handler) {
 		try {
 
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
-				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 				ArrayList<Category> tempCategoryList = new ArrayList<Category>();
-				JSONArray categorysListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				JSONArray categorysListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
 				HashMap<String, Object> msgMap = new HashMap<String, Object>();
 				int size = categorysListArray.length();
 				for (int i = 0; i < size; i++) {
-					JSONArray categoryListArray = categorysListArray.getJSONArray(i);
+					JSONArray categoryListArray = categorysListArray
+							.getJSONArray(i);
 					int categorySize = categoryListArray.length();
 					if (0 == i) {
 						Category category = new Category();
@@ -478,23 +527,29 @@ public class GoodsLogic {
 					}
 
 					for (int j = 0; j < categorySize; j++) {
-						JSONObject categoryJsonObject = categoryListArray.getJSONObject(j);
+						JSONObject categoryJsonObject = categoryListArray
+								.getJSONObject(j);
 						// Category category = new Category();
 						// category.setPpid(categoryJsonObject.getString("ppid"));
 						// category.setPpmc(categoryJsonObject.getString("ppmc"));
 						// category.setPplx(categoryJsonObject.getString("pplx"));
 
-						Category category = (Category) JsonUtils.fromJsonToJava(categoryJsonObject, Category.class);
+						Category category = (Category) JsonUtils
+								.fromJsonToJava(categoryJsonObject,
+										Category.class);
 
 						tempCategoryList.add(category);
 
 						ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
-						JSONArray goodsArray = categoryJsonObject.getJSONArray("plist");
+						JSONArray goodsArray = categoryJsonObject
+								.getJSONArray("plist");
 
 						for (int k = 0; k < goodsArray.length(); k++) {
-							JSONObject goodsJsonObject = goodsArray.getJSONObject(k);
+							JSONObject goodsJsonObject = goodsArray
+									.getJSONObject(k);
 
-							Goods goods = (Goods) JsonUtils.fromJsonToJava(goodsJsonObject, Goods.class);
+							Goods goods = (Goods) JsonUtils.fromJsonToJava(
+									goodsJsonObject, Goods.class);
 							goods.setNum("0");
 							tempGoodsList.add(goods);
 						}
@@ -516,27 +571,34 @@ public class GoodsLogic {
 		}
 	}
 
-	public static void authQrCodeCode(final Context context, final Handler handler, final String qrcode) {
+	public static void authQrCodeCode(final Context context,
+			final Handler handler, final String qrcode) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.authProduct);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.goods.authProduct);
 
-					rpc.addProperty("qrcode", URLEncoder.encode(qrcode, "UTF-8"));
-					rpc.addProperty("orderId", OrderManager.getsCurrentOrder().getId());
+					rpc.addProperty("qrcode",
+							URLEncoder.encode(qrcode, "UTF-8"));
+					rpc.addProperty("orderId",
+							OrderManager.getsCurrentOrderId());
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.authProduct, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.goods.authProduct, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -562,7 +624,8 @@ public class GoodsLogic {
 	}
 
 	// {"datas":"{}","message":"扫描鉴真失败，没有商品信息","result":"10009"}
-	private static void parseSendAuthCodeData(JSONObject response, Handler handler) {
+	private static void parseSendAuthCodeData(JSONObject response,
+			Handler handler) {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
