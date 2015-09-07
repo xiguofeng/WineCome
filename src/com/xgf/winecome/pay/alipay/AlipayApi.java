@@ -38,7 +38,7 @@ public class AlipayApi {
 		// 订单
 		String orderInfo = getOrderInfo(alipayMerchant.getPartnerId(),
 				alipayMerchant.getSellerAccount(), OrderManager
-						.getsCurrentOrder().getId(), "南京壹前零后科技有限公司提供的酒",
+						.getsCurrentOrder().getId(), alipayMerchant.getProductName(),alipayMerchant.getProductDescription(),
 				OrderManager.getsCurrentOrder().getAmount(),
 				alipayMerchant.getNotifyUrl(), alipayMerchant.getTradeNo());
 
@@ -116,7 +116,7 @@ public class AlipayApi {
 	 * create the order info. 创建订单信息
 	 * 
 	 */
-	public String getOrderInfo(String partner, String sellerId, String orderId,
+	public String getOrderInfo(String partner, String sellerId, String orderId,String subject,
 			String body, String price, String notifyUrl, String tradeNo) {
 		// 签约合作者身份ID
 		String orderInfo = "partner=" + "\"" + partner + "\"";
