@@ -15,18 +15,18 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+
 import com.xgf.winecome.entity.Category;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
 import com.xgf.winecome.utils.JsonUtils;
 import com.xgf.winecome.utils.OrderManager;
-
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
 
 public class GoodsLogic {
 
@@ -548,9 +548,25 @@ public class GoodsLogic {
 							JSONObject goodsJsonObject = goodsArray
 									.getJSONObject(k);
 
+							String images = "";
+							JSONArray imagesArray = goodsJsonObject
+									.getJSONArray("images");
+							for (int l = 0; l < imagesArray.length(); l++) {
+								JSONObject imagesJsonObject = imagesArray
+										.getJSONObject(l);
+								String imageUrl = imagesJsonObject
+										.getString("url");
+								if (!TextUtils.isEmpty(images)) {
+									images = images + ";" + imageUrl;
+								} else {
+									images = imageUrl;
+								}
+							}
+
 							Goods goods = (Goods) JsonUtils.fromJsonToJava(
 									goodsJsonObject, Goods.class);
 							goods.setNum("0");
+							goods.setImagesUrl(images);
 							tempGoodsList.add(goods);
 						}
 						msgMap.put(category.getPpid(), tempGoodsList);

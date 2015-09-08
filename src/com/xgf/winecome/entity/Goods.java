@@ -20,6 +20,8 @@ public class Goods implements Serializable {
 	private String marketPrice;
 
 	private String iconUrl;
+	
+	private String imagesUrl;
 
 	private String area;
 
@@ -90,6 +92,14 @@ public class Goods implements Serializable {
 
 	public void setIconUrl(String iconUrl) {
 		this.iconUrl = iconUrl;
+	}
+
+	public String getImagesUrl() {
+		return imagesUrl;
+	}
+
+	public void setImagesUrl(String imagesUrl) {
+		this.imagesUrl = imagesUrl;
 	}
 
 	public String getArea() {
@@ -171,6 +181,7 @@ public class Goods implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 
 
 

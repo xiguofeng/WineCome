@@ -1,22 +1,14 @@
 package com.xgf.winecome.ui.activity;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.ui.view.BadgeView;
-import com.xgf.winecome.utils.ActivitiyInfoManager;
-import com.xgf.winecome.utils.CartManager;
-import com.xgf.winecome.utils.SystemUtils;
-
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -28,7 +20,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.ui.view.BadgeView;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
+import com.xgf.winecome.utils.CartManager;
+import com.xgf.winecome.utils.SystemUtils;
 
 public class GoodsDetailActivity extends Activity implements OnClickListener {
 
@@ -71,7 +70,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	private LinearLayout mAddCartLl;
 
 	private LinearLayout mNowBuyLl;
-	
+
 	private LinearLayout mBriefLl;
 
 	public ImageButton mAddIb;
@@ -85,14 +84,14 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	private String mGoodsId;
 
 	private String mNowAction = ORIGIN_FROM_MAIN_ACTION;
-	
-	private ImageView mCartIv;//购物车
-	
-	private ViewGroup anim_mask_layout;//动画层
-	
+
+	private ImageView mCartIv;// 购物车
+
+	private ViewGroup anim_mask_layout;// 动画层
+
 	private ImageView mBall;// 小圆点
-	
-	private BadgeView mBuyNumView;//购物车上的数量标签
+
+	private BadgeView mBuyNumView;// 购物车上的数量标签
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -136,12 +135,11 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		mBackIv.setOnClickListener(this);
 		mCartIv = (ImageView) findViewById(R.id.goods_detail_cart_iv);
 		mCartIv.setOnClickListener(this);
-		
-		//mBuyNumView = new BadgeView(mContext, mCartIv);
+
+		// mBuyNumView = new BadgeView(mContext, mCartIv);
 		mBuyNumView = new BadgeView(this, mCartIv);
 		mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));
 		mBuyNumView.show();
-
 
 		mBriefLl = (LinearLayout) findViewById(R.id.goods_detail_content);
 		mAddCartLl = (LinearLayout) findViewById(R.id.goods_detail_add_cart_ll);
@@ -183,10 +181,10 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		if (null != mGoods) {
 			fillUpGoodsData();
 		}
-		
-//		mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));//
-//		mBuyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-//		mBuyNumView.show();
+
+		// mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));//
+		// mBuyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+		// mBuyNumView.show();
 	}
 
 	private void fillUpGoodsData() {
@@ -218,10 +216,23 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		mGoodsMaterialTv
 				.setText(!TextUtils.isEmpty(mGoods.getMetrial()) ? "原料："
 						+ mGoods.getMetrial() : "原料：");
-		mGoodsBriefTv.setText(mGoods.getDesc());
+		// mGoodsBriefTv.setText(mGoods.getDesc());
+
+		String string = mGoods.getImagesUrl();
+		if (!TextUtils.isEmpty(string)) {
+			String[] strings = string.split(";");
+			for (int i = 0; i < strings.length; i++) {
+				ImageView imageView = new ImageView(this);
+				imageView.setLayoutParams(new LayoutParams(
+						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				// imageView.setImageResource(R.drawable.ic_launcher);
+				ImageLoader.getInstance().displayImage(strings[i], imageView);
+				mBriefLl.addView(imageView);
+			}
+		}
 
 	}
-	
+
 	/**
 	 * @Description: 创建动画层
 	 * @param
@@ -257,7 +268,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	private void setAnim(final View v, int[] startLocation) {
 		anim_mask_layout = null;
 		anim_mask_layout = createAnimLayout();
-		anim_mask_layout.addView(v);//把动画小球添加到动画层
+		anim_mask_layout.addView(v);// 把动画小球添加到动画层
 		final View view = addViewToAnimLayout(anim_mask_layout, v,
 				startLocation);
 		int[] endLocation = new int[2];// 存储动画结束位置的X、Y坐标
@@ -301,14 +312,13 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			@Override
 			public void onAnimationEnd(Animation animation) {
 				v.setVisibility(View.GONE);
-//				mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));//
-//				mBuyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-//				mBuyNumView.show();
+				// mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));//
+				// mBuyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+				// mBuyNumView.show();
 			}
 		});
 
 	}
-
 
 	@Override
 	public void onClick(View v) {
@@ -324,30 +334,33 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.goods_detail_add_cart_ll: {
-//			int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
-//			v.getLocationInWindow(startLocation);// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
-//			mBall = new ImageView(mContext);// buyImg是动画的图片，我的是一个小球（R.drawable.sign）
-//			mBall.setImageResource(R.drawable.sign);// 设置buyImg的图片
-//			setAnim(mBall, startLocation);// 开始执行动画
-//			
+			// int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
+			// v.getLocationInWindow(startLocation);//
+			// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
+			// mBall = new ImageView(mContext);//
+			// buyImg是动画的图片，我的是一个小球（R.drawable.sign）
+			// mBall.setImageResource(R.drawable.sign);// 设置buyImg的图片
+			// setAnim(mBall, startLocation);// 开始执行动画
+			//
 			mAddCartLl.setClickable(false);
-			//int addNum = Integer.parseInt(mNum.getText().toString().trim());
+			// int addNum = Integer.parseInt(mNum.getText().toString().trim());
 			int addNum = 1;
 			boolean isSuc = CartManager.cartModifyByDetail(mGoods, addNum);
 			if (isSuc) {
 				mAddCartLl.setClickable(true);
-				mBuyNumView.setText(String.valueOf(CartManager.getAllCartNum()));
+				mBuyNumView
+						.setText(String.valueOf(CartManager.getAllCartNum()));
 				mBuyNumView.show();
-//				Toast.makeText(getApplicationContext(),
-//						getString(R.string.add_cart_suc), Toast.LENGTH_SHORT)
-//						.show();
+				// Toast.makeText(getApplicationContext(),
+				// getString(R.string.add_cart_suc), Toast.LENGTH_SHORT)
+				// .show();
 			}
 			break;
 		}
 		case R.id.goods_detail_now_buy_ll: {
 			int addNum = Integer.parseInt(mNum.getText().toString().trim());
 			boolean isSuc = CartManager.cartModifyByDetail(mGoods, addNum);
-			
+
 			if (!TextUtils.isEmpty(mNowAction)
 					&& ORIGIN_FROM_ADS_ACTION.equals(mNowAction)) {
 				ActivitiyInfoManager
@@ -355,7 +368,7 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 			}
 			finish();
 			HomeActivity.setTab(HomeActivity.TAB_CART);
-			
+
 			// ArrayList<Goods> goodsList = new ArrayList<Goods>();
 			// mGoods.setNum(mNum.getText().toString().trim());
 			// goodsList.add(mGoods);
