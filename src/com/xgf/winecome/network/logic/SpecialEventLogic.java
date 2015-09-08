@@ -100,9 +100,27 @@ public class SpecialEventLogic {
 				int size = goodsListArray.length();
 				for (int j = 0; j < size; j++) {
 					JSONObject categoryJsonObject = goodsListArray.getJSONObject(j);
+					
+					String images = "";
+					JSONArray imagesArray = categoryJsonObject
+							.getJSONArray("images");
+					for (int l = 0; l < imagesArray.length(); l++) {
+						JSONObject imagesJsonObject = imagesArray
+								.getJSONObject(l);
+						String imageUrl = imagesJsonObject
+								.getString("url");
+						if (!TextUtils.isEmpty(imageUrl)) {
+							if (!TextUtils.isEmpty(images)) {
+								images = images + ";" + imageUrl;
+							} else {
+								images = imageUrl;
+							}
+						}
+					}
 
 					Goods goods = (Goods) JsonUtils.fromJsonToJava(categoryJsonObject, Goods.class);
 					goods.setNum("0");
+					goods.setImagesUrl(images);
 					mTempGoodsList.add(goods);
 				}
 				Message message = new Message();
