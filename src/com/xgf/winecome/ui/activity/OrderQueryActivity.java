@@ -64,8 +64,6 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 			case UserLogic.SEND_AUTHCODE_SUC: {
 				if (null != msg.obj) {
 					mAuthCode = (String) msg.obj;
-					UserInfoManager.setPhone(mContext, mPhone);
-					UserInfoManager.setIsMustAuth(mContext, false);
 				}
 				mTimeHandler.sendEmptyMessage(TIME_UPDATE);
 				break;
@@ -249,6 +247,9 @@ public class OrderQueryActivity extends Activity implements OnClickListener,
 					&& mAuthCode.equals(mVerCodeEt.getText().toString().trim())
 					&& mVerCodeEt.getText().toString().trim()
 							.endsWith(mAuthCode)) {
+				UserInfoManager.setPhone(mContext, mPhone);
+				UserInfoManager.setIsMustAuth(mContext, false);
+				
 				Intent intent = new Intent(OrderQueryActivity.this,
 						OrderListActivity.class);
 				intent.putExtra("phone", mPhone);

@@ -56,6 +56,9 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 			switch (what) {
 			case IntegralGoodsLogic.INTEGRAL_TOTAL_GET_SUC: {
 				if (null != msg.obj) {
+					UserInfoManager.setPhone(mContext, mPhone);
+					UserInfoManager.setIsMustAuth(mContext, false);
+
 					String integral = (String) msg.obj;
 					Intent intent = new Intent(IntegralQueryActivity.this,
 							IntegralQueryResultActivity.class);
@@ -95,8 +98,6 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 			case UserLogic.SEND_AUTHCODE_SUC: {
 				if (null != msg.obj) {
 					mAuthCode = (String) msg.obj;
-					UserInfoManager.setPhone(mContext, mPhone);
-					UserInfoManager.setIsMustAuth(mContext, false);
 				}
 				mTimeHandler.sendEmptyMessage(TIME_UPDATE);
 				break;
@@ -157,7 +158,7 @@ public class IntegralQueryActivity extends Activity implements OnClickListener {
 		setUpViews();
 		setUpListener();
 		setUpData();
-		//initQuerySmsInbox();
+		// initQuerySmsInbox();
 	}
 
 	private void setUpViews() {

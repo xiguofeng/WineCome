@@ -60,7 +60,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 	private ArrayList<String> mAddressList = new ArrayList<String>();
 	private SimpleAdapter mAddressAdapter;
 	private LinearLayout mAddressLl;
-	
+
 	private CustomListView mInvoiceLv;
 	private ArrayList<String> mInvoiceList = new ArrayList<String>();
 	private SimpleAdapter mInvoiceAdapter;
@@ -132,6 +132,9 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			int what = msg.what;
 			switch (what) {
 			case OrderLogic.ORDER_CREATE_SUC: {
+				UserInfoManager.setPhone(mContext, mPhone);
+				UserInfoManager.setIsMustAuth(mContext, false);
+				
 				if (ORIGIN_FROM_DETAIL_ACTION.equals(mNowAction)) {
 					OrderManager.getsCurrentOrderGoodsList().addAll(
 							CartManager.getsDetailBuyList());
@@ -195,8 +198,6 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 			case UserLogic.SEND_AUTHCODE_SUC: {
 				if (null != msg.obj) {
 					mAuthCode = (String) msg.obj;
-					UserInfoManager.setPhone(mContext, mPhone);
-					UserInfoManager.setIsMustAuth(mContext, false);
 				}
 				mTimeHandler.sendEmptyMessage(TIME_UPDATE);
 				break;
@@ -258,7 +259,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		setUpViews();
 		setUpListener();
 		setUpData();
-		//initQuerySmsInbox();
+		// initQuerySmsInbox();
 	}
 
 	private void setUpViews() {
@@ -386,31 +387,31 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 				}
 			}
 		});
-		
-		mInvoiceTitleEt
-		.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					if (!TextUtils.isEmpty(UserInfoManager
-							.getInvoiceHistory(mContext))) {
-						mInvoiceHistoryLl.setVisibility(View.VISIBLE);
-						mInvoiceLv.setVisibility(View.VISIBLE);
-						mInvoiceAdapter.notifyDataSetChanged();
-					} else {
-						mInvoiceHistoryLl.setVisibility(View.GONE);
-						mInvoiceLv.setVisibility(View.GONE);
-					}
-					// 此处为得到焦点时的处理内容
 
-				} else {
-					mInvoiceHistoryLl.setVisibility(View.GONE);
-					mInvoiceLv.setVisibility(View.GONE);
-					// 此处为失去焦点时的处理内容
-				}
-			}
-		});
-		
+		mInvoiceTitleEt
+				.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+					@Override
+					public void onFocusChange(View v, boolean hasFocus) {
+						if (hasFocus) {
+							if (!TextUtils.isEmpty(UserInfoManager
+									.getInvoiceHistory(mContext))) {
+								mInvoiceHistoryLl.setVisibility(View.VISIBLE);
+								mInvoiceLv.setVisibility(View.VISIBLE);
+								mInvoiceAdapter.notifyDataSetChanged();
+							} else {
+								mInvoiceHistoryLl.setVisibility(View.GONE);
+								mInvoiceLv.setVisibility(View.GONE);
+							}
+							// 此处为得到焦点时的处理内容
+
+						} else {
+							mInvoiceHistoryLl.setVisibility(View.GONE);
+							mInvoiceLv.setVisibility(View.GONE);
+							// 此处为失去焦点时的处理内容
+						}
+					}
+				});
+
 		mInvoiceTitleEt.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -528,8 +529,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 
 		String string = UserInfoManager.getAddressHistory(mContext);
 		if (!TextUtils.isEmpty(string)) {
-			String[] strings = string.substring(0, string.length()).split(
-					";");
+			String[] strings = string.substring(0, string.length()).split(";");
 			int size = 5;
 			if (strings.length < 5) {
 				size = strings.length;
@@ -549,14 +549,14 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 				mAddressLv.setVisibility(View.GONE);
 			}
 		});
-		
+
 		mInvoiceAdapter = new com.xgf.winecome.ui.adapter.SimpleAdapter(
 				mContext, mInvoiceList);
 
 		String invoiceStr = UserInfoManager.getInvoiceHistory(mContext);
 		if (!TextUtils.isEmpty(invoiceStr)) {
-			String[] invoiceStrings = invoiceStr.substring(0, invoiceStr.length()).split(
-					";");
+			String[] invoiceStrings = invoiceStr.substring(0,
+					invoiceStr.length()).split(";");
 			int size = 5;
 			if (invoiceStrings.length < 5) {
 				size = invoiceStrings.length;
@@ -576,8 +576,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 				mInvoiceLv.setVisibility(View.GONE);
 			}
 		});
-		
-		
+
 	}
 
 	private void setUpData() {
@@ -738,10 +737,10 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 							TimeUtils.FORMAT_PATTERN_DATE);
 			order.setDeliveryTime(date);
 		}
-		
-		if(mIsIntime){
+
+		if (mIsIntime) {
 			order.setOrderType("1");
-		}else{
+		} else {
 			order.setOrderType("2");
 		}
 
@@ -758,8 +757,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		}
 		order.setInvoiceTitle(mInvoiceTitleEt.getText().toString().trim());
 		order.setInvoiceContent(mInvoiceContentTv.getText().toString().trim());
-		UserInfoManager.saveInvoice(mContext, mInvoiceTitleEt.getText().toString()
-				.trim());
+		UserInfoManager.saveInvoice(mContext, mInvoiceTitleEt.getText()
+				.toString().trim());
 
 		order.setPayWay("");
 
