@@ -556,10 +556,12 @@ public class GoodsLogic {
 										.getJSONObject(l);
 								String imageUrl = imagesJsonObject
 										.getString("url");
-								if (!TextUtils.isEmpty(images)) {
-									images = images + ";" + imageUrl;
-								} else {
-									images = imageUrl;
+								if (!TextUtils.isEmpty(imageUrl)) {
+									if (!TextUtils.isEmpty(images)) {
+										images = images + ";" + imageUrl;
+									} else {
+										images = imageUrl;
+									}
 								}
 							}
 
