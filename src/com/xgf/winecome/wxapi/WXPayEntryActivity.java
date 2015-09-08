@@ -80,8 +80,17 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 			PayActivity.sWxRespCode = String.valueOf(resp.errCode);
+			String toastStr = "";
+			if (0 == resp.errCode) {
+				toastStr = "支付成功！";
+			} else if (-1 == resp.errCode) {
+				toastStr = "支付发生错误！";
+			} else if (-2 == resp.errCode) {
+				toastStr = "您已取消支付！";
+			}
+
 			mInfoTv.setText(getString(R.string.pay_result_callback_msg,
-					resp.errStr + ";code=" + String.valueOf(resp.errCode)));
+					toastStr));
 		}
 	}
 }
