@@ -25,6 +25,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.view.BadgeView;
+import com.xgf.winecome.ui.view.CustomImageView;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.SystemUtils;
@@ -222,12 +223,16 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 		if (!TextUtils.isEmpty(string)) {
 			String[] strings = string.split(";");
 			for (int i = 0; i < strings.length; i++) {
-				ImageView imageView = new ImageView(this);
-				imageView.setLayoutParams(new LayoutParams(
-						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-				// imageView.setImageResource(R.drawable.ic_launcher);
-				ImageLoader.getInstance().displayImage(strings[i], imageView);
-				mBriefLl.addView(imageView);
+				CustomImageView customImageView = new CustomImageView(mContext,
+						strings[i]);
+				// ImageView imageView = new ImageView(this);
+				// imageView.setLayoutParams(new LayoutParams(
+				// LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				// imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+				// // imageView.setImageResource(R.drawable.ic_launcher);
+				// ImageLoader.getInstance().displayImage(strings[i],
+				// imageView);
+				mBriefLl.addView(customImageView);
 			}
 		}
 
