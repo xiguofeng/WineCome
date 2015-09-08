@@ -194,8 +194,9 @@ public class PayActivity extends Activity implements OnClickListener {
 				break;
 			}
 			case com.xgf.winecome.pay.alipay.Constants.SDK_CHECK_FLAG: {
-				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
-						.show();
+				// Toast.makeText(mContext, "检查结果为：" + msg.obj,
+				// Toast.LENGTH_SHORT)
+				// .show();
 				break;
 			}
 			default:
@@ -223,13 +224,15 @@ public class PayActivity extends Activity implements OnClickListener {
 				}
 			}
 			case OrderLogic.ORDER_PAY_UNION_TN_GET_FAIL: {
-				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
-						.show();
+				// Toast.makeText(mContext, "检查结果为：" + msg.obj,
+				// Toast.LENGTH_SHORT)
+				// .show();
 				break;
 			}
 			case OrderLogic.ORDER_PAY_UNION_TN_GET_EXCEPTION: {
-				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
-						.show();
+				// Toast.makeText(mContext, "检查结果为：" + msg.obj,
+				// Toast.LENGTH_SHORT)
+				// .show();
 				break;
 			}
 			default:
@@ -265,15 +268,17 @@ public class PayActivity extends Activity implements OnClickListener {
 								Toast.LENGTH_SHORT).show();
 					}
 				}
+				break;
 			}
 			case WechatpayApi.PREPAY_ID_GET_FAIL: {
-				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
-						.show();
+//				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
+//						.show();
 				break;
 			}
 			case WechatpayApi.PREPAY_ID_GET_EXCEPTION: {
-				Toast.makeText(mContext, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT)
-						.show();
+				// Toast.makeText(mContext, "检查结果为：" + msg.obj,
+				// Toast.LENGTH_SHORT)
+				// .show();
 				break;
 			}
 

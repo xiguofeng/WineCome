@@ -69,7 +69,7 @@ public class AliPayActivity extends FragmentActivity {
 				break;
 			}
 			case SDK_CHECK_FLAG: {
-				Toast.makeText(AliPayActivity.this, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(AliPayActivity.this, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
 				break;
 			}
 			default:
