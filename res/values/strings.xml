@@ -280,6 +280,7 @@
     <string name="select_invoice_content">请选择发票内容</string>
     <string name="submit">提交</string>
     <string name="agreement_hint">点击上方提交按钮即表示您同意</string>
+    <string name="delivery_address_hint">配送范围:目前酒来了已开通配送区域为南京市主城区(鼓楼、白下、建邺、秦淮、下关、雨花、玄武、江宁),其他区域将陆续开通！</string>
     <string name="agreement">《酒来了软件许可及服务协议》</string>
     <string name="num_digits">0123456789</string>
     <string name="confirm">确定</string>

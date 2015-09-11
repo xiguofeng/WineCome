@@ -757,6 +757,17 @@
                 </LinearLayout>
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dip"
+                    android:hint="@string/delivery_address_hint"
+                    android:paddingLeft="25dip"
+                    android:paddingRight="25dip"
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/micro_small_text_size" />
+
+                <TextView
                     android:id="@+id/per_info_agreement_hint_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
