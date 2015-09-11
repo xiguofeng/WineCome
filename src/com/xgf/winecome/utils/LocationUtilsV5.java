@@ -23,6 +23,8 @@ public class LocationUtilsV5 {
 
 		// 设置定位参数
 		LocationClientOption option = new LocationClientOption();
+		option.setOpenGps(true);
+		option.setProdName("com.xgf.winecome");
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
 		option.setCoorType("gcj02");// 返回的定位结果是百度经纬度，默认值gcj02
 		int span = 1000;
