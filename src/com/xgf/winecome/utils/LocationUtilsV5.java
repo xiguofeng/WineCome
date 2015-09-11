@@ -28,11 +28,6 @@ public class LocationUtilsV5 {
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
 		option.setCoorType("gcj02");// 返回的定位结果是百度经纬度，默认值gcj02
 		int span = 1000;
-		try {
-			// span = Integer.valueOf(frequence.getText().toString());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		option.setScanSpan(span);// 设置发起定位请求的间隔时间为1000ms
 		option.setIsNeedAddress(true);
 
