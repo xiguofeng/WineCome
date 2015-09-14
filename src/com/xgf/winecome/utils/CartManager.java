@@ -233,7 +233,7 @@ public class CartManager implements Watched {
 				sHasGoodsByDetailFlag = true;
 				int beforeNum = Integer.parseInt(sCartList.get(i).getNum());
 				String num = String.valueOf(beforeNum + addNum);
-				Log.e("xxx_num", num);
+				//Log.e("xxx_num", num);
 				goods.setNum(num);
 				sCartList.set(i, goods);
 				break;
@@ -264,7 +264,7 @@ public class CartManager implements Watched {
 			for (int j = 0; j < sCartList.size(); j++) {
 				if (id.equals(sCartList.get(j).getId())) {
 					sCartList.remove(j);
-					Log.e("xxx_c_remove", "");
+					//Log.e("xxx_c_remove", "");
 				}
 			}
 		}

@@ -165,7 +165,7 @@ public class MsgService extends Service {
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(pendingIntent);
-		Log.e("xxx_mNotificationManager", "mNotificationManager");
+		//Log.e("xxx_mNotificationManager", "mNotificationManager");
 		mNotificationManager.notify(100, mBuilder.build());
 	}
 

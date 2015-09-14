@@ -653,8 +653,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 				new LocationCallback() {
 					@Override
 					public void onGetLocation(BDLocation location) {
-						Log.e("xxx_latitude", "" + location.getLatitude());
-						Log.e("xxx_longitude", "" + location.getLongitude());
+//						Log.e("xxx_latitude", "" + location.getLatitude());
+//						Log.e("xxx_longitude", "" + location.getLongitude());
 
 						mLat = String.valueOf(location.getLatitude());
 						mLon = String.valueOf(location.getLongitude());
@@ -663,7 +663,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 							if (addr.contains("省")) {
 								int index = addr.indexOf("省");
 								addr = addr.substring(index + 1);
-								Log.e("xxx_addr", "" + addr);
+								//Log.e("xxx_addr", "" + addr);
 								mAddressEt.setText(addr);
 							} else {
 								mAddressEt.setText(addr);

@@ -112,7 +112,7 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 		if (minutes.startsWith("0")) {
 			minutes = minutes.substring(1);
 		}
-		Log.e("xxx_time_minutes", minutes);
+		//Log.e("xxx_time_minutes", minutes);
 		minutes = minutes + " 分";
 		for (int i = 0; i < mInutes.length; i++) {
 			if (minutes.equals(mInutes[i])) {
@@ -132,8 +132,8 @@ public class TimeSelectActivity extends Activity implements OnClickListener,
 		int position = 0;
 		String today = getToday();
 		String hours = today.substring(11, 13);
-		Log.e("xxx_time_today", today);
-		Log.e("xxx_time_hour", hours);
+		//Log.e("xxx_time_today", today);
+		//Log.e("xxx_time_hour", hours);
 		hours = hours + " 时";
 		for (int i = 0; i < mHours.length; i++) {
 			if (hours.equals(mHours[i])) {

@@ -67,7 +67,7 @@ public class UnionpayApi {
 					}
 
 					tn = baos.toString();
-					Log.e("xxx_PayUnionTn_0", tn);
+					//Log.e("xxx_PayUnionTn_0", tn);
 					is.close();
 					baos.close();
 				} catch (Exception e) {

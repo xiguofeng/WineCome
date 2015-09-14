@@ -270,12 +270,12 @@ public class WechatpayApi {
 	 ************************************************/
 	private void sendPayReq(Context context, PayReq req,
 			WechatpayMerchant wechatpayMerchant) {
-		Log.e("xxx_sendPayReq", "start");
+		//Log.e("xxx_sendPayReq", "start");
 		final IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
 
 		msgApi.registerApp(wechatpayMerchant.getAppId());
 		msgApi.sendReq(req);
-		Log.e("xxx_sendPayReq", "end");
+		//Log.e("xxx_sendPayReq", "end");
 	}
 
 }

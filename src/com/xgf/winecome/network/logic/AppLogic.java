@@ -59,12 +59,12 @@ public class AppLogic {
 					ht.call(RequestUrl.NAMESPACE + "/"
 							+ RequestUrl.app.getVersion, envelope);
 
-					Log.e("xxx_sop", rpc.toString());
+					//Log.e("xxx_sop", rpc.toString());
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_GetVersionData_resultStr", resultStr);
+					//Log.e("xxx_GetVersionData_resultStr", resultStr);
 
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);

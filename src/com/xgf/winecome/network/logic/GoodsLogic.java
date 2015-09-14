@@ -93,7 +93,7 @@ public class GoodsLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_getCategroyList_resultStr", resultStr);
+					//Log.e("xxx_getCategroyList_resultStr", resultStr);
 
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
@@ -200,7 +200,7 @@ public class GoodsLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_resultStr", resultStr);
+					//Log.e("xxx_resultStr", resultStr);
 
 					if (TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
@@ -292,7 +292,7 @@ public class GoodsLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_getGoodsByCategroy_resultStr", resultStr);
+					//Log.e("xxx_getGoodsByCategroy_resultStr", resultStr);
 
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
@@ -329,8 +329,8 @@ public class GoodsLogic {
 				ArrayList<Goods> mTempGoodsList = new ArrayList<Goods>();
 				JSONArray goodsListArray = jsonObject
 						.getJSONArray(MsgResult.RESULT_LIST_TAG);
-				Log.e("xxx_parseGoodsListData_0", "goodsListArray-------->"
-						+ goodsListArray.toString());
+//				Log.e("xxx_parseGoodsListData_0", "goodsListArray-------->"
+//						+ goodsListArray.toString());
 				int size = goodsListArray.length();
 				for (int j = 0; j < size; j++) {
 					JSONObject categoryJsonObject = goodsListArray
@@ -383,7 +383,7 @@ public class GoodsLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_getAllGoods_resultStr", resultStr);
+					//Log.e("xxx_getAllGoods_resultStr", resultStr);
 
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
@@ -464,7 +464,7 @@ public class GoodsLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_getCategroyAndGoodsList_resultStr", resultStr);
+					//Log.e("xxx_getCategroyAndGoodsList_resultStr", resultStr);
 
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);

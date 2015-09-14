@@ -64,7 +64,7 @@ public class CommentLogic {
 						SoapObject so = (SoapObject) envelope.bodyIn;
 
 						String resultStr = (String) so.getProperty(0);
-						Log.e("xxx_commentOrder_resultStr", resultStr);
+						//Log.e("xxx_commentOrder_resultStr", resultStr);
 
 						if (!TextUtils.isEmpty(resultStr)) {
 							JSONObject obj = new JSONObject(resultStr);
