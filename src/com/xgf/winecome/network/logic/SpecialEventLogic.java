@@ -82,6 +82,52 @@ public class SpecialEventLogic {
 		}).start();
 	}
 
+	public static void getGoodsBySalesPromotionInUrl(final Context context, final Handler handler, final String url,
+			final String pageNum, final String pageSize) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.queryPromProduct);
+
+					rpc.addProperty("pageNum", URLEncoder.encode(pageNum, "UTF-8"));
+					rpc.addProperty("pageSize", URLEncoder.encode(pageSize, "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.queryPromProduct, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+					Log.e("xxx_queryPromProduct_resultStr", resultStr);
+
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseGoodsListData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
 	// {"datas":{"total":"5","list":[{"id":"10002","goodsName":"海之蓝","salesPrice":"120","marketPrice":"198","addedTime":"2015-07-01
 	// 12:38:50.0","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/","area":"","degree":"45","level":"特级","model":"清香"},{"id":"10003","goodsName":"梦之蓝3","salesPrice":"600","marketPrice":"1024","addedTime":"2015-07-01
 	// 12:44:33.0","desc":"","iconUrl":"http://www.diyifw.com:8080/jll/upload/","area":"","degree":"50","level":"优质","model":"浓香"},{"id":"10005","goodsName":"天之蓝","salesPrice":"290","marketPrice":"398","addedTime":"2015-08-02
@@ -100,15 +146,12 @@ public class SpecialEventLogic {
 				int size = goodsListArray.length();
 				for (int j = 0; j < size; j++) {
 					JSONObject categoryJsonObject = goodsListArray.getJSONObject(j);
-					
+
 					String images = "";
-					JSONArray imagesArray = categoryJsonObject
-							.getJSONArray("images");
+					JSONArray imagesArray = categoryJsonObject.getJSONArray("images");
 					for (int l = 0; l < imagesArray.length(); l++) {
-						JSONObject imagesJsonObject = imagesArray
-								.getJSONObject(l);
-						String imageUrl = imagesJsonObject
-								.getString("url");
+						JSONObject imagesJsonObject = imagesArray.getJSONObject(l);
+						String imageUrl = imagesJsonObject.getString("url");
 						if (!TextUtils.isEmpty(imageUrl)) {
 							if (!TextUtils.isEmpty(images)) {
 								images = images + ";" + imageUrl;

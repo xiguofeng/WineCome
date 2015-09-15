@@ -89,7 +89,8 @@
  <FrameLayout
         android:id="@+id/main_framelayout"
         android:layout_width="fill_parent"
-        android:layout_height="100dip" >
+        android:layout_height="100dip"
+        android:visibility="gone" >
 
         <com.xgf.winecome.ui.view.viewflow.ViewFlow
             android:id="@+id/main_viewflow"

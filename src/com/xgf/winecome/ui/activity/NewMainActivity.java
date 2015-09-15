@@ -238,8 +238,8 @@ public class NewMainActivity extends Activity implements OnClickListener {
 
 	private void showcircleimage() {
 
-		mViewFlow.setAdapter(new BannerAdapter(NewMainActivity.this,
-				mBannerActivityList));
+//		mViewFlow.setAdapter(new BannerAdapter(NewMainActivity.this,
+//				mBannerActivityList));
 		// mViewFlow.setmSideBuffer(3); // 实际图片张数
 		mViewFlow.setFlowIndicator(mIndic);
 		mViewFlow.setTimeSpan(2000);

@@ -71,6 +71,11 @@ public class RequestUrl {
 		 */
 		public String authProduct = "authProduct";
 		
+		
+		/**
+		 * banner
+		 */
+		public String promotionPage = "promotionPage";
 	}
 
 	public interface integral {

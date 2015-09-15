@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -74,12 +75,8 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.special_events);
 		mContext = SpecialEventsActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
-		if (!ActivitiyInfoManager.activitityMap
-				.containsKey(ActivitiyInfoManager
-						.getCurrentActivityName(mContext))) {
-			ActivitiyInfoManager.activitityMap
-					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
-							this);
+		if (!ActivitiyInfoManager.activitityMap.containsKey(ActivitiyInfoManager.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap.put(ActivitiyInfoManager.getCurrentActivityName(mContext), this);
 		}
 		setUpViews();
 		setUpListener();
@@ -90,8 +87,7 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 		mBackIv = (ImageView) findViewById(R.id.special_events_back_iv);
 		mGoodsGv = (GridView) findViewById(R.id.special_events_gv);
 
-		mGvAdapter = new SpecialEventsGvAdapter(SpecialEventsActivity.this,
-				mGoodsList);
+		mGvAdapter = new SpecialEventsGvAdapter(SpecialEventsActivity.this, mGoodsList);
 		mGoodsGv.setAdapter(mGvAdapter);
 	}
 
@@ -100,13 +96,10 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 		mGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Intent intent = new Intent(SpecialEventsActivity.this,
-						GoodsDetailActivity.class);
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(SpecialEventsActivity.this, GoodsDetailActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,
-						mGoodsList.get(position));
+				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY, mGoodsList.get(position));
 				intent.putExtras(bundle);
 				intent.setAction(GoodsDetailActivity.ORIGIN_FROM_ADS_ACTION);
 				startActivity(intent);
@@ -119,8 +112,12 @@ public class SpecialEventsActivity extends Activity implements OnClickListener {
 		if (null != mCustomProgressDialog) {
 			mCustomProgressDialog.show();
 		}
-		SpecialEventLogic.getGoodsBySalesPromotion(mContext, mHandler, "0",
-				"20");
+		String jumpToUrl = getIntent().getStringExtra("jumpToUrl");
+		if (!TextUtils.isEmpty(jumpToUrl)) {
+			SpecialEventLogic.getGoodsBySalesPromotionInUrl(mContext, mHandler, jumpToUrl, "0", "20");
+		} else {
+			SpecialEventLogic.getGoodsBySalesPromotion(mContext, mHandler, "0", "20");
+		}
 		// SpecialEventLogic.getGoods(mContext, mHandler);
 
 		// mGoodsList.clear();
