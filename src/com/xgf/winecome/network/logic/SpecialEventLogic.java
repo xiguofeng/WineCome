@@ -90,7 +90,7 @@ public class SpecialEventLogic {
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.queryPromProduct);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, url);
 
 					rpc.addProperty("pageNum", URLEncoder.encode(pageNum, "UTF-8"));
 					rpc.addProperty("pageSize", URLEncoder.encode(pageSize, "UTF-8"));
@@ -103,7 +103,7 @@ public class SpecialEventLogic {
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.queryPromProduct, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/" + url, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
