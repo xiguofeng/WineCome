@@ -73,6 +73,8 @@ public class OrderWineAdapter extends BaseAdapter {
 					.findViewById(R.id.list_order_group_time_tv);
 			holder.mState = (TextView) convertView
 					.findViewById(R.id.list_order_group_state_tv);
+			holder.mTotalMoney = (TextView) convertView
+					.findViewById(R.id.list_order_group_total_money_tv);
 
 			holder.mCancelOrCommentBtn = (Button) convertView
 					.findViewById(R.id.list_order_group_comment_or_cancel_btn);
@@ -100,6 +102,9 @@ public class OrderWineAdapter extends BaseAdapter {
 			if (orderStateCode <= OrderState.state.length) {
 				holder.mState.setText(OrderState.state[orderStateCode - 1]);
 			}
+			
+			holder.mTotalMoney.setText("合计：￥"+((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getAmount());
 
 			String orderStateCodeStr = String.valueOf(orderStateCode);
 			String orderPayStateCodeStr = String
@@ -197,6 +202,8 @@ public class OrderWineAdapter extends BaseAdapter {
 		public TextView mTime;
 
 		public TextView mId;
+		
+		public TextView mTotalMoney;
 
 		public Button mCancelOrCommentBtn;
 
