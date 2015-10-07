@@ -69,6 +69,12 @@ public class GoodsLogic {
 
 	public static final int PROMOTION_GET_EXCEPTION = PROMOTION_GET_FAIL + 1;
 
+	public static final int ALL_GOODS_GET_SUC = PROMOTION_GET_EXCEPTION + 1;
+
+	public static final int ALL_GOODS_GET_FAIL = ALL_GOODS_GET_SUC + 1;
+
+	public static final int ALL_GOODS_GET_EXCEPTION = ALL_GOODS_GET_FAIL + 1;
+
 	public static void getCategroyList(final Context context, final Handler handler, final String categoryID) {
 
 		new Thread(new Runnable() {
@@ -525,6 +531,121 @@ public class GoodsLogic {
 						msgMap.put(category.getPpid(), tempGoodsList);
 					}
 				}
+				msgMap.put("Category", tempCategoryList);
+
+				Message message = new Message();
+				message.what = CATEGROY_GOODS_LIST_GET_SUC;
+				message.obj = msgMap;
+				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(CATEGROY_GOODS_LIST_GET_FAIL);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(CATEGROY_GOODS_LIST_GET_EXCEPTION);
+		}
+	}
+
+	public static void getAllGoodsList(final Context context, final Handler handler) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.goods.queryAllGoods);
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.goods.queryAllGoods, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+					 Log.e("xxx_getAllGoodsList_resultStr",
+					 resultStr);
+
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseNewAllGoodsListData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	private static void parseNewAllGoodsListData(JSONObject response, Handler handler) {
+		try {
+
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
+				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				HashMap<String, Object> msgMap = new HashMap<String, Object>();
+
+				JSONArray topCategorysListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				ArrayList<Category> tempCategoryList = new ArrayList<Category>();
+				int size = topCategorysListArray.length();
+				for (int i = 0; i < size; i++) {
+					JSONObject topCategoryJsonObject = topCategorysListArray.getJSONObject(i);
+					Category topCategory = new Category();
+					topCategory.setPpid("t_0");
+					topCategory.setPplx("t_00");
+					topCategory.setPpmc(topCategoryJsonObject.getString("typeName"));
+					tempCategoryList.add(topCategory);
+
+					JSONArray secondCategoryListArray = topCategoryJsonObject.getJSONArray("brandList");
+					int secondCategorySize = secondCategoryListArray.length();
+					for (int j = 0; j < secondCategorySize; j++) {
+						JSONObject secondCategoryJsonObject = secondCategoryListArray.getJSONObject(j);
+						Category secondCategory = (Category) JsonUtils.fromJsonToJava(secondCategoryJsonObject,
+								Category.class);
+						tempCategoryList.add(secondCategory);
+
+						JSONArray goodsArray = secondCategoryJsonObject.getJSONArray("plist");
+						ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
+						for (int k = 0; k < goodsArray.length(); k++) {
+							JSONObject goodsJsonObject = goodsArray.getJSONObject(k);
+
+							String images = "";
+							JSONArray imagesArray = goodsJsonObject.getJSONArray("images");
+							for (int l = 0; l < imagesArray.length(); l++) {
+								JSONObject imagesJsonObject = imagesArray.getJSONObject(l);
+								String imageUrl = imagesJsonObject.getString("url");
+								if (!TextUtils.isEmpty(imageUrl)) {
+									if (!TextUtils.isEmpty(images)) {
+										images = images + ";" + imageUrl;
+									} else {
+										images = imageUrl;
+									}
+								}
+							}
+
+							Goods goods = (Goods) JsonUtils.fromJsonToJava(goodsJsonObject, Goods.class);
+							goods.setNum("0");
+							goods.setImagesUrl(images);
+							tempGoodsList.add(goods);
+						}
+						msgMap.put(secondCategory.getPpid(), tempGoodsList);
+					}
+				}
+
 				msgMap.put("Category", tempCategoryList);
 
 				Message message = new Message();

@@ -5,13 +5,17 @@ package com.xgf.winecome.network.config;
  */
 public class RequestUrl {
 
-	public static final String NAMESPACE = "http://139.196.15.154";
+	public static final String NAMESPACE = "http://www.diyifw.com";
 
-	public static final String HOST_URL = "http://139.196.15.154/jll/services/JllService";
+	public static final String HOST_URL = "http://www.diyifw.com:8080/jll/services/JllService";
 	
-	public static final String NAMESPACE_TEST = "http://139.196.15.154";
-
-	public static final String HOST_URL_TEST = "http://139.196.15.154/jll/services/JllService";
+//	public static final String NAMESPACE = "http://139.196.15.154";
+//
+//	public static final String HOST_URL = "http://139.196.15.154/jll/services/JllService";
+	
+//	public static final String NAMESPACE_TEST = "http://139.196.15.154";
+//
+//	public static final String HOST_URL_TEST = "http://139.196.15.154/jll/services/JllService";
 
 	// public static final String HOST_URL =
 	// "http://192.168.1.101:8080/com.igou.server";

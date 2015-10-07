@@ -435,7 +435,7 @@ public class IntegralGoodsLogic {
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE_TEST, RequestUrl.integral.queryExchangeOrder);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.integral.queryExchangeOrder);
 
 					JSONObject requestJson = new JSONObject();
 					requestJson.put("phone", URLEncoder.encode(phone, "UTF-8"));
@@ -451,7 +451,7 @@ public class IntegralGoodsLogic {
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE_TEST + "/" + RequestUrl.integral.queryExchangeOrder, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.integral.queryExchangeOrder, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 

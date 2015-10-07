@@ -397,7 +397,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			mCustomProgressDialog.show();
 		}
 		GoodsLogic.promotionPage(mContext, mBannerHandler);
-		GoodsLogic.getCategroyAndGoodsList(mContext, mHandler);
+		GoodsLogic.getAllGoodsList(mContext, mHandler);
 
 	}
 

@@ -335,7 +335,8 @@
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="1.0px"
-                        android:background="#ffcfd4da" />
+                        android:background="#ffcfd4da"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/per_info_alternative_person_name_rl"
@@ -343,7 +344,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:paddingBottom="3dip"
-                        android:paddingTop="3dip" >
+                        android:paddingTop="3dip"
+                        android:visibility="gone" >
 
                         <EditText
                             android:id="@+id/per_info_alternative_person_name_et"

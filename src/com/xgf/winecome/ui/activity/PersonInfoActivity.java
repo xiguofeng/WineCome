@@ -298,8 +298,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		mVerCodeEt = (EditText) findViewById(R.id.per_info_ver_code_et);
 		mAddressEt = (EditText) findViewById(R.id.per_info_address_et);
 		mInvoiceTitleEt = (EditText) findViewById(R.id.per_info_invoice_title_et);
-		mAlternativePersonNameEt= (EditText) findViewById(R.id.per_info_alternative_person_name_et);
-		mAlternativePersonPhoneEt= (EditText) findViewById(R.id.per_info_alternative_person_phone_et);
+		mAlternativePersonNameEt = (EditText) findViewById(R.id.per_info_alternative_person_name_et);
+		mAlternativePersonPhoneEt = (EditText) findViewById(R.id.per_info_alternative_person_phone_et);
 
 		mInvoiceCb = (CheckBox) findViewById(R.id.per_info_invoice_cb);
 		mInTimeCb = (CheckBox) findViewById(R.id.per_info_intime_cb);
@@ -692,14 +692,25 @@ public class PersonInfoActivity extends Activity implements OnClickListener {
 		order.setPhone(mPhone);
 
 		// AlternativePerson
-		if (mIsAlternativePerson && (TextUtils.isEmpty(mAlternativePersonNameEt.getText().toString().trim())
-				|| TextUtils.isEmpty(mAlternativePersonPhoneEt.getText().toString().trim()))) {
-			Toast.makeText(mContext, getString(R.string.alternative_person_hint), Toast.LENGTH_SHORT).show();
-			return;
-		}
+		// if (mIsAlternativePerson &&
+		// (TextUtils.isEmpty(mAlternativePersonNameEt.getText().toString().trim())
+		// ||
+		// TextUtils.isEmpty(mAlternativePersonPhoneEt.getText().toString().trim())))
+		// {
+		// Toast.makeText(mContext, getString(R.string.alternative_person_hint),
+		// Toast.LENGTH_SHORT).show();
+		// return;
+		// }
+		// if (mIsAlternativePerson &&
+		// TextUtils.isEmpty(mAlternativePersonPhoneEt.getText().toString().trim()))
+		// {
+		// Toast.makeText(mContext, getString(R.string.alternative_person_hint),
+		// Toast.LENGTH_SHORT).show();
+		// return;
+		// }
 		order.setAssistor(mAlternativePersonNameEt.getText().toString().trim());
 		order.setAssistorPhone(mAlternativePersonPhoneEt.getText().toString().trim());
-		
+
 		// address
 		if (TextUtils.isEmpty(mAddressEt.getText().toString().trim())) {
 			Toast.makeText(mContext, getString(R.string.detail_info_hint), Toast.LENGTH_SHORT).show();
