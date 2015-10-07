@@ -33,6 +33,7 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 	private EditText mPhoneEt;
 	private EditText mVerCodeEt;
 	private EditText mAddressEt;
+	private EditText mPersonNameEt;
 	private TextView mTimingTv;
 	private TextView mPhoneTv;
 
@@ -43,6 +44,7 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 	private String mPhone;
 	private String mAuthCode;
 	private String mAddress;
+	private String mPersonName;
 
 	private String mId;
 
@@ -169,6 +171,7 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 		mPhoneEt = (EditText) findViewById(R.id.integral_info_input_phone_et);
 		mVerCodeEt = (EditText) findViewById(R.id.integral_info_input_ver_code_et);
 		mAddressEt = (EditText) findViewById(R.id.integral_info_input_address_et);
+		mPersonNameEt = (EditText) findViewById(R.id.integral_info_input_name_et);
 
 		mTimingTv = (TextView) findViewById(R.id.integral_info_input_ver_code_btn_tv);
 		mPhoneTv = (TextView) findViewById(R.id.integral_info_input_phone_tv);
@@ -216,8 +219,14 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 			}
 			mAuthCode = mVerCodeEt.getText().toString().trim();
 			mAddress = mAddressEt.getText().toString().trim();
+			mPersonName = mPersonNameEt.getText().toString().trim();
 			if (TextUtils.isEmpty(mAddress)) {
 				Toast.makeText(mContext, getString(R.string.detail_info_hint), Toast.LENGTH_SHORT).show();
+				return;
+			}
+			
+			if (TextUtils.isEmpty(mPersonName)) {
+				Toast.makeText(mContext, getString(R.string.person_name_hint), Toast.LENGTH_SHORT).show();
 				return;
 			}
 
@@ -226,6 +235,7 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 				if (null != mCustomProgressDialog) {
 					mCustomProgressDialog.show();
 				}
+				//TODO
 				IntegralGoodsLogic.exchange(mContext, mHandler, mPhone, mId,mAddress);
 
 			} else {
