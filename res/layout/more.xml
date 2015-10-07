@@ -212,7 +212,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:layout_toRightOf="@+id/more_integral_exchange_iv"
-            android:text="@string/integral_exchange_history"
+            android:text="@string/exchange_history"
             android:textColor="@color/black_character"
             android:textSize="@dimen/middle_text_size" />
 

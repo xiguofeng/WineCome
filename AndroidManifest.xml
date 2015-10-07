@@ -90,13 +90,13 @@
         <activity
             android:name="com.xgf.winecome.ui.activity.NewMainActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.SplashActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -105,175 +105,181 @@
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.HomeActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.SearchActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.GoodsDetailActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.MainActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.ShopCartActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.MoreActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.PersonInfoActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.AgreementActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.AreaSelectActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/dialogTheme" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.DateSelectActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/dialogTheme" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.TimeSelectActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/dialogTheme" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.InvoiceSelectActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/dialogTheme" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.PayActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.OrderQueryActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.OrderListActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.OrderStateActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.SpecialEventsActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.PrePayActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.IntegralMallActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.xgf.winecome.ui.activity.IntegralOrderQueryActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.IntegralOrderListActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.IntegralQueryActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.IntegralQueryResultActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.IntegralSelectActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/dialogTheme" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.IntegralInfoInput"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.QrResultActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.CommentsActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.CommentsResultActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.xgf.winecome.pay.alipay.AliPayActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <!-- alipay sdk begin -->
         <activity
@@ -291,8 +297,8 @@
         <activity
             android:name="com.xgf.winecome.pay.wxpay.WXPayActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -303,9 +309,9 @@
         </activity>
         <activity
             android:name="com.xgf.winecome.wxapi.WXPayEntryActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/dialogTheme" />
 
         <receiver android:name="com.xgf.winecome.pay.wxpay.simcpux.AppRegister" >
@@ -383,14 +389,14 @@
         </activity>
         <activity
             android:name="com.xgf.winecome.qrcode.google.zxing.client.PreferencesActivity"
-            android:screenOrientation="portrait"
             android:label="@string/preferences_name"
+            android:screenOrientation="portrait"
             android:stateNotNeeded="true" >
         </activity>
         <activity
             android:name="com.xgf.winecome.qrcode.google.zxing.client.encode.EncodeActivity"
-            android:screenOrientation="portrait"
             android:label="@string/share_name"
+            android:screenOrientation="portrait"
             android:stateNotNeeded="true" >
             <intent-filter>
                 <action android:name="com.google.zxing.client.android.ENCODE" />

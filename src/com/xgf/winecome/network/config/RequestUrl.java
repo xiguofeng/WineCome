@@ -8,6 +8,10 @@ public class RequestUrl {
 	public static final String NAMESPACE = "http://139.196.15.154";
 
 	public static final String HOST_URL = "http://139.196.15.154/jll/services/JllService";
+	
+	public static final String NAMESPACE_TEST = "http://139.196.15.154";
+
+	public static final String HOST_URL_TEST = "http://139.196.15.154/jll/services/JllService";
 
 	// public static final String HOST_URL =
 	// "http://192.168.1.101:8080/com.igou.server";
@@ -99,6 +103,11 @@ public class RequestUrl {
 		 * 积分兑换历史
 		 */
 		public String queryIntegralConsume = "queryIntegralConsume";
+		
+		/**
+		 * 积分订单
+		 */
+		public String queryExchangeOrder = "queryExchangeOrder";
 		
 		/**
 		 * 获取总积分
