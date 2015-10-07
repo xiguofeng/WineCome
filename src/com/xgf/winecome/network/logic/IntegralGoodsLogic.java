@@ -460,7 +460,7 @@ public class IntegralGoodsLogic {
 
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
-						// parseExchangeOrderData(obj, handler);
+						//parseExchangeOrderData(obj, handler);
 					}
 
 				} catch (UnsupportedEncodingException e) {
@@ -476,6 +476,7 @@ public class IntegralGoodsLogic {
 		}).start();
 	}
 
+	//{"datas":{"total":0,"list":[]},"message":"操作成功","result":"0"}
 	private static void parseExchangeOrderData(JSONObject response, Handler handler) {
 		try {
 
