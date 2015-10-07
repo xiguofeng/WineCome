@@ -204,7 +204,7 @@ public class IntegralGoodsLogic {
 	}
 
 	public static void exchange(final Context context, final Handler handler, final String phone,
-			final String productId, final String address) {
+			final String productId, final String address, final String receiverName) {
 
 		new Thread(new Runnable() {
 
@@ -217,6 +217,7 @@ public class IntegralGoodsLogic {
 					requestJson.put("phone", URLEncoder.encode(phone, "UTF-8"));
 					requestJson.put("productId", URLEncoder.encode(productId, "UTF-8"));
 					requestJson.put("address", URLEncoder.encode(address, "UTF-8"));
+					requestJson.put("receiverName", URLEncoder.encode(receiverName, "UTF-8"));
 					requestJson.put("count", "1");
 
 					Log.e("xxx_integral_exchange_json", requestJson.toString());

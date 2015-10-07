@@ -235,8 +235,7 @@ public class IntegralInfoInput extends Activity implements OnClickListener {
 				if (null != mCustomProgressDialog) {
 					mCustomProgressDialog.show();
 				}
-				//TODO
-				IntegralGoodsLogic.exchange(mContext, mHandler, mPhone, mId,mAddress);
+				IntegralGoodsLogic.exchange(mContext, mHandler, mPhone, mId,mAddress,mPersonName);
 
 			} else {
 				Toast.makeText(mContext, getString(R.string.mobile_phone_and_code_hint), Toast.LENGTH_SHORT).show();
