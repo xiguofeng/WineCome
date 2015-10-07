@@ -177,6 +177,7 @@
     <string name="integral_shop">积分商城</string>
     <string name="special_events">活动专区</string>
     <string name="kf_phone">客服电话</string>
+    <string name="name">姓名</string>
 
     <!-- notify -->
     <string name="notify">消息</string>
@@ -277,6 +278,10 @@
     <string name="invoice">发票开具</string>
     <string name="invoice_title">发票抬头</string>
     <string name="invoice_content">发票内容</string>
+    <string name="alternative_person">代收人</string>
+    <string name="alternative_person_hint">请填写代收人信息</string>
+    <string name="alternative_person_name_hint">请填写代收人姓名</string>
+    <string name="alternative_person_phone_hint">请填写代收人姓名</string>
     <string name="wine">酒</string>
     <string name="food">食品</string>
     <string name="select_invoice_content">请选择发票内容</string>

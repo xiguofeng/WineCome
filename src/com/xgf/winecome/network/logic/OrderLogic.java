@@ -116,9 +116,11 @@ public class OrderLogic {
 							URLEncoder.encode(order.getOrderType(), "UTF-8"));
 					requestJson.put("authCode",
 							URLEncoder.encode(authCode, "UTF-8"));
+					requestJson.put("assistor",
+							URLEncoder.encode(order.getAssistor(), "UTF-8"));
+					requestJson.put("assistorPhone",
+							URLEncoder.encode(order.getAssistorPhone(), "UTF-8"));
 					
-
-
 					JSONArray jsonArray = new JSONArray();
 					for (int i = 0; i < goodsList.size(); i++) {
 						JSONObject jsonObject = new JSONObject();

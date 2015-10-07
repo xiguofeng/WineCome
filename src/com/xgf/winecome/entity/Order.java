@@ -43,6 +43,16 @@ public class Order implements Serializable {
 	private String opid;
 	
 	private String orderType;
+	
+	/**
+	 * 代收人
+	 */
+	private String assistor;
+	
+	/**
+	 *  代收人电话
+	 */
+	private String assistorPhone;
 
 	public String getId() {
 		return id;
@@ -187,7 +197,7 @@ public class Order implements Serializable {
 	public void setOpid(String opid) {
 		this.opid = opid;
 	}
-	
+
 	public String getOrderType() {
 		return orderType;
 	}
@@ -195,5 +205,23 @@ public class Order implements Serializable {
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
 	}
+
+	public String getAssistor() {
+		return assistor;
+	}
+
+	public void setAssistor(String assistor) {
+		this.assistor = assistor;
+	}
+
+	public String getAssistorPhone() {
+		return assistorPhone;
+	}
+
+	public void setAssistorPhone(String assistorPhone) {
+		this.assistorPhone = assistorPhone;
+	}
+	
+	
 
 }

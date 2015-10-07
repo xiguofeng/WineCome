@@ -285,6 +285,135 @@
                 android:layout_height="1.0px"
                 android:background="#ffcfd4da" />
 
+            <LinearLayout
+                android:id="@+id/per_info_alternative_person_ll"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/per_info_alternative_person_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:background="@color/white"
+                    android:paddingBottom="4dip"
+                    android:paddingTop="4dip" >
+
+                    <TextView
+                        android:id="@+id/per_info_alternative_person_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10.0dip"
+                        android:paddingRight="10dip"
+                        android:text="@string/alternative_person"
+                        android:textColor="@color/black_character"
+                        android:textSize="@dimen/middle_text_size" />
+
+                    <CheckBox
+                        android:id="@+id/per_info_alternative_person_cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:background="@null"
+                        android:button="@drawable/switch_selector"
+                        android:focusable="false"
+                        android:gravity="center" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/per_info_alternative_person_info_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1.0px"
+                        android:background="#ffcfd4da" />
+
+                    <RelativeLayout
+                        android:id="@+id/per_info_alternative_person_name_rl"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:paddingBottom="3dip"
+                        android:paddingTop="3dip" >
+
+                        <EditText
+                            android:id="@+id/per_info_alternative_person_name_et"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:imeOptions="actionNext"
+                            android:maxLength="16"
+                            android:maxLines="1"
+                            android:paddingBottom="6.0dip"
+                            android:paddingLeft="100dip"
+                            android:paddingRight="20dip"
+                            android:paddingTop="6.0dip"
+                            android:textColor="@color/black_character"
+                            android:textSize="@dimen/middle_text_size" />
+
+                        <TextView
+                            android:id="@+id/per_info_alternative_person_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10.0dip"
+                            android:paddingRight="10dip"
+                            android:text="@string/name"
+                            android:textColor="@color/black_character"
+                            android:textSize="@dimen/middle_text_size" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1.0px"
+                        android:background="#ffcfd4da" />
+
+                    <RelativeLayout
+                        android:id="@+id/per_info_alternative_person_phone_rl"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:paddingBottom="3dip"
+                        android:paddingTop="3dip" >
+
+                        <EditText
+                            android:id="@+id/per_info_alternative_person_phone_et"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:imeOptions="actionNext"
+                            android:maxLength="16"
+                            android:maxLines="1"
+                            android:paddingBottom="6.0dip"
+                            android:paddingLeft="100dip"
+                            android:paddingRight="20dip"
+                            android:paddingTop="6.0dip"
+                            android:textColor="@color/black_character"
+                            android:textSize="@dimen/middle_text_size" />
+
+                        <TextView
+                            android:id="@+id/per_info_alternative_person_phone_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10.0dip"
+                            android:paddingRight="10dip"
+                            android:text="@string/mobile_phone"
+                            android:textColor="@color/black_character"
+                            android:textSize="@dimen/middle_text_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/relativeLayout4"
                 android:layout_width="fill_parent"
@@ -766,8 +895,8 @@
                     android:paddingRight="25dip"
                     android:textColor="@color/gray_text"
                     android:textSize="@dimen/micro_text_size" />
-                
-                 <TextView
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
