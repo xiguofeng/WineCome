@@ -423,6 +423,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		ArrayList<Category> categoryList = new ArrayList<Category>();
 		categoryList.addAll((Collection<? extends Category>) mAllMsgMap
 				.get("Category"));
+		// ArrayList<Category> tempCategoryList = new ArrayList<Category>();
 		ArrayList<Category> tempCategoryList = new ArrayList<Category>();
 		for (int i = 0; i < categoryList.size(); i++) {
 			ArrayList<Goods> arrayList = new ArrayList<Goods>();
@@ -440,35 +441,14 @@ public class MainActivity extends Activity implements OnClickListener {
 					tempCategoryList.add(categoryList.get(i));
 					mSearchMsgMap.put(categoryList.get(i).getPpid(),
 							tempGoodsList);
+				} else {
+					categoryList.remove(i);
 				}
-			} else if (categoryList.get(i).getPpid().equals("01")) {
-				categoryT_0 = categoryList.get(i);
-				tempCategoryList.add(categoryList.get(i));
-			} else if (categoryList.get(i).getPpid().equals("02")) {
-				categoryT_1 = categoryList.get(i);
-				tempCategoryList.add(categoryList.get(i));
 			}
-		}
-
-		boolean isHasT_0 = false, isHasT_1 = false;
-		for (int i = 0; i < tempCategoryList.size(); i++) {
-			if (tempCategoryList.get(i).getPplx().equals("01")) {
-				isHasT_0 = true;
-			}
-			if (tempCategoryList.get(i).getPplx().equals("02")) {
-				isHasT_1 = true;
-			}
-		}
-
-		if (!isHasT_0 && null != categoryT_0) {
-			tempCategoryList.remove(categoryT_0);
-		}
-		if (!isHasT_1 && null != categoryT_1) {
-			tempCategoryList.remove(categoryT_1);
 		}
 
 		ArrayList<Category> newCategoryList = new ArrayList<Category>();
-		for (Category category : tempCategoryList) {
+		for (Category category : categoryList) {
 			newCategoryList.add(category);
 		}
 
