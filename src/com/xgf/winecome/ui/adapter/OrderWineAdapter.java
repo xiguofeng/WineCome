@@ -76,6 +76,13 @@ public class OrderWineAdapter extends BaseAdapter {
 			holder.mTotalMoney = (TextView) convertView
 					.findViewById(R.id.list_order_group_total_money_tv);
 
+			holder.mPhone = (TextView) convertView
+					.findViewById(R.id.list_order_group_phone_tv);
+			holder.mAddress = (TextView) convertView
+					.findViewById(R.id.list_order_group_address_tv);
+			holder.mDeliveryTime = (TextView) convertView
+					.findViewById(R.id.list_order_group_delivery_time_tv);
+
 			holder.mCancelOrCommentBtn = (Button) convertView
 					.findViewById(R.id.list_order_group_comment_or_cancel_btn);
 			holder.mViewBtn = (Button) convertView
@@ -97,14 +104,22 @@ public class OrderWineAdapter extends BaseAdapter {
 			holder.mTime.setText(((ArrayList<Order>) mMap
 					.get(MsgResult.ORDER_TAG)).get(position).getPayTime());
 
+			holder.mPhone.setText(""+((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getPhone());
+			holder.mAddress.setText(""+((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getAddress());
+			holder.mDeliveryTime.setText(""+((ArrayList<Order>) mMap
+					.get(MsgResult.ORDER_TAG)).get(position).getDeliveryTime());
+
 			int orderStateCode = Integer.parseInt(((ArrayList<Order>) mMap
 					.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus());
 			if (orderStateCode <= OrderState.state.length) {
 				holder.mState.setText(OrderState.state[orderStateCode - 1]);
 			}
-			
-			holder.mTotalMoney.setText("合计：￥"+((ArrayList<Order>) mMap
-					.get(MsgResult.ORDER_TAG)).get(position).getAmount());
+
+			holder.mTotalMoney.setText("合计：￥"
+					+ ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(
+							position).getAmount());
 
 			String orderStateCodeStr = String.valueOf(orderStateCode);
 			String orderPayStateCodeStr = String
@@ -202,8 +217,14 @@ public class OrderWineAdapter extends BaseAdapter {
 		public TextView mTime;
 
 		public TextView mId;
-		
+
 		public TextView mTotalMoney;
+
+		public TextView mPhone;
+
+		public TextView mAddress;
+
+		public TextView mDeliveryTime;
 
 		public Button mCancelOrCommentBtn;
 
