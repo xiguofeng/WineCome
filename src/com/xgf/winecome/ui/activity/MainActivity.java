@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -343,7 +344,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		mCategoryAdapter = new CategoryAdapter(mContext, mCategoryList);
 		mLeftLv.setAdapter(mCategoryAdapter);
 		mCategoryAdapter.notifyDataSetChanged();
-		mCategoryAdapter.setmCurrentSelect("1");
 		mLeftLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -351,19 +351,19 @@ public class MainActivity extends Activity implements OnClickListener {
 					int position, long id) {
 				mCategoryAdapter.setmCurrentSelect(mCategoryList.get(position)
 						.getPpid());
+				String nowPPid = mCategoryList.get(position).getPpid();
 				mCategoryAdapter.notifyDataSetChanged();
 				if ("true".equals(mCategoryList.get(position)
 						.getIsTopCategory())) {
 
-					refreshAllData(mAllMsgMap);
+					refreshAllDataByOnItemClick(mAllMsgMap);
 					mTempCategoryGoodsList.clear();
 					for (int i = 0; i < mCategoryList.size(); i++) {
-						if (mCategoryList.get(i).getPplx()
-								.equals(mCategoryList.get(position).getPpid()))
+						if (mCategoryList.get(i).getPplx().equals(nowPPid)) {
 							mTempCategoryGoodsList
 									.addAll((Collection<? extends Goods>) mShowMsgMap
 											.get(mCategoryList.get(i).getPpid()));
-
+						}
 					}
 					mGoodsList.clear();
 					mGoodsList.addAll(mTempCategoryGoodsList);
@@ -417,8 +417,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void search(String key) {
-		Category categoryT_0 = null, categoryT_1 = null;
-
 		mSearchMsgMap.clear();
 		ArrayList<Category> categoryList = new ArrayList<Category>();
 		categoryList.addAll((Collection<? extends Category>) mAllMsgMap
@@ -452,8 +450,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			newCategoryList.add(category);
 		}
 
-		mSearchMsgMap.put("Category", newCategoryList);
-		mCategoryAdapter.setmCurrentSelect(newCategoryList.get(1).getPpid());
+		mSearchMsgMap.put("Category", tempCategoryList);
 		if (newCategoryList.size() > 1) {
 			refresSearchData(mSearchMsgMap);
 		}
@@ -477,6 +474,21 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void refreshAllData(HashMap<String, Object> msgMap) {
+		mShowMsgMap.clear();
+		mShowMsgMap.putAll(msgMap);
+
+		mCategoryList.clear();
+		mCategoryList.addAll((Collection<? extends Category>) mShowMsgMap
+				.get("Category"));
+		mCategoryAdapter.notifyDataSetChanged();
+
+		mGoodsList.clear();
+		mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
+				.get(mCategoryList.get(1).getPpid()));
+		mGoodsAdapter.notifyDataSetChanged();
+	}
+
+	private void refreshAllDataByOnItemClick(HashMap<String, Object> msgMap) {
 		mShowMsgMap.clear();
 		mShowMsgMap.putAll(msgMap);
 
