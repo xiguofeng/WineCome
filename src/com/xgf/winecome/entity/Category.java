@@ -11,7 +11,9 @@ public class Category implements Serializable {
 	private String ppmc;
 
 	private String pplx;
-	
+
+	private String isTopCategory;
+
 	public String getPpid() {
 		return ppid;
 	}
@@ -35,5 +37,15 @@ public class Category implements Serializable {
 	public void setPplx(String pplx) {
 		this.pplx = pplx;
 	}
+
+	public String getIsTopCategory() {
+		return isTopCategory;
+	}
+
+	public void setIsTopCategory(String isTopCategory) {
+		this.isTopCategory = isTopCategory;
+	}
+
+	
 
 }
