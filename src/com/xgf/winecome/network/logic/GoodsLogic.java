@@ -670,7 +670,8 @@ public class GoodsLogic {
 					JSONObject topCategoryJsonObject = topCategorysListArray
 							.getJSONObject(i);
 					Category topCategory = new Category();
-					topCategory.setPpid("t_" + i);
+					topCategory.setPpid(topCategoryJsonObject
+							.getString("typeId"));
 					topCategory.setPplx("t_" + i);
 					topCategory.setPpmc(topCategoryJsonObject
 							.getString("typeName"));

@@ -352,30 +352,19 @@ public class MainActivity extends Activity implements OnClickListener {
 				mCategoryAdapter.setmCurrentSelect(mCategoryList.get(position)
 						.getPpid());
 				mCategoryAdapter.notifyDataSetChanged();
-				if (mCategoryList.get(position).getPpid().equals("t_0")) {
+				if ("true".equals(mCategoryList.get(position)
+						.getIsTopCategory())) {
+
 					refreshAllData(mAllMsgMap);
 					mTempCategoryGoodsList.clear();
 					for (int i = 0; i < mCategoryList.size(); i++) {
-						if (mCategoryList.get(i).getPplx().equals("01"))
+						if (mCategoryList.get(i).getPplx()
+								.equals(mCategoryList.get(position).getPpid()))
 							mTempCategoryGoodsList
 									.addAll((Collection<? extends Goods>) mShowMsgMap
 											.get(mCategoryList.get(i).getPpid()));
 
 					}
-					mGoodsList.clear();
-					mGoodsList.addAll(mTempCategoryGoodsList);
-
-				} else if (mCategoryList.get(position).getPpid().equals("t_1")) {
-					refreshAllData(mAllMsgMap);
-					mTempCategoryGoodsList.clear();
-					for (int i = 0; i < mCategoryList.size(); i++) {
-						if (mCategoryList.get(i).getPplx().equals("02"))
-							mTempCategoryGoodsList
-									.addAll((Collection<? extends Goods>) mShowMsgMap
-											.get(mCategoryList.get(i).getPpid()));
-
-					}
-
 					mGoodsList.clear();
 					mGoodsList.addAll(mTempCategoryGoodsList);
 
@@ -384,7 +373,6 @@ public class MainActivity extends Activity implements OnClickListener {
 					mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
 							.get(mCategoryList.get(position).getPpid()));
 
-					// mGoodsAdapter.notifyDataSetChanged();
 				}
 				refreshGoods();
 			}
@@ -438,8 +426,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		ArrayList<Category> tempCategoryList = new ArrayList<Category>();
 		for (int i = 0; i < categoryList.size(); i++) {
 			ArrayList<Goods> arrayList = new ArrayList<Goods>();
-			if (!categoryList.get(i).getPpid().equals("t_0")
-					&& !categoryList.get(i).getPpid().equals("t_1")) {
+			if (!"true".equals(categoryList.get(i).getIsTopCategory())) {
 				arrayList.addAll((((Collection<? extends Goods>) mAllMsgMap
 						.get(categoryList.get(i).getPpid()))));
 				ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
@@ -454,10 +441,10 @@ public class MainActivity extends Activity implements OnClickListener {
 					mSearchMsgMap.put(categoryList.get(i).getPpid(),
 							tempGoodsList);
 				}
-			} else if (categoryList.get(i).getPpid().equals("t_0")) {
+			} else if (categoryList.get(i).getPpid().equals("01")) {
 				categoryT_0 = categoryList.get(i);
 				tempCategoryList.add(categoryList.get(i));
-			} else if (categoryList.get(i).getPpid().equals("t_1")) {
+			} else if (categoryList.get(i).getPpid().equals("02")) {
 				categoryT_1 = categoryList.get(i);
 				tempCategoryList.add(categoryList.get(i));
 			}
@@ -486,7 +473,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 		mSearchMsgMap.put("Category", newCategoryList);
-
+		mCategoryAdapter.setmCurrentSelect(newCategoryList.get(1).getPpid());
 		if (newCategoryList.size() > 1) {
 			refreshAllData(mSearchMsgMap);
 		}
@@ -497,7 +484,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		mCategoryAdapter.setmCurrentSelect(mCategoryList.get(0).getPpid());
 		mTempCategoryGoodsList.clear();
 		for (int i = 0; i < mCategoryList.size(); i++) {
-			if (mCategoryList.get(i).getPplx().equals("01"))
+			if (mCategoryList.get(i).getPplx()
+					.equals(mCategoryList.get(0).getPpid()))
 				mTempCategoryGoodsList
 						.addAll((Collection<? extends Goods>) mShowMsgMap
 								.get(mCategoryList.get(i).getPpid()));

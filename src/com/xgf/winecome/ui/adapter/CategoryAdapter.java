@@ -79,7 +79,7 @@ public class CategoryAdapter extends BaseAdapter {
 		}
 		holder.mSelectIv.setVisibility(View.INVISIBLE);
 		holder.mIconIv.setVisibility(View.GONE);
-		if ("t_0".equals(mDatas.get(position).getPpid())) {
+		if (position == 0) {
 
 			holder.mSelectIv.setVisibility(View.GONE);
 			holder.mIconIv.setVisibility(View.VISIBLE);
@@ -91,7 +91,8 @@ public class CategoryAdapter extends BaseAdapter {
 
 		}
 
-		if ("t_1".equals(mDatas.get(position).getPpid())) {
+		if (position != 0
+				&& "true".equals(mDatas.get(position).getIsTopCategory())) {
 			holder.mSelectIv.setVisibility(View.GONE);
 			// holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 			// R.color.white));
@@ -103,12 +104,14 @@ public class CategoryAdapter extends BaseAdapter {
 		}
 		holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 				R.color.gray_category_normal_bg));
-		holder.mName.setTextColor(mContext.getResources().getColor(R.color.white));
+		holder.mName.setTextColor(mContext.getResources().getColor(
+				R.color.white));
 		if (mCurrentSelect.equals(mDatas.get(position).getPpid())) {
 			// holder.mSelectIv.setVisibility(View.VISIBLE);
 			holder.mBg.setBackgroundColor(mContext.getResources().getColor(
 					R.color.gray_category_select_bg));
-			holder.mName.setTextColor(mContext.getResources().getColor(R.color.black_character));
+			holder.mName.setTextColor(mContext.getResources().getColor(
+					R.color.black_character));
 		}
 		holder.mName.setText(mDatas.get(position).getPpmc());
 		return convertView;
