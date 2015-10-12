@@ -441,21 +441,21 @@ public class MainActivity extends Activity implements OnClickListener {
 					tempCategoryList.add(categoryList.get(i));
 					mSearchMsgMap.put(categoryList.get(i).getPpid(),
 							tempGoodsList);
-				} else {
-					categoryList.remove(i);
 				}
+			} else {
+				tempCategoryList.add(categoryList.get(i));
 			}
 		}
 
 		ArrayList<Category> newCategoryList = new ArrayList<Category>();
-		for (Category category : categoryList) {
+		for (Category category : tempCategoryList) {
 			newCategoryList.add(category);
 		}
 
 		mSearchMsgMap.put("Category", newCategoryList);
 		mCategoryAdapter.setmCurrentSelect(newCategoryList.get(1).getPpid());
 		if (newCategoryList.size() > 1) {
-			refreshAllData(mSearchMsgMap);
+			refresSearchData(mSearchMsgMap);
 		}
 	}
 
@@ -488,6 +488,29 @@ public class MainActivity extends Activity implements OnClickListener {
 		mGoodsList.clear();
 		mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
 				.get(mCategoryList.get(1).getPpid()));
+		mGoodsAdapter.notifyDataSetChanged();
+	}
+
+	private void refresSearchData(HashMap<String, Object> msgMap) {
+		mShowMsgMap.clear();
+		mShowMsgMap.putAll(msgMap);
+
+		mCategoryList.clear();
+		mCategoryList.addAll((Collection<? extends Category>) mShowMsgMap
+				.get("Category"));
+		mCategoryAdapter.notifyDataSetChanged();
+
+		mGoodsList.clear();
+		int index = 1;
+		for (int i = 0; i < mCategoryList.size(); i++) {
+			if (!"true".equals(mCategoryList.get(i).getIsTopCategory())) {
+				index = i;
+				break;
+			}
+		}
+		mCategoryAdapter.setmCurrentSelect(mCategoryList.get(index).getPpid());
+		mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
+				.get(mCategoryList.get(index).getPpid()));
 		mGoodsAdapter.notifyDataSetChanged();
 	}
 
