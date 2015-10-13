@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.IntegralGoods;
@@ -22,7 +23,8 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class IntegralOrderListActivity extends Activity implements OnClickListener {
+public class IntegralOrderListActivity extends Activity implements
+		OnClickListener {
 
 	private Context mContext;
 
@@ -46,7 +48,10 @@ public class IntegralOrderListActivity extends Activity implements OnClickListen
 			switch (what) {
 			case IntegralGoodsLogic.INTEGRAL_ORDER_LIST_GET_SUC: {
 				if (null != msg.obj) {
-
+					mIntegralGoodsList.clear();
+					mIntegralGoodsList
+							.addAll((Collection<? extends IntegralGoods>) msg.obj);
+					mAdapter.notifyDataSetChanged();
 				}
 				break;
 			}
@@ -64,7 +69,9 @@ public class IntegralOrderListActivity extends Activity implements OnClickListen
 			default:
 				break;
 			}
-
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.dismiss();
+			}
 		}
 
 	};
@@ -95,18 +102,11 @@ public class IntegralOrderListActivity extends Activity implements OnClickListen
 
 	private void initData() {
 		mPhone = getIntent().getStringExtra("phone");
-
-		mIntegralGoodsList.clear();
-		for (int i = 0; i < 10; i++) {
-			IntegralGoods integralGoods = new IntegralGoods();
-			integralGoods.setName("兑换商品" + i);
-			integralGoods.setIntegral("" + i + "积分");
-			mIntegralGoodsList.add(integralGoods);
+		if (null != mCustomProgressDialog) {
+			mCustomProgressDialog.show();
 		}
-		mAdapter.notifyDataSetChanged();
-
-		IntegralGoodsLogic.getExchangeOrder(mContext, mHandler, mPhone, String.valueOf(pageNum),
-				String.valueOf(MsgRequest.PAGE_SIZE));
+		IntegralGoodsLogic.getExchangeOrder(mContext, mHandler, mPhone,
+				String.valueOf(pageNum), String.valueOf(MsgRequest.PAGE_SIZE));
 	}
 
 	@Override

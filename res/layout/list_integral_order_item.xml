@@ -18,18 +18,18 @@
         android:paddingTop="6dip" >
 
         <TextView
-            android:id="@+id/list_integral_order_exchange_tag_tv"
+            android:id="@+id/list_integral_order_name_tag_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:maxLines="1"
-            android:text="@string/exchange_integral"
-            android:textColor="@color/gray_text"
+            android:text="@string/exchange_name"
+            android:textColor="@color/orange_text"
             android:textSize="@dimen/small_text_size" />
 
         <TextView
-            android:id="@+id/list_integral_order_exchange_tv"
+            android:id="@+id/list_integral_order_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -57,18 +57,18 @@
         android:paddingTop="6dip" >
 
         <TextView
-            android:id="@+id/list_integral_order_name_tag_tv"
+            android:id="@+id/list_integral_order_exchange_tag_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:maxLines="1"
-            android:text="@string/exchange_name"
-            android:textColor="@color/gray_text"
+            android:text="@string/exchange_integral"
+            android:textColor="@color/orange_text"
             android:textSize="@dimen/micro_text_size" />
 
         <TextView
-            android:id="@+id/list_integral_order_name_tv"
+            android:id="@+id/list_integral_order_exchange_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -95,7 +95,7 @@
             android:layout_centerInParent="true"
             android:maxLines="1"
             android:text="@string/exchange_num"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/orange_text"
             android:textSize="@dimen/micro_text_size" />
 
         <TextView
@@ -126,7 +126,7 @@
             android:layout_centerInParent="true"
             android:maxLines="1"
             android:text="@string/exchange_date"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/orange_text"
             android:textSize="@dimen/micro_text_size" />
 
         <TextView
@@ -157,7 +157,7 @@
             android:layout_centerInParent="true"
             android:maxLines="1"
             android:text="@string/exchange_address"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/orange_text"
             android:textSize="@dimen/micro_text_size" />
 
         <TextView
@@ -188,7 +188,7 @@
             android:layout_centerInParent="true"
             android:maxLines="1"
             android:text="@string/phone"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/orange_text"
             android:textSize="@dimen/micro_text_size" />
 
         <TextView

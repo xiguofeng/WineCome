@@ -70,12 +70,12 @@ public class IntegralOrderAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mExchangeIntegralTv.setText(mDatas.get(position).getName());
-		holder.mExchangeNameTv.setText(mDatas.get(position).getIntegral());
-		holder.mExchangeNumTv.setText(mDatas.get(position).getName());
-		holder.mExchangeDateTv.setText(mDatas.get(position).getIntegral());
-		holder.mExchangeAddressTv.setText(mDatas.get(position).getName());
-		holder.mExchangePhoneTv.setText(mDatas.get(position).getIntegral());
+		holder.mExchangeNameTv.setText(mDatas.get(position).getProductName());
+		holder.mExchangeIntegralTv.setText(mDatas.get(position).getAmount());
+		holder.mExchangeNumTv.setText(mDatas.get(position).getCount());
+		holder.mExchangeDateTv.setText(mDatas.get(position).getOrderTime());
+		holder.mExchangeAddressTv.setText(mDatas.get(position).getAddress());
+		holder.mExchangePhoneTv.setText(mDatas.get(position).getPhone());
 		return convertView;
 	}
 
