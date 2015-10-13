@@ -54,7 +54,7 @@ public class RequestUrl {
 		/**
 		 * 查询全部商品
 		 */
-		public String queryAllGoods = "queryAllProduct";
+		public String queryAllGoods = "queryAllProductV2";
 
 		/**
 		 * 查询商品种类
@@ -101,7 +101,7 @@ public class RequestUrl {
 		/**
 		 * 积分兑换
 		 */
-		public String exchange = "exchange";
+		public String exchange = "exchangeV2";
 
 		/**
 		 * 积分兑换历史
