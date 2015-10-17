@@ -84,7 +84,7 @@ public class MoreActivity extends Activity implements OnClickListener {
 		}
 		case R.id.more_integral_exchange_rl: {
 			Intent intent = new Intent(MoreActivity.this,
-					IntegralOrderQueryActivity.class);
+					MainActivity.class);
 			startActivity(intent);
 			break;
 		}

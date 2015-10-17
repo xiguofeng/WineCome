@@ -8,17 +8,27 @@ public class RequestUrl {
 	public static final String NAMESPACE = "http://www.diyifw.com";
 
 	public static final String HOST_URL = "http://www.diyifw.com:8080/jll/services/JllService";
-	
-//	public static final String NAMESPACE = "http://139.196.15.154";
-//
-//	public static final String HOST_URL = "http://139.196.15.154/jll/services/JllService";
-	
-//	public static final String NAMESPACE_TEST = "http://139.196.15.154";
-//
-//	public static final String HOST_URL_TEST = "http://139.196.15.154/jll/services/JllService";
+
+	// public static final String NAMESPACE = "http://139.196.15.154";
+	//
+	// public static final String HOST_URL =
+	// "http://139.196.15.154/jll/services/JllService";
+
+	// public static final String NAMESPACE_TEST = "http://139.196.15.154";
+	//
+	// public static final String HOST_URL_TEST =
+	// "http://139.196.15.154/jll/services/JllService";
 
 	// public static final String HOST_URL =
 	// "http://192.168.1.101:8080/com.igou.server";
+
+	public interface promotion {
+		/**
+		 * 根据分类查询促销信息
+		 */
+		public String queryPromotionV2 = "queryPromotionV2";
+	}
+
 	public interface app {
 		/**
 		 * 连接 获取最新的版本号
@@ -67,19 +77,17 @@ public class RequestUrl {
 		 * 查询商品（关键字）
 		 */
 		public String queryGoodsByKey = "/goods/queryGoodsByKeyword";
-		
+
 		/**
 		 * 查询促销酒
 		 */
 		public String queryPromProduct = "queryPromProduct";
-		
-		
+
 		/**
 		 * 查询促销酒
 		 */
 		public String authProduct = "authProduct";
-		
-		
+
 		/**
 		 * banner
 		 */
@@ -107,12 +115,12 @@ public class RequestUrl {
 		 * 积分兑换历史
 		 */
 		public String queryIntegralConsume = "queryIntegralConsume";
-		
+
 		/**
 		 * 积分订单
 		 */
 		public String queryExchangeOrder = "queryExchangeOrder";
-		
+
 		/**
 		 * 获取总积分
 		 */
@@ -138,17 +146,17 @@ public class RequestUrl {
 		 * 设置支付方式
 		 */
 		public String setOrderPayType = "payWay";
-		
+
 		/**
 		 * 设置预支付方式
 		 */
 		public String setOrderPrePayType = "prePayWay";
-		
+
 		/**
 		 * 支付结果确认
 		 */
 		public String payResultCheck = "payResultCheck";
-		
+
 		/**
 		 * 银联流水号获取
 		 */
