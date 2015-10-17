@@ -120,7 +120,7 @@ public class HomeActivity extends TabActivity implements
 	private void initView() {
 		mTabHost = getTabHost();
 
-		Intent i_home = new Intent(this, MainActivity.class);
+		Intent i_home = new Intent(this, CategoryActivity.class);
 		Intent i_cart = new Intent(this, ShopCartActivity.class);
 		Intent i_more = new Intent(this, MoreActivity.class);
 

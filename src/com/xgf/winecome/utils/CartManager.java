@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.ui.activity.HomeActivity;
-import com.xgf.winecome.ui.activity.MainActivity;
+import com.xgf.winecome.ui.activity.CategoryActivity;
 
 import android.util.Log;
 
@@ -342,7 +342,7 @@ public class CartManager implements Watched {
 	}
 
 	public static void notifyWatchers() {
-		MainActivity.update();
+		CategoryActivity.update();
 	}
 
 }

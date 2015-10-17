@@ -44,7 +44,7 @@ import com.xgf.winecome.ui.view.viewflow.ViewFlow;
 import com.xgf.winecome.utils.CartManager;
 import com.xgf.winecome.utils.SystemUtils;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class CategoryActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
 	private LinearLayout mMainLl;
@@ -218,7 +218,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		mContext = MainActivity.this;
+		mContext = CategoryActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
 		initData();
@@ -329,7 +329,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				Intent intent = new Intent(MainActivity.this,
+				Intent intent = new Intent(CategoryActivity.this,
 						GoodsDetailActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,

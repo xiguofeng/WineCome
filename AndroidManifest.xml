@@ -122,7 +122,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.xgf.winecome.ui.activity.MainActivity"
+            android:name="com.xgf.winecome.ui.activity.CategoryActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
