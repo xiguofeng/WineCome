@@ -217,7 +217,7 @@ public class CategoryActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.category);
 		mContext = CategoryActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
