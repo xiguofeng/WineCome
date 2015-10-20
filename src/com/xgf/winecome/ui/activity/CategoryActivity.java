@@ -483,8 +483,13 @@ public class CategoryActivity extends Activity implements OnClickListener {
 		mCategoryAdapter.notifyDataSetChanged();
 
 		mGoodsList.clear();
-		mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
-				.get(mCategoryList.get(1).getPpid()));
+		if (null != mCategoryList.get(1)
+				&& null != (Collection<? extends Goods>) mShowMsgMap
+						.get(mCategoryList.get(1).getPpid())) {
+			mGoodsList.addAll((Collection<? extends Goods>) mShowMsgMap
+					.get(mCategoryList.get(1).getPpid()));
+		}
+
 		mGoodsAdapter.notifyDataSetChanged();
 	}
 
