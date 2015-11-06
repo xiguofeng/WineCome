@@ -1,5 +1,7 @@
 package com.xgf.winecome;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.xgf.winecome.config.Constants;
 import com.xgf.winecome.service.MsgService;
 import com.xgf.winecome.utils.image.ImageLoaderConfig;
@@ -20,6 +22,8 @@ public class BaseApplication extends Application {
 		super.onCreate();
 		ImageLoaderConfig.initImageLoader(this, Constants.BASE_IMAGE_CACHE);
 
+		JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
+		JPushInterface.init(this);
 		// Intent intent = new Intent(getApplicationContext(),
 		// MsgService.class);
 		// getApplicationContext().startService(intent);
