@@ -1,9 +1,10 @@
 package com.xgf.winecome.ui.activity;
 
-import com.xgf.winecome.R;
-
 import android.os.Bundle;
 import android.os.Handler;
+import cn.jpush.android.api.JPushInterface;
+
+import com.xgf.winecome.R;
 
 public class SplashActivity extends BaseActivity {
 
@@ -17,6 +18,18 @@ public class SplashActivity extends BaseActivity {
 		setContentView(R.layout.splash);
 		initView();
 
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(SplashActivity.this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(SplashActivity.this);
 	}
 
 	protected void findViewById() {

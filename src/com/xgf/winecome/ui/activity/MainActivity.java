@@ -309,6 +309,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	    PromotionLogic.getAllPromotion(mContext, mHandler);
 
 	}
+	
+	private void filterPromotion(){
+		
+	}
 
 	@Override
 	protected void onResume() {

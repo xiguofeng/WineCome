@@ -45,24 +45,29 @@ public class PromotionLogic {
 
 	public static final int PROMOTION_BANNER_LIST_GET_EXCEPTION = PROMOTION_BANNER_LIST_GET_FAIL + 1;
 
-	public static void getAllPromotion(final Context context, final Handler handler) {
+	public static void getAllPromotion(final Context context,
+			final Handler handler) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.promotion.queryPromotionV2);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.promotion.queryPromotionV2);
 					rpc.addProperty("phone", URLEncoder.encode("", "UTF-8"));
-					
-					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.promotion.queryPromotionV2, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.promotion.queryPromotionV2, envelope);
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
@@ -87,20 +92,41 @@ public class PromotionLogic {
 
 	}
 
-	private static void parseAllPromotionData(JSONObject response, Handler handler) {
+	private static void parseAllPromotionData(JSONObject response,
+			Handler handler) {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
-				
-				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 				ArrayList<PromotionNew> mTempPromotionList = new ArrayList<PromotionNew>();
-				JSONArray promotionListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				JSONArray promotionListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
 				int size = promotionListArray.length();
 				for (int j = 0; j < size; j++) {
-					JSONObject categoryJsonObject = promotionListArray.getJSONObject(j);
+					JSONObject categoryJsonObject = promotionListArray
+							.getJSONObject(j);
+					JSONArray goodsListArray = categoryJsonObject
+							.getJSONArray("items");
+					ArrayList<Goods> goodsList = new ArrayList<Goods>();
+					for (int k = 0; k < goodsListArray.length(); k++) {
+						JSONObject goodsJsonObject = goodsListArray
+								.getJSONObject(k);
+						Goods goods = (Goods) JsonUtils.fromJsonToJava(
+								goodsJsonObject, Goods.class);
+						goodsList.add(goods);
+					}
 
-					PromotionNew Promotion = (PromotionNew) JsonUtils.fromJsonToJava(categoryJsonObject, PromotionNew.class);
-					mTempPromotionList.add(Promotion);
+					PromotionNew promotion = (PromotionNew) JsonUtils
+							.fromJsonToJava(categoryJsonObject,
+									PromotionNew.class);
+
+					ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
+					promotion.setGoodsList(tempGoodsList);
+					promotion.getGoodsList().addAll(goodsList);
+
+					mTempPromotionList.add(promotion);
 				}
 				Message message = new Message();
 				message.what = PROMOTION_ALL_LIST_GET_SUC;

@@ -1,28 +1,33 @@
 package com.xgf.winecome.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class PromotionNew implements Serializable {
 
 	private static final long serialVersionUID = 8912365559481657349L;
 
 	private String promotionId;
-	
+
 	private String startTime;
 
 	private String detailImg;
-	
+
 	private String title;
 
 	private String thumbnail;
-	
+
 	private String desc;
 
 	private String status;
-	
+
 	private String endTime;
-	
+
 	private String displayPlace;
+
+	private String dh;
+	
+	private ArrayList<Goods> goodsList;
 
 	public String getPromotionId() {
 		return promotionId;
@@ -96,4 +101,23 @@ public class PromotionNew implements Serializable {
 		this.displayPlace = displayPlace;
 	}
 
+	public String getDh() {
+		return dh;
+	}
+
+	public void setDh(String dh) {
+		this.dh = dh;
+	}
+
+	public ArrayList<Goods> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(ArrayList<Goods> goodsList) {
+		this.goodsList = goodsList;
+	}
+	
+	
+
+	
 }
