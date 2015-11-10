@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -40,7 +41,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public static final String RECOMMEND = "recommend";
 	public static final String ACTIVITYAREA = "activityArea";
-	public static final String BANNER = "banner";
+	public static final String BANNER = "board";
 
 	private Context mContext;
 	private LinearLayout mMainLl;
@@ -198,15 +199,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void initHLv() {
 		mHotGoodsLv = (HorizontalListView) findViewById(R.id.main_hot_goods_lv);
-		for (int i = 0; i < 6; i++) {
-			Goods goods = new Goods();
-			goods.setName("商品" + i);
-			goods.setIconUrl("http://img3.douban.com/view/commodity_story/medium/public/p19671.jpg");
-			mHotGoodsList.add(goods);
-		}
 		mHotGoodsAdapter = new MainGoodsAdapter(mContext, mHotGoodsList);
 		mHotGoodsLv.setAdapter(mHotGoodsAdapter);
-		mHotGoodsAdapter.notifyDataSetChanged();
 	}
 
 	private void initGv() {
@@ -244,11 +238,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		mBannerPromotionList.clear();
 
 		for (int i = 0; i < mPromotionList.size(); i++) {
-			if (RECOMMEND.equals(mPromotionList.get(i).getStatus())) {
-				mRecommendPromotionList.add(mPromotionList.get(i));
-			} else if (ACTIVITYAREA.equals(mPromotionList.get(i).getStatus())) {
+			// mRecommendPromotionList.add(mPromotionList.get(i));
+			mActivityAreaPromotionList.add(mPromotionList.get(i));
+			mBannerPromotionList.add(mPromotionList.get(i));
+			if (RECOMMEND.equals(mPromotionList.get(i).getDisplayPlace())) {
+
+			} else if (ACTIVITYAREA.equals(mPromotionList.get(i).getDisplayPlace())) {
 				mActivityAreaPromotionList.add(mPromotionList.get(i));
-			} else if (BANNER.equals(mPromotionList.get(i).getStatus())) {
+			} else if (BANNER.equals(mPromotionList.get(i).getDisplayPlace())) {
+				mRecommendPromotionList.add(mPromotionList.get(i));
 				mBannerPromotionList.add(mPromotionList.get(i));
 			}
 		}
@@ -263,7 +261,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void fillUpRecommendData() {
-
+		mHotGoodsList.clear();
+		mHotGoodsList.addAll(mRecommendPromotionList.get(0).getGoodsList());
+		mHotGoodsAdapter.notifyDataSetChanged();
 	}
 
 	private void fillUpActivityAreaData() {

@@ -51,17 +51,19 @@ public class MainGoodsAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.main_hori_goods_item, null);
+			convertView = mInflater
+					.inflate(R.layout.main_hori_goods_item, null);
 
 			holder = new ViewHolder();
 			holder.mName = (TextView) convertView
 					.findViewById(R.id.main_hori_goods_name_tv);
-//			holder.mPrice = (TextView) convertView
-//					.findViewById(R.id.goods_price_tv);
-//			holder.mOriginalPrice = (TextView) convertView
-//					.findViewById(R.id.goods_original_prices_tv);
+			// holder.mPrice = (TextView) convertView
+			// .findViewById(R.id.goods_price_tv);
+			// holder.mOriginalPrice = (TextView) convertView
+			// .findViewById(R.id.goods_original_prices_tv);
 
-			holder.mIcon = (ImageView) convertView.findViewById(R.id.main_hori_goods_icon_iv);
+			holder.mIcon = (ImageView) convertView
+					.findViewById(R.id.main_hori_goods_icon_iv);
 
 			convertView.setTag(holder);
 		} else {
@@ -69,14 +71,12 @@ public class MainGoodsAdapter extends BaseAdapter {
 		}
 
 		holder.mName.setText(mDatas.get(position).getName());
-//		holder.mPrice.setText("￥" + mDatas.get(position).getFinalPrice());
-//		holder.mOriginalPrice.setText("原价￥" + mDatas.get(position).getPrice());
+		// holder.mPrice.setText("￥" + mDatas.get(position).getFinalPrice());
+		// holder.mOriginalPrice.setText("原价￥" +
+		// mDatas.get(position).getPrice());
 
-		ImageLoader
-				.getInstance()
-				.displayImage(
-						"http://i2.cqnews.net/fashion/attachement/jpg/site82/20130609/002522274bb0131e71bc43.jpg",
-						holder.mIcon);
+		ImageLoader.getInstance().displayImage(
+				mDatas.get(position).getIconUrl(), holder.mIcon);
 
 		return convertView;
 	}

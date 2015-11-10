@@ -186,9 +186,10 @@
     <string name="notify">消息</string>
     <string name="order_suc">订单成功</string>
     <string name="no_data">没有找到符合条件的物品</string>
+    
+    <string name="hot_recommed">热门推荐</string>
 
     <!-- pay -->
-
     <string name="pre_pay_type">预支付</string>
     <string name="total_price">总金额：</string>
     <string name="to_settlement">去结算</string>
