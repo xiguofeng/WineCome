@@ -247,7 +247,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				mActivityAreaPromotionList.add(mPromotionList.get(i));
 			} else if (BANNER.equals(mPromotionList.get(i).getDisplayPlace())) {
 				mRecommendPromotionList.add(mPromotionList.get(i));
-				mBannerPromotionList.add(mPromotionList.get(i));
+				//mBannerPromotionList.add(mPromotionList.get(i));
 			}
 		}
 
