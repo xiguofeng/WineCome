@@ -51,7 +51,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private ArrayList<PromotionNew> mPromotionList = new ArrayList<PromotionNew>();
 
+	/**
+	 * 推荐区域
+	 */
 	private ArrayList<PromotionNew> mRecommendPromotionList = new ArrayList<PromotionNew>();
+	/**
+	 * 活动专区
+	 */
 	private ArrayList<PromotionNew> mActivityAreaPromotionList = new ArrayList<PromotionNew>();
 
 	private HorizontalListView mHotGoodsLv;
@@ -63,6 +69,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ViewFlow mViewFlow;
 	private CircleFlowIndicator mIndic;
 	private MainBannerAdapter mBannerAdapter;
+	/**
+	 * banner
+	 */
 	private ArrayList<PromotionNew> mBannerPromotionList = new ArrayList<PromotionNew>();
 	private FrameLayout mBannerFl;
 	protected CustomProgressDialog2 mCustomProgressDialog;
@@ -238,19 +247,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		mBannerPromotionList.clear();
 
 		for (int i = 0; i < mPromotionList.size(); i++) {
-			// mRecommendPromotionList.add(mPromotionList.get(i));
-			mActivityAreaPromotionList.add(mPromotionList.get(i));
-			mBannerPromotionList.add(mPromotionList.get(i));
 			if (RECOMMEND.equals(mPromotionList.get(i).getDisplayPlace())) {
-
-			} else if (ACTIVITYAREA.equals(mPromotionList.get(i).getDisplayPlace())) {
+				mRecommendPromotionList.add(mPromotionList.get(i));
+			} else if (ACTIVITYAREA.equals(mPromotionList.get(i)
+					.getDisplayPlace())) {
 				mActivityAreaPromotionList.add(mPromotionList.get(i));
 			} else if (BANNER.equals(mPromotionList.get(i).getDisplayPlace())) {
-				mRecommendPromotionList.add(mPromotionList.get(i));
-				//mBannerPromotionList.add(mPromotionList.get(i));
+				mBannerPromotionList.add(mPromotionList.get(i));
 			}
 		}
-
 		fillUpData();
 	}
 
@@ -260,6 +265,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		fillUpRecommendData();
 	}
 
+	private void fillUpBannerData() {
+		showcircleimage();
+	}
+	
 	private void fillUpRecommendData() {
 		mHotGoodsList.clear();
 		mHotGoodsList.addAll(mRecommendPromotionList.get(0).getGoodsList());
@@ -273,10 +282,6 @@ public class MainActivity extends Activity implements OnClickListener {
 					promotionNew);
 			mCategoryAndGoodsListLl.addView(cv);
 		}
-	}
-
-	private void fillUpBannerData() {
-		showcircleimage();
 	}
 
 	@Override

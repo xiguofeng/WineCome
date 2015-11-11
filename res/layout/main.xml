@@ -144,7 +144,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dip"
+                android:layout_marginTop="10dip"
                 android:background="@color/white" >
 
                 <TextView
@@ -154,7 +154,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="10dp"
                     android:text="@string/hot_recommed"
-                    android:textColor="@color/black_character"
+                    android:textColor="@color/red_title_bg"
                     android:textSize="@dimen/middle_text_size" />
 
                 <ImageView
@@ -177,6 +177,15 @@
                     android:textSize="@dimen/middle_text_size"
                     android:visibility="gone" />
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dip"
+                android:layout_marginBottom="5dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/h_line"
+                android:orientation="vertical" >
+            </LinearLayout>
 
             <com.xgf.winecome.ui.view.listview.HorizontalListView
                 xmlns:android="http://schemas.android.com/apk/res/android"
