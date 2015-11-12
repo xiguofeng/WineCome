@@ -17,8 +17,8 @@
         android:id="@+id/main_hori_goods_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray_text"
-        android:textSize="@dimen/small_text_size" />
+        android:textColor="@color/black_character"
+        android:textSize="@dimen/micro_text_size" />
 
     <TextView
         android:id="@+id/main_hori_goods_price_tv"

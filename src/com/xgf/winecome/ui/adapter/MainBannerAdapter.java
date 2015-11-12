@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.PromotionNew;
+import com.xgf.winecome.ui.activity.PromotionActivity;
 
 public class MainBannerAdapter extends BaseAdapter {
 
@@ -82,18 +85,18 @@ public class MainBannerAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				int index = position % mDatas.size();
-				// if (null != mDatas.get(index).getId()
-				// && !"".equals(mDatas.get(index).getId())) {
-				//
-				// // 在这里可以设置跳转界面
-				// Intent intent = new Intent(mContext,
-				// SpecialEventsActivity.class);
-				// Bundle bundle = new Bundle();
-				// bundle.putString("jumpToUrl", mDatas.get(index)
-				// .getJumpToUrl());
-				// intent.putExtras(bundle);
-				// mContext.startActivity(intent);
-				// }
+				if (null != mDatas.get(index).getPromotionId()
+						&& !"".equals(mDatas.get(index).getPromotionId())) {
+
+					// 在这里可以设置跳转界面
+					Intent intent = new Intent(mContext,
+							PromotionActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("jumpToUrl", mDatas.get(index)
+							.getPromotionId());
+					intent.putExtras(bundle);
+					mContext.startActivity(intent);
+				}
 			}
 		});
 		return convertView;

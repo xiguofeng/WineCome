@@ -100,7 +100,7 @@
             <FrameLayout
                 android:id="@+id/main_framelayout"
                 android:layout_width="fill_parent"
-                android:layout_height="100dip"
+                android:layout_height="160dip"
                 android:visibility="gone" >
 
                 <com.xgf.winecome.ui.view.viewflow.ViewFlow
@@ -181,6 +181,7 @@
             <LinearLayout
                 android:layout_marginTop="10dip"
                 android:layout_marginBottom="5dip"
+                android:layout_marginLeft="5dip"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/h_line"

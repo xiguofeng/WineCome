@@ -15,10 +15,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         android:background="@color/white"
-        android:paddingTop="8dip"
         android:paddingBottom="8dip"
         android:paddingLeft="5dip"
-        android:paddingRight="5dip" >
+        android:paddingRight="5dip"
+        android:paddingTop="8dip" >
 
         <ImageView
             android:id="@+id/custom_classify_iv"
@@ -33,10 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dip"
             android:layout_toRightOf="@+id/custom_classify_iv"
-            android:text="美妆"
-            android:textColor="@color/black_character"
+            android:text="活动专区"
+            android:textColor="@color/red_title_bg"
             android:textSize="@dimen/middle_text_size" />
 
         <ImageView
@@ -54,7 +53,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:layout_toLeftOf="@+id/custom_classify_arrow_iv"
-            android:text="心脑..."
             android:textColor="@color/black_character"
             android:textSize="@dimen/micro_text_size" />
 
@@ -64,6 +62,7 @@
             android:layout_height="10dip"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
+            android:visibility="gone"
             android:layout_toLeftOf="@+id/custom_classify_second_name_tv"
             android:background="@color/gray_divide_line"
             android:orientation="vertical" >
@@ -76,23 +75,29 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:layout_toLeftOf="@+id/custom_classify_divide_ll"
-            android:text="营养"
             android:textColor="@color/black_character"
             android:textSize="@dimen/micro_text_size" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:background="@drawable/h_line"
+        android:orientation="vertical" >
+    </LinearLayout>
 
     <com.xgf.winecome.ui.view.CustomGridView
         android:id="@+id/custom_classify_goods_gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="10dip"
+        android:layout_marginLeft="1dip"
+        android:layout_marginRight="1dip"
         android:cacheColorHint="#00000000"
-        android:horizontalSpacing="10dip"
+        android:horizontalSpacing="1dip"
         android:listSelector="@android:color/transparent"
         android:numColumns="2"
-        android:verticalSpacing="10dip" >
+        android:verticalSpacing="1dip" >
     </com.xgf.winecome.ui.view.CustomGridView>
 
     <!-- <com.plmt.boommall.ui.view.listview.HorizontalListView -->

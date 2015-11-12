@@ -60,9 +60,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	 */
 	private ArrayList<PromotionNew> mActivityAreaPromotionList = new ArrayList<PromotionNew>();
 
-	private HorizontalListView mHotGoodsLv;
-	private ArrayList<Goods> mHotGoodsList = new ArrayList<Goods>();
-	private MainGoodsAdapter mHotGoodsAdapter;
+	private HorizontalListView mRecommendGoodsLv;
+	private ArrayList<Goods> mRecommendGoodsList = new ArrayList<Goods>();
+	private MainGoodsAdapter mRecommendGoodsAdapter;
 
 	private LinearLayout mCategoryAndGoodsListLl;
 
@@ -207,9 +207,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void initHLv() {
-		mHotGoodsLv = (HorizontalListView) findViewById(R.id.main_hot_goods_lv);
-		mHotGoodsAdapter = new MainGoodsAdapter(mContext, mHotGoodsList);
-		mHotGoodsLv.setAdapter(mHotGoodsAdapter);
+		mRecommendGoodsLv = (HorizontalListView) findViewById(R.id.main_hot_goods_lv);
+		mRecommendGoodsAdapter = new MainGoodsAdapter(mContext, mRecommendGoodsList);
+		mRecommendGoodsLv.setAdapter(mRecommendGoodsAdapter);
 	}
 
 	private void initGv() {
@@ -270,9 +270,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	
 	private void fillUpRecommendData() {
-		mHotGoodsList.clear();
-		mHotGoodsList.addAll(mRecommendPromotionList.get(0).getGoodsList());
-		mHotGoodsAdapter.notifyDataSetChanged();
+		mRecommendGoodsList.clear();
+		mRecommendGoodsList.addAll(mRecommendPromotionList.get(0).getGoodsList());
+		mRecommendGoodsAdapter.notifyDataSetChanged();
 	}
 
 	private void fillUpActivityAreaData() {

@@ -4,7 +4,6 @@
     android:layout_height="200dip"
     android:background="@drawable/item_selector"
     android:gravity="center"
-    android:padding="5dip"
     android:orientation="vertical" >
 
     <ImageView

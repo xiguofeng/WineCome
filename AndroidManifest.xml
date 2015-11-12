@@ -296,6 +296,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.xgf.winecome.ui.activity.PromotionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.xgf.winecome.pay.alipay.AliPayActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
