@@ -290,6 +290,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.xgf.winecome.ui.activity.MsgActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.xgf.winecome.pay.alipay.AliPayActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -605,7 +611,7 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="4a853065b3f58bc1447b2acb" /> <!-- </>值来自开发者平台取得的AppKey -->
+            android:value="4f312a58d1564e2dbe9fe366" /> <!-- </>值来自开发者平台取得的AppKey -->
         <!-- jpush end -->
     </application>
 
