@@ -113,7 +113,7 @@ public class PromotionActivity extends Activity implements OnClickListener {
 				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,
 						mGoodsList.get(position));
 				intent.putExtras(bundle);
-				intent.setAction(GoodsDetailActivity.ORIGIN_FROM_ADS_ACTION);
+				intent.setAction(GoodsDetailActivity.ORIGIN_FROM_PROMOTION_ACTION);
 				startActivity(intent);
 			}
 		});

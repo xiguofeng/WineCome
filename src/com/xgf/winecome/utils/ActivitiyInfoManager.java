@@ -10,9 +10,7 @@ import android.content.Context;
 public class ActivitiyInfoManager {
 
     public static HashMap<String, Activity> activitityMap= new HashMap<String, Activity>();
-    
-    
-
+   
     public static Activity putActivityMap(String name, Activity activity) {
         return activitityMap.put(name, activity);
     }

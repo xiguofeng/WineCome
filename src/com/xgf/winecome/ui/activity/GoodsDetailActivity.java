@@ -35,6 +35,8 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 	public static final String GOODS_KEY = "GoodsKey";
 
 	public static final String ORIGIN_FROM_ADS_ACTION = "ADS";
+	
+	public static final String ORIGIN_FROM_PROMOTION_ACTION = "PROMOTION";
 
 	public static final String ORIGIN_FROM_MAIN_ACTION = "MAINS";
 
@@ -334,6 +336,11 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 				ActivitiyInfoManager
 						.finishActivity("com.xgf.winecome.ui.activity.SpecialEventsActivity");
 			}
+			if (!TextUtils.isEmpty(mNowAction)
+					&& ORIGIN_FROM_PROMOTION_ACTION.equals(mNowAction)) {
+				ActivitiyInfoManager
+						.finishActivity("com.xgf.winecome.ui.activity.PromotionActivity");
+			}
 			finish();
 			HomeActivity.setTab(HomeActivity.TAB_CART);
 			break;
@@ -370,6 +377,11 @@ public class GoodsDetailActivity extends Activity implements OnClickListener {
 					&& ORIGIN_FROM_ADS_ACTION.equals(mNowAction)) {
 				ActivitiyInfoManager
 						.finishActivity("com.xgf.winecome.ui.activity.SpecialEventsActivity");
+			}
+			if (!TextUtils.isEmpty(mNowAction)
+					&& ORIGIN_FROM_PROMOTION_ACTION.equals(mNowAction)) {
+				ActivitiyInfoManager
+						.finishActivity("com.xgf.winecome.ui.activity.PromotionActivity");
 			}
 			finish();
 			HomeActivity.setTab(HomeActivity.TAB_CART);

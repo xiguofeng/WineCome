@@ -17,6 +17,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -215,6 +217,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		mRecommendGoodsAdapter = new MainGoodsAdapter(mContext,
 				mRecommendGoodsList);
 		mRecommendGoodsLv.setAdapter(mRecommendGoodsAdapter);
+		mRecommendGoodsLv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(mContext, PromotionActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
+						mRecommendPromotionList.get(0));
+				intent.putExtras(bundle);
+				mContext.startActivity(intent);
+			}
+		});
 	}
 
 	private void initGv() {

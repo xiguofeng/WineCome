@@ -79,7 +79,7 @@ public class CustomClassifyView extends LinearLayout {
 		mGoodsGv = (CustomGridView) layout
 				.findViewById(R.id.custom_classify_goods_gv);
 
-		ArrayList<Goods> goodsList = new ArrayList<>();
+		ArrayList<Goods> goodsList = new ArrayList<Goods>();
 		goodsList.addAll(homeRecommend.getGoodsList());
 		mGoodsList.addAll(homeRecommend.getGoodsList());
 
