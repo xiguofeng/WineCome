@@ -166,6 +166,7 @@
     <string name="home_page">首页</string>
     <string name="shopping_cart">购物车</string>
     <string name="more">更多</string>
+    <string name="my">我的</string>
     <string name="search">搜索 </string>
     <string name="search_hint"> 请输入商品名称</string>
     <string name="search_thing">请输入您想要的物品名称</string>

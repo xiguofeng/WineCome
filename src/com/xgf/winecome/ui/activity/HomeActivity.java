@@ -29,6 +29,7 @@ public class HomeActivity extends TabActivity implements
 	public static final String TAG = HomeActivity.class.getSimpleName();
 
 	public static final String TAB_MAIN = "MAIN";
+	public static final String TAB_CATE = "CATE";
 	public static final String TAB_CART = "CART";
 	public static final String TAB_MORE = "MORE";
 
@@ -61,7 +62,9 @@ public class HomeActivity extends TabActivity implements
 	private String mDeliveryTime;
 
 	private static RadioButton mMainRb;
-
+	
+	private static RadioButton mCateRb;
+	
 	private static RadioButton mCartRb;
 
 	private static RadioButton mMoreRb;
@@ -113,6 +116,7 @@ public class HomeActivity extends TabActivity implements
 		mTimingTv = (TextView) findViewById(R.id.home_timer_tv);
 
 		mMainRb = (RadioButton) findViewById(R.id.home_tab_home_rb);
+		mCateRb = (RadioButton) findViewById(R.id.home_tab_cate_rb);
 		mCartRb = (RadioButton) findViewById(R.id.home_tab_cart_rb);
 		mMoreRb = (RadioButton) findViewById(R.id.home_tab_more_rb);
 	}
@@ -121,11 +125,14 @@ public class HomeActivity extends TabActivity implements
 		mTabHost = getTabHost();
 
 		Intent i_home = new Intent(this, MainActivity.class);
+		Intent i_cate = new Intent(this, CategoryActivity.class);
 		Intent i_cart = new Intent(this, ShopCartActivity.class);
 		Intent i_more = new Intent(this, MoreActivity.class);
 
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_MAIN).setIndicator(TAB_MAIN)
 				.setContent(i_home));
+		mTabHost.addTab(mTabHost.newTabSpec(TAB_CATE).setIndicator(TAB_CATE)
+				.setContent(i_cate));
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_CART).setIndicator(TAB_CART)
 				.setContent(i_cart));
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_MORE).setIndicator(TAB_MORE)
@@ -139,6 +146,13 @@ public class HomeActivity extends TabActivity implements
 						switch (checkedId) {
 						case R.id.home_tab_home_rb:
 							mTabHost.setCurrentTabByTag(TAB_MAIN);
+							showOrhHideMainPayBar(false);
+							mCheckAllIb.setChecked(true);
+							showOrHideCartPayBar(true);
+							break;
+							
+						case R.id.home_tab_cate_rb:
+							mTabHost.setCurrentTabByTag(TAB_CATE);
 							showOrHideCartPayBar(false);
 							mCheckAllIb.setChecked(false);
 							if (CartManager.getsCartList().size() > 0) {
@@ -195,6 +209,8 @@ public class HomeActivity extends TabActivity implements
 		mTabHost.setCurrentTabByTag(tab);
 		if (TAB_MAIN.equals(tab)) {
 			mMainRb.setChecked(true);
+		} else if (TAB_CATE.equals(tab)) {
+			mCateRb.setChecked(true);
 		} else if (TAB_CART.equals(tab)) {
 			mCartRb.setChecked(true);
 		} else if (TAB_MORE.equals(tab)) {

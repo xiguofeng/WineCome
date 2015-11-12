@@ -29,7 +29,7 @@
         <RelativeLayout
             android:id="@+id/main_search_rl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dip"
             android:layout_marginLeft="13dip"
             android:layout_marginRight="5dip"
             android:background="@drawable/corners_search_bg_red"
@@ -69,6 +69,7 @@
                 android:paddingLeft="5dip"
                 android:paddingRight="5dip"
                 android:singleLine="true"
+                android:visibility="gone"
                 android:textColor="@color/gray_text" />
 
             <ImageView

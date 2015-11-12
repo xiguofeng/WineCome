@@ -163,48 +163,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void initView() {
 		mMainLl = (LinearLayout) findViewById(R.id.main_bg);
 		mSearchLl = (LinearLayout) findViewById(R.id.main_search_ll);
+		mSearchLl.setOnClickListener(this);
 
 		mSearchIv = (ImageView) findViewById(R.id.main_search_iv);
 		mSearchIv.setOnClickListener(this);
 
 		mSearchEt = (EditText) findViewById(R.id.main_search_et);
-		mSearchEt
-				.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
-					@Override
-					public void onFocusChange(View v, boolean hasFocus) {
-						if (hasFocus) {
-							// 此处为得到焦点时的处理内容
-							mSearchLl.setVisibility(View.GONE);
-							mSearchIv.setVisibility(View.VISIBLE);
-						} else {
-							// 此处为失去焦点时的处理内容
-							mSearchEt.setText("");
-							mSearchLl.setVisibility(View.VISIBLE);
-							mSearchIv.setVisibility(View.GONE);
-						}
-					}
-				});
 
-		mMainLl.setOnTouchListener(new OnTouchListener() {
-
-			public boolean onTouch(View v, MotionEvent event) {
-
-				mMainLl.setFocusable(true);
-				mMainLl.setFocusableInTouchMode(true);
-				mMainLl.requestFocus();
-
-				return false;
-			}
-		});
-
-		mSearchLl.setOnClickListener(new OnClickListener() {
-
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(View v) {
-
-			}
-		});
 		initHLv();
 		initGv();
 		initCircleimage();
@@ -330,7 +295,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			mContext.startActivity(intent);
 			break;
 		}
-
+		
+		case R.id.main_search_ll: {
+			HomeActivity.setTab(HomeActivity.TAB_CATE);
+			break;
+		}
 		default:
 			break;
 		}
