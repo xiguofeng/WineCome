@@ -17,9 +17,8 @@ import android.widget.TextView;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.PromotionNew;
-import com.xgf.winecome.ui.activity.CategoryActivity;
 import com.xgf.winecome.ui.activity.GoodsDetailActivity;
-import com.xgf.winecome.ui.activity.HomeActivity;
+import com.xgf.winecome.ui.activity.PromotionActivity;
 import com.xgf.winecome.ui.adapter.MainGoodsGvAdapter;
 
 public class CustomClassifyView extends LinearLayout {
@@ -27,6 +26,8 @@ public class CustomClassifyView extends LinearLayout {
 	private ImageView mIv;
 
 	private RelativeLayout mCustomClassifyRl;
+	private Context mContext;
+	private PromotionNew mPromotion;
 
 	private TextView mTitleNameTv;
 	private TextView mFirstNameTv;
@@ -37,9 +38,9 @@ public class CustomClassifyView extends LinearLayout {
 	private CustomGridView mGoodsGv;
 	private MainGoodsGvAdapter mGoodsGvAdapter;
 
-	public CustomClassifyView(Context context, PromotionNew classifyGoods) {
+	public CustomClassifyView(Context context, PromotionNew promotion) {
 		super(context);
-		initView(context, classifyGoods);
+		initView(context, promotion);
 		// fillData(context, classifyGoods);
 	}
 
@@ -56,6 +57,12 @@ public class CustomClassifyView extends LinearLayout {
 
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent(mContext, PromotionActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
+						mPromotion);
+				intent.putExtras(bundle);
+				mContext.startActivity(intent);
 			}
 		});
 
@@ -81,19 +88,18 @@ public class CustomClassifyView extends LinearLayout {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent(context, GoodsDetailActivity.class);
-				intent.setAction(GoodsDetailActivity.ORIGIN_FROM_MAIN_ACTION);
-				// Bundle bundle = new Bundle();
-				// bundle.putSerializable(GoodsDetailActivity.GOODS_ID_KEY,
-				// mGoodsList.get(position).getId());
-				// intent.putExtras(bundle);
-				context.startActivity(intent);
+				Intent intent = new Intent(mContext, PromotionActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
+						mPromotion);
+				intent.putExtras(bundle);
+				mContext.startActivity(intent);
 			}
 		});
 
-//		mFirstNameTv.setText(rootNameList.get(0).getSubname());
-//		mSecondNameTv.setText(rootNameList.get(1).getSubname());
-//		mTitleNameTv.setText(homeRecommend.getName());
+		// mFirstNameTv.setText(rootNameList.get(0).getSubname());
+		// mSecondNameTv.setText(rootNameList.get(1).getSubname());
+		// mTitleNameTv.setText(homeRecommend.getName());
 
 		this.addView(layout);
 	}

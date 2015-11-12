@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.xgf.winecome.R;
@@ -60,6 +61,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 */
 	private ArrayList<PromotionNew> mActivityAreaPromotionList = new ArrayList<PromotionNew>();
 
+	private RelativeLayout mRecommendTitleRl;
 	private HorizontalListView mRecommendGoodsLv;
 	private ArrayList<Goods> mRecommendGoodsList = new ArrayList<Goods>();
 	private MainGoodsAdapter mRecommendGoodsAdapter;
@@ -207,8 +209,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void initHLv() {
+		mRecommendTitleRl = (RelativeLayout) findViewById(R.id.main_recommend_title_rl);
+		mRecommendTitleRl.setOnClickListener(this);
 		mRecommendGoodsLv = (HorizontalListView) findViewById(R.id.main_hot_goods_lv);
-		mRecommendGoodsAdapter = new MainGoodsAdapter(mContext, mRecommendGoodsList);
+		mRecommendGoodsAdapter = new MainGoodsAdapter(mContext,
+				mRecommendGoodsList);
 		mRecommendGoodsLv.setAdapter(mRecommendGoodsAdapter);
 	}
 
@@ -268,10 +273,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void fillUpBannerData() {
 		showcircleimage();
 	}
-	
+
 	private void fillUpRecommendData() {
 		mRecommendGoodsList.clear();
-		mRecommendGoodsList.addAll(mRecommendPromotionList.get(0).getGoodsList());
+		mRecommendGoodsList.addAll(mRecommendPromotionList.get(0)
+				.getGoodsList());
 		mRecommendGoodsAdapter.notifyDataSetChanged();
 	}
 
@@ -300,6 +306,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			break;
 		}
+
+		case R.id.main_recommend_title_rl: {
+			Intent intent = new Intent(mContext, PromotionActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
+					mRecommendPromotionList.get(0));
+			intent.putExtras(bundle);
+			mContext.startActivity(intent);
+			break;
+		}
+
 		default:
 			break;
 		}

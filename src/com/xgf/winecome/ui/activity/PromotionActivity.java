@@ -3,20 +3,12 @@ package com.xgf.winecome.ui.activity;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Goods;
-import com.xgf.winecome.network.logic.SpecialEventLogic;
-import com.xgf.winecome.ui.adapter.SpecialEventsGvAdapter;
-import com.xgf.winecome.ui.view.CustomProgressDialog2;
-import com.xgf.winecome.utils.ActivitiyInfoManager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -24,13 +16,25 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.xgf.winecome.R;
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.entity.PromotionNew;
+import com.xgf.winecome.network.logic.SpecialEventLogic;
+import com.xgf.winecome.ui.adapter.SpecialEventsGvAdapter;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
+
 public class PromotionActivity extends Activity implements OnClickListener {
+
+	public static final String PROMOTION_KEY = "PromotionKey";
 
 	private Context mContext;
 
 	private GridView mGoodsGv;
 
 	private ImageView mBackIv;
+
+	private PromotionNew mPromotionNew;
 
 	private SpecialEventsGvAdapter mGvAdapter;
 
@@ -75,8 +79,12 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.special_events);
 		mContext = PromotionActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
-		if (!ActivitiyInfoManager.activitityMap.containsKey(ActivitiyInfoManager.getCurrentActivityName(mContext))) {
-			ActivitiyInfoManager.activitityMap.put(ActivitiyInfoManager.getCurrentActivityName(mContext), this);
+		if (!ActivitiyInfoManager.activitityMap
+				.containsKey(ActivitiyInfoManager
+						.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap
+					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
+							this);
 		}
 		setUpViews();
 		setUpListener();
@@ -87,7 +95,8 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		mBackIv = (ImageView) findViewById(R.id.special_events_back_iv);
 		mGoodsGv = (GridView) findViewById(R.id.special_events_gv);
 
-		mGvAdapter = new SpecialEventsGvAdapter(PromotionActivity.this, mGoodsList);
+		mGvAdapter = new SpecialEventsGvAdapter(PromotionActivity.this,
+				mGoodsList);
 		mGoodsGv.setAdapter(mGvAdapter);
 	}
 
@@ -96,10 +105,13 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		mGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(PromotionActivity.this, GoodsDetailActivity.class);
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(PromotionActivity.this,
+						GoodsDetailActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY, mGoodsList.get(position));
+				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,
+						mGoodsList.get(position));
 				intent.putExtras(bundle);
 				intent.setAction(GoodsDetailActivity.ORIGIN_FROM_ADS_ACTION);
 				startActivity(intent);
@@ -108,26 +120,11 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpData() {
-
-		if (null != mCustomProgressDialog) {
-			mCustomProgressDialog.show();
-		}
-		String jumpToUrl = getIntent().getStringExtra("jumpToUrl");
-		if (!TextUtils.isEmpty(jumpToUrl)) {
-			SpecialEventLogic.getGoodsBySalesPromotionInUrl(mContext, mHandler, jumpToUrl, "0", "20");
-		} else {
-			SpecialEventLogic.getGoodsBySalesPromotion(mContext, mHandler, "0", "20");
-		}
-		// SpecialEventLogic.getGoods(mContext, mHandler);
-
-		// mGoodsList.clear();
-		// for (int i = 0; i < 10; i++) {
-		// Goods goods = new Goods();
-		// goods.setName("酒" + i);
-		// goods.setSalesPrice("￥109");
-		// mGoodsList.add(goods);
-		// }
-		// mGvAdapter.notifyDataSetChanged();
+		mPromotionNew = (PromotionNew) getIntent().getSerializableExtra(
+				PromotionActivity.PROMOTION_KEY);
+		mGoodsList.clear();
+		mGoodsList.addAll(mPromotionNew.getGoodsList());
+		mGvAdapter.notifyDataSetChanged();
 	}
 
 	@Override

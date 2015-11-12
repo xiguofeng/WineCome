@@ -92,8 +92,8 @@ public class MainBannerAdapter extends BaseAdapter {
 					Intent intent = new Intent(mContext,
 							PromotionActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString("jumpToUrl", mDatas.get(index)
-							.getPromotionId());
+					bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
+							mDatas.get(index));
 					intent.putExtras(bundle);
 					mContext.startActivity(intent);
 				}
