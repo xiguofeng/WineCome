@@ -41,6 +41,7 @@ public class CustomClassifyView extends LinearLayout {
 	public CustomClassifyView(Context context, PromotionNew promotion) {
 		super(context);
 		mContext = context;
+		mPromotion = promotion;
 		initView(context, promotion);
 		// fillData(context, classifyGoods);
 	}
