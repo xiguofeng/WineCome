@@ -1,7 +1,5 @@
 package com.xgf.winecome.ui.view.viewflow;
 
-import com.xgf.winecome.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+
+import com.xgf.winecome.R;
 
 public class CircleFlowIndicator extends View implements FlowIndicator,
 		AnimationListener {
