@@ -35,6 +35,7 @@ import com.xgf.winecome.ui.adapter.MainBannerAdapter;
 import com.xgf.winecome.ui.adapter.MainGoodsAdapter;
 import com.xgf.winecome.ui.view.CustomClassifyView;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.ui.view.PromotionView;
 import com.xgf.winecome.ui.view.listview.HorizontalListView;
 import com.xgf.winecome.ui.view.viewflow.CircleFlowIndicator;
 import com.xgf.winecome.ui.view.viewflow.ViewFlow;
@@ -262,11 +263,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void fillUpActivityAreaData() {
 		mCategoryAndGoodsListLl.removeAllViews();
-		for (PromotionNew promotionNew : mActivityAreaPromotionList) {
-			CustomClassifyView cv = new CustomClassifyView(mContext,
-					promotionNew);
-			mCategoryAndGoodsListLl.addView(cv);
-		}
+		PromotionView pv = new PromotionView(mContext, mActivityAreaPromotionList);
+		mCategoryAndGoodsListLl.addView(pv);
+		// for (PromotionNew promotionNew : mActivityAreaPromotionList) {
+		// CustomClassifyView cv = new CustomClassifyView(mContext,
+		// promotionNew);
+		// mCategoryAndGoodsListLl.addView(cv);
+		// }
 	}
 
 	@Override
