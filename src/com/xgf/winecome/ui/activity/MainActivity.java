@@ -186,7 +186,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		mRecommendGoodsLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				Intent intent = new Intent(mContext, PromotionActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
@@ -263,7 +264,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void fillUpActivityAreaData() {
 		mCategoryAndGoodsListLl.removeAllViews();
-		PromotionView pv = new PromotionView(mContext, mActivityAreaPromotionList);
+		PromotionView pv = new PromotionView(mContext,
+				mActivityAreaPromotionList);
 		mCategoryAndGoodsListLl.addView(pv);
 		// for (PromotionNew promotionNew : mActivityAreaPromotionList) {
 		// CustomClassifyView cv = new CustomClassifyView(mContext,
@@ -298,8 +300,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			mContext.startActivity(intent);
 			break;
 		}
-		
+
 		case R.id.main_search_ll: {
+			CategoryActivity.isSearchFocus = true;
 			HomeActivity.setTab(HomeActivity.TAB_CATE);
 			break;
 		}
