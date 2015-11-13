@@ -382,6 +382,7 @@ public class CategoryActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		refreshGoods();
+		mSearchEt.requestFocus();
 	}
 
 	private static void refreshGoods() {

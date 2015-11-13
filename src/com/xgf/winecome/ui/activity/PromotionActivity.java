@@ -16,11 +16,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.PromotionNew;
 import com.xgf.winecome.network.logic.SpecialEventLogic;
 import com.xgf.winecome.ui.adapter.SpecialEventsGvAdapter;
+import com.xgf.winecome.ui.view.CustomGridView;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
 
@@ -30,11 +32,13 @@ public class PromotionActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
 
-	private GridView mGoodsGv;
+	private CustomGridView mGoodsGv;
 
 	private ImageView mBackIv;
+	
+	private ImageView mPromotionIv;
 
-	private PromotionNew mPromotionNew;
+	private PromotionNew mPromotion;
 
 	private SpecialEventsGvAdapter mGvAdapter;
 
@@ -76,7 +80,7 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.special_events);
+		setContentView(R.layout.promotion);
 		mContext = PromotionActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		if (!ActivitiyInfoManager.activitityMap
@@ -92,8 +96,10 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpViews() {
-		mBackIv = (ImageView) findViewById(R.id.special_events_back_iv);
-		mGoodsGv = (GridView) findViewById(R.id.special_events_gv);
+		mBackIv = (ImageView) findViewById(R.id.promotion_back_iv);
+		
+		mPromotionIv= (ImageView) findViewById(R.id.promotion_iv);
+		mGoodsGv = (CustomGridView) findViewById(R.id.promotion_gv);
 
 		mGvAdapter = new SpecialEventsGvAdapter(PromotionActivity.this,
 				mGoodsList);
@@ -120,10 +126,12 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpData() {
-		mPromotionNew = (PromotionNew) getIntent().getSerializableExtra(
+		mPromotion = (PromotionNew) getIntent().getSerializableExtra(
 				PromotionActivity.PROMOTION_KEY);
+
+		ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(), mPromotionIv);
 		mGoodsList.clear();
-		mGoodsList.addAll(mPromotionNew.getGoodsList());
+		mGoodsList.addAll(mPromotion.getGoodsList());
 		mGvAdapter.notifyDataSetChanged();
 	}
 
@@ -138,7 +146,7 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.special_events_back_iv: {
+		case R.id.promotion_back_iv: {
 			finish();
 			break;
 		}

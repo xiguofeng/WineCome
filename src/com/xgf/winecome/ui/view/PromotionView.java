@@ -60,12 +60,6 @@ public class PromotionView extends LinearLayout {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(mContext, PromotionActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
-						mPromotion);
-				intent.putExtras(bundle);
-				mContext.startActivity(intent);
 			}
 		});
 
