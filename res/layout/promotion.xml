@@ -42,13 +42,14 @@
             <ImageView
                 android:id="@+id/promotion_iv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dip"
                 android:contentDescription="@null"
                 android:padding="2dip"
                 android:scaleType="centerCrop" />
 
             <com.xgf.winecome.ui.view.CustomGridView
                 android:id="@+id/promotion_gv"
+                android:layout_marginTop="10dip"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="6dip"
