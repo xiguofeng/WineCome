@@ -29,7 +29,7 @@
     </RelativeLayout>
 
     <com.xgf.winecome.ui.view.BorderScrollView
-        android:id="@+id/main_sv"
+        android:id="@+id/promotion_sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none" >
@@ -40,9 +40,11 @@
             android:orientation="vertical" >
 
             <ImageView
+                android:layout_marginTop="5dip"
                 android:id="@+id/promotion_iv"
                 android:layout_width="match_parent"
                 android:layout_height="160dip"
+                android:focusable="true"
                 android:contentDescription="@null"
                 android:padding="2dip"
                 android:scaleType="centerCrop" />
@@ -61,6 +63,7 @@
                 android:numColumns="2"
                 android:scrollbars="none"
                 android:scrollingCache="false"
+                android:focusable="false"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="10dp" >
             </com.xgf.winecome.ui.view.CustomGridView>

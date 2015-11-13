@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
@@ -22,6 +22,7 @@ import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.PromotionNew;
 import com.xgf.winecome.network.logic.SpecialEventLogic;
 import com.xgf.winecome.ui.adapter.SpecialEventsGvAdapter;
+import com.xgf.winecome.ui.view.BorderScrollView;
 import com.xgf.winecome.ui.view.CustomGridView;
 import com.xgf.winecome.ui.view.CustomProgressDialog2;
 import com.xgf.winecome.utils.ActivitiyInfoManager;
@@ -35,8 +36,10 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	private CustomGridView mGoodsGv;
 
 	private ImageView mBackIv;
-	
+
 	private ImageView mPromotionIv;
+
+	private BorderScrollView mScrollView;
 
 	private PromotionNew mPromotion;
 
@@ -96,9 +99,10 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	}
 
 	private void setUpViews() {
+		mScrollView = (BorderScrollView) findViewById(R.id.promotion_sv);
 		mBackIv = (ImageView) findViewById(R.id.promotion_back_iv);
-		
-		mPromotionIv= (ImageView) findViewById(R.id.promotion_iv);
+
+		mPromotionIv = (ImageView) findViewById(R.id.promotion_iv);
 		mGoodsGv = (CustomGridView) findViewById(R.id.promotion_gv);
 
 		mGvAdapter = new SpecialEventsGvAdapter(PromotionActivity.this,
@@ -108,6 +112,7 @@ public class PromotionActivity extends Activity implements OnClickListener {
 
 	private void setUpListener() {
 		mBackIv.setOnClickListener(this);
+		mGoodsGv.clearFocus();
 		mGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -128,11 +133,19 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	private void setUpData() {
 		mPromotion = (PromotionNew) getIntent().getSerializableExtra(
 				PromotionActivity.PROMOTION_KEY);
-
-		ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(), mPromotionIv);
 		mGoodsList.clear();
 		mGoodsList.addAll(mPromotion.getGoodsList());
 		mGvAdapter.notifyDataSetChanged();
+
+		ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(),
+				mPromotionIv);
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mScrollView.smoothScrollTo(0, 0);
 	}
 
 	@Override
