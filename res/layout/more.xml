@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="10dip"
-            android:text="@string/my"
+            android:text="@string/more"
             android:textColor="@color/white"
             android:textSize="@dimen/large_text_size" />
     </LinearLayout>

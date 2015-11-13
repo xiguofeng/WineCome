@@ -57,10 +57,10 @@ public class MainGoodsAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.mName = (TextView) convertView
 					.findViewById(R.id.main_hori_goods_name_tv);
-			// holder.mPrice = (TextView) convertView
-			// .findViewById(R.id.goods_price_tv);
-			// holder.mOriginalPrice = (TextView) convertView
-			// .findViewById(R.id.goods_original_prices_tv);
+			holder.mPrice = (TextView) convertView
+					.findViewById(R.id.main_hori_goods_price_tv);
+//			holder.mOriginalPrice = (TextView) convertView
+//					.findViewById(R.id.goods_original_prices_tv);
 
 			holder.mIcon = (ImageView) convertView
 					.findViewById(R.id.main_hori_goods_icon_iv);
@@ -71,7 +71,7 @@ public class MainGoodsAdapter extends BaseAdapter {
 		}
 
 		holder.mName.setText(mDatas.get(position).getName());
-		// holder.mPrice.setText("￥" + mDatas.get(position).getFinalPrice());
+		holder.mPrice.setText("促销价：￥" + mDatas.get(position).getPromotionPrice());
 		// holder.mOriginalPrice.setText("原价￥" +
 		// mDatas.get(position).getPrice());
 

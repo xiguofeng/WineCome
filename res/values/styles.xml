@@ -36,7 +36,7 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">46dip</item>
+        <item name="android:layout_height">50dip</item>
         <item name="android:button">@null</item>
         <item name="android:layout_weight">1.0</item>
     </style>

@@ -63,24 +63,6 @@ public class MainBannerAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		int tempPosition = position % 3;
-		if (0 == position % 3) {
-			holder.mBannerIcon.setImageDrawable(mContext.getResources()
-					.getDrawable(R.drawable.banner1));
-		} else if (1 == position % 3) {
-			holder.mBannerIcon.setImageDrawable(mContext.getResources()
-					.getDrawable(R.drawable.banner2));
-		} else {
-			holder.mBannerIcon.setImageDrawable(mContext.getResources()
-					.getDrawable(R.drawable.banner3));
-		}
-		//
-		// if (!TextUtils.isEmpty(mDatas.get(tempPosition).getImgUrl())) {
-		// ImageLoader.getInstance().displayImage(mDatas.get(tempPosition).getImgUrl(),
-		// holder.mBannerIcon);
-		// }
-		// ImageLoader.getInstance().displayImage(
-		// mDatas.get(position % 3).getIconUrl(), holder.mBannerIcon);
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
