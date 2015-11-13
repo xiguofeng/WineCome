@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class IntegralOrderListActivity extends Activity implements
 
 	private Context mContext;
 
+	private ImageView mBackIv;
+	
 	private ListView mOrderLv;
 
 	private IntegralOrderAdapter mAdapter;
@@ -94,6 +97,8 @@ public class IntegralOrderListActivity extends Activity implements
 
 	private void initView() {
 		mContext = IntegralOrderListActivity.this;
+		mBackIv= (ImageView) findViewById(R.id.integral_order_list_back_iv);
+		
 		mOrderLv = (ListView) findViewById(R.id.integral_order_list_lv);
 		mAdapter = new IntegralOrderAdapter(mContext, mIntegralGoodsList);
 		mOrderLv.setAdapter(mAdapter);
@@ -111,6 +116,14 @@ public class IntegralOrderListActivity extends Activity implements
 
 	@Override
 	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.integral_order_list_back_iv: {
+			finish();
+			break;
+		}
+		default:
+			break;
+		}
 	}
 
 }
