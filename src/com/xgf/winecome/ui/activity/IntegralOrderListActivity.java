@@ -98,6 +98,7 @@ public class IntegralOrderListActivity extends Activity implements
 	private void initView() {
 		mContext = IntegralOrderListActivity.this;
 		mBackIv= (ImageView) findViewById(R.id.integral_order_list_back_iv);
+		mBackIv.setOnClickListener(this);
 		
 		mOrderLv = (ListView) findViewById(R.id.integral_order_list_lv);
 		mAdapter = new IntegralOrderAdapter(mContext, mIntegralGoodsList);
