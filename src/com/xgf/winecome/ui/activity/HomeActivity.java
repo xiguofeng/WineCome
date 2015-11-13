@@ -153,7 +153,7 @@ public class HomeActivity extends TabActivity implements
 							
 						case R.id.home_tab_cate_rb:
 							mTabHost.setCurrentTabByTag(TAB_CATE);
-							showOrHideCartPayBar(false);
+							showOrHideCartPayBar(true);
 							mCheckAllIb.setChecked(false);
 							if (CartManager.getsCartList().size() > 0) {
 								showOrhHideMainPayBar(true);
@@ -239,7 +239,7 @@ public class HomeActivity extends TabActivity implements
 
 	public static void showOrhHideMainPayBar(boolean flag) {
 		mPayMenuRl.setVisibility(View.VISIBLE);
-		if (flag && mTabHost.getCurrentTabTag().endsWith(TAB_MAIN)) {
+		if (flag && mTabHost.getCurrentTabTag().endsWith(TAB_CATE)) {
 			mMainPayMenuLl.setVisibility(View.VISIBLE);
 			mCartPayMenuLl.setVisibility(View.GONE);
 		} else {
