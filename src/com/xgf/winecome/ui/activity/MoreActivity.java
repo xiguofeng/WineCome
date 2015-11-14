@@ -24,6 +24,7 @@ public class MoreActivity extends Activity implements OnClickListener {
 	private RelativeLayout mIntegralExchangeRl;
 	private RelativeLayout mQrCodeRl;
 	private RelativeLayout mCustomerServiceRl;
+	private RelativeLayout mMsgHistoryRl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class MoreActivity extends Activity implements OnClickListener {
 		mIntegralExchangeRl = (RelativeLayout) findViewById(R.id.more_integral_exchange_rl);
 		mQrCodeRl = (RelativeLayout) findViewById(R.id.more_qrcode_rl);
 		mCustomerServiceRl = (RelativeLayout) findViewById(R.id.more_customer_service_rl);
+		mMsgHistoryRl= (RelativeLayout) findViewById(R.id.more_msg_history_rl);
 
 		mOrderRl.setOnClickListener(this);
 		mIntegralMallRl.setOnClickListener(this);
@@ -47,6 +49,7 @@ public class MoreActivity extends Activity implements OnClickListener {
 		mIntegralExchangeRl.setOnClickListener(this);
 		mQrCodeRl.setOnClickListener(this);
 		mCustomerServiceRl.setOnClickListener(this);
+		mMsgHistoryRl.setOnClickListener(this);
 	}
 
 	private void initData() {
@@ -120,6 +123,11 @@ public class MoreActivity extends Activity implements OnClickListener {
 									startActivity(intent);
 								}
 							}).show();
+			break;
+		}
+		case R.id.more_msg_history_rl: {
+			Intent intent = new Intent(MoreActivity.this, MsgActivity.class);
+			startActivity(intent);
 			break;
 		}
 
