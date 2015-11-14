@@ -11,17 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Msg;
+import com.xgf.winecome.entity.MessageItem;
 
 public class MsgAdapter extends BaseAdapter {
 
 	private Context mContext;
 
-	private ArrayList<Msg> mDatas;
+	private ArrayList<MessageItem> mDatas;
 
 	private LayoutInflater mInflater;
 
-	public MsgAdapter(Context context, ArrayList<Msg> datas) {
+	public MsgAdapter(Context context, ArrayList<MessageItem> datas) {
 		this.mContext = context;
 		this.mDatas = datas;
 		mInflater = LayoutInflater.from(mContext);
@@ -65,7 +65,7 @@ public class MsgAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mName.setText(mDatas.get(position).getTitle().trim());
+		//holder.mName.setText(mDatas.get(position).getTitle().trim());
 		holder.mContent.setText(mDatas.get(position).getContent().trim());
 		// holder.mOriginalPrice.setText("原价￥" +
 		// mDatas.get(position).getPrice());

@@ -1,6 +1,7 @@
 package com.xgf.winecome.ui.activity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,8 +17,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.xgf.winecome.R;
-import com.xgf.winecome.entity.Msg;
+import com.xgf.winecome.entity.MessageItem;
+import com.xgf.winecome.network.logic.PromotionLogic;
+import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.ui.adapter.MsgAdapter;
+import com.xgf.winecome.ui.view.CustomProgressDialog2;
+import com.xgf.winecome.utils.ActivitiyInfoManager;
 
 public class MsgActivity extends Activity implements OnClickListener {
 
@@ -31,26 +36,37 @@ public class MsgActivity extends Activity implements OnClickListener {
 
 	private ListView mMsgLv;
 	private MsgAdapter mMsgAdapter;
-	private ArrayList<Msg> mMsgList = new ArrayList<Msg>();
+	private ArrayList<MessageItem> mMsgList = new ArrayList<MessageItem>();
 
+	protected CustomProgressDialog2 mCustomProgressDialog;
+	
 	Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case SUC: {
+			case UserLogic.MSG_LIST_GET_SUC: {
+				if(null!=msg.obj){
+					mMsgList.clear();
+					mMsgList.addAll((Collection<? extends MessageItem>) msg.obj);
+					mMsgAdapter.notifyDataSetChanged();
+				}
 				break;
 
 			}
-			case FAIL: {
+			case UserLogic.MSG_LIST_GET_FAIL: {
 				break;
 			}
-
+			case UserLogic.MSG_LIST_GET_EXCEPTION: {
+				break;
+			}
 			default:
 				break;
 			}
-
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.dismiss();
+			}
 		}
 
 	};
@@ -59,6 +75,10 @@ public class MsgActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.msg);
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
+		if (!ActivitiyInfoManager.activitityMap.containsKey(ActivitiyInfoManager.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap.put(ActivitiyInfoManager.getCurrentActivityName(mContext), this);
+		}
 		initView();
 		initData();
 
@@ -92,7 +112,8 @@ public class MsgActivity extends Activity implements OnClickListener {
 	}
 
 	private void initData() {
-		mMsgList.clear();
+		mCustomProgressDialog.show();
+		UserLogic.queryMessage(mContext, mHandler,"17712888306", "1", "15");
 	}
 
 	@Override

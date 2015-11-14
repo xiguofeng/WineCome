@@ -148,7 +148,7 @@ public class PromotionLogic {
 	}
 	
 	public static void getPromotionById(final Context context,
-			final Handler handler,final String id) {
+			final Handler handler,final String promotionId,final String pageNum,final String pageSize) {
 
 		new Thread(new Runnable() {
 
@@ -156,7 +156,10 @@ public class PromotionLogic {
 			public void run() {
 				try {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
-							RequestUrl.promotion.queryPromotionV2);
+							RequestUrl.promotion.getPromotionProductsV2);
+					rpc.addProperty("promotionId", URLEncoder.encode(promotionId, "UTF-8"));
+					rpc.addProperty("pageNum", URLEncoder.encode(pageNum, "UTF-8"));
+					rpc.addProperty("pageSize", URLEncoder.encode(pageSize, "UTF-8"));
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(
 							RequestUrl.HOST_URL);
@@ -168,7 +171,7 @@ public class PromotionLogic {
 					envelope.setOutputSoapObject(rpc);
 
 					ht.call(RequestUrl.NAMESPACE + "/"
-							+ RequestUrl.promotion.queryPromotionV2, envelope);
+							+ RequestUrl.promotion.getPromotionProductsV2, envelope);
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);

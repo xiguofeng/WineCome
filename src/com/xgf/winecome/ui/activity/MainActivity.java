@@ -31,6 +31,7 @@ import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.PromotionNew;
 import com.xgf.winecome.network.logic.AppLogic;
 import com.xgf.winecome.network.logic.PromotionLogic;
+import com.xgf.winecome.network.logic.UserLogic;
 import com.xgf.winecome.ui.adapter.MainBannerAdapter;
 import com.xgf.winecome.ui.adapter.MainGoodsAdapter;
 import com.xgf.winecome.ui.view.CustomClassifyView;
@@ -261,6 +262,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		mRecommendGoodsList.addAll(mRecommendPromotionList.get(0)
 				.getGoodsList());
 		mRecommendGoodsAdapter.notifyDataSetChanged();
+		
+		PromotionLogic.getPromotionById(mContext, mHandler, mRecommendPromotionList.get(0).getPromotionId(),"1","15");
 	}
 
 	private void fillUpActivityAreaData() {

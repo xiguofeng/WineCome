@@ -144,7 +144,7 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		} else if (ORIGIN_FROM_PUSH_ACTION.equals(mNowAction)) {
 			mCustomProgressDialog.show();
 			String id = getIntent().getStringExtra("id");
-			PromotionLogic.getPromotionById(mContext, mHandler, id);
+			PromotionLogic.getPromotionById(mContext, mHandler, id,"0","15");
 		}
 	}
 

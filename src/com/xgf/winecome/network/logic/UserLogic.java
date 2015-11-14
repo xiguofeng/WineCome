@@ -3,7 +3,9 @@ package com.xgf.winecome.network.logic;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
@@ -12,9 +14,13 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.xgf.winecome.entity.Goods;
+import com.xgf.winecome.entity.MessageItem;
+import com.xgf.winecome.entity.PromotionNew;
 import com.xgf.winecome.entity.User;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
+import com.xgf.winecome.utils.JsonUtils;
 
 import android.content.Context;
 import android.os.Handler;
@@ -49,6 +55,12 @@ public class UserLogic {
 	public static final int SEND_AUTHCODE_FAIL = SEND_AUTHCODE_SUC + 1;
 
 	public static final int SEND_AUTHCODE_EXCEPTION = SEND_AUTHCODE_FAIL + 1;
+	
+	public static final int MSG_LIST_GET_SUC = SEND_AUTHCODE_EXCEPTION + 1;
+
+	public static final int MSG_LIST_GET_FAIL = MSG_LIST_GET_SUC + 1;
+
+	public static final int MSG_LIST_GET_EXCEPTION = MSG_LIST_GET_FAIL + 1;
 
 	public static void login(final Context context, final Handler handler,
 			final User user) {
@@ -198,6 +210,89 @@ public class UserLogic {
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(SEND_AUTHCODE_EXCEPTION);
+		}
+	}
+	
+	public static void queryMessage(final Context context,
+			final Handler handler,final String phone,final String pageNum,final String pageSize) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.msg.queryMessage);
+					rpc.addProperty("phone", URLEncoder.encode(phone, "UTF-8"));
+					rpc.addProperty("pageNum", URLEncoder.encode(pageNum, "UTF-8"));
+					rpc.addProperty("pageSize", URLEncoder.encode(pageSize, "UTF-8"));
+					rpc.addProperty("md5", URLEncoder.encode("", "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.msg.queryMessage, envelope);
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+
+					Log.e("xxx_queryMessage", resultStr);
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseQueryMessageData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	private static void parseQueryMessageData(JSONObject response,
+			Handler handler) {
+		try {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
+				JSONObject categoryJsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+		
+					JSONArray msgListArray = categoryJsonObject
+							.getJSONArray("list");
+					ArrayList<MessageItem> msgList = new ArrayList<MessageItem>();
+					for (int k = 0; k < msgListArray.length(); k++) {
+						JSONObject msgJsonObject = msgListArray
+								.getJSONObject(k);
+						MessageItem msg = (MessageItem) JsonUtils.fromJsonToJava(
+								msgJsonObject, MessageItem.class);
+						msgList.add(msg);
+					}
+
+				Message message = new Message();
+				message.what = MSG_LIST_GET_SUC;
+				message.obj = msgList;
+				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(MSG_LIST_GET_FAIL);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(MSG_LIST_GET_EXCEPTION);
 		}
 	}
 

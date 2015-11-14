@@ -27,6 +27,11 @@ public class RequestUrl {
 		 * 根据分类查询促销信息
 		 */
 		public String queryPromotionV2 = "queryPromotionV2";
+		
+		/**
+		 * 根据id查询促销信息
+		 */
+		public String getPromotionProductsV2 = "getPromotionProductsV2";
 	}
 
 	public interface app {
@@ -42,7 +47,11 @@ public class RequestUrl {
 		 * 连接 获取推送
 		 */
 		public String pushMsg = "pushMsg";
-
+		
+		/**
+		 * 获取消息历史
+		 */
+		public String queryMessage = "queryMessage";		
 	}
 
 	public interface account {

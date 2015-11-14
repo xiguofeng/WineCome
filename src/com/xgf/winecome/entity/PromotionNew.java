@@ -7,6 +7,8 @@ public class PromotionNew implements Serializable {
 
 	private static final long serialVersionUID = 8912365559481657349L;
 
+	private String id;
+
 	private String promotionId;
 
 	private String startTime;
@@ -28,6 +30,14 @@ public class PromotionNew implements Serializable {
 	private String dh;
 	
 	private ArrayList<Goods> goodsList;
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getPromotionId() {
 		return promotionId;
