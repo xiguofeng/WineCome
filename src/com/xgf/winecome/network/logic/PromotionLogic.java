@@ -44,6 +44,12 @@ public class PromotionLogic {
 	public static final int PROMOTION_BANNER_LIST_GET_FAIL = PROMOTION_BANNER_LIST_GET_SUC + 1;
 
 	public static final int PROMOTION_BANNER_LIST_GET_EXCEPTION = PROMOTION_BANNER_LIST_GET_FAIL + 1;
+	
+	public static final int PROMOTION_GET_SUC = NET_ERROR + 1;
+
+	public static final int PROMOTION_GET_FAIL = PROMOTION_GET_SUC + 1;
+
+	public static final int PROMOTION_GET_EXCEPTION = PROMOTION_BANNER_LIST_GET_FAIL + 1;
 
 	public static void getAllPromotion(final Context context,
 			final Handler handler) {
@@ -140,5 +146,93 @@ public class PromotionLogic {
 			handler.sendEmptyMessage(PROMOTION_ALL_LIST_GET_EXCEPTION);
 		}
 	}
+	
+	public static void getPromotionById(final Context context,
+			final Handler handler,final String id) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.promotion.queryPromotionV2);
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.promotion.queryPromotionV2, envelope);
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+
+					Log.e("xxx_getPromotionById", resultStr);
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parsePromotionByIdData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	private static void parsePromotionByIdData(JSONObject response,
+			Handler handler) {
+		try {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
+				JSONObject categoryJsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+		
+					JSONArray goodsListArray = categoryJsonObject
+							.getJSONArray("items");
+					ArrayList<Goods> goodsList = new ArrayList<Goods>();
+					for (int k = 0; k < goodsListArray.length(); k++) {
+						JSONObject goodsJsonObject = goodsListArray
+								.getJSONObject(k);
+						Goods goods = (Goods) JsonUtils.fromJsonToJava(
+								goodsJsonObject, Goods.class);
+						goodsList.add(goods);
+					}
+
+					PromotionNew promotion = (PromotionNew) JsonUtils
+							.fromJsonToJava(categoryJsonObject,
+									PromotionNew.class);
+
+					ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
+					promotion.setGoodsList(tempGoodsList);
+					promotion.getGoodsList().addAll(goodsList);
+
+				Message message = new Message();
+				message.what = PROMOTION_GET_SUC;
+				message.obj = promotion;
+				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(PROMOTION_GET_FAIL);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(PROMOTION_GET_EXCEPTION);
+		}
+	}
+
 
 }

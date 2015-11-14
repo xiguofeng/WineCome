@@ -60,6 +60,7 @@ public class CustomClassifyView extends LinearLayout {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mContext, PromotionActivity.class);
+				intent.setAction(PromotionActivity.ORIGIN_FROM_MAIN_ACTION);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
 						mPromotion);
@@ -91,6 +92,7 @@ public class CustomClassifyView extends LinearLayout {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(mContext, PromotionActivity.class);
+				intent.setAction(PromotionActivity.ORIGIN_FROM_MAIN_ACTION);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
 						mPromotion);

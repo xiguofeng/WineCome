@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.Goods;
 import com.xgf.winecome.entity.PromotionNew;
+import com.xgf.winecome.network.logic.PromotionLogic;
 import com.xgf.winecome.network.logic.SpecialEventLogic;
 import com.xgf.winecome.ui.adapter.SpecialEventsGvAdapter;
 import com.xgf.winecome.ui.view.BorderScrollView;
@@ -30,6 +31,10 @@ import com.xgf.winecome.utils.ActivitiyInfoManager;
 public class PromotionActivity extends Activity implements OnClickListener {
 
 	public static final String PROMOTION_KEY = "PromotionKey";
+
+	public static final String ORIGIN_FROM_PUSH_ACTION = "PUSH";
+
+	public static final String ORIGIN_FROM_MAIN_ACTION = "MAIN";
 
 	private Context mContext;
 
@@ -47,6 +52,8 @@ public class PromotionActivity extends Activity implements OnClickListener {
 
 	private ArrayList<Goods> mGoodsList = new ArrayList<Goods>();
 
+	private String mNowAction = ORIGIN_FROM_MAIN_ACTION;
+
 	protected CustomProgressDialog2 mCustomProgressDialog;
 
 	Handler mHandler = new Handler() {
@@ -55,18 +62,21 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case SpecialEventLogic.GOODS_LIST_GET_SUC: {
+			case PromotionLogic.PROMOTION_GET_SUC: {
 				if (null != msg.obj) {
+					mPromotion = (PromotionNew) msg.obj;
 					mGoodsList.clear();
-					mGoodsList.addAll((Collection<? extends Goods>) msg.obj);
+					mGoodsList.addAll(mPromotion.getGoodsList());
 					mGvAdapter.notifyDataSetChanged();
+
+					ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(), mPromotionIv);
 				}
 				break;
 			}
-			case SpecialEventLogic.GOODS_LIST_GET_FAIL: {
+			case PromotionLogic.PROMOTION_GET_FAIL: {
 				break;
 			}
-			case SpecialEventLogic.GOODS_LIST_GET_EXCEPTION: {
+			case PromotionLogic.PROMOTION_GET_EXCEPTION: {
 				break;
 			}
 
@@ -86,12 +96,8 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.promotion);
 		mContext = PromotionActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
-		if (!ActivitiyInfoManager.activitityMap
-				.containsKey(ActivitiyInfoManager
-						.getCurrentActivityName(mContext))) {
-			ActivitiyInfoManager.activitityMap
-					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
-							this);
+		if (!ActivitiyInfoManager.activitityMap.containsKey(ActivitiyInfoManager.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap.put(ActivitiyInfoManager.getCurrentActivityName(mContext), this);
 		}
 		setUpViews();
 		setUpListener();
@@ -105,8 +111,7 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		mPromotionIv = (ImageView) findViewById(R.id.promotion_iv);
 		mGoodsGv = (CustomGridView) findViewById(R.id.promotion_gv);
 
-		mGvAdapter = new SpecialEventsGvAdapter(PromotionActivity.this,
-				mGoodsList);
+		mGvAdapter = new SpecialEventsGvAdapter(PromotionActivity.this, mGoodsList);
 		mGoodsGv.setAdapter(mGvAdapter);
 	}
 
@@ -116,30 +121,31 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		mGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Intent intent = new Intent(PromotionActivity.this,
-						GoodsDetailActivity.class);
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(PromotionActivity.this, GoodsDetailActivity.class);
+				intent.setAction(PromotionActivity.ORIGIN_FROM_MAIN_ACTION);
 				Bundle bundle = new Bundle();
-				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,
-						mGoodsList.get(position));
+				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY, mGoodsList.get(position));
 				intent.putExtras(bundle);
-				intent.setAction(GoodsDetailActivity.ORIGIN_FROM_PROMOTION_ACTION);
 				startActivity(intent);
 			}
 		});
 	}
 
 	private void setUpData() {
-		mPromotion = (PromotionNew) getIntent().getSerializableExtra(
-				PromotionActivity.PROMOTION_KEY);
-		mGoodsList.clear();
-		mGoodsList.addAll(mPromotion.getGoodsList());
-		mGvAdapter.notifyDataSetChanged();
+		mNowAction = getIntent().getAction();
+		if (ORIGIN_FROM_MAIN_ACTION.equals(mNowAction)) {
+			mPromotion = (PromotionNew) getIntent().getSerializableExtra(PromotionActivity.PROMOTION_KEY);
+			mGoodsList.clear();
+			mGoodsList.addAll(mPromotion.getGoodsList());
+			mGvAdapter.notifyDataSetChanged();
 
-		ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(),
-				mPromotionIv);
-
+			ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(), mPromotionIv);
+		} else if (ORIGIN_FROM_PUSH_ACTION.equals(mNowAction)) {
+			mCustomProgressDialog.show();
+			String id = getIntent().getStringExtra("id");
+			PromotionLogic.getPromotionById(mContext, mHandler, id);
+		}
 	}
 
 	@Override

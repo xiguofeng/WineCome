@@ -73,6 +73,7 @@ public class MainBannerAdapter extends BaseAdapter {
 					// 在这里可以设置跳转界面
 					Intent intent = new Intent(mContext,
 							PromotionActivity.class);
+					intent.setAction(PromotionActivity.ORIGIN_FROM_MAIN_ACTION);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
 							mDatas.get(index));

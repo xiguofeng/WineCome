@@ -9,11 +9,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 
 import com.xgf.winecome.entity.Msg;
+import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.ui.activity.MsgActivity;
+import com.xgf.winecome.ui.activity.PromotionActivity;
 
 /**
  * 自定义接收器
@@ -22,6 +25,8 @@ import com.xgf.winecome.ui.activity.MsgActivity;
  */
 public class MyReceiver extends BroadcastReceiver {
 	private static final String TAG = "JPush";
+
+	private static String sExMsg;
 
 	private static ArrayList<Msg> mMsgList = new ArrayList<Msg>();
 
@@ -47,12 +52,23 @@ public class MyReceiver extends BroadcastReceiver {
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
 			Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
-			// 打开自定义的Activity
-			Intent i = new Intent(context, MsgActivity.class);
-			i.putExtras(bundle);
-			// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			context.startActivity(i);
+			if (!TextUtils.isEmpty(sExMsg)) {
+				try {
+					JSONObject obj = new JSONObject(sExMsg);
+					String type = obj.getString("msg_type").trim();
+					if ("2".equals(type)) {
+						// 打开自定义的Activity
+						String id = obj.getString("activity_no").trim();
+						Intent i = new Intent(context, PromotionActivity.class);
+						i.setAction(PromotionActivity.ORIGIN_FROM_PUSH_ACTION);
+						i.putExtra("id", id);
+						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						context.startActivity(i);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 			Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
@@ -77,8 +93,10 @@ public class MyReceiver extends BroadcastReceiver {
 				sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
 			} else if (key.equals("cn.jpush.android.EXTRA")) {
 				Log.e("Jpush_EXTRA", bundle.getString(key).toString());
-				//TODO
-				//msgDataSave(bundle.getString(key).toString());
+				// TODO
+				sExMsg = bundle.getString(key).toString();
+				// {"activity_no":"003","msg_type":"2"}
+				// msgDataSave(bundle.getString(key).toString());
 				sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
 			} else {
 				sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
@@ -109,5 +127,4 @@ public class MyReceiver extends BroadcastReceiver {
 		}
 	}
 
-	
 }

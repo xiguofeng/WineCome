@@ -189,6 +189,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(mContext, PromotionActivity.class);
+				intent.setAction(PromotionActivity.ORIGIN_FROM_MAIN_ACTION);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
 						mRecommendPromotionList.get(0));
@@ -296,6 +297,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			Bundle bundle = new Bundle();
 			bundle.putSerializable(PromotionActivity.PROMOTION_KEY,
 					mRecommendPromotionList.get(0));
+			intent.setAction(PromotionActivity.ORIGIN_FROM_MAIN_ACTION);
 			intent.putExtras(bundle);
 			mContext.startActivity(intent);
 			break;
