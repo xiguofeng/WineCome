@@ -52,28 +52,27 @@ public class MyReceiver extends BroadcastReceiver {
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
 			Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
 			
-			Intent i = new Intent(context, MsgActivity.class);
-			i.setAction(PromotionActivity.ORIGIN_FROM_PUSH_ACTION);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			context.startActivity(i);
-
-//			if (!TextUtils.isEmpty(sExMsg)) {
-//				try {
-//					JSONObject obj = new JSONObject(sExMsg);
-//					String type = obj.getString("msg_type").trim();
-//					if ("2".equals(type)) {
-//						// 打开自定义的Activity
-//						String id = obj.getString("activity_no").trim();
-//						Intent i = new Intent(context, PromotionActivity.class);
-//						i.setAction(PromotionActivity.ORIGIN_FROM_PUSH_ACTION);
-//						i.putExtra("id", id);
-//						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//						context.startActivity(i);
-//					}
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
-//			}
+//			Intent i = new Intent(context, MsgActivity.class);
+//			i.setAction(PromotionActivity.ORIGIN_FROM_PUSH_ACTION);
+//			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//			context.startActivity(i);
+			if (!TextUtils.isEmpty(sExMsg)) {
+				try {
+					JSONObject obj = new JSONObject(sExMsg);
+					String type = obj.getString("msg_type").trim();
+					if ("2".equals(type)) {
+						// 打开自定义的Activity
+						String id = obj.getString("activity_no").trim();
+						Intent i = new Intent(context, PromotionActivity.class);
+						i.setAction(PromotionActivity.ORIGIN_FROM_PUSH_ACTION);
+						i.putExtra("id", id);
+						i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						context.startActivity(i);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 			Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));

@@ -262,8 +262,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		mRecommendGoodsList.addAll(mRecommendPromotionList.get(0)
 				.getGoodsList());
 		mRecommendGoodsAdapter.notifyDataSetChanged();
-		
-		PromotionLogic.getPromotionById(mContext, mHandler, mRecommendPromotionList.get(0).getPromotionId(),"1","15");
 	}
 
 	private void fillUpActivityAreaData() {
