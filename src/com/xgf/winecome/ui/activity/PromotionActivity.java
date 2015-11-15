@@ -123,7 +123,7 @@ public class PromotionActivity extends Activity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(PromotionActivity.this, GoodsDetailActivity.class);
-				intent.setAction(PromotionActivity.ORIGIN_FROM_MAIN_ACTION);
+				intent.setAction(GoodsDetailActivity.ORIGIN_FROM_PROMOTION_ACTION);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY, mGoodsList.get(position));
 				intent.putExtras(bundle);
