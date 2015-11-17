@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -25,6 +26,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.xgf.winecome.R;
@@ -259,6 +262,21 @@ public class CategoryActivity extends Activity implements OnClickListener {
 						}
 					}
 				});
+		mSearchEt.setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					if (!TextUtils.isEmpty(mSearchEt.getText().toString()
+							.trim())) {
+						search(mSearchEt.getText().toString().trim());
+					}
+					return true;
+				}
+				return false;
+			}
+		});
 
 		mMainLl.setOnTouchListener(new OnTouchListener() {
 
@@ -441,6 +459,7 @@ public class CategoryActivity extends Activity implements OnClickListener {
 		categoryList.addAll((Collection<? extends Category>) mAllMsgMap
 				.get("Category"));
 		// ArrayList<Category> tempCategoryList = new ArrayList<Category>();
+		boolean isHasResult = false;
 		ArrayList<Category> tempCategoryList = new ArrayList<Category>();
 		for (int i = 0; i < categoryList.size(); i++) {
 			ArrayList<Goods> arrayList = new ArrayList<Goods>();
@@ -452,6 +471,7 @@ public class CategoryActivity extends Activity implements OnClickListener {
 					Goods goods = arrayList.get(j);
 					if (goods.getName().contains(key)) {
 						tempGoodsList.add(goods);
+						isHasResult = true;
 					}
 				}
 				if (tempGoodsList.size() > 0) {
@@ -470,8 +490,11 @@ public class CategoryActivity extends Activity implements OnClickListener {
 		}
 
 		mSearchMsgMap.put("Category", tempCategoryList);
-		if (newCategoryList.size() > 1) {
+		if (isHasResult) {
 			refresSearchData(mSearchMsgMap);
+		}else{
+			Toast.makeText(mContext, getString(R.string.search_no),
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
