@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.IntegralGoods;
+import com.xgf.winecome.entity.Order;
+import com.xgf.winecome.entity.OrderState;
+import com.xgf.winecome.network.config.MsgResult;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -64,6 +67,8 @@ public class IntegralOrderAdapter extends BaseAdapter {
 					.findViewById(R.id.list_integral_order_address_tv);
 			holder.mExchangePhoneTv = (TextView) convertView
 					.findViewById(R.id.list_integral_order_phone_tv);
+			holder.mOrderStateTv = (TextView) convertView
+					.findViewById(R.id.list_integral_order_state_tv);
 
 			convertView.setTag(holder);
 		} else {
@@ -75,7 +80,10 @@ public class IntegralOrderAdapter extends BaseAdapter {
 		holder.mExchangeNumTv.setText(mDatas.get(position).getCount());
 		holder.mExchangeDateTv.setText(mDatas.get(position).getOrderTime());
 		holder.mExchangeAddressTv.setText(mDatas.get(position).getAddress());
-		holder.mExchangePhoneTv.setText(mDatas.get(position).getPhone());
+		int orderStateCode = Integer.parseInt(mDatas.get(position).getOrderStatus());
+		if (orderStateCode <= OrderState.state.length) {
+			holder.mOrderStateTv.setText(OrderState.state[orderStateCode - 1]);
+		}
 		return convertView;
 	}
 
@@ -92,6 +100,8 @@ public class IntegralOrderAdapter extends BaseAdapter {
 		public TextView mExchangeAddressTv;
 
 		public TextView mExchangePhoneTv;
+		
+		public TextView mOrderStateTv;
 
 	}
 

@@ -203,4 +203,34 @@
             android:textSize="@dimen/micro_text_size" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="6dip"
+        android:paddingTop="6dip" >
+
+        <TextView
+            android:id="@+id/list_integral_order_state_tag_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:text="@string/order_state"
+            android:textColor="@color/orange_text"
+            android:textSize="@dimen/micro_text_size" />
+
+        <TextView
+            android:id="@+id/list_integral_order_state_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:maxLines="2"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/micro_text_size" />
+    </RelativeLayout>
+
 </LinearLayout>
