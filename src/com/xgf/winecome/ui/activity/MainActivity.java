@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -261,6 +262,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		mRecommendGoodsList.clear();
 		mRecommendGoodsList.addAll(mRecommendPromotionList.get(0)
 				.getGoodsList());
+		Log.e("xxx_mRecommendGoodsList_size",
+				"size:" + mRecommendGoodsList.size());
 		mRecommendGoodsAdapter.notifyDataSetChanged();
 	}
 
