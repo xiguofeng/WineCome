@@ -120,7 +120,8 @@
             android:name="com.xgf.winecome.ui.activity.HomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleStyle" >
         </activity>
         <activity
             android:name="com.xgf.winecome.ui.activity.SearchActivity"
