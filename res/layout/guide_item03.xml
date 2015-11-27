@@ -30,7 +30,7 @@
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/guide_03_1280" >
+            android:background="@drawable/guide03" >
         </ImageView>
     </LinearLayout>
 
