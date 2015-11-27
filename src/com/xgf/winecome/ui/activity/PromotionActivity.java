@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -69,7 +70,8 @@ public class PromotionActivity extends Activity implements OnClickListener {
 					mGoodsList.addAll(mPromotion.getGoodsList());
 					mGvAdapter.notifyDataSetChanged();
 
-					ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(), mPromotionIv);
+					ImageLoader.getInstance().displayImage(
+							mPromotion.getDetailImg(), mPromotionIv);
 				}
 				break;
 			}
@@ -96,8 +98,12 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.promotion);
 		mContext = PromotionActivity.this;
 		mCustomProgressDialog = new CustomProgressDialog2(mContext);
-		if (!ActivitiyInfoManager.activitityMap.containsKey(ActivitiyInfoManager.getCurrentActivityName(mContext))) {
-			ActivitiyInfoManager.activitityMap.put(ActivitiyInfoManager.getCurrentActivityName(mContext), this);
+		if (!ActivitiyInfoManager.activitityMap
+				.containsKey(ActivitiyInfoManager
+						.getCurrentActivityName(mContext))) {
+			ActivitiyInfoManager.activitityMap
+					.put(ActivitiyInfoManager.getCurrentActivityName(mContext),
+							this);
 		}
 		setUpViews();
 		setUpListener();
@@ -111,7 +117,8 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		mPromotionIv = (ImageView) findViewById(R.id.promotion_iv);
 		mGoodsGv = (CustomGridView) findViewById(R.id.promotion_gv);
 
-		mGvAdapter = new SpecialEventsGvAdapter(PromotionActivity.this, mGoodsList);
+		mGvAdapter = new SpecialEventsGvAdapter(PromotionActivity.this,
+				mGoodsList);
 		mGoodsGv.setAdapter(mGvAdapter);
 	}
 
@@ -121,11 +128,14 @@ public class PromotionActivity extends Activity implements OnClickListener {
 		mGoodsGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(PromotionActivity.this, GoodsDetailActivity.class);
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(PromotionActivity.this,
+						GoodsDetailActivity.class);
 				intent.setAction(GoodsDetailActivity.ORIGIN_FROM_PROMOTION_ACTION);
 				Bundle bundle = new Bundle();
-				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY, mGoodsList.get(position));
+				bundle.putSerializable(GoodsDetailActivity.GOODS_KEY,
+						mGoodsList.get(position));
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}
@@ -135,16 +145,18 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	private void setUpData() {
 		mNowAction = getIntent().getAction();
 		if (ORIGIN_FROM_MAIN_ACTION.equals(mNowAction)) {
-			mPromotion = (PromotionNew) getIntent().getSerializableExtra(PromotionActivity.PROMOTION_KEY);
+			mPromotion = (PromotionNew) getIntent().getSerializableExtra(
+					PromotionActivity.PROMOTION_KEY);
 			mGoodsList.clear();
 			mGoodsList.addAll(mPromotion.getGoodsList());
 			mGvAdapter.notifyDataSetChanged();
 
-			ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(), mPromotionIv);
+			ImageLoader.getInstance().displayImage(mPromotion.getDetailImg(),
+					mPromotionIv);
 		} else if (ORIGIN_FROM_PUSH_ACTION.equals(mNowAction)) {
 			mCustomProgressDialog.show();
 			String id = getIntent().getStringExtra("id");
-			PromotionLogic.getPromotionById(mContext, mHandler, id,"0","15");
+			PromotionLogic.getPromotionById(mContext, mHandler, id, "0", "15");
 		}
 	}
 
@@ -166,11 +178,23 @@ public class PromotionActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.promotion_back_iv: {
+			ActivitiyInfoManager
+					.finishActivity("com.xgf.winecome.ui.activity.PromotionActivity");
 			finish();
 			break;
 		}
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		ActivitiyInfoManager
+				.finishActivity("com.xgf.winecome.ui.activity.PromotionActivity");
+		finish();
+		// overridePendingTransition(R.anim.push_right_in,
+		// R.anim.push_right_out);
+		return super.onKeyDown(keyCode, event);
 	}
 }
