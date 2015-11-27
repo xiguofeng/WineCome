@@ -5,14 +5,14 @@ package com.xgf.winecome.network.config;
  */
 public class RequestUrl {
 
-	public static final String NAMESPACE = "http://www.diyifw.com";
-
-	public static final String HOST_URL = "http://www.diyifw.com:8080/jll/services/JllService";
-
-	// public static final String NAMESPACE = "http://139.196.15.154";
+	// public static final String NAMESPACE = "http://www.diyifw.com";
 	//
 	// public static final String HOST_URL =
-	// "http://139.196.15.154/jll/services/JllService";
+	// "http://www.diyifw.com:8080/jll/services/JllService";
+
+	public static final String NAMESPACE = "http://139.196.15.154";
+
+	public static final String HOST_URL = "http://139.196.15.154/jll/services/JllService";
 
 	// public static final String NAMESPACE_TEST = "http://139.196.15.154";
 	//
@@ -27,7 +27,7 @@ public class RequestUrl {
 		 * 根据分类查询促销信息
 		 */
 		public String queryPromotionV2 = "queryPromotionV2";
-		
+
 		/**
 		 * 根据id查询促销信息
 		 */
@@ -47,11 +47,11 @@ public class RequestUrl {
 		 * 连接 获取推送
 		 */
 		public String pushMsg = "pushMsg";
-		
+
 		/**
 		 * 获取消息历史
 		 */
-		public String queryMessage = "queryMessage";		
+		public String queryMessage = "queryMessage";
 	}
 
 	public interface account {
