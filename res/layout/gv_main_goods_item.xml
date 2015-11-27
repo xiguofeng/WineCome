@@ -12,7 +12,7 @@
         android:layout_height="160dip"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerInside" />
 
     <TextView
         android:id="@+id/gv_main_goods_common_name_tv"
