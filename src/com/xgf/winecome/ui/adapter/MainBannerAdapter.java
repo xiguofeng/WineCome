@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xgf.winecome.R;
 import com.xgf.winecome.entity.PromotionNew;
 import com.xgf.winecome.ui.activity.PromotionActivity;
@@ -61,6 +63,13 @@ public class MainBannerAdapter extends BaseAdapter {
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
+		}
+
+		int tempPosition = position % mDatas.size();
+		if (!TextUtils.isEmpty(mDatas.get(tempPosition).getDetailImg())) {
+			ImageLoader.getInstance()
+					.displayImage(mDatas.get(tempPosition).getDetailImg(),
+							holder.mBannerIcon);
 		}
 
 		convertView.setOnClickListener(new OnClickListener() {
