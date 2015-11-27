@@ -111,6 +111,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.xgf.winecome.ui.activity.GuideViewActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.xgf.winecome.ui.activity.HomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"

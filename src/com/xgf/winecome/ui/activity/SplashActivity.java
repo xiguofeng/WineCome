@@ -2,9 +2,11 @@ package com.xgf.winecome.ui.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.UserManager;
 import cn.jpush.android.api.JPushInterface;
 
 import com.xgf.winecome.R;
+import com.xgf.winecome.utils.UserInfoManager;
 
 public class SplashActivity extends BaseActivity {
 
@@ -19,7 +21,7 @@ public class SplashActivity extends BaseActivity {
 		initView();
 
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -41,8 +43,14 @@ public class SplashActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				openActivity(HomeActivity.class);
-				SplashActivity.this.finish();
+				if (UserInfoManager.getIsFirstUse(SplashActivity.this)) {
+					UserInfoManager.setIsFirstUse(SplashActivity.this, false);
+					openActivity(GuideViewActivity.class);
+					SplashActivity.this.finish();
+				} else {
+					openActivity(HomeActivity.class);
+					SplashActivity.this.finish();
+				}
 			}
 		}, SPLISH_DISPLAY_LENGTH);
 
