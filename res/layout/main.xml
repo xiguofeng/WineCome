@@ -86,7 +86,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.xgf.winecome.ui.view.BorderScrollView
+    <com.xgf.winecome.ui.view.CustomScrollView
         android:id="@+id/main_sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -207,6 +207,6 @@
                 android:orientation="vertical" >
             </LinearLayout>
         </LinearLayout>
-    </com.xgf.winecome.ui.view.BorderScrollView>
+    </com.xgf.winecome.ui.view.CustomScrollView>
 
 </LinearLayout>
