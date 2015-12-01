@@ -737,8 +737,6 @@
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:imeOptions="actionNext"
-                            android:maxLength="16"
-                            android:maxLines="1"
                             android:paddingBottom="6.0dip"
                             android:paddingLeft="100dip"
                             android:paddingRight="20dip"

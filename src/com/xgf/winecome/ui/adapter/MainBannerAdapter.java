@@ -66,9 +66,9 @@ public class MainBannerAdapter extends BaseAdapter {
 		}
 
 		int tempPosition = position % mDatas.size();
-		if (!TextUtils.isEmpty(mDatas.get(tempPosition).getDetailImg())) {
+		if (!TextUtils.isEmpty(mDatas.get(tempPosition).getThumbnail())) {
 			ImageLoader.getInstance()
-					.displayImage(mDatas.get(tempPosition).getDetailImg(),
+					.displayImage(mDatas.get(tempPosition).getThumbnail(),
 							holder.mBannerIcon);
 		}
 
