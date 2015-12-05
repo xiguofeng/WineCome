@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,8 +34,8 @@ public class SplashActivity extends BaseActivity {
 				if (null != msg.obj) {
 					Version version = (Version) msg.obj;
 					final String downUrl = version.getUrl();
-					if ("Y".equals(version.getForce())) {
-
+					if (!TextUtils.isEmpty(downUrl)
+							&& "Y".equals(version.getForce())) {
 						new AlertDialog(SplashActivity.this)
 								.builder()
 								.setTitle(getString(R.string.prompt))
