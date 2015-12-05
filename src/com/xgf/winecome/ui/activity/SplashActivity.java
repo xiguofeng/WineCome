@@ -59,6 +59,31 @@ public class SplashActivity extends BaseActivity {
 											}
 										}).show();
 
+					} else if (!TextUtils.isEmpty(downUrl)&& "N".equals(version.getForce())) {
+						new AlertDialog(SplashActivity.this)
+								.builder()
+								.setTitle(getString(R.string.prompt))
+								.setMsg("有新版本升级")
+								.setPositiveButton("下载新版本",
+										new OnClickListener() {
+											@Override
+											public void onClick(View v) {
+												Intent intent = new Intent();
+												intent.setAction(Intent.ACTION_VIEW);
+												intent.setData(Uri
+														.parse(downUrl));
+												startActivity(intent);
+											}
+										})
+								.setNegativeButton("暂不升级",
+										new OnClickListener() {
+											@Override
+											public void onClick(View v) {
+												jump();
+											}
+										}).show();
+					}else{
+						jump();
 					}
 				} else {
 					jump();
@@ -74,6 +99,7 @@ public class SplashActivity extends BaseActivity {
 				break;
 			}
 			case AppLogic.NET_ERROR: {
+				jump();
 				break;
 			}
 
