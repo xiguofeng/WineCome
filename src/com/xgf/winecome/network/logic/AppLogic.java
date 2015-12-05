@@ -48,10 +48,10 @@ public class AppLogic {
 
 					Log.e("xxx_versionid", ":" + URLEncoder.encode(versionNo, "UTF-8"));
 					Log.e("xxx_type", ":" + URLEncoder.encode("android", "UTF-8"));
-					rpc.addProperty("versionid",
-							URLEncoder.encode(versionNo, "UTF-8"));
 					rpc.addProperty("type",
 							URLEncoder.encode("android", "UTF-8"));
+					rpc.addProperty("versionid",
+							URLEncoder.encode(versionNo, "UTF-8"));
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(
 							RequestUrl.HOST_URL);
