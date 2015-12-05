@@ -38,7 +38,7 @@ public class RequestUrl {
 		/**
 		 * 连接 获取最新的版本号
 		 */
-		public String getVersion = "pushMsg";
+		public String getVersion = "version";
 
 	}
 

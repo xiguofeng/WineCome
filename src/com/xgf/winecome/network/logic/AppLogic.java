@@ -12,9 +12,12 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.xgf.winecome.entity.Promotion;
 import com.xgf.winecome.entity.User;
+import com.xgf.winecome.entity.Version;
 import com.xgf.winecome.network.config.MsgResult;
 import com.xgf.winecome.network.config.RequestUrl;
+import com.xgf.winecome.utils.JsonUtils;
 
 import android.content.Context;
 import android.os.Handler;
@@ -43,8 +46,12 @@ public class AppLogic {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
 							RequestUrl.app.getVersion);
 
-					rpc.addProperty("versionNo", URLEncoder.encode(versionNo, "UTF-8"));
-					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
+					Log.e("xxx_versionid", ":" + URLEncoder.encode(versionNo, "UTF-8"));
+					Log.e("xxx_type", ":" + URLEncoder.encode("android", "UTF-8"));
+					rpc.addProperty("versionid",
+							URLEncoder.encode(versionNo, "UTF-8"));
+					rpc.addProperty("type",
+							URLEncoder.encode("android", "UTF-8"));
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(
 							RequestUrl.HOST_URL);
@@ -59,12 +66,10 @@ public class AppLogic {
 					ht.call(RequestUrl.NAMESPACE + "/"
 							+ RequestUrl.app.getVersion, envelope);
 
-					//Log.e("xxx_sop", rpc.toString());
-
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					//Log.e("xxx_GetVersionData_resultStr", resultStr);
+					Log.e("xxx_GetVersionData_resultStr", resultStr);
 
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
@@ -89,7 +94,21 @@ public class AppLogic {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
-				handler.sendEmptyMessage(GET_VERSION_SUC);
+				JSONObject dataJson = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				String total = dataJson.getString("total");
+				if (!TextUtils.isEmpty(total) && "1".equals(total)) {
+					JSONObject versionJson = dataJson.getJSONObject("version");
+					Version version = (Version) JsonUtils.fromJsonToJava(
+							versionJson, Version.class);
+					Message message = new Message();
+					message.what = GET_VERSION_SUC;
+					message.obj = version;
+					handler.sendMessage(message);
+
+				} else {
+					handler.sendEmptyMessage(GET_VERSION_SUC);
+				}
 			} else {
 				handler.sendEmptyMessage(GET_VERSION_FAIL);
 			}
@@ -97,5 +116,4 @@ public class AppLogic {
 			handler.sendEmptyMessage(GET_VERSION_EXCEPTION);
 		}
 	}
-
 }
