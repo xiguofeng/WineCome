@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_splash" >
+    android:background="@drawable/spl_new" >
 
     <ImageView
         android:id="@+id/splash_logo_iv"
@@ -10,6 +10,7 @@
         android:layout_height="120dip"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
+        android:visibility="gone"
         android:src="@drawable/logo_spla" />
 
     <LinearLayout
@@ -18,6 +19,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:layout_marginBottom="20dip"
+        android:visibility="gone"
         android:layout_centerHorizontal="true" >
 
         <TextView
